@@ -1,6 +1,4 @@
 import React, {
-  ChangeEvent,
-  ChangeEventHandler,
   ElementType,
   forwardRef,
   useCallback,
@@ -13,7 +11,6 @@ import { PolymorphicComponentProps } from '../../types';
 import { pluralize } from '../../utils';
 
 export interface TextAreaOwnProps {
-  onChange: ChangeEventHandler<Element>;
   maxLength?: number;
   error?: boolean;
 }
@@ -49,9 +46,10 @@ export function TextAreaWithRef<C extends ElementType = 'textarea'>(
 
   const onChangeHandler = useCallback(
     (
-      event: ChangeEvent<
-        JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>[string]
-      >
+      event: JSX.LibraryManagedAttributes<
+        C,
+        React.ComponentPropsWithRef<C>
+      >[string]
     ) => {
       if (
         event?.currentTarget?.value !== undefined &&
@@ -61,7 +59,7 @@ export function TextAreaWithRef<C extends ElementType = 'textarea'>(
         setCharacterCount(String(event.currentTarget.value).length);
       }
 
-      if (onChange) {
+      if (typeof onChange === 'function') {
         onChange(event);
       }
     },

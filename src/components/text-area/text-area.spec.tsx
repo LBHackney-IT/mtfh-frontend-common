@@ -93,7 +93,9 @@ test('it supports a controlled component', () => {
         <TextArea
           maxLength={10}
           value={value}
-          onChange={(event) => setValue(event.currentTarget.value)}
+          onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+            setValue(event.currentTarget.value)
+          }
           placeholder="TextArea"
         />
         <button type="button" onClick={() => setValue('Hello')}>
