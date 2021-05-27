@@ -41,7 +41,7 @@ exports[`it wraps a TextArea correctly 1`] = `
         
       </label>
       <textarea
-        class="govuk-textarea lbh-character-count"
+        class="govuk-textarea lbh-textarea lbh-character-count"
         id="test"
         name="test"
       />
