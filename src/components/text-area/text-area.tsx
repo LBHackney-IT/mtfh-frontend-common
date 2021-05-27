@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import { PolymorphicComponentProps } from '../../types';
 import { pluralize } from '../../utils';
+import './styles.scss';
 
 export interface TextAreaOwnProps {
   maxLength?: number;
@@ -75,6 +76,7 @@ export function TextAreaWithRef<C extends ElementType = 'textarea'>(
 
   const textareaClasses = classNames(
     'govuk-textarea',
+    'lbh-textarea',
     { 'govuk-textarea--error': error },
     'lbh-character-count',
     className
