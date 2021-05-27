@@ -53,7 +53,7 @@ export const processToken = (): void => {
 
 export const isAuthorisedForGroups = (groups: string[]): boolean => {
   const auth = $auth.getValue();
-  return groups.every((group) => auth.groups.includes(group));
+  return groups.some((group) => auth.groups.includes(group));
 };
 
 export const isAuthorised = (): boolean =>
