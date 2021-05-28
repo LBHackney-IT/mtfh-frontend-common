@@ -14,8 +14,18 @@ export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
     | 'native';
   isExternal?: boolean;
 }
+
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
-  { variant = 'link', isExternal = false, href, className, children, ...props },
+  {
+    variant = 'link',
+    isExternal = false,
+    href,
+    className,
+    children,
+    rel,
+    target,
+    ...props
+  },
   ref
 ) {
   const linkClasses = cn(
@@ -31,6 +41,8 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
       ref={ref}
       href={href}
       className={linkClasses}
+      rel={isExternal ? 'noopener noreferrer' : rel}
+      target={isExternal ? '_blanl' : target}
       onClick={!isExternal ? navigateToUrl : undefined}
       {...props}
     >
