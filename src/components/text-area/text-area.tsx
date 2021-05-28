@@ -1,5 +1,6 @@
 import React, {
-  ElementType,
+  ChangeEvent,
+  ComponentPropsWithoutRef,
   forwardRef,
   useCallback,
   useMemo,
@@ -7,19 +8,13 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 
-import { PolymorphicComponentProps } from '../../types';
 import { pluralize } from '../../utils';
 import './styles.scss';
 
-export interface TextAreaOwnProps {
+export interface TextAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   maxLength?: number;
   error?: boolean;
 }
-
-export type TextAreaProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  TextAreaOwnProps
->;
 
 const getLengthOfValue = (
   initialValue: string | number | readonly string[] | undefined
@@ -33,90 +28,78 @@ const getLengthOfValue = (
   return String(initialValue || '').length;
 };
 
-export function TextAreaWithRef<C extends ElementType = 'textarea'>(
-  { as, maxLength, error, className, onChange, ...props }: TextAreaProps<C>,
-  ref: any
-): JSX.Element {
-  const { value, defaultValue } = props;
-  const isControlled = value !== undefined;
-  const initialValue = value || defaultValue;
+export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+  function TextArea({ maxLength, error, className, onChange, ...props }, ref) {
+    const { value, defaultValue } = props;
+    const isControlled = value !== undefined;
+    const initialValue = value || defaultValue;
 
-  const [characterCount, setCharacterCount] = useState(
-    getLengthOfValue(initialValue)
-  );
+    const [characterCount, setCharacterCount] = useState(
+      getLengthOfValue(initialValue)
+    );
 
-  const onChangeHandler = useCallback(
-    (
-      event: JSX.LibraryManagedAttributes<
-        C,
-        React.ComponentPropsWithRef<C>
-      >[string]
-    ) => {
-      if (
-        event?.currentTarget?.value !== undefined &&
-        !isControlled &&
-        maxLength !== undefined
-      ) {
-        setCharacterCount(String(event.currentTarget.value).length);
+    const onChangeHandler = useCallback(
+      (event: ChangeEvent<HTMLTextAreaElement>) => {
+        if (
+          event?.currentTarget?.value !== undefined &&
+          !isControlled &&
+          maxLength !== undefined
+        ) {
+          setCharacterCount(String(event.currentTarget.value).length);
+        }
+
+        if (typeof onChange === 'function') {
+          onChange(event);
+        }
+      },
+      [onChange, maxLength, isControlled]
+    );
+
+    const exceedingValue = useMemo(
+      () =>
+        maxLength !== undefined &&
+        maxLength - (isControlled ? getLengthOfValue(value) : characterCount),
+      [maxLength, characterCount, value, isControlled]
+    );
+
+    const textareaClasses = classNames(
+      'govuk-textarea',
+      'lbh-textarea',
+      { 'govuk-textarea--error': error },
+      'lbh-character-count',
+      className
+    );
+
+    const messageClasses = classNames(
+      { 'govuk-hint': exceedingValue !== false && exceedingValue >= 0 },
+      'govuk-character-count__message',
+      {
+        'govuk-error-message': exceedingValue !== false && exceedingValue < 0,
       }
+    );
 
-      if (typeof onChange === 'function') {
-        onChange(event);
-      }
-    },
-    [onChange, maxLength, isControlled]
-  );
-
-  const exceedingValue = useMemo(
-    () =>
-      maxLength !== undefined &&
-      maxLength - (isControlled ? getLengthOfValue(value) : characterCount),
-    [maxLength, characterCount, value, isControlled]
-  );
-
-  const textareaClasses = classNames(
-    'govuk-textarea',
-    'lbh-textarea',
-    { 'govuk-textarea--error': error },
-    'lbh-character-count',
-    className
-  );
-
-  const messageClasses = classNames(
-    { 'govuk-hint': exceedingValue !== false && exceedingValue >= 0 },
-    'govuk-character-count__message',
-    {
-      'govuk-error-message': exceedingValue !== false && exceedingValue < 0,
-    }
-  );
-
-  const Component = as || 'textarea';
-
-  return (
-    <>
-      <Component
-        ref={ref}
-        className={textareaClasses}
-        onChange={onChangeHandler}
-        {...props}
-      />
-      {maxLength !== undefined && exceedingValue !== false && (
-        <span className={messageClasses} aria-live="polite">
-          {exceedingValue >= 0
-            ? `You have ${exceedingValue} ${pluralize(
-                'character',
-                exceedingValue
-              )} remaining`
-            : `You have ${Math.abs(exceedingValue)} ${pluralize(
-                'character',
-                exceedingValue
-              )} too many`}
-        </span>
-      )}
-    </>
-  );
-}
-
-export const TextArea: <C extends ElementType = 'textarea'>(
-  props: TextAreaProps<C>
-) => JSX.Element | null = forwardRef(TextAreaWithRef);
+    return (
+      <>
+        <textarea
+          ref={ref}
+          className={textareaClasses}
+          onChange={onChangeHandler}
+          {...props}
+        />
+        {maxLength !== undefined && exceedingValue !== false && (
+          <span className={messageClasses} aria-live="polite">
+            {exceedingValue >= 0
+              ? `You have ${exceedingValue} ${pluralize(
+                  'character',
+                  exceedingValue
+                )} remaining`
+              : `You have ${Math.abs(exceedingValue)} ${pluralize(
+                  'character',
+                  exceedingValue
+                )} too many`}
+          </span>
+        )}
+      </>
+    );
+  }
+);

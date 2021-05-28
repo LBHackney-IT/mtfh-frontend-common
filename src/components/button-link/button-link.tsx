@@ -1,22 +1,21 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
 import cn from 'classnames';
+import { navigateToUrl } from 'single-spa';
 
 import './styles.scss';
 
-export interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
-  isOverride?: boolean;
+export interface ButtonLinkProps extends ComponentPropsWithoutRef<'a'> {
   variant?: 'primary' | 'secondary';
-  isLoading?: boolean;
   isDisabled?: boolean;
-  loadingText?: string;
+  isExternal?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  function Button(
+export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+  function ButtonLink(
     {
       variant = 'primary',
-      isLoading = false,
-      loadingText,
+      isExternal = false,
+      href,
       isDisabled,
       children,
       className,
@@ -35,21 +34,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     return (
-      <button
+      <a
         ref={ref}
-        type="button"
+        href={href}
         className={buttonClasses}
-        disabled={isDisabled}
-        aria-disabled={isDisabled}
+        onClick={!isExternal ? navigateToUrl : undefined}
         {...props}
       >
-        {isLoading && (
-          <span className="button-loading-indicator">
-            <span>Loading...</span>
-          </span>
-        )}
-        {isLoading && loadingText ? loadingText : children}
-      </button>
+        {children}
+      </a>
     );
   }
 );
