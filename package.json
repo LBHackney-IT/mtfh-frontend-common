@@ -82,6 +82,7 @@
     "jwt-decode": "^3.1.2",
     "lbh-frontend": "^3.5.3",
     "rxjs": "^7.0.1",
+    "single-spa": "^5.9.3",
     "swr": "^0.5.6"
   },
   "peerDependencies": {

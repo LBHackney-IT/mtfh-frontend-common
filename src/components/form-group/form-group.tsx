@@ -1,6 +1,6 @@
 import React, {
   Children,
-  ElementType,
+  ComponentPropsWithoutRef,
   ReactElement,
   cloneElement,
   forwardRef,
@@ -9,11 +9,10 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 
-import { PolymorphicComponentProps } from '../../types';
 import { TextArea } from '../text-area';
 import './styles.scss';
 
-export interface FormGroupOwnProps {
+export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
   id: string;
   name: string;
   label: string;
@@ -23,87 +22,67 @@ export interface FormGroupOwnProps {
   children: ReactElement;
 }
 
-export type FormGroupProps<C extends ElementType> = PolymorphicComponentProps<
-  C,
-  FormGroupOwnProps
->;
+export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
+  function FormGroup(
+    { id, name, label, hint, error, required, children, className, ...props },
+    ref
+  ) {
+    const formGroupClasses = classNames(
+      'govuk-form-group',
+      {
+        'govuk-form-group--error': !!error,
+      },
+      'lbh-form-group',
+      className
+    );
 
-export function FormGroupWithRef<C extends ElementType = 'div'>(
-  {
-    as,
-    id,
-    name,
-    label,
-    hint,
-    error,
-    required,
-    children,
-    className,
-    ...props
-  }: FormGroupProps<C>,
-  ref: any
-): JSX.Element {
-  const formGroupClasses = classNames(
-    'govuk-form-group',
-    {
-      'govuk-form-group--error': !!error,
-    },
-    'lbh-form-group',
-    className
-  );
+    const describedBy = useMemo(() => {
+      const classes: string[] = [];
+      if (hint) {
+        classes.push(`${id}-hint`);
+      }
+      if (error) {
+        classes.push(`${id}-error`);
+      }
+      return classes.join(' ');
+    }, [id, hint, error]);
 
-  const describedBy = useMemo(() => {
-    const classes: string[] = [];
-    if (hint) {
-      classes.push(`${id}-hint`);
-    }
-    if (error) {
-      classes.push(`${id}-error`);
-    }
-    return classes.join(' ');
-  }, [id, hint, error]);
-
-  const Component = as || 'div';
-
-  const formGroup = (
-    <Component ref={ref} className={formGroupClasses} {...props}>
-      <label className="govuk-label lbh-label" htmlFor={id}>
-        {label}
-        {required ? <sup>*</sup> : ''}
-      </label>
-      {!!hint && (
-        <span id={`${id}-hint`} className="govuk-hint lbh-hint">
-          {hint}
-        </span>
-      )}
-      {!!error && (
-        <span
-          id={`${id}-error`}
-          className="govuk-error-message lbh-error-message"
-        >
-          <span className="govuk-visually-hidden">Error:</span> {error}
-        </span>
-      )}
-      {!!children &&
-        Children.only(
-          cloneElement(children, {
-            id,
-            name,
-            required,
-            error: !!error,
-            'aria-describedby': describedBy || undefined,
-          })
+    const formGroup = (
+      <div ref={ref} className={formGroupClasses} {...props}>
+        <label className="govuk-label lbh-label" htmlFor={id}>
+          {label}
+          {required ? <sup>*</sup> : ''}
+        </label>
+        {!!hint && (
+          <span id={`${id}-hint`} className="govuk-hint lbh-hint">
+            {hint}
+          </span>
         )}
-    </Component>
-  );
+        {!!error && (
+          <span
+            id={`${id}-error`}
+            className="govuk-error-message lbh-error-message"
+          >
+            <span className="govuk-visually-hidden">Error:</span> {error}
+          </span>
+        )}
+        {!!children &&
+          Children.only(
+            cloneElement(children, {
+              id,
+              name,
+              required,
+              error: !!error,
+              'aria-describedby': describedBy || undefined,
+            })
+          )}
+      </div>
+    );
 
-  return isValidElement(children) && children.type === TextArea ? (
-    <div className="govuk-character-count">{formGroup}</div>
-  ) : (
-    formGroup
-  );
-}
-
-export const FormGroup: <C extends ElementType = 'button'>(
-  props: FormGroupProps<C>
-) => JSX.Element | null = forwardRef(FormGroupWithRef);
+    return isValidElement(children) && children.type === TextArea ? (
+      <div className="govuk-character-count">{formGroup}</div>
+    ) : (
+      formGroup
+    );
+  }
+);

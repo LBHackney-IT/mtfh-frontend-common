@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it can be made disabled 1`] = `
+<div>
+  <a
+    class="govuk-button lbh-button lbh-button--disabled govuk-button--disabled"
+  >
+    Test Link
+  </a>
+</div>
+`;
+
+exports[`it renders correctly 1`] = `
+<div>
+  <a
+    class="govuk-button lbh-button"
+    href="http://localhost"
+  >
+    Test Button
+  </a>
+</div>
+`;
+
+exports[`it renders the correct variant 1`] = `
+<div>
+  <a
+    class="govuk-button lbh-button govuk-secondary lbh-button--secondary"
+  >
+    Test Link
+  </a>
+</div>
+`;

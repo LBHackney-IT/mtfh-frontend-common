@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { render, screen } from '@testing-library/react';
-
 import { Button } from './button';
+
+jest.mock('single-spa');
 
 test('it renders correctly', () => {
   const { container } = render(<Button>Test Button</Button>);
@@ -22,11 +23,23 @@ test('it shows a loading state with custom text', () => {
   expect(screen.getByText('Processing')).toBeInTheDocument();
 });
 
-test('it can support anchor tag', () => {
-  const { container } = render(
-    <Button as="a" href="http://localhost">
-      Test Anchor
-    </Button>
-  );
+test('it renders the correct variant', () => {
+  const { container } = render(<Button variant="secondary">Test Link</Button>);
   expect(container).toMatchSnapshot();
+});
+
+test('it accepts a ref', () => {
+  const callback = jest.fn();
+  const Comp = () => {
+    const ref = React.createRef<HTMLButtonElement>();
+
+    useEffect(() => {
+      if (ref.current) {
+        callback(ref.current);
+      }
+    }, [ref]);
+    return <Button ref={ref}>Test Button</Button>;
+  };
+  render(<Comp />);
+  expect(callback).toBeCalledTimes(1);
 });
