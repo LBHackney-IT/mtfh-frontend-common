@@ -1,4 +1,5 @@
 export * from './button';
+export * from './button-link';
 export * from './form-group';
 export * from './icon';
 export * from './input';
