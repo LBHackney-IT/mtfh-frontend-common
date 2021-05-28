@@ -37,12 +37,13 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
     className
   );
   return (
+    // eslint-disable-next-line react/jsx-no-target-blank
     <a
       ref={ref}
       href={href}
       className={linkClasses}
       rel={isExternal ? 'noopener noreferrer' : rel}
-      target={isExternal ? '_blanl' : target}
+      target={isExternal ? '_blank' : target}
       onClick={!isExternal ? navigateToUrl : undefined}
       {...props}
     >
