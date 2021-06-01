@@ -1,6 +1,6 @@
 {
   "extends": "ts-config-single-spa",
-  "include": ["src/**/*", "node_modules/@types", "typings/**/*.d.ts"],
+  "include": ["src/**/*", "node_modules/@types"],
   "compilerOptions": {
     "strict": true,
     "jsx": "react",
