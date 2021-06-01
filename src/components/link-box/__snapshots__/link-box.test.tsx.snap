@@ -3,13 +3,13 @@
 exports[`it renders correctly 1`] = `
 <div>
   <div
-    class="lbh-link-box"
+    class="mtfh-link-box"
   >
     <div
-      class="lbh-link-overlay"
+      class="mtfh-link-overlay"
     >
       <a
-        class="govuk-link lbh-link"
+        class="govuk-link lbh-link lbh-link--no-visited-state"
         href="https://localhost"
       >
         Link
