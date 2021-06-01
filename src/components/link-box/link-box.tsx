@@ -9,14 +9,14 @@ import { ButtonLinkProps } from '../button-link';
 import { LinkProps } from '../link';
 import './styles.scss';
 
-export interface LinkOverlayProps extends ComponentPropsWithoutRef<'div'> {
+interface LinkOverlayProps extends ComponentPropsWithoutRef<'div'> {
   children: ReactElement<LinkProps | ButtonLinkProps>;
 }
 
 export const LinkOverlay = forwardRef<HTMLDivElement, LinkOverlayProps>(
   function LinkOverlay({ children, className, ...props }, ref) {
     return (
-      <div ref={ref} className={cn('lbh-link-overlay', className)} {...props}>
+      <div ref={ref} className={cn('mtfh-link-overlay', className)} {...props}>
         {children}
       </div>
     );
@@ -28,7 +28,7 @@ export const LinkBox = forwardRef<
   ComponentPropsWithoutRef<'div'>
 >(function LinkBox({ children, className, ...props }, ref) {
   return (
-    <div ref={ref} className={cn('lbh-link-box', className)} {...props}>
+    <div ref={ref} className={cn('mtfh-link-box', className)} {...props}>
       {children}
     </div>
   );

@@ -33,6 +33,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
       'govuk-link lbh-link': variant !== 'back-link',
       'govuk-back-link lbh-back-link': variant === 'back-link',
       [`lbh-link--${variant}`]: variant !== 'link' && variant !== 'back-link',
+      'lbh-link--no-visited-state': !isExternal,
     },
     className
   );

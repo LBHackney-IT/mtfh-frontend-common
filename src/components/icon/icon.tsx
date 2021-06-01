@@ -21,7 +21,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(
   },
   ref
 ) {
-  const iconClasses = cn('lbh-icon', className);
+  const iconClasses = cn('mtfh-icon', className);
 
   const style: Record<string, string | number> = {};
 

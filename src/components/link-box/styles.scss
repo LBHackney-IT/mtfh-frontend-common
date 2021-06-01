@@ -1,4 +1,4 @@
-.lbh-link-overlay a {
+.mtfh-link-overlay a {
   position: static;
 
   &:before {
@@ -14,10 +14,10 @@
   }
 }
 
-.lbh-link-box {
+.mtfh-link-box {
   position: relative;
 
-  a[href]:not(.lbh-link-box a),
+  a[href]:not(.mtfh-link-box a),
   abbr[title] {
     position: relative;
     z-index: 1;
