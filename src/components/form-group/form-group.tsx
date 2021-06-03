@@ -49,7 +49,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
 
     const formGroup = (
       <div ref={ref} id={id} className={formGroupClasses} {...props}>
-        <label className="govuk-label lbh-label" htmlFor={id}>
+        <label className="govuk-label lbh-label" htmlFor={`${id}-field`}>
           {label}
           {required ? <sup>*</sup> : ''}
         </label>
@@ -69,7 +69,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
         {!!children &&
           Children.only(
             cloneElement(children, {
-              id,
+              id: `${id}-field`,
               name,
               required,
               error: !!error,
