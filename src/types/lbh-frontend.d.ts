@@ -19,4 +19,10 @@ declare module 'lbh-frontend' {
 
     init(): void;
   }
+
+  export class Radios {
+    constructor(module: HTMLDivElement);
+
+    init(): void;
+  }
 }

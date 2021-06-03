@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders a group of radios 1`] = `
+<div>
+  <div
+    class="govuk-radios lbh-radios"
+  >
+    <div
+      class="govuk-radios__item"
+    >
+      <input
+        class="govuk-radios__input"
+        id="test"
+        type="radio"
+      />
+      <label
+        class="govuk-label govuk-radios__label"
+        for="test"
+      >
+        Label
+      </label>
+    </div>
+    <div
+      class="govuk-radios__item"
+    >
+      <input
+        class="govuk-radios__input"
+        id="test2"
+        type="radio"
+      />
+      <label
+        class="govuk-label govuk-radios__label"
+        for="test2"
+      >
+        Label2
+      </label>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`it renders a group of radios with a conditional 1`] = `
+<div>
+  <div
+    class="govuk-radios govuk-radios--conditionals lbh-radios"
+  >
+    <div
+      class="govuk-radios__item"
+    >
+      <input
+        aria-controls="conditional"
+        aria-expanded="false"
+        class="govuk-radios__input"
+        id="test"
+        type="radio"
+      />
+      <label
+        class="govuk-label govuk-radios__label"
+        for="test"
+      >
+        Label
+      </label>
+    </div>
+    <div
+      class="govuk-radios__conditional govuk-radios__conditional--hidden"
+      id="conditional"
+    >
+      Hello
+    </div>
+    <div
+      class="govuk-radios__item"
+    >
+      <input
+        class="govuk-radios__input"
+        id="test2"
+        type="radio"
+      />
+      <label
+        class="govuk-label govuk-radios__label"
+        for="test2"
+      >
+        Label2
+      </label>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`it renders a group of radios with a divider 1`] = `
+<div>
+  <div
+    class="govuk-radios lbh-radios"
+  >
+    <div
+      class="govuk-radios__item"
+    >
+      <input
+        class="govuk-radios__input"
+        id="test"
+        type="radio"
+      />
+      <label
+        class="govuk-label govuk-radios__label"
+        for="test"
+      >
+        Label
+      </label>
+    </div>
+    <div
+      class="govuk-radios__divider"
+    >
+      Or
+    </div>
+    <div
+      class="govuk-radios__item"
+    >
+      <input
+        class="govuk-radios__input"
+        id="test2"
+        type="radio"
+      />
+      <label
+        class="govuk-label govuk-radios__label"
+        for="test2"
+      >
+        Label2
+      </label>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`it renders a radio 1`] = `
+<div>
+  <div
+    class="govuk-radios__item"
+  >
+    <input
+      class="govuk-radios__input"
+      id="test"
+      type="radio"
+    />
+    <label
+      class="govuk-label govuk-radios__label"
+      for="test"
+    >
+      Label
+    </label>
+  </div>
+</div>
+`;
+
+exports[`it renders a radio with a hint 1`] = `
+<div>
+  <div
+    class="govuk-radios__item"
+  >
+    <input
+      aria-describedby="test-hint"
+      class="govuk-radios__input"
+      id="test"
+      type="radio"
+    />
+    <label
+      class="govuk-label govuk-radios__label"
+      for="test"
+    >
+      Label
+    </label>
+    <span
+      class="govuk-hint govuk-radios__hint"
+      id="test-hint"
+    >
+      A short description
+    </span>
+  </div>
+</div>
+`;

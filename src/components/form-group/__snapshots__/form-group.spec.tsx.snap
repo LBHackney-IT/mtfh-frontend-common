@@ -4,6 +4,7 @@ exports[`it adds an astreix to the label if required 1`] = `
 <div>
   <div
     class="govuk-form-group lbh-form-group"
+    id="test"
   >
     <label
       class="govuk-label lbh-label"
@@ -32,6 +33,7 @@ exports[`it wraps a TextArea correctly 1`] = `
   >
     <div
       class="govuk-form-group lbh-form-group"
+      id="test"
     >
       <label
         class="govuk-label lbh-label"

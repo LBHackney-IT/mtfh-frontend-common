@@ -48,7 +48,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
     }, [id, hint, error]);
 
     const formGroup = (
-      <div ref={ref} className={formGroupClasses} {...props}>
+      <div ref={ref} id={id} className={formGroupClasses} {...props}>
         <label className="govuk-label lbh-label" htmlFor={id}>
           {label}
           {required ? <sup>*</sup> : ''}

@@ -25,7 +25,9 @@ exports[`it renders the correct variant 1`] = `
 exports[`it shows a loading state 1`] = `
 <div>
   <button
+    aria-disabled="true"
     class="govuk-button lbh-button"
+    disabled=""
     type="button"
   >
     <span

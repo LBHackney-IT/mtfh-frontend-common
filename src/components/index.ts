@@ -9,5 +9,6 @@ export * from './input';
 export * from './link';
 export * from './link-box';
 export * from './select';
+export * from './simple-pagination';
 export * from './spinner';
 export * from './text-area';

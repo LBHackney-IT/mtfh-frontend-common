@@ -34,13 +34,15 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className
     );
 
+    const maybeDisable = isDisabled || isLoading || undefined;
+
     return (
       <button
         ref={ref}
         type="button"
         className={buttonClasses}
-        disabled={isDisabled}
-        aria-disabled={isDisabled}
+        disabled={maybeDisable}
+        aria-disabled={maybeDisable}
         {...props}
       >
         {isLoading && (
