@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useState } from 'react';
+import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 
 import { Input, InputProps } from '../input';
 
@@ -56,12 +56,17 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
 
     const [output, setOutput] = useState(parser(defaultValue ?? value ?? ''));
 
+    const outputInt = useMemo(() => {
+      const target = parseInt(output, 10);
+      return !Number.isNaN(target) ? target : undefined;
+    }, [output]);
+
     return (
       <Input
         ref={ref}
         aria-valuemin={min}
         aria-valuemax={max}
-        aria-valuenow={parseInt(output, 10)}
+        aria-valuenow={outputInt}
         value={output}
         onChange={(e) => {
           const update = parser(e.target.value);

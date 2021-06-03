@@ -3,7 +3,6 @@
 exports[`it renders correctly 1`] = `
 <div>
   <input
-    aria-valuenow="NaN"
     class="govuk-input lbh-input"
     value=""
   />

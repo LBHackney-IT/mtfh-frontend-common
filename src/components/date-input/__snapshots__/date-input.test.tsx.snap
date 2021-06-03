@@ -8,7 +8,6 @@ exports[`it renders correctly 1`] = `
     <input
       aria-valuemax="31"
       aria-valuemin="1"
-      aria-valuenow="NaN"
       class="govuk-input lbh-input"
       name="day"
       value=""
@@ -16,13 +15,11 @@ exports[`it renders correctly 1`] = `
     <input
       aria-valuemax="12"
       aria-valuemin="1"
-      aria-valuenow="NaN"
       class="govuk-input lbh-input"
       name="month"
       value=""
     />
     <input
-      aria-valuenow="NaN"
       class="govuk-input lbh-input"
       name="year"
       value=""
