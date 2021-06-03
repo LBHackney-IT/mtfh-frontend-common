@@ -42,7 +42,6 @@ export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
         className={cn('govuk-error-summary', className, 'lbh-error-summary')}
         aria-labelledby={id}
         role="alert"
-        tabIndex={-1}
         {...props}
       >
         <h2 className="govuk-error-summary__title" id={id}>
