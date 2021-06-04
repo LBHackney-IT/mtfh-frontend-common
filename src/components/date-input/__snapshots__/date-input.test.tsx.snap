@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<div>
+  <div
+    class="mtfh-date-input"
+  >
+    <input
+      aria-valuemax="31"
+      aria-valuemin="1"
+      class="govuk-input lbh-input"
+      name="day"
+      value=""
+    />
+    <input
+      aria-valuemax="12"
+      aria-valuemin="1"
+      class="govuk-input lbh-input"
+      name="month"
+      value=""
+    />
+    <input
+      class="govuk-input lbh-input"
+      name="year"
+      value=""
+    />
+  </div>
+</div>
+`;
