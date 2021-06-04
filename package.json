@@ -16,7 +16,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && concurrently yarn:test yarn:lint"
+      "pre-commit": "pretty-quick --staged && concurrently yarn:test yarn:lint",
+      "pre-push": "yarn coverage"
     }
   },
   "devDependencies": {
