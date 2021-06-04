@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { navigateToUrl } from 'single-spa';
 
+import { testA11y } from '../../test-utils';
 import { ButtonLink } from './button-link';
 
 jest.mock('single-spa');
 
-test('it renders correctly', () => {
+test('it renders correctly', async () => {
   const { container } = render(
     <ButtonLink href="http://localhost">Test Button</ButtonLink>
   );
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });
 
 test('it renders the correct variant', () => {
@@ -20,9 +22,10 @@ test('it renders the correct variant', () => {
   expect(container).toMatchSnapshot();
 });
 
-test('it can be made disabled', () => {
+test('it can be made disabled', async () => {
   const { container } = render(<ButtonLink isDisabled>Test Link</ButtonLink>);
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });
 
 test('it uses internal navigation', () => {

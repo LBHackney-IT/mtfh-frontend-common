@@ -2,13 +2,25 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { testA11y } from '../../test-utils';
+import { FormGroup } from '../form-group';
 import { NumberInput } from './number-input';
 
 const type = (value: string) => {
-  const input = screen.getByRole('textbox') as HTMLInputElement;
+  const input = screen.getByRole('spinbutton') as HTMLInputElement;
   userEvent.type(input, value);
   return input;
 };
+
+test('it passes a11y on single radio', async () => {
+  const { container } = render(
+    <FormGroup id="test" name="test" label="NumberInput Test">
+      <NumberInput />
+    </FormGroup>
+  );
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
 
 test('it renders correctly', () => {
   const { container } = render(<NumberInput />);

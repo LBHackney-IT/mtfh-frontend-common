@@ -26,6 +26,7 @@ export const DateInput = forwardRef<HTMLDivElement, DateInputProps>(
           min={1}
           max={31}
           padStart={2}
+          aria-label="Day"
           {...dayProps}
         />
         <NumberInput
@@ -35,6 +36,7 @@ export const DateInput = forwardRef<HTMLDivElement, DateInputProps>(
           min={1}
           max={12}
           padStart={2}
+          aria-label="Month"
           {...monthProps}
         />
         <NumberInput
@@ -42,6 +44,7 @@ export const DateInput = forwardRef<HTMLDivElement, DateInputProps>(
           required={required}
           maxLength={4}
           padStart={4}
+          aria-label="Year"
           {...yearProps}
         />
       </div>

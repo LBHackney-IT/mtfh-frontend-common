@@ -1,6 +1,14 @@
+import { isValidElement } from 'react';
+import { RenderOptions, render } from '@testing-library/react';
+import { RunOptions } from 'axe-core';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { queries } from './hooks/use-breakpoint';
 
+expect.extend(toHaveNoViolations);
+
+export { queries };
 export const server = setupServer();
 
 beforeAll(() => {
@@ -16,6 +24,22 @@ afterEach(() => {
 afterAll(() => {
   server.close();
 });
+
+export { axe };
+
+type UI = Parameters<typeof render>[0];
+type TestA11YOptions = RenderOptions & { axeOptions?: RunOptions };
+
+export const testA11y = async (
+  ui: UI | Element,
+  { axeOptions, ...options }: TestA11YOptions = {}
+): Promise<void> => {
+  const container = isValidElement(ui) ? render(ui, options).container : ui;
+
+  const results = await axe(container, axeOptions);
+
+  expect(results).toHaveNoViolations();
+};
 
 export const getSuccess = (data: unknown, url = ''): void => {
   server.use(
