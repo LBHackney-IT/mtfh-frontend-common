@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { render } from '@testing-library/react';
 
+import { testA11y } from '../../test-utils';
 import { Icon } from './icon';
 
-test('it renders a icon with defaults', () => {
+test('it renders a icon with defaults', async () => {
   const { container } = render(
     <Icon viewBox="0 0 200 200">
       <path
@@ -13,6 +14,7 @@ test('it renders a icon with defaults', () => {
     </Icon>
   );
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });
 
 test('it renders a icon with inline color', () => {

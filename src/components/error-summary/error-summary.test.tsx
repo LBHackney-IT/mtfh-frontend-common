@@ -1,11 +1,15 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { testA11y } from '../../test-utils';
 import { ErrorSummary } from './error-summary';
 
-test('it renders an alert', () => {
-  render(<ErrorSummary id="error" title="Something went wrong" />);
+test('it renders an alert', async () => {
+  const { container } = render(
+    <ErrorSummary id="error" title="Something went wrong" />
+  );
   expect(screen.getByRole('alert')).toBeInTheDocument();
+  await testA11y(container);
 });
 
 test('it shows a description without children', () => {
@@ -19,7 +23,7 @@ test('it shows a description without children', () => {
   expect(screen.getByText('User error')).toBeInTheDocument();
 });
 
-test('it creates a list of the children', () => {
+test('it creates a list of the children', async () => {
   const { container } = render(
     <ErrorSummary id="error" title="Something went wrong">
       <a href="#test">Test</a>
@@ -27,4 +31,5 @@ test('it creates a list of the children', () => {
     </ErrorSummary>
   );
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });

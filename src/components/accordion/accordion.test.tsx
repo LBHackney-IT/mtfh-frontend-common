@@ -1,7 +1,24 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { testA11y } from '../../test-utils';
 import { Accordion, AccordionItem } from './accordion';
+
+test('it passes a11y', async () => {
+  const { container } = render(
+    <Accordion id="test">
+      <AccordionItem id="test-1" title="Test">
+        Hello
+      </AccordionItem>
+      <AccordionItem id="test-2" title="Next">
+        Hello
+      </AccordionItem>
+    </Accordion>
+  );
+
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
 
 test('it renders correctly', () => {
   render(

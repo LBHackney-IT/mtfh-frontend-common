@@ -25,29 +25,3 @@ exports[`it adds an astreix to the label if required 1`] = `
   </div>
 </div>
 `;
-
-exports[`it wraps a TextArea correctly 1`] = `
-<div>
-  <div
-    class="govuk-character-count"
-  >
-    <div
-      class="govuk-form-group lbh-form-group"
-      id="test"
-    >
-      <label
-        class="govuk-label lbh-label"
-        for="test-field"
-      >
-        Test Label
-        
-      </label>
-      <textarea
-        class="govuk-textarea lbh-textarea lbh-character-count"
-        id="test-field"
-        name="test"
-      />
-    </div>
-  </div>
-</div>
-`;

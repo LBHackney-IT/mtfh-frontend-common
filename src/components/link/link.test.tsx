@@ -2,15 +2,17 @@ import React, { useEffect } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { navigateToUrl } from 'single-spa';
 
+import { testA11y } from '../../test-utils';
 import { Link } from './link';
 
 jest.mock('single-spa');
 
-test('it renders correctly', () => {
+test('it renders correctly', async () => {
   const { container } = render(
     <Link href="http://localhost">Test Button</Link>
   );
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });
 
 test('it renders a variant', () => {

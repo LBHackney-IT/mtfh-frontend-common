@@ -1,0 +1,73 @@
+import React, { ReactElement } from 'react';
+import { render, screen } from '@testing-library/react';
+import MatchMediaMock from 'jest-matchmedia-mock';
+
+import { queries, testA11y } from '../../test-utils';
+import { SideBar, SideBarSection } from './side-bar';
+
+let matchMedia: MatchMediaMock;
+
+beforeAll(() => {
+  matchMedia = new MatchMediaMock();
+});
+
+afterEach(() => {
+  matchMedia.clear();
+});
+
+const renderWithQuery = (ui: ReactElement, query: string) => {
+  matchMedia.useMediaQuery(query);
+  return render(ui);
+};
+
+test('it renders correctly on desktop', async () => {
+  const { container } = renderWithQuery(
+    <SideBar>
+      <SideBarSection id="section-1" title="More Details">
+        <div>Content</div>
+      </SideBarSection>
+    </SideBar>,
+    queries.lg
+  );
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
+
+test('it renders correctly on mobile', async () => {
+  const { container } = renderWithQuery(
+    <SideBar>
+      <SideBarSection id="section-1" title="More Details">
+        <div>Content</div>
+      </SideBarSection>
+    </SideBar>,
+    queries.base
+  );
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
+
+test('it renders a heading on desktop', async () => {
+  const { container } = renderWithQuery(
+    <SideBar>
+      <SideBarSection id="section-1" title="More Details" heading="A Heading">
+        <div>Content</div>
+      </SideBarSection>
+    </SideBar>,
+    queries.lg
+  );
+  expect(screen.getByRole('heading')).toHaveTextContent('A Heading');
+  await testA11y(container);
+});
+
+test('it does not renders a heading on mobile', async () => {
+  const { container } = renderWithQuery(
+    <SideBar>
+      <SideBarSection id="section-1" title="More Details" heading="A Heading">
+        <div>Content</div>
+      </SideBarSection>
+    </SideBar>,
+    queries.base
+  );
+  expect(screen.queryByText('A Heading')).toBe(null);
+  await testA11y(container);
+});

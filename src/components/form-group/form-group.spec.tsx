@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { FormGroup, Input, TextArea } from '..';
+import { FormGroup, Input } from '..';
 
 test('it renders correctly', () => {
   const { getByText, getByPlaceholderText } = render(
@@ -41,14 +41,5 @@ test('it adds an astreix to the label if required', () => {
     </FormGroup>
   );
   expect(getByText(/Test Label/).textContent).toBe('Test Label*');
-  expect(container).toMatchSnapshot();
-});
-
-test('it wraps a TextArea correctly', () => {
-  const { container } = render(
-    <FormGroup id="test" name="test" label="Test Label">
-      <TextArea />
-    </FormGroup>
-  );
   expect(container).toMatchSnapshot();
 });

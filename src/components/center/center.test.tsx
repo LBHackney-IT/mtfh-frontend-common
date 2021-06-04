@@ -1,15 +1,17 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
+import { testA11y } from '../../test-utils';
 import { Center } from './center';
 
-test('it renders with both vertical and horizontal by default', () => {
+test('it renders with both vertical and horizontal by default', async () => {
   const { container } = render(
     <Center>
       <div />
     </Center>
   );
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });
 
 test('it renders with vertical only', () => {

@@ -1,7 +1,19 @@
 import React, { ChangeEvent, useState } from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
+import { testA11y } from '../../test-utils';
+import { FormGroup } from '../form-group';
 import { TextArea } from './text-area';
+
+test('it passes a11y', async () => {
+  const { container } = render(
+    <FormGroup id="test" name="test" label="TextArea Test">
+      <TextArea />
+    </FormGroup>
+  );
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
 
 test('it renders correctly', () => {
   const { container } = render(<TextArea />);

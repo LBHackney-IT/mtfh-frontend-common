@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { render } from '@testing-library/react';
 
+import { testA11y } from '../../test-utils';
 import { Spinner } from './spinner';
 
-test('it renders correctly', () => {
+test('it renders correctly', async () => {
   const { container } = render(<Spinner />);
   expect(container).toMatchSnapshot();
+  await testA11y(container);
 });
 
 test('it accepts a ref', () => {

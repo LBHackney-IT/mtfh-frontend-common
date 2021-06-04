@@ -64,9 +64,11 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     return (
       <Input
         ref={ref}
+        role="spinbutton"
         aria-valuemin={min}
         aria-valuemax={max}
         aria-valuenow={outputInt}
+        aria-valuetext={output || undefined}
         value={output}
         onChange={(e) => {
           const update = parser(e.target.value);
