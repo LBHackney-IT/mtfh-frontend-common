@@ -5,8 +5,18 @@ exports[`it renders correctly on desktop 1`] = `
   <div
     class="mtfh-sidebar"
   >
-    <div>
-      Content
+    <div
+      id="sidebar"
+    >
+      <div
+        class="mtfh-sidebar-section"
+        id="section-1"
+        title="More Details"
+      >
+        <div>
+          Content
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -20,7 +30,7 @@ exports[`it renders correctly on mobile 1`] = `
     <div
       class="govuk-accordion lbh-accordion"
       data-attribute="value"
-      id="sidebar-accordion"
+      id="sidebar"
     >
       <div
         class="govuk-accordion__controls"
@@ -48,7 +58,7 @@ exports[`it renders correctly on mobile 1`] = `
             class="govuk-accordion__section-heading lbh-heading-h5"
           >
             <button
-              aria-controls="sidebar-accordion-content-1"
+              aria-controls="sidebar-content-1"
               aria-expanded="false"
               class="govuk-accordion__section-button"
               id="accordion-heading-section-1"

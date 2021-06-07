@@ -22,7 +22,7 @@ const renderWithQuery = (ui: ReactElement, query: string) => {
 
 test('it renders correctly on desktop', async () => {
   const { container } = renderWithQuery(
-    <SideBar>
+    <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details">
         <div>Content</div>
       </SideBarSection>
@@ -35,7 +35,7 @@ test('it renders correctly on desktop', async () => {
 
 test('it renders correctly on mobile', async () => {
   const { container } = renderWithQuery(
-    <SideBar>
+    <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details">
         <div>Content</div>
       </SideBarSection>
@@ -48,7 +48,7 @@ test('it renders correctly on mobile', async () => {
 
 test('it renders a heading on desktop', async () => {
   const { container } = renderWithQuery(
-    <SideBar>
+    <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details" heading="A Heading">
         <div>Content</div>
       </SideBarSection>
@@ -61,7 +61,7 @@ test('it renders a heading on desktop', async () => {
 
 test('it does not renders a heading on mobile', async () => {
   const { container } = renderWithQuery(
-    <SideBar>
+    <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details" heading="A Heading">
         <div>Content</div>
       </SideBarSection>
