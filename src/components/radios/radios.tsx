@@ -20,10 +20,20 @@ export interface RadioProps extends ComponentPropsWithoutRef<'input'> {
   hint?: string;
   children: ReactNode;
   conditionalId?: string;
+  error?: string;
 }
 
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Input(
-  { id, className, type = 'radio', hint, children, conditionalId, ...props },
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
+  {
+    id,
+    className,
+    type = 'radio',
+    hint,
+    children,
+    conditionalId,
+    error,
+    ...props
+  },
   ref
 ) {
   return (
@@ -69,55 +79,57 @@ export const RadioConditional = forwardRef<
   );
 });
 
-export interface RadiosProps extends ComponentPropsWithoutRef<'div'> {
+export interface RadioGroupProps extends ComponentPropsWithoutRef<'div'> {
   variant?: 'base' | 'small';
   inline?: boolean;
   name?: string;
   error?: string;
 }
 
-export const Radios = forwardRef<HTMLDivElement, RadiosProps>(function Radios(
-  { variant = 'base', inline = false, name, children, error, ...props },
-  ref
-) {
-  const localRef = useRef<HTMLDivElement>();
+export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
+  function RadioGroup(
+    { variant = 'base', inline = false, name, children, error, ...props },
+    ref
+  ) {
+    const localRef = useRef<HTMLDivElement>();
 
-  useEffect(() => {
-    if (localRef.current) {
-      new RadiosJs(localRef.current).init();
-    }
-  }, []);
+    useEffect(() => {
+      if (localRef.current) {
+        new RadiosJs(localRef.current).init();
+      }
+    }, []);
 
-  const hasConditionals = useMemo(
-    () =>
-      Children.toArray(children).some(
-        (child) => isValidElement(child) && child.type === RadioConditional
-      ),
-    [children]
-  );
+    const hasConditionals = useMemo(
+      () =>
+        Children.toArray(children).some(
+          (child) => isValidElement(child) && child.type === RadioConditional
+        ),
+      [children]
+    );
 
-  return (
-    <div
-      ref={mergeRefs([localRef, ref])}
-      className={cn(
-        'govuk-radios',
-        {
-          'govuk-radios-small': variant === 'small',
-          'govuk-radios--inline': inline,
-          'govuk-radios--conditionals': hasConditionals,
-        },
-        'lbh-radios'
-      )}
-      {...props}
-    >
-      {Children.map(
-        children,
-        (child) =>
-          isValidElement(child) &&
-          cloneElement(child, {
-            name,
-          })
-      )}
-    </div>
-  );
-});
+    return (
+      <div
+        ref={mergeRefs([localRef, ref])}
+        className={cn(
+          'govuk-radios',
+          {
+            'govuk-radios--small': variant === 'small',
+            'govuk-radios--inline': inline,
+            'govuk-radios--conditionals': hasConditionals,
+          },
+          'lbh-radios'
+        )}
+        {...props}
+      >
+        {Children.map(
+          children,
+          (child) =>
+            isValidElement(child) &&
+            cloneElement(child, {
+              name,
+            })
+        )}
+      </div>
+    );
+  }
+);

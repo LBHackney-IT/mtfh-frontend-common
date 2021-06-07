@@ -72,13 +72,13 @@ exports[`it passes a11y on single radio 1`] = `
     >
       <input
         class="govuk-radios__input"
-        id="test-field"
+        id="radio"
         name="test"
         type="radio"
       />
       <label
         class="govuk-label govuk-radios__label"
-        for="test-field"
+        for="radio"
       >
         Label
       </label>
