@@ -2,7 +2,7 @@
 @import '~govuk-frontend/govuk/helpers/media-queries';
 
 .mtfh-layout {
-  @include govuk-media-query($from: tablet) {
+  @include govuk-media-query($from: desktop) {
     &__container {
       display: grid;
       grid-row-gap: 0;

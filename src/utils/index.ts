@@ -1,2 +1,2 @@
-// eslint-disable-next-line import/prefer-default-export
 export { default as pluralize } from './pluralize';
+export { default as widthOverrides } from './width-overrides';
