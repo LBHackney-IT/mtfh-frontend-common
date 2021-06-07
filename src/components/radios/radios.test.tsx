@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 
 import { testA11y } from '../../test-utils';
 import { FormGroup } from '../form-group';
-import { Radio, RadioConditional, RadioDivider, Radios } from './radios';
+import { Radio, RadioConditional, RadioDivider, RadioGroup } from './radios';
 
 test('it passes a11y on single radio', async () => {
   const { container } = render(
@@ -18,10 +18,10 @@ test('it passes a11y on single radio', async () => {
 test('it passes a11y on radio group', async () => {
   const { container } = render(
     <FormGroup id="test" name="test" label="Radios Test">
-      <Radios>
+      <RadioGroup>
         <Radio id="radio-1">Label</Radio>
         <Radio id="radio-2">Label2</Radio>
-      </Radios>
+      </RadioGroup>
     </FormGroup>
   );
   expect(container).toMatchSnapshot();
@@ -44,34 +44,34 @@ test('it renders a radio with a hint', () => {
 
 test('it renders a group of radios', () => {
   const { container } = render(
-    <Radios>
+    <RadioGroup>
       <Radio id="test">Label</Radio>
       <Radio id="test2">Label2</Radio>
-    </Radios>
+    </RadioGroup>
   );
   expect(container).toMatchSnapshot();
 });
 
 test('it renders a group of radios with a divider', () => {
   const { container } = render(
-    <Radios>
+    <RadioGroup>
       <Radio id="test">Label</Radio>
       <RadioDivider>Or</RadioDivider>
       <Radio id="test2">Label2</Radio>
-    </Radios>
+    </RadioGroup>
   );
   expect(container).toMatchSnapshot();
 });
 
 test('it renders a group of radios with a conditional', () => {
   const { container } = render(
-    <Radios>
+    <RadioGroup>
       <Radio id="test" conditionalId="conditional">
         Label
       </Radio>
       <RadioConditional id="conditional">Hello</RadioConditional>
       <Radio id="test2">Label2</Radio>
-    </Radios>
+    </RadioGroup>
   );
   expect(container).toMatchSnapshot();
 });

@@ -22,7 +22,7 @@
     &__main {
       margin-top: 0;
 
-      .mtfh-layout:not(.parent--narrow) & {
+      .mtfh-layout:not(.mtfh-layout--narrow) & {
         grid-area: 1 / 2 / 2 / 3;
       }
     }

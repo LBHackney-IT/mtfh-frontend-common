@@ -25,4 +25,10 @@ declare module 'lbh-frontend' {
 
     init(): void;
   }
+
+  export class Checkboxes {
+    constructor(module: HTMLDivElement);
+
+    init(): void;
+  }
 }

@@ -14,8 +14,8 @@ import './styles.scss';
 
 export interface FormGroupProps extends ComponentPropsWithoutRef<'div'> {
   id: string;
-  name: string;
   label: string;
+  name?: string;
   hint?: string;
   error?: string | false;
   required?: boolean;
@@ -74,6 +74,7 @@ export const FormGroup = forwardRef<HTMLDivElement, FormGroupProps>(
               required,
               error: !!error,
               'aria-describedby': describedBy || undefined,
+              ...children.props,
             })
           )}
       </div>
