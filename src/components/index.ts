@@ -2,6 +2,7 @@ export * from './accordion';
 export * from './button';
 export * from './button-link';
 export * from './center';
+export * from './checkboxes';
 export * from './date-input';
 export * from './error-summary';
 export * from './form-group';
