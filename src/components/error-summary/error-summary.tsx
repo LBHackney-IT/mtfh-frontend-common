@@ -17,6 +17,7 @@ export interface ErrorSummaryProps extends ComponentPropsWithoutRef<'div'> {
   id: string;
   title: string;
   description?: string;
+  reFocus?: number;
   children?:
     | ReactElement<ComponentProps<'a'>>
     | ReactElement<ComponentProps<'a'>>[];
@@ -24,7 +25,7 @@ export interface ErrorSummaryProps extends ComponentPropsWithoutRef<'div'> {
 
 export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
   function ErrorSummary(
-    { id, title, description, className, children, ...props },
+    { id, title, description, className, children, reFocus, ...props },
     ref
   ) {
     const localRef = useRef<HTMLDivElement>();
@@ -33,8 +34,15 @@ export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
       if (localRef.current) {
         // eslint-disable-next-line no-new
         new ErrorSummaryJs(localRef.current);
+        localRef.current.scrollIntoView(true);
       }
     }, []);
+
+    useEffect(() => {
+      if (localRef.current) {
+        localRef.current.scrollIntoView(true);
+      }
+    }, [reFocus]);
 
     return (
       <div

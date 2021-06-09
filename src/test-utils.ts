@@ -68,3 +68,5 @@ export const getNetworkFailure = (): void => {
     rest.get('/api', (req, res) => res.networkError('FAILED TO CONNECT'))
   );
 };
+
+window.HTMLElement.prototype.scrollIntoView = jest.fn();
