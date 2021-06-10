@@ -5,7 +5,6 @@ export * from './center';
 export * from './checkboxes';
 export * from './date-input';
 export * from './error-summary';
-// export * from './field';
 export * from './fieldset';
 export * from './form-group';
 export * from './icon';
