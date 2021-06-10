@@ -84,11 +84,20 @@ export interface RadioGroupProps extends ComponentPropsWithoutRef<'div'> {
   inline?: boolean;
   name?: string;
   error?: string;
+  required?: boolean;
 }
 
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
   function RadioGroup(
-    { variant = 'base', inline = false, name, children, error, ...props },
+    {
+      variant = 'base',
+      inline = false,
+      name,
+      children,
+      error,
+      required,
+      ...props
+    },
     ref
   ) {
     const localRef = useRef<HTMLDivElement>();
@@ -127,6 +136,8 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
             isValidElement(child) &&
             cloneElement(child, {
               name,
+              required,
+              ...child.props,
             })
         )}
       </div>
