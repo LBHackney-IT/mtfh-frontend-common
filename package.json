@@ -7,7 +7,7 @@
     "start:standalone": "webpack serve --env standalone",
     "build": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
-    "lint": "eslint src --ext js,ts,tsx",
+    "lint": "eslint src --ext js,ts,tsx --quiet",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
