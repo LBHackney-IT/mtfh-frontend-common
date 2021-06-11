@@ -47,6 +47,14 @@ test('it formats min on blur', () => {
   expect(input.value).toBe('25');
 });
 
+test('it does not format an empty value', () => {
+  render(<NumberInput min={25} />);
+  const input = type('');
+  expect(input.value).toBe('');
+  fireEvent.blur(input);
+  expect(input.value).toBe('');
+});
+
 test('it formats max on blur', () => {
   render(<NumberInput min={25} max={50} />);
   const input = type('60');
