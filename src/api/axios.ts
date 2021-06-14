@@ -1,4 +1,5 @@
 import axios, { AxiosError, CancelTokenSource } from 'axios';
+import { v4 as uuid } from 'uuid';
 
 import { $auth, logout } from '../auth';
 
@@ -6,13 +7,18 @@ const axiosInstance = axios.create({
   responseType: 'json',
 });
 
-axiosInstance.interceptors.request.use((config) => ({
-  ...config,
-  headers: {
-    ...(config.headers as Headers),
-    Authorization: `Bearer ${$auth.getValue().token}`,
-  },
-}));
+axiosInstance.interceptors.request.use((config) => {
+  const auth = $auth.getValue();
+  return {
+    ...config,
+    headers: {
+      ...(config.headers as Headers),
+      Authorization: `Bearer ${auth.token}`,
+      'X-Correlation-ID': uuid(),
+      'X-User-ID': auth.sub,
+    },
+  };
+});
 
 axiosInstance.interceptors.response.use(
   (res) => res,
