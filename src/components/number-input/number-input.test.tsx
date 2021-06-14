@@ -49,8 +49,7 @@ test('it formats min on blur', () => {
 
 test('it does not format an empty value', () => {
   render(<NumberInput min={25} />);
-  const input = type('');
-  expect(input.value).toBe('');
+  const input = screen.getByRole('spinbutton') as HTMLInputElement;
   fireEvent.blur(input);
   expect(input.value).toBe('');
 });

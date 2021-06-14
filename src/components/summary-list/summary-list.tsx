@@ -80,7 +80,8 @@ export interface SummaryListProps extends ComponentPropsWithoutRef<'dl'> {
   overrides?: number[];
   children:
     | ReactElement<SummaryListItemProps>
-    | ReactElement<SummaryListItemProps>[];
+    | null
+    | Array<ReactElement<SummaryListItemProps> | null>;
 }
 
 export const SummaryList = forwardRef<HTMLDListElement, SummaryListProps>(
@@ -102,6 +103,7 @@ export const SummaryList = forwardRef<HTMLDListElement, SummaryListProps>(
         {Children.map(
           children,
           (child, index) =>
+            child &&
             isValidElement<SummaryListItemProps>(child) &&
             cloneElement(child, {
               overrides:

@@ -71,3 +71,24 @@ test('it does not renders a heading on mobile', async () => {
   expect(screen.queryByText('A Heading')).toBe(null);
   await testA11y(container);
 });
+
+test('accepts and ignores a null child', () => {
+  const { container } = renderWithQuery(
+    <SideBar id="sidebar">
+      <SideBarSection id="section-1" title="More Details" heading="A Heading">
+        <div>Content</div>
+      </SideBarSection>
+      {null}
+      <SideBarSection
+        id="section-2"
+        title="More Details 2"
+        heading="A Heading 2"
+      >
+        <div>Content 2</div>
+      </SideBarSection>
+      {null}
+    </SideBar>,
+    queries.base
+  );
+  expect(container).toMatchSnapshot();
+});
