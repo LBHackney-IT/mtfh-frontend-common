@@ -44,7 +44,10 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
 
 interface AccordionProps extends ComponentPropsWithoutRef<'div'> {
   id: string;
-  children: ReactElement<AccordionItemProps>[];
+  children:
+    | ReactElement<AccordionItemProps>
+    | null
+    | Array<ReactElement<AccordionItemProps> | null>;
   defaultIndex?: number;
   visuallyHideControls?: boolean;
 }

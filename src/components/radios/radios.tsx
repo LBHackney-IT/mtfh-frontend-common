@@ -133,6 +133,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
         {Children.map(
           children,
           (child) =>
+            child &&
             isValidElement(child) &&
             cloneElement(child, {
               name,

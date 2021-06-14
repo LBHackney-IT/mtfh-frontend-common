@@ -20,7 +20,8 @@ export interface ErrorSummaryProps extends ComponentPropsWithoutRef<'div'> {
   reFocus?: number;
   children?:
     | ReactElement<ComponentProps<'a'>>
-    | ReactElement<ComponentProps<'a'>>[];
+    | null
+    | Array<ReactElement<ComponentProps<'a'>> | null>;
 }
 
 export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
@@ -62,7 +63,7 @@ export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
               <ul className="govuk-list govuk-error-summary__list">
                 {React.Children.map(
                   children,
-                  (child) => isValidElement(child) && <li>{child}</li>
+                  (child) => child && isValidElement(child) && <li>{child}</li>
                 )}
               </ul>
             ) : null}

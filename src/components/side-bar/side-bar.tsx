@@ -49,7 +49,8 @@ export interface SideBarProps extends ComponentPropsWithoutRef<'div'> {
   top?: ReactElement;
   children:
     | ReactElement<SideBarSectionProps>
-    | ReactElement<SideBarSectionProps>[];
+    | null
+    | Array<ReactElement<SideBarSectionProps> | null>;
 }
 
 export const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
@@ -62,9 +63,9 @@ export const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
           <Accordion id={id}>
             {Children.map<
               ReactElement<SideBarSectionProps> | undefined,
-              ReactElement<SideBarSectionProps>
+              ReactElement<SideBarSectionProps> | null
             >(children, (child) =>
-              isValidElement(child)
+              child && isValidElement(child)
                 ? cloneElement(child, {
                     isCollapsed: true,
                   })

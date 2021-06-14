@@ -39,3 +39,15 @@ test('it applies the correct variant styling', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+test('it applies an error', async () => {
+  const { container } = render(
+    <Fieldset variant="large" heading="heading" error="This is an error">
+      <FormGroup id="test" label="Test" name="test">
+        <Input />
+      </FormGroup>
+    </Fieldset>
+  );
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
