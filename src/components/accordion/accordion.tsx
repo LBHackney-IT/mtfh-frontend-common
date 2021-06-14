@@ -42,12 +42,14 @@ export const AccordionItem = forwardRef<HTMLDivElement, AccordionItemProps>(
   }
 );
 
+type AccordionChild =
+  | ReactElement<AccordionItemProps>
+  | ReactElement<AccordionItemProps>[]
+  | null;
+
 interface AccordionProps extends ComponentPropsWithoutRef<'div'> {
   id: string;
-  children:
-    | ReactElement<AccordionItemProps>
-    | null
-    | Array<ReactElement<AccordionItemProps> | null>;
+  children: AccordionChild | AccordionChild[];
   defaultIndex?: number;
   visuallyHideControls?: boolean;
 }
