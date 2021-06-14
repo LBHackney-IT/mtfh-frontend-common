@@ -75,13 +75,15 @@ export const SummaryListItem = forwardRef<HTMLDivElement, SummaryListItemProps>(
   }
 );
 
+type SummaryListChild =
+  | ReactElement<SummaryListItemProps>
+  | ReactElement<SummaryListItemProps>[]
+  | null;
+
 export interface SummaryListProps extends ComponentPropsWithoutRef<'dl'> {
   variant?: 'base' | 'border';
   overrides?: number[];
-  children:
-    | ReactElement<SummaryListItemProps>
-    | null
-    | Array<ReactElement<SummaryListItemProps> | null>;
+  children: SummaryListChild | SummaryListChild[];
 }
 
 export const SummaryList = forwardRef<HTMLDListElement, SummaryListProps>(
