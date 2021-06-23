@@ -7,6 +7,7 @@ import useSwr, {
   SWRInfiniteResponse,
   SWRResponse,
   cache,
+  mutate,
   useSWRInfinite,
 } from 'swr';
 
@@ -35,4 +36,4 @@ export const useAxiosSWRInfinite = <ResponseData>(
 ): AxiosSWRInfiniteResponse<ResponseData> =>
   useSWRInfinite<ResponseData, AxiosSWRError>(key, axiosFetcher, options);
 
-export { cache };
+export { cache, mutate };
