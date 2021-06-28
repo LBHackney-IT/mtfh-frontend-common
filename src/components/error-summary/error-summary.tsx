@@ -7,13 +7,15 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
+import type * as Polymoprphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 import { ErrorSummary as ErrorSummaryJs } from 'lbh-frontend';
 import mergeRefs from 'react-merge-refs';
 
+import { widthOverrides } from '../../utils';
 import './styles.scss';
 
-export interface ErrorSummaryProps extends ComponentPropsWithoutRef<'div'> {
+export interface ErrorSummaryProps {
   id: string;
   title: string;
   description?: string;
@@ -22,16 +24,33 @@ export interface ErrorSummaryProps extends ComponentPropsWithoutRef<'div'> {
     | ReactElement<ComponentProps<'a'>>
     | null
     | Array<ReactElement<ComponentProps<'a'>> | null>;
+  override?: number;
 }
 
-export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
+export type ErrorSummaryComponent = Polymoprphic.ForwardRefComponent<
+  'div',
+  ErrorSummaryProps
+>;
+
+export const ErrorSummary: ErrorSummaryComponent = forwardRef(
   function ErrorSummary(
-    { id, title, description, className, children, reFocus, ...props },
+    {
+      as: ErrorSummaryComp = 'div',
+      id,
+      title,
+      description,
+      className,
+      children,
+      reFocus,
+      override,
+      ...props
+    },
     ref
   ) {
-    const localRef = useRef<HTMLDivElement>();
+    const localRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
+      /* istanbul ignore else */
       if (localRef.current) {
         // eslint-disable-next-line no-new
         new ErrorSummaryJs(localRef.current);
@@ -40,15 +59,21 @@ export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
     }, []);
 
     useEffect(() => {
+      /* istanbul ignore else */
       if (localRef.current) {
         localRef.current.scrollIntoView(true);
       }
     }, [reFocus]);
 
     return (
-      <div
+      <ErrorSummaryComp
         ref={mergeRefs([localRef, ref])}
-        className={cn('govuk-error-summary', className, 'lbh-error-summary')}
+        className={cn(
+          'govuk-error-summary',
+          'lbh-error-summary',
+          widthOverrides(override),
+          className
+        )}
         aria-labelledby={id}
         role="alert"
         {...props}
@@ -69,7 +94,7 @@ export const ErrorSummary = forwardRef<HTMLDivElement, ErrorSummaryProps>(
             ) : null}
           </div>
         ) : null}
-      </div>
+      </ErrorSummaryComp>
     );
   }
 );

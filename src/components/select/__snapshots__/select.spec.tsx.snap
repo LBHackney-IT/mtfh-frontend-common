@@ -43,11 +43,3 @@ exports[`it renders correctly with error 1`] = `
   />
 </div>
 `;
-
-exports[`it renders correctly with isFullWidth 1`] = `
-<div>
-  <select
-    class="govuk-select govuk-!-width-full lbh-select"
-  />
-</div>
-`;

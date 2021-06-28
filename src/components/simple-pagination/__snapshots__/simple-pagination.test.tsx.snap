@@ -5,9 +5,9 @@ exports[`it renders the nav with buttons 1`] = `
   <nav
     class="lbh-simple-pagination"
   >
-    <button
+    <a
       class="lbh-simple-pagination__link"
-      type="button"
+      href="/prev"
     >
       <svg
         fill="none"
@@ -21,10 +21,10 @@ exports[`it renders the nav with buttons 1`] = `
         />
       </svg>
       Prev
-    </button>
-    <button
+    </a>
+    <a
       class="lbh-simple-pagination__link lbh-simple-pagination__link--next"
-      type="button"
+      href="/next"
     >
       Next
       <svg
@@ -38,7 +38,7 @@ exports[`it renders the nav with buttons 1`] = `
           stroke-width="2"
         />
       </svg>
-    </button>
+    </a>
   </nav>
 </div>
 `;
@@ -48,9 +48,9 @@ exports[`it renders the nav with buttons and titles 1`] = `
   <nav
     class="lbh-simple-pagination"
   >
-    <button
+    <a
       class="lbh-simple-pagination__link"
-      type="button"
+      href="/prev"
     >
       <svg
         fill="none"
@@ -69,10 +69,10 @@ exports[`it renders the nav with buttons and titles 1`] = `
       >
         1 of 3
       </span>
-    </button>
-    <button
+    </a>
+    <a
       class="lbh-simple-pagination__link lbh-simple-pagination__link--next"
-      type="button"
+      href="/next"
     >
       Next
       <span
@@ -91,7 +91,7 @@ exports[`it renders the nav with buttons and titles 1`] = `
           stroke-width="2"
         />
       </svg>
-    </button>
+    </a>
   </nav>
 </div>
 `;

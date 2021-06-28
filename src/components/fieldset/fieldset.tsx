@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import cn from 'classnames';
 
+import { widthOverrides } from '../../utils';
 import './styles.scss';
 
 export interface FieldsetProps extends ComponentPropsWithoutRef<'fieldset'> {
@@ -14,6 +15,7 @@ export interface FieldsetProps extends ComponentPropsWithoutRef<'fieldset'> {
   variant?: 'base' | 'small' | 'medium' | 'large' | 'xlarge' | 'hidden';
   indent?: boolean;
   error?: boolean | string;
+  override?: number;
 }
 
 export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
@@ -25,6 +27,7 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
       heading,
       children,
       className,
+      override,
       ...props
     },
     ref
@@ -39,6 +42,7 @@ export const Fieldset = forwardRef<HTMLFieldSetElement, FieldsetProps>(
             'mtfh-fieldset--indent': indent,
             'mtfh-fieldset--error': !!error,
           },
+          widthOverrides(override),
           className
         )}
         {...props}

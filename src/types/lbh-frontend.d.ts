@@ -1,33 +1,33 @@
 /* eslint-disable max-classes-per-file */
 declare module 'lbh-frontend' {
   export class Accordion {
-    constructor(module: HTMLDivElement);
+    constructor(module: HTMLElement);
 
     init(): void;
 
-    setExpanded(expanded: boolean, section: HTMLDivElement | null): void;
+    setExpanded(expanded: boolean, section: HTMLElement | null): void;
 
-    isExpanded(section: HTMLDivElement | null): boolean;
+    isExpanded(section: HTMLElement | null): boolean;
 
-    $sections: NodeListOf<HTMLDivElement>;
+    $sections: NodeListOf<HTMLElement>;
 
     sectionButtonClass: string;
   }
 
   export class ErrorSummary {
-    constructor(module: HTMLDivElement);
+    constructor(module: HTMLElement);
 
     init(): void;
   }
 
   export class Radios {
-    constructor(module: HTMLDivElement);
+    constructor(module: HTMLElement);
 
     init(): void;
   }
 
   export class Checkboxes {
-    constructor(module: HTMLDivElement);
+    constructor(module: HTMLElement);
 
     init(): void;
   }

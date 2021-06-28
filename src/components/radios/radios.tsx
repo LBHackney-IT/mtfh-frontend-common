@@ -103,6 +103,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     const localRef = useRef<HTMLDivElement>();
 
     useEffect(() => {
+      /* istanbul ignore else */
       if (localRef.current) {
         new RadiosJs(localRef.current).init();
       }

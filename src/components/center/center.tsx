@@ -1,19 +1,34 @@
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
+import type * as Polymoprphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
+import { widthOverrides } from '../../utils';
 import './styles.scss';
 
-export interface CenterProps extends ComponentPropsWithoutRef<'div'> {
+export interface CenterProps {
   horizontally?: boolean;
   vertically?: boolean;
+  override?: number;
 }
 
-export const Center = forwardRef<HTMLDivElement, CenterProps>(function Center(
-  { horizontally = true, vertically = true, className, ...props },
+export type CenterComponent = Polymoprphic.ForwardRefComponent<
+  'div',
+  CenterProps
+>;
+
+export const Center: CenterComponent = forwardRef(function Center(
+  {
+    as: CenterComp = 'div',
+    horizontally = true,
+    vertically = true,
+    className,
+    override,
+    ...props
+  },
   ref
 ) {
   return (
-    <div
+    <CenterComp
       ref={ref}
       className={cn(
         'mtfh-center',
@@ -21,6 +36,7 @@ export const Center = forwardRef<HTMLDivElement, CenterProps>(function Center(
           'mtfh-center--horizontal': horizontally,
           'mtfh-center--vertical': vertically,
         },
+        widthOverrides(override),
         className
       )}
       {...props}

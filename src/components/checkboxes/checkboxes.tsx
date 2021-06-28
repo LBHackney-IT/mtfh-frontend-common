@@ -86,6 +86,7 @@ export const CheckboxGroup = forwardRef<HTMLDivElement, CheckboxGroupProps>(
     const localRef = useRef<HTMLDivElement>();
 
     useEffect(() => {
+      /* istanbul ignore else */
       if (localRef.current) {
         new Checkboxes(localRef.current).init();
       }

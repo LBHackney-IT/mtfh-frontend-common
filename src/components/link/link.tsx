@@ -1,10 +1,11 @@
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
+import type * as Polymoprphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
-import { navigateToUrl } from 'single-spa';
 
+import { widthOverrides } from '../../utils';
 import './styles.scss';
 
-export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
+export interface LinkProps {
   variant?:
     | 'link'
     | 'danger'
@@ -13,17 +14,20 @@ export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
     | 'back-link'
     | 'native';
   isExternal?: boolean;
+  override?: number;
 }
 
-export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+export type LinkComponent = Polymoprphic.ForwardRefComponent<'a', LinkProps>;
+
+export const Link: LinkComponent = forwardRef(function Link(
   {
+    as: LinkComp = 'a',
     variant = 'link',
     isExternal = false,
-    href,
     className,
-    children,
     rel,
     target,
+    override,
     ...props
   },
   ref
@@ -35,20 +39,17 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
       [`lbh-link--${variant}`]: variant !== 'link' && variant !== 'back-link',
       'lbh-link--no-visited-state': !isExternal,
     },
+    widthOverrides(override),
     className
   );
   return (
     // eslint-disable-next-line react/jsx-no-target-blank
-    <a
+    <LinkComp
       ref={ref}
-      href={href}
       className={linkClasses}
       rel={isExternal ? 'noopener noreferrer' : rel}
       target={isExternal ? '_blank' : target}
-      onClick={!isExternal ? navigateToUrl : undefined}
       {...props}
-    >
-      {children}
-    </a>
+    />
   );
 });
