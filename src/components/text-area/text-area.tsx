@@ -8,12 +8,14 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 
-import { pluralize } from '../../utils';
+import { pluralize, widthOverrides } from '../../utils';
+
 import './styles.scss';
 
 export interface TextAreaProps extends ComponentPropsWithoutRef<'textarea'> {
   maxLength?: number;
   error?: boolean;
+  override?: number;
 }
 
 const getLengthOfValue = (
@@ -29,7 +31,10 @@ const getLengthOfValue = (
 };
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  function TextArea({ maxLength, error, className, onChange, ...props }, ref) {
+  function TextArea(
+    { maxLength, error, className, onChange, override, ...props },
+    ref
+  ) {
     const { value, defaultValue } = props;
     const isControlled = value !== undefined;
     const initialValue = value || defaultValue;
@@ -67,6 +72,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       'lbh-textarea',
       { 'govuk-textarea--error': error },
       'lbh-character-count',
+      widthOverrides(override),
       className
     );
 
@@ -75,7 +81,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
       'govuk-character-count__message',
       {
         'govuk-error-message': exceedingValue !== false && exceedingValue < 0,
-      }
+      },
+      widthOverrides(override)
     );
 
     return (

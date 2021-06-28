@@ -4,8 +4,6 @@ import { render, screen } from '@testing-library/react';
 import { testA11y } from '../../test-utils';
 import { Button } from './button';
 
-jest.mock('single-spa');
-
 test('it renders correctly', async () => {
   const { container } = render(<Button>Test Button</Button>);
   expect(container).toMatchSnapshot();

@@ -26,8 +26,3 @@ test('it renders correctly with error', () => {
   const { container } = render(<Select error />);
   expect(container).toMatchSnapshot();
 });
-
-test('it renders correctly with isFullWidth', () => {
-  const { container } = render(<Select isFullWidth />);
-  expect(container).toMatchSnapshot();
-});

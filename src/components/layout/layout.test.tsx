@@ -6,12 +6,7 @@ import { Layout } from './layout';
 
 test('it renders correctly', async () => {
   const { container } = render(
-    <Layout
-      backLabel="Back"
-      backLink="http://localhost"
-      side={<div id="side">Side Bar</div>}
-      top={<div id="top">Top</div>}
-    >
+    <Layout side={<div id="side">Side Bar</div>} top={<div id="top">Top</div>}>
       <div id="main">Main</div>
     </Layout>
   );
@@ -21,7 +16,7 @@ test('it renders correctly', async () => {
 
 test('it renders correctly without a side', () => {
   const { container } = render(
-    <Layout backLabel="Back" backLink="http://localhost">
+    <Layout>
       <div id="main">Main</div>
     </Layout>
   );

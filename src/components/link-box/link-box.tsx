@@ -1,35 +1,55 @@
-import React, {
-  ComponentPropsWithoutRef,
-  ReactElement,
-  forwardRef,
-} from 'react';
+import React, { ReactElement, forwardRef } from 'react';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
+import { widthOverrides } from '../../utils';
 import { ButtonLinkProps } from '../button-link';
 import { LinkProps } from '../link';
 import './styles.scss';
 
-interface LinkOverlayProps extends ComponentPropsWithoutRef<'div'> {
+export interface LinkOverlayProps {
   children: ReactElement<LinkProps | ButtonLinkProps>;
+  override?: number;
 }
 
-export const LinkOverlay = forwardRef<HTMLDivElement, LinkOverlayProps>(
-  function LinkOverlay({ children, className, ...props }, ref) {
+export type LinkOverlayComponent = Polymorphic.ForwardRefComponent<
+  'div',
+  LinkOverlayProps
+>;
+
+export const LinkOverlay: LinkOverlayComponent = forwardRef(
+  function LinkOverlay(
+    { as: LinkOverlayComp = 'div', className, override, ...props },
+    ref
+  ) {
     return (
-      <div ref={ref} className={cn('mtfh-link-overlay', className)} {...props}>
-        {children}
-      </div>
+      <LinkOverlayComp
+        ref={ref}
+        className={cn('mtfh-link-overlay', widthOverrides(override), className)}
+        {...props}
+      />
     );
   }
 );
 
-export const LinkBox = forwardRef<
-  HTMLDivElement,
-  ComponentPropsWithoutRef<'div'>
->(function LinkBox({ children, className, ...props }, ref) {
+export interface LinkBoxProps {
+  override?: number;
+}
+
+export type LinkBoxComponent = Polymorphic.ForwardRefComponent<
+  'div',
+  LinkBoxProps
+>;
+
+export const LinkBox: LinkBoxComponent = forwardRef(function LinkBox(
+  { as: LinkBoxComp = 'div', className, override, ...props },
+  ref
+) {
   return (
-    <div ref={ref} className={cn('mtfh-link-box', className)} {...props}>
-      {children}
-    </div>
+    <LinkBoxComp
+      ref={ref}
+      className={cn('mtfh-link-box', widthOverrides(override), className)}
+      {...props}
+    />
   );
 });

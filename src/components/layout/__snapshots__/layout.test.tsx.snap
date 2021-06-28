@@ -5,12 +5,6 @@ exports[`it renders correctly 1`] = `
   <div
     class="mtfh-layout"
   >
-    <a
-      class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
-      href="http://localhost"
-    >
-      Back
-    </a>
     <div
       id="top"
     >
@@ -47,12 +41,6 @@ exports[`it renders correctly without a side 1`] = `
   <div
     class="mtfh-layout mtfh-layout--narrow"
   >
-    <a
-      class="govuk-back-link lbh-back-link lbh-link--no-visited-state"
-      href="http://localhost"
-    >
-      Back
-    </a>
     <div
       class="mtfh-layout__container"
     >

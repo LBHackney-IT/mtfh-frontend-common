@@ -1,12 +1,11 @@
 import React, {
   Children,
-  ComponentPropsWithoutRef,
   ReactElement,
   cloneElement,
   forwardRef,
   isValidElement,
-  useMemo,
 } from 'react';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { useBreakpoint } from '../../hooks';
@@ -18,7 +17,12 @@ export interface SideBarSectionProps extends AccordionItemProps {
   heading?: string;
 }
 
-export const SideBarSection = forwardRef<HTMLDivElement, SideBarSectionProps>(
+export type SideBarSectionComponent = Polymorphic.ForwardRefComponent<
+  'div',
+  SideBarSectionProps
+>;
+
+export const SideBarSection: SideBarSectionComponent = forwardRef(
   function SideBarSection(
     { children, heading, className, isCollapsed = false, ...props },
     ref
@@ -44,7 +48,7 @@ export const SideBarSection = forwardRef<HTMLDivElement, SideBarSectionProps>(
   }
 );
 
-export interface SideBarProps extends ComponentPropsWithoutRef<'div'> {
+export interface SideBarProps {
   id: string;
   top?: ReactElement;
   children:
@@ -53,36 +57,37 @@ export interface SideBarProps extends ComponentPropsWithoutRef<'div'> {
     | Array<ReactElement<SideBarSectionProps> | null>;
 }
 
-export const SideBar = forwardRef<HTMLDivElement, SideBarProps>(
-  function SideBar({ id, top, children, className, ...props }, ref) {
-    const isDesktop = useBreakpoint('md');
-    const sidebarClasses = cn('mtfh-sidebar', className);
-    const renderChildren = useMemo(() => {
-      if (!isDesktop) {
-        return (
-          <Accordion id={id}>
-            {Children.map<
-              ReactElement<SideBarSectionProps> | undefined,
-              ReactElement<SideBarSectionProps> | null
-            >(children, (child) =>
-              child && isValidElement(child)
-                ? cloneElement(child, {
-                    isCollapsed: true,
-                  })
-                : undefined
-            )}
-          </Accordion>
-        );
-      }
+export type SideBarComponent = Polymorphic.ForwardRefComponent<
+  'div',
+  SideBarProps
+>;
 
-      return <div id={id}>{children}</div>;
-    }, [isDesktop, children, id]);
+export const SideBar: SideBarComponent = forwardRef(function SideBar(
+  { as: SideBarComp = 'div', id, top, children, className, ...props },
+  ref
+) {
+  const isDesktop = useBreakpoint('md');
+  const sidebarClasses = cn('mtfh-sidebar', className);
 
-    return (
-      <div ref={ref} className={sidebarClasses} {...props}>
-        {top}
-        {renderChildren}
-      </div>
-    );
-  }
-);
+  return (
+    <SideBarComp ref={ref} className={sidebarClasses} {...props}>
+      {top}
+      {!isDesktop ? (
+        <Accordion id={id}>
+          {Children.map<
+            ReactElement<SideBarSectionProps> | undefined,
+            ReactElement<SideBarSectionProps> | null
+          >(children, (child) =>
+            child && isValidElement(child)
+              ? cloneElement(child, {
+                  isCollapsed: true,
+                })
+              : undefined
+          )}
+        </Accordion>
+      ) : (
+        <div id={id}>{children}</div>
+      )}
+    </SideBarComp>
+  );
+});
