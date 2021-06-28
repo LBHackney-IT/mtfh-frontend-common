@@ -1,9 +1,11 @@
-import { isValidElement } from 'react';
-import { RenderOptions, render } from '@testing-library/react';
+import React, { isValidElement } from 'react';
+import { RenderOptions, RenderResult, render } from '@testing-library/react';
 import { RunOptions } from 'axe-core';
+import { MemoryHistory, createMemoryHistory } from 'history';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { Route, Router } from 'react-router-dom';
 import { queries } from './hooks/use-breakpoint';
 
 expect.extend(toHaveNoViolations);
@@ -39,6 +41,34 @@ export const testA11y = async (
   const results = await axe(container, axeOptions);
 
   expect(results).toHaveNoViolations();
+};
+
+interface RouteRenderConfig {
+  url: string;
+  path: string;
+}
+
+export const routeRender = (
+  ui: UI | Element,
+  options?: Partial<RouteRenderConfig>
+): [RenderResult, MemoryHistory] => {
+  const config = {
+    url: '/',
+    path: '/',
+    ...options,
+  };
+
+  const history = createMemoryHistory();
+  history.push(config.url);
+
+  return [
+    render(
+      <Router history={history}>
+        <Route path={config.path}>{ui}</Route>
+      </Router>
+    ),
+    history,
+  ];
 };
 
 export const getSuccess = (data: unknown, url = ''): void => {
