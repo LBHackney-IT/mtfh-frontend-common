@@ -1,13 +1,12 @@
 import React, {
   ComponentProps,
-  ComponentPropsWithoutRef,
   ReactElement,
   forwardRef,
   isValidElement,
   useEffect,
   useRef,
 } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 import { ErrorSummary as ErrorSummaryJs } from 'lbh-frontend';
 import mergeRefs from 'react-merge-refs';
@@ -27,7 +26,7 @@ export interface ErrorSummaryProps {
   override?: number;
 }
 
-export type ErrorSummaryComponent = Polymoprphic.ForwardRefComponent<
+export type ErrorSummaryComponent = Polymorphic.ForwardRefComponent<
   'div',
   ErrorSummaryProps
 >;

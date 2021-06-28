@@ -1,5 +1,5 @@
 import React, { ReactElement, forwardRef, useEffect, useRef } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 import { Accordion as AccordionJs } from 'lbh-frontend';
 import mergeRefs from 'react-merge-refs';
@@ -12,7 +12,7 @@ export interface AccordionItemProps {
   title: string;
 }
 
-export type AccordionItemComponent = Polymoprphic.ForwardRefComponent<
+export type AccordionItemComponent = Polymorphic.ForwardRefComponent<
   'div',
   AccordionItemProps
 >;
@@ -62,7 +62,7 @@ export interface AccordionProps {
   override?: number;
 }
 
-export type AccordionComponent = Polymoprphic.ForwardRefComponent<
+export type AccordionComponent = Polymorphic.ForwardRefComponent<
   'div',
   AccordionProps
 >;

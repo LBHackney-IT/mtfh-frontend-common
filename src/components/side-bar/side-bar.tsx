@@ -5,7 +5,7 @@ import React, {
   forwardRef,
   isValidElement,
 } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { useBreakpoint } from '../../hooks';
@@ -17,7 +17,7 @@ export interface SideBarSectionProps extends AccordionItemProps {
   heading?: string;
 }
 
-export type SideBarSectionComponent = Polymoprphic.ForwardRefComponent<
+export type SideBarSectionComponent = Polymorphic.ForwardRefComponent<
   'div',
   SideBarSectionProps
 >;
@@ -57,7 +57,7 @@ export interface SideBarProps {
     | Array<ReactElement<SideBarSectionProps> | null>;
 }
 
-export type SideBarComponent = Polymoprphic.ForwardRefComponent<
+export type SideBarComponent = Polymorphic.ForwardRefComponent<
   'div',
   SideBarProps
 >;

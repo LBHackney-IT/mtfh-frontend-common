@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { widthOverrides } from '../../utils';
@@ -17,7 +17,7 @@ export interface LinkProps {
   override?: number;
 }
 
-export type LinkComponent = Polymoprphic.ForwardRefComponent<'a', LinkProps>;
+export type LinkComponent = Polymorphic.ForwardRefComponent<'a', LinkProps>;
 
 export const Link: LinkComponent = forwardRef(function Link(
   {

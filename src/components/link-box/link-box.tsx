@@ -1,5 +1,5 @@
 import React, { ReactElement, forwardRef } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { widthOverrides } from '../../utils';
@@ -12,7 +12,7 @@ export interface LinkOverlayProps {
   override?: number;
 }
 
-export type LinkOverlayComponent = Polymoprphic.ForwardRefComponent<
+export type LinkOverlayComponent = Polymorphic.ForwardRefComponent<
   'div',
   LinkOverlayProps
 >;
@@ -36,7 +36,7 @@ export interface LinkBoxProps {
   override?: number;
 }
 
-export type LinkBoxComponent = Polymoprphic.ForwardRefComponent<
+export type LinkBoxComponent = Polymorphic.ForwardRefComponent<
   'div',
   LinkBoxProps
 >;

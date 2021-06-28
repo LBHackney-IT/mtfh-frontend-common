@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 import './styles.scss';
 
@@ -21,7 +21,7 @@ export interface SimplePaginationButtonProps {
   variant: 'previous' | 'next';
 }
 
-export type SimplePaginationButtonComponent = Polymoprphic.ForwardRefComponent<
+export type SimplePaginationButtonComponent = Polymorphic.ForwardRefComponent<
   'a',
   SimplePaginationButtonProps
 >;

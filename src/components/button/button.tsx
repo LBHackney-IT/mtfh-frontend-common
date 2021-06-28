@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { widthOverrides } from '../../utils';
@@ -13,7 +13,7 @@ export interface ButtonProps {
   override?: number;
 }
 
-export type ButtonComponent = Polymoprphic.ForwardRefComponent<
+export type ButtonComponent = Polymorphic.ForwardRefComponent<
   'button',
   ButtonProps
 >;
@@ -43,15 +43,15 @@ export const Button: ButtonComponent = forwardRef(function Button(
     className
   );
 
-  const maybeDisable = isDisabled || isLoading || undefined;
+  const disabled = isDisabled || isLoading || undefined;
 
   return (
     <ButtonComp
       ref={ref}
       type="button"
       className={buttonClasses}
-      disabled={maybeDisable}
-      aria-disabled={maybeDisable}
+      disabled={disabled}
+      aria-disabled={disabled}
       {...props}
     >
       {isLoading && (

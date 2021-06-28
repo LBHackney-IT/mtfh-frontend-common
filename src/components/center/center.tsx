@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import type * as Polymoprphic from '@radix-ui/react-polymorphic';
+import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { widthOverrides } from '../../utils';
@@ -11,7 +11,7 @@ export interface CenterProps {
   override?: number;
 }
 
-export type CenterComponent = Polymoprphic.ForwardRefComponent<
+export type CenterComponent = Polymorphic.ForwardRefComponent<
   'div',
   CenterProps
 >;
