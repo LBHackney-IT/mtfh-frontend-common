@@ -48,9 +48,9 @@ export const Button: ButtonComponent = forwardRef(function Button(
   return (
     <ButtonComp
       ref={ref}
-      type="button"
       className={buttonClasses}
-      disabled={disabled}
+      type={ButtonComp === 'button' ? 'button' : undefined}
+      disabled={ButtonComp === 'button' ? disabled : undefined}
       aria-disabled={disabled}
       {...props}
     >
