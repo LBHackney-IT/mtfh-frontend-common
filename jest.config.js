@@ -10,7 +10,7 @@ module.exports = {
   testPathIgnorePatterns: ['test-utils.ts'],
   setupFilesAfterEnv: ['@testing-library/jest-dom'],
   coverageDirectory: '../coverage',
-  coveragePathIgnorePatterns: ['test-utils.ts'],
+  coveragePathIgnorePatterns: ['test-utils.tsx'],
   coverageThreshold: {
     global: {
       statements: 100,

@@ -17,6 +17,7 @@ export * from './link-button';
 export * from './number-input';
 export * from './page-announcement';
 export * from './radios';
+export * from './scroll-to-top';
 export * from './select';
 export * from './side-bar';
 export * from './simple-pagination';

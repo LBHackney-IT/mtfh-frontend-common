@@ -61,7 +61,7 @@
       "error",
       {
         "devDependencies": [
-          "src/test-utils.ts",
+          "src/test-utils.tsx",
           "**/*.+(test|spec).+(j|t)s?(x)",
           "test?(s)/**/*.+(j|t)s?(x)"
         ]
