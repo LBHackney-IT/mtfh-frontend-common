@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import './styles.scss';
 
-export interface TableProps extends ComponentPropsWithoutRef<'table'> {}
+export type TableProps = ComponentPropsWithoutRef<'table'>;
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Thead(
   { className, ...props },
   ref
@@ -17,7 +17,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Thead(
   );
 });
 
-export interface TheadProps extends ComponentPropsWithoutRef<'thead'> {}
+export type TheadProps = ComponentPropsWithoutRef<'thead'>;
 export const Thead = forwardRef<HTMLTableSectionElement, TheadProps>(
   function Thead({ children, ...props }, ref) {
     return (
@@ -28,7 +28,7 @@ export const Thead = forwardRef<HTMLTableSectionElement, TheadProps>(
   }
 );
 
-export interface TbodyProps extends ComponentPropsWithoutRef<'tbody'> {}
+export type TbodyProps = ComponentPropsWithoutRef<'tbody'>;
 export const Tbody = forwardRef<HTMLTableSectionElement, TbodyProps>(
   function Tbody({ children, ...props }, ref) {
     return (
@@ -39,7 +39,7 @@ export const Tbody = forwardRef<HTMLTableSectionElement, TbodyProps>(
   }
 );
 
-export interface TrProps extends ComponentPropsWithoutRef<'tr'> {}
+export type TrProps = ComponentPropsWithoutRef<'tr'>;
 export const Tr = forwardRef<HTMLTableRowElement, TrProps>(function Tr(
   { children, ...props },
   ref
