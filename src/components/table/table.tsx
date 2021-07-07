@@ -60,7 +60,7 @@ export const Th = forwardRef<HTMLTableHeaderCellElement, ThProps>(function Th(
   { className, isNumeric, ...props },
   ref
 ) {
-  const linkedClasses = cn(
+  const thClasses = cn(
     'govuk-table__cell',
     'govuk-table__header',
     {
@@ -69,7 +69,7 @@ export const Th = forwardRef<HTMLTableHeaderCellElement, ThProps>(function Th(
     className
   );
 
-  return <th ref={ref} className={linkedClasses} {...props} />;
+  return <th ref={ref} className={thClasses} {...props} />;
 });
 
 export interface TdProps extends ComponentPropsWithoutRef<'td'> {
@@ -79,7 +79,7 @@ export const Td = forwardRef<HTMLTableCellElement, TdProps>(function Td(
   { className, isNumeric },
   ref
 ) {
-  const linkedClasses = cn(
+  const tdClasses = cn(
     'govuk-table__cell',
     {
       'govuk-table__cell--numeric': isNumeric,
@@ -87,7 +87,7 @@ export const Td = forwardRef<HTMLTableCellElement, TdProps>(function Td(
     className
   );
 
-  return <td ref={ref} className={linkedClasses} />;
+  return <td ref={ref} className={tdClasses} />;
 });
 
 export interface TableCaptionProps extends ComponentPropsWithoutRef<'caption'> {
@@ -97,7 +97,7 @@ export const TableCaption = forwardRef<
   HTMLTableCaptionElement,
   TableCaptionProps
 >(function TableCaption({ children, className, variant, ...props }, ref) {
-  const linkedClasses = cn(
+  const captionClasses = cn(
     'govuk-table__caption',
     'lbh-table__caption',
     {
@@ -110,7 +110,7 @@ export const TableCaption = forwardRef<
   );
 
   return (
-    <caption ref={ref} className={linkedClasses} {...props}>
+    <caption ref={ref} className={captionClasses} {...props}>
       {children}
     </caption>
   );
