@@ -19,35 +19,37 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Thead(
 
 export type TheadProps = ComponentPropsWithoutRef<'thead'>;
 export const Thead = forwardRef<HTMLTableSectionElement, TheadProps>(
-  function Thead({ children, ...props }, ref) {
+  function Thead({ className, ...props }, ref) {
     return (
-      <thead ref={ref} className="govuk-table__head" {...props}>
-        {children}
-      </thead>
+      <thead
+        ref={ref}
+        className={cn('govuk-table__head', className)}
+        {...props}
+      />
     );
   }
 );
 
 export type TbodyProps = ComponentPropsWithoutRef<'tbody'>;
 export const Tbody = forwardRef<HTMLTableSectionElement, TbodyProps>(
-  function Tbody({ children, ...props }, ref) {
+  function Tbody({ className, ...props }, ref) {
     return (
-      <tbody ref={ref} className="govuk-table__body" {...props}>
-        {children}
-      </tbody>
+      <tbody
+        ref={ref}
+        className={cn('govuk-table__body', className)}
+        {...props}
+      />
     );
   }
 );
 
 export type TrProps = ComponentPropsWithoutRef<'tr'>;
 export const Tr = forwardRef<HTMLTableRowElement, TrProps>(function Tr(
-  { children, ...props },
+  { className, ...props },
   ref
 ) {
   return (
-    <tr ref={ref} className="govuk-table__row" {...props}>
-      {children}
-    </tr>
+    <tr ref={ref} className={cn('govuk-table__row', className)} {...props} />
   );
 });
 
@@ -55,36 +57,37 @@ export interface ThProps extends ComponentPropsWithoutRef<'th'> {
   isNumeric?: boolean;
 }
 export const Th = forwardRef<HTMLTableHeaderCellElement, ThProps>(function Th(
-  { children, isNumeric, ...props },
+  { className, isNumeric, ...props },
   ref
 ) {
-  const linkedClasses = cn('govuk-table__cell', 'govuk-table__header', {
-    'govuk-table__cell--numeric': isNumeric,
-  });
-
-  return (
-    <th ref={ref} className={linkedClasses} {...props}>
-      {children}
-    </th>
+  const linkedClasses = cn(
+    'govuk-table__cell',
+    'govuk-table__header',
+    {
+      'govuk-table__cell--numeric': isNumeric,
+    },
+    className
   );
+
+  return <th ref={ref} className={linkedClasses} {...props} />;
 });
 
 export interface TdProps extends ComponentPropsWithoutRef<'td'> {
   isNumeric?: boolean;
 }
 export const Td = forwardRef<HTMLTableCellElement, TdProps>(function Td(
-  { children, isNumeric },
+  { className, isNumeric },
   ref
 ) {
-  const linkedClasses = cn('govuk-table__cell', {
-    'govuk-table__cell--numeric': isNumeric,
-  });
-
-  return (
-    <td ref={ref} className={linkedClasses}>
-      {children}
-    </td>
+  const linkedClasses = cn(
+    'govuk-table__cell',
+    {
+      'govuk-table__cell--numeric': isNumeric,
+    },
+    className
   );
+
+  return <td ref={ref} className={linkedClasses} />;
 });
 
 export interface TableCaptionProps extends ComponentPropsWithoutRef<'caption'> {
