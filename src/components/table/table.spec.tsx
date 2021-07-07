@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { testA11y } from '../../test-utils';
 import { Table, TableCaption, Tbody, Td, Th, Thead, Tr } from './table';
 
-const tableHead = () => (
+const TableHeadSample = () => (
   <Thead>
     <Tr>
       <Th>Month you apply</Th>
@@ -14,7 +14,7 @@ const tableHead = () => (
   </Thead>
 );
 
-const tableBody = () => (
+const TableBodySample = () => (
   <Tbody>
     <Tr>
       <Td>January</Td>
@@ -35,7 +35,11 @@ const tableBody = () => (
 );
 
 test('it displays a basic table passes a11y', async () => {
-  const { container } = render(<Table>{tableBody()}</Table>);
+  const { container } = render(
+    <Table>
+      <TableBodySample />
+    </Table>
+  );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
@@ -43,7 +47,9 @@ test('it displays a basic table passes a11y', async () => {
 test('it displays a custom styled basic table passes a11y', async () => {
   const tableClass = 'customTableClass';
   const { container } = render(
-    <Table className={tableClass}>{tableBody()}</Table>
+    <Table className={tableClass}>
+      <TableBodySample />
+    </Table>
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
@@ -52,8 +58,8 @@ test('it displays a custom styled basic table passes a11y', async () => {
 test('it displays a table with a header and passes a11y', async () => {
   const { container } = render(
     <Table>
-      {tableHead()}
-      {tableBody()}
+      <TableHeadSample />
+      <TableBodySample />
     </Table>
   );
   expect(container).toMatchSnapshot();
@@ -64,8 +70,8 @@ test('it displays a table with a caption and header and passes a11y', async () =
   const { container } = render(
     <Table>
       <TableCaption>Caption 1: Months and rates</TableCaption>
-      {tableHead()}
-      {tableBody()}
+      <TableHeadSample />
+      <TableBodySample />
     </Table>
   );
   expect(container).toMatchSnapshot();
@@ -78,8 +84,8 @@ captionSizes.map((size) =>
     const { container } = render(
       <Table>
         <TableCaption>{size} Caption 1: Months and rates</TableCaption>
-        {tableHead()}
-        {tableBody()}
+        <TableHeadSample />
+        <TableBodySample />
       </Table>
     );
     expect(container).toMatchSnapshot();
