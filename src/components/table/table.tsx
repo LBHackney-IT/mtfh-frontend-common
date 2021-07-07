@@ -76,7 +76,7 @@ export interface TdProps extends ComponentPropsWithoutRef<'td'> {
   isNumeric?: boolean;
 }
 export const Td = forwardRef<HTMLTableCellElement, TdProps>(function Td(
-  { className, isNumeric },
+  { className, isNumeric, ...props },
   ref
 ) {
   const tdClasses = cn(
@@ -87,7 +87,7 @@ export const Td = forwardRef<HTMLTableCellElement, TdProps>(function Td(
     className
   );
 
-  return <td ref={ref} className={tdClasses} />;
+  return <td ref={ref} className={tdClasses} {...props} />;
 });
 
 export interface TableCaptionProps extends ComponentPropsWithoutRef<'caption'> {
