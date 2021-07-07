@@ -91,19 +91,27 @@ export const Td = forwardRef<HTMLTableCellElement, TdProps>(function Td(
 });
 
 export interface TableCaptionProps extends ComponentPropsWithoutRef<'caption'> {
-  title: string;
   variant?: 'xlarge' | 'large' | 'medium' | 'small';
 }
 export const TableCaption = forwardRef<
   HTMLTableCaptionElement,
   TableCaptionProps
->(function TableCaption({ title, variant }, ref) {
-  const linkedClasses = cn('govuk-table__caption', 'lbh-table__caption', {
-    'govuk-table__caption--s': variant === 'small',
-    'govuk-table__caption--m': variant === 'medium',
-    'govuk-table__caption--l': variant === 'large',
-    'govuk-table__caption--xl': variant === 'xlarge',
-  });
+>(function TableCaption({ children, className, variant, ...props }, ref) {
+  const linkedClasses = cn(
+    'govuk-table__caption',
+    'lbh-table__caption',
+    {
+      'govuk-table__caption--s': variant === 'small',
+      'govuk-table__caption--m': variant === 'medium',
+      'govuk-table__caption--l': variant === 'large',
+      'govuk-table__caption--xl': variant === 'xlarge',
+    },
+    className
+  );
 
-  return <caption className={linkedClasses}>{title}</caption>;
+  return (
+    <caption ref={ref} className={linkedClasses} {...props}>
+      {children}
+    </caption>
+  );
 });
