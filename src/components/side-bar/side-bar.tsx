@@ -8,11 +8,11 @@ import React, {
 import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
-import { useBreakpoint } from '../../hooks';
 import { Accordion, AccordionItem, AccordionItemProps } from '../accordion';
 import './styles.scss';
 
 export interface SideBarSectionProps extends AccordionItemProps {
+  isAccordion?: boolean;
   isCollapsed?: boolean;
   heading?: string;
 }
@@ -24,10 +24,17 @@ export type SideBarSectionComponent = Polymorphic.ForwardRefComponent<
 
 export const SideBarSection: SideBarSectionComponent = forwardRef(
   function SideBarSection(
-    { children, heading, className, isCollapsed = false, ...props },
+    {
+      children,
+      heading,
+      className,
+      isAccordion = false,
+      isCollapsed = false,
+      ...props
+    },
     ref
   ) {
-    if (isCollapsed) {
+    if (isAccordion && isCollapsed) {
       return (
         <AccordionItem ref={ref} {...props}>
           {children}
@@ -66,28 +73,23 @@ export const SideBar: SideBarComponent = forwardRef(function SideBar(
   { as: SideBarComp = 'div', id, top, children, className, ...props },
   ref
 ) {
-  const isDesktop = useBreakpoint('md');
   const sidebarClasses = cn('mtfh-sidebar', className);
 
   return (
     <SideBarComp ref={ref} className={sidebarClasses} {...props}>
       {top}
-      {!isDesktop ? (
-        <Accordion id={id}>
-          {Children.map<
-            ReactElement<SideBarSectionProps> | undefined,
-            ReactElement<SideBarSectionProps> | null
-          >(children, (child) =>
-            child && isValidElement(child)
-              ? cloneElement(child, {
-                  isCollapsed: true,
-                })
-              : undefined
-          )}
-        </Accordion>
-      ) : (
-        <div id={id}>{children}</div>
-      )}
+      <Accordion id={id}>
+        {Children.map<
+          ReactElement<SideBarSectionProps> | undefined,
+          ReactElement<SideBarSectionProps> | null
+        >(children, (child) =>
+          child && isValidElement(child)
+            ? cloneElement(child, {
+                isCollapsed: true,
+              })
+            : undefined
+        )}
+      </Accordion>
     </SideBarComp>
   );
 });

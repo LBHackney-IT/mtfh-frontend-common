@@ -105,15 +105,58 @@ exports[`it renders correctly on desktop 1`] = `
     class="mtfh-sidebar"
   >
     <div
+      class="govuk-accordion lbh-accordion"
+      data-attribute="value"
       id="sidebar"
     >
       <div
-        class="mtfh-sidebar-section"
-        id="section-1"
-        title="More Details"
+        class="govuk-accordion__controls"
       >
-        <div>
-          Content
+        <button
+          aria-expanded="false"
+          class="govuk-accordion__open-all"
+          type="button"
+        >
+          Open all
+          <span
+            class="govuk-visually-hidden"
+          >
+             sections
+          </span>
+        </button>
+      </div>
+      <div
+        class="govuk-accordion__section"
+      >
+        <div
+          class="govuk-accordion__section-header"
+        >
+          <h3
+            class="govuk-accordion__section-heading lbh-heading-h5"
+          >
+            <button
+              aria-controls="sidebar-content-1"
+              aria-expanded="false"
+              class="govuk-accordion__section-button"
+              id="accordion-heading-section-1"
+              type="button"
+            >
+              More Details
+              <span
+                aria-hidden="true"
+                class="govuk-accordion__icon"
+              />
+            </button>
+          </h3>
+        </div>
+        <div
+          aria-labelledby="accordion-heading-section-1"
+          class="govuk-accordion__section-content"
+          id="accordion-content-section-1"
+        >
+          <div>
+            Content
+          </div>
         </div>
       </div>
     </div>
