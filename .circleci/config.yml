@@ -18,6 +18,9 @@ executors:
   docker-terraform:
     docker:
       - image: 'hashicorp/terraform:light'
+  docker-python:
+    docker:
+      - image: circleci/python:3.7
 
 commands:
   assume-role-and-persist-workspace:
@@ -148,19 +151,19 @@ jobs:
           command: aws s3 sync dist s3://lbh-housing-tl-common-frontend-production.hackney.gov.uk/
 
   assume-role-development:
-    executor: node-executor
+    executor: docker-python
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_DEVELOPMENT
 
   assume-role-staging:
-    executor: node-executor
+    executor: docker-python
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_STAGING
 
   assume-role-production:
-    executor: node-executor
+    executor: docker-python
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
