@@ -31,6 +31,16 @@ test('it renders the correct variant', async () => {
   await testA11y(container);
 });
 
+test('it can render as a link', async () => {
+  const { container } = render(
+    <Button as="a" href="/">
+      Test Link
+    </Button>
+  );
+  expect(container).toMatchSnapshot();
+  await testA11y(container);
+});
+
 test('it accepts a ref', () => {
   const callback = jest.fn();
   const Comp = () => {

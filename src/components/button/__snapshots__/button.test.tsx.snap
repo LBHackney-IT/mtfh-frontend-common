@@ -1,5 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`it can render as a link 1`] = `
+<div>
+  <a
+    class="govuk-button lbh-button"
+    href="/"
+  >
+    Test Link
+  </a>
+</div>
+`;
+
 exports[`it renders correctly 1`] = `
 <div>
   <button
@@ -14,7 +25,7 @@ exports[`it renders correctly 1`] = `
 exports[`it renders the correct variant 1`] = `
 <div>
   <button
-    class="govuk-button lbh-button govuk-secondary lbh-button--secondary"
+    class="govuk-button lbh-button govuk-button--secondary lbh-button--secondary"
     type="button"
   >
     Test Link

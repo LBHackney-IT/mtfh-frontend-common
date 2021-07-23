@@ -36,7 +36,7 @@ export const Button: ButtonComponent = forwardRef(function Button(
     'govuk-button',
     'lbh-button',
     {
-      'govuk-secondary lbh-button--secondary': variant === 'secondary',
+      'govuk-button--secondary lbh-button--secondary': variant === 'secondary',
       'lbh-button--disabled govuk-button--disabled': isDisabled,
     },
     widthOverrides(override),

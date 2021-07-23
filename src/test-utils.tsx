@@ -75,7 +75,7 @@ export const getSuccess = (data: unknown, url = ''): void => {
   server.use(
     rest.get(`/api/${url}`, (req, res, ctx) => {
       if (req.headers?.has('Authorization')) {
-        return res.once(ctx.status(200), ctx.json(data));
+        return res.once(ctx.status(200), ctx.set('Etag', '1'), ctx.json(data));
       }
       return res.once(
         ctx.status(403),
