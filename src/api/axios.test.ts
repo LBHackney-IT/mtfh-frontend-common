@@ -9,6 +9,7 @@ jest.mock('../auth', () => ({
     getValue: jest.fn(() => ({ token: 'string' })),
   },
 }));
+
 describe('axiosInstance', () => {
   test('it calls with Authorization header', async () => {
     getSuccess('success');
@@ -66,5 +67,21 @@ describe('axiosInstance', () => {
     expect(res.data).toStrictEqual({
       id: '70a8d798-d707-4eee-8c9e-7fe1ecaf42cb',
     });
+  });
+
+  test('If-Match header is not sent when no etag is provided', async () => {
+    server.use(
+      rest.patch('/api', (req, res, ctx) => {
+        if (req.headers?.has('If-Match')) {
+          return res.once(ctx.status(500), ctx.json({ error: 'failed' }));
+        }
+        return res.once(ctx.status(200), ctx.json({ success: true }));
+      })
+    );
+
+    const res = await axiosInstance.patch('/api');
+
+    expect(res.status).toBe(200);
+    expect(res.data).toStrictEqual({ success: true });
   });
 });
