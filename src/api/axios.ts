@@ -24,7 +24,7 @@ axiosInstance.interceptors.request.use((config) => {
   };
 
   if (req.method === 'patch' && Object.keys(req.data).includes('etag')) {
-    req.headers['If-Match'] = req.data.etag;
+    req.headers['If-Match'] = req.data.etag || '';
     delete req.data.etag;
   }
 
