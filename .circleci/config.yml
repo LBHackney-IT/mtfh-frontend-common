@@ -357,4 +357,5 @@ workflows:
   e2e-tests-failure:
     when: << pipeline.parameters.e2e_test_failure >>
     jobs:
-      - failure-downstream
+      - failure-downstream:
+          context: mtfh-mfe-e2e-tests
