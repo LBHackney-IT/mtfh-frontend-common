@@ -3,12 +3,11 @@ import type * as Polymorphic from '@radix-ui/react-polymorphic';
 import cn from 'classnames';
 
 import { widthOverrides } from '../../utils';
-import { ButtonLinkProps } from '../button-link';
 import { LinkProps } from '../link';
 import './styles.scss';
 
 export interface LinkOverlayProps {
-  children: ReactElement<LinkProps | ButtonLinkProps>;
+  children: ReactElement<LinkProps>;
   override?: number;
 }
 

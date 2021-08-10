@@ -46,6 +46,7 @@ export const SimplePaginationButton: SimplePaginationButtonComponent =
           { 'lbh-simple-pagination__link--next': variant === 'next' },
           className
         )}
+        rel={variant}
         {...props}
       >
         {variant === 'previous' ? (

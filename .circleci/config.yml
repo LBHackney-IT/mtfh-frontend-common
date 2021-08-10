@@ -125,6 +125,7 @@ jobs:
             export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
             export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
             export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -146,6 +147,7 @@ jobs:
             export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
             export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
             export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -167,6 +169,7 @@ jobs:
             export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
             export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
             export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
