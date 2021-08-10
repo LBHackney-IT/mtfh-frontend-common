@@ -5,10 +5,10 @@ import {
   hasToggle,
 } from './configuration';
 
-const intialStore = featureToggleStore.getValue();
+const initialStore = featureToggleStore.getValue();
 
 beforeEach(() => {
-  featureToggleStore.next(intialStore);
+  featureToggleStore.next(initialStore);
   window.localStorage.removeItem('features');
 });
 
