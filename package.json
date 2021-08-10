@@ -11,6 +11,7 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
+    "test:ci": "cross-env BABEL_ENV=test jest --passWithNoTests --runInBand",
     "watch-tests": "cross-env BABEL_ENV=test jest --watch",
     "coverage": "cross-env BABEL_ENV=test jest --coverage"
   },
