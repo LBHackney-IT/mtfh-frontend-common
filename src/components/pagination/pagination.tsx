@@ -84,6 +84,7 @@ export const PaginationButton: PaginationButtonComponent = forwardRef(
           },
           className
         )}
+        rel={variant !== 'base' ? variant : undefined}
         {...props}
       >
         {variant === 'previous' ? (

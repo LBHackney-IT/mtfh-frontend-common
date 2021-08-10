@@ -27,6 +27,7 @@ module.exports = (webpackConfigEnv, argv) => {
         AUTH_DOMAIN: dotenv.AUTHDOMAIN || '',
         COOKIE_DOMAIN: dotenv.COOKIE_DOMAIN || '',
         AUTH_TOKEN_NAME: dotenv.AUTH_TOKEN_NAME || '',
+        CONFIGURATION_API_URL: dotenv.CONFIGURATION_API_URL || '',
       }),
     ],
   });
