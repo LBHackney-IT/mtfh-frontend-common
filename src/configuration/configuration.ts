@@ -10,7 +10,7 @@ export type Configuration = {
 
 const initialFeatureToggles = {
   MMH: {
-    SearchTenure: false,
+    SearchAsset: false,
   },
 };
 
