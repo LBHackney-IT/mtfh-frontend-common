@@ -14,35 +14,64 @@ exports[`it passes a11y 1`] = `
       
     </label>
     <div
-      class="mtfh-date-input"
-      id="test-field"
+      class="govuk-date-input lbh-date-input"
       name="test"
     >
-      <input
-        aria-label="Day"
-        aria-valuemax="31"
-        aria-valuemin="1"
-        class="govuk-input lbh-input"
-        name="day"
-        role="spinbutton"
-        value=""
-      />
-      <input
-        aria-label="Month"
-        aria-valuemax="12"
-        aria-valuemin="1"
-        class="govuk-input lbh-input"
-        name="month"
-        role="spinbutton"
-        value=""
-      />
-      <input
-        aria-label="Year"
-        class="govuk-input lbh-input"
-        name="year"
-        role="spinbutton"
-        value=""
-      />
+      <div
+        class="govuk-date-input__item"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="test-field-day"
+        >
+          Day
+        </label>
+        <input
+          aria-label="Day"
+          aria-valuemax="31"
+          aria-valuemin="1"
+          class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+          name="day"
+          role="spinbutton"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-date-input__item"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="test-field-month"
+        >
+          Month
+        </label>
+        <input
+          aria-label="Month"
+          aria-valuemax="12"
+          aria-valuemin="1"
+          class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+          name="month"
+          role="spinbutton"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-date-input__item"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="test-field-year"
+        >
+          Year
+        </label>
+        <input
+          aria-label="Year"
+          class="govuk-input lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+          name="year"
+          role="spinbutton"
+          value=""
+        />
+      </div>
     </div>
   </div>
 </div>
@@ -51,33 +80,63 @@ exports[`it passes a11y 1`] = `
 exports[`it renders correctly 1`] = `
 <div>
   <div
-    class="mtfh-date-input"
+    class="govuk-date-input lbh-date-input"
   >
-    <input
-      aria-label="Day"
-      aria-valuemax="31"
-      aria-valuemin="1"
-      class="govuk-input lbh-input"
-      name="day"
-      role="spinbutton"
-      value=""
-    />
-    <input
-      aria-label="Month"
-      aria-valuemax="12"
-      aria-valuemin="1"
-      class="govuk-input lbh-input"
-      name="month"
-      role="spinbutton"
-      value=""
-    />
-    <input
-      aria-label="Year"
-      class="govuk-input lbh-input"
-      name="year"
-      role="spinbutton"
-      value=""
-    />
+    <div
+      class="govuk-date-input__item"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="date-input-day"
+      >
+        Day
+      </label>
+      <input
+        aria-label="Day"
+        aria-valuemax="31"
+        aria-valuemin="1"
+        class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+        name="day"
+        role="spinbutton"
+        value=""
+      />
+    </div>
+    <div
+      class="govuk-date-input__item"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="date-input-month"
+      >
+        Month
+      </label>
+      <input
+        aria-label="Month"
+        aria-valuemax="12"
+        aria-valuemin="1"
+        class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+        name="month"
+        role="spinbutton"
+        value=""
+      />
+    </div>
+    <div
+      class="govuk-date-input__item"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="date-input-year"
+      >
+        Year
+      </label>
+      <input
+        aria-label="Year"
+        class="govuk-input lbh-input govuk-input govuk-date-input__input govuk-input--width-4"
+        name="year"
+        role="spinbutton"
+        value=""
+      />
+    </div>
   </div>
 </div>
 `;

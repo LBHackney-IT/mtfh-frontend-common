@@ -1,13 +1,6 @@
-.mtfh-date-input {
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: repeat(3, minmax(0px, 1fr));
+@import '~lbh-frontend/lbh/base';
+@import '~lbh-frontend/lbh/components/lbh-date-input/date-input';
 
-  .lbh-form-group & {
-    margin-top: 0;
-  }
-
-  .lbh-error-message + & {
-    margin-top: 0.375rem;
-  }
+fieldset.lbh-form-group > .lbh-date-input {
+  margin-top: 5px;
 }

@@ -20,7 +20,7 @@ module.exports = (webpackConfigEnv, argv) => {
         },
       ],
     },
-    externals: ['react', 'react-dom', 'react-router-dom'],
+    externals: ['react', 'react-dom', 'react-router-dom', 'formik'],
     plugins: [
       new webpack.EnvironmentPlugin({
         AUTH_ALLOWED_GROUPS: dotenv.AUTH_ALLOWED_GROUPS || '',

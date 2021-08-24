@@ -5,6 +5,16 @@
 @import '../../../node_modules/lbh-frontend/lbh/components/lbh-hint/hint';
 @import '../../../node_modules/lbh-frontend/lbh/components/lbh-error-message/error-message';
 
-.lbh-form-group .govuk-label sup {
-  color: lbh-colour('lbh-error');
+.lbh-form-group {
+  label,
+  legend {
+    sup {
+      color: lbh-colour('lbh-error');
+    }
+  }
+}
+
+fieldset.lbh-form-group legend {
+  display: contents;
+  margin-bottom: 0.375rem;
 }

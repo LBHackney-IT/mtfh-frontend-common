@@ -106,6 +106,16 @@
       {
         "extensions": [".js", ".jsx", ".tsx"]
       }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        "labelComponents": ["Label"],
+        "labelAttributes": ["label"],
+        "controlComponents": ["Input"],
+        "assert": "htmlFor",
+        "depth": 3
+      }
     ]
   },
   "overrides": [
