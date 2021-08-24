@@ -89,6 +89,7 @@
     "@types/webpack-env": "^1.16.0",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "formik": "^2.2.9",
     "js-cookie": "^2.2.1",
     "jwt-decode": "^3.1.2",
     "lbh-frontend": "^3.5.3",

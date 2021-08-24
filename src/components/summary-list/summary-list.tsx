@@ -82,7 +82,7 @@ type SummaryListChild =
   | null;
 
 export interface SummaryListProps extends ComponentPropsWithoutRef<'dl'> {
-  variant?: 'base' | 'border';
+  variant?: 'base' | 'border' | 'inline';
   overrides?: number[];
   children: SummaryListChild | SummaryListChild[];
 }
@@ -98,6 +98,7 @@ export const SummaryList = forwardRef<HTMLDListElement, SummaryListProps>(
         className={cn(
           'govuk-summary-list',
           { 'govuk-summary-list--no-border': variant !== 'border' },
+          { 'mtfh-summary-list--inline': variant === 'inline' },
           'lbh-summary-list',
           className
         )}

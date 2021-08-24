@@ -1,2 +1,29 @@
 @import '~lbh-frontend/lbh/base';
 @import '~lbh-frontend/lbh/components/lbh-summary-list/summary-list';
+
+.mtfh-summary-list--inline {
+  width: auto;
+  font-size: lbh-font(16);
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+
+  .govuk-summary-list__row {
+    display: flex;
+    margin: 0;
+  }
+
+  .govuk-summary-list__key {
+    width: auto;
+  }
+
+  .govuk-summary-list__key,
+  .govuk-summary-list__value {
+    font-weight: 400;
+    padding: 0;
+  }
+
+  .govuk-summary-list__value {
+    margin-left: 0.5rem;
+  }
+}
