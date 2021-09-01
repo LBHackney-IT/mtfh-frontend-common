@@ -1,9 +1,9 @@
 @import '~lbh-frontend/lbh/base';
 @import '~lbh-frontend/lbh/components/lbh-summary-list/summary-list';
 
-.mtfh-summary-list--inline {
+.govuk-summary-list.mtfh-summary-list--inline {
+  @include govuk-font($size: 16);
   width: auto;
-  font-size: lbh-font(16);
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
@@ -13,17 +13,20 @@
     margin: 0;
   }
 
-  .govuk-summary-list__key {
+  .govuk-summary-list__key,
+  .govuk-summary-list__value,
+  .govuk-summary-list__actions {
     width: auto;
   }
 
   .govuk-summary-list__key,
-  .govuk-summary-list__value {
-    font-weight: 400;
+  .govuk-summary-list__value,
+  .govuk-summary-list__actions {
     padding: 0;
   }
 
-  .govuk-summary-list__value {
+  .govuk-summary-list__value,
+  .govuk-summary-list__actions {
     margin-left: 0.5rem;
   }
 }
