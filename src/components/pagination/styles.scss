@@ -8,6 +8,11 @@ button.lbh-pagination__link {
   border: none;
   color: lbh-colour(lbh-link);
   padding: 0;
+  cursor: pointer;
+
+  &.lbh-pagination__link--current {
+    font-weight: 600;
+  }
 }
 
 .lbh-pagination--center {

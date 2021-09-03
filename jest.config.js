@@ -7,8 +7,8 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|scss)$': 'identity-obj-proxy',
   },
-  testPathIgnorePatterns: ['test-utils.ts'],
-  setupFilesAfterEnv: ['@testing-library/jest-dom'],
+  testPathIgnorePatterns: ['test-utils.tsx'],
+  setupFilesAfterEnv: ['@testing-library/jest-dom', './test-utils.tsx'],
   coverageDirectory: '../coverage',
   coveragePathIgnorePatterns: ['test-utils.tsx'],
   coverageThreshold: {
