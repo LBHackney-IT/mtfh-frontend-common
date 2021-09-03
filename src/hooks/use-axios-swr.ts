@@ -3,13 +3,14 @@ import useSwr, {
   Key,
   KeyLoader,
   SWRConfiguration,
+  SWRResponse,
+  mutate,
+} from 'swr';
+
+import useSWRInfinite, {
   SWRInfiniteConfiguration,
   SWRInfiniteResponse,
-  SWRResponse,
-  cache,
-  mutate,
-  useSWRInfinite,
-} from 'swr';
+} from 'swr/infinite';
 
 import { axiosInstance } from '../api';
 
@@ -36,4 +37,4 @@ export const useAxiosSWRInfinite = <ResponseData>(
 ): AxiosSWRInfiniteResponse<ResponseData> =>
   useSWRInfinite<ResponseData, AxiosSWRError>(key, axiosFetcher, options);
 
-export { cache, mutate };
+export { mutate };

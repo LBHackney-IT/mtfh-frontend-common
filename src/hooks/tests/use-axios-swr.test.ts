@@ -16,7 +16,7 @@ describe('useAxiosSWR', () => {
 });
 
 describe('useAxiosSWRInfinite', () => {
-  test('it configures useSWR correctly', async () => {
+  test('it configures useSWRInfinite correctly', async () => {
     getSuccess('request 1', '1');
     getSuccess('request 2', '2');
     const { result, waitForNextUpdate } = renderHook(() =>
@@ -25,7 +25,6 @@ describe('useAxiosSWRInfinite', () => {
     expect(result.current.data).toBe(undefined);
     await waitForNextUpdate();
     expect(result.current.data).toStrictEqual(['request 1']);
-
     act(() => {
       result.current.setSize(result.current.size + 1).catch((e) => {
         throw e;

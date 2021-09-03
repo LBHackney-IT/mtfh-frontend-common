@@ -14,6 +14,7 @@ export interface FieldProps {
   id: string;
   label: string;
   children: ReactElement;
+  className?: string;
   required?: boolean;
   type?: 'checkbox' | 'radio' | 'text' | 'number';
 }
@@ -27,8 +28,9 @@ export const Field = ({
   ...props
 }: FieldProps): JSX.Element => {
   const [field, meta] = useField({ name, type, value: children.props.value });
+  const comp = type === 'checkbox' || type === 'radio' ? 'fieldset' : 'div';
   return (
-    <FormGroup id={id} label={label} error={meta.error} {...props}>
+    <FormGroup as={comp} id={id} label={label} error={meta.error} {...props}>
       {cloneElement(children, { ...field })}
     </FormGroup>
   );
