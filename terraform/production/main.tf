@@ -41,3 +41,9 @@ module "cloudfront-production" {
   project_name= "MTFH Tenants and Leaseholders"
   use_cloudfront_cert = true
 }
+
+resource "aws_ssm_parameter" "cdn" {
+  name  = "/housing-tl/production/common-app-url"
+  type  = "String"
+  value = "https://${cloudfront-production.domain_name}"
+}
