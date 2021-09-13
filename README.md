@@ -28,7 +28,7 @@ On import of the library a `RxJs SharedBehaviour` instance is created of the dec
 Your app can import this `$auth` instance and extract the current value.
 
 ```ts
-import { $auth, AuthUser } from '@mtfh/common';
+import { $auth, AuthUser } from '@mtfh/common/lib/auth';
 
 const user: AuthUser = $auth.getValue();
 ```
@@ -43,12 +43,12 @@ const subscription = $auth.subscribe((authUser) => {
 subscription.unsubscribe();
 ```
 
-## Api
+## Http
 
 A custom instance of `axios` is exposed that is preconfigured with an interceptor to add an `Authorization` header, based off the authenticated user.
 
 ```ts
-import { axiosInstance } from '@mtfh/common';
+import { axiosInstance } from '@mtfh/common/lib/http';
 
 axiosInstance.get('/url');
 ```
@@ -64,102 +64,31 @@ axiosInstance.get('/url', { cancelToken: cancelTokenSource.token });
 cancelTokenSource.cancel();
 ```
 
-## Components
+## React Components
 
-The provided components are generic Design System approved React components. More to come as we develop.
-
-### Input
-
-```ts
-export interface InputProps {
-  as?: ElementType;
-  error?: boolean;
-}
-```
+The provided components are React components of [lbh-frontend](https://github.com/LBHackney-IT/lbh-frontend).
 
 ```tsx
-import { Input } from '@mtfh/common';
-
-<Input id="date-of-birth" name="dateOfBirth" type="text" />;
+import { Input } from '@mtfh/common/lib/components';
 ```
 
-### Select
+## React Hooks
 
-```ts
-export interface SelectProps {
-  as?: ElementType;
-  error?: boolean;
-  isFullWidth?: boolean;
-}
-```
+The following hooks are available:
+
+- useAxiosSWR
+- useAxiosSWRInfinite
+- useBreakpoint
+- useFeatureToggle
 
 ```tsx
-import { Select } from '@mtfh/common';
-
-<Select id="sort" name="sort">
-  <option value="a-z">A-Z</option>
-  <option value="z-a">Z-A</option>
-</Select>;
+import { useFeatureToggle } from '@mtfh/common/lib/hooks';
 ```
 
-### FormGroup
+## Architecture
 
-```ts
-interface FormGroupProps {
-  as: ElementType;
-  id: string;
-  name: string;
-  label: string;
-  hint?: string;
-  error?: string | false;
-  required?: boolean;
-  children: ReactElement;
-}
-```
+The common library has manual code splitting in place, defined as entry points within webpack. These files get automatically marked as externals, so its important to import from the `@mtfh/common/lib/*` alias when cross importing. These are consolidated into the `import-map.json`, so made available at runtime.
 
-```tsx
-import { FormGroup, Input } from '@mtfh/common';
+When this library is installed in a micro-frontend its sole purpose is to satisfy tests as well as provide typings.
 
-<FormGroup id="search" name="search" label="Search Input">
-  <Input />
-</FormGroup>;
-```
-
-## Eslint
-
-The `.eslintrc` rules defined here are a good basis to extend from for a microfrontend. This helps us maintain a consistent coding style across the separate repos and team members.
-
-```json
-{
-  "extends": ["./node_modules/@mtfh/common/.eslintrc"],
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  }
-}
-```
-
-### VSCode support
-
-It's handy to get the `eslint` vscode extension to apply fixes automatically to reduce friction on the rules.
-
-```json
-// .vscode/settings.json
-{
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.packageManager": "yarn",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "html"
-  ]
-}
-```
+NB: Typescript does not support `package.json` `exports` yet, so we have to maintain the dist output to match the source. ie the usage of `lib`.
