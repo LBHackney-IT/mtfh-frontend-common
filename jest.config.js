@@ -1,11 +1,12 @@
 module.exports = {
-  rootDir: 'src',
+  rootDir: 'lib',
   transform: {
     '^.+\\.(j|t)sx?$': 'babel-jest',
   },
   transformIgnorePatterns: ['node_modules/(?!lbh-frontend)'],
   moduleNameMapper: {
     '\\.(css|scss)$': 'identity-obj-proxy',
+    '^@mtfh/common/lib/(.*)': '<rootDir>/$1',
   },
   testPathIgnorePatterns: ['test-utils.tsx'],
   setupFilesAfterEnv: ['@testing-library/jest-dom', './test-utils.tsx'],

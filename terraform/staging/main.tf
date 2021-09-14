@@ -41,3 +41,9 @@ module "cloudfront-staging" {
   project_name= "MTFH Tenants and Leaseholders"
   use_cloudfront_cert = true
 }
+
+resource "aws_ssm_parameter" "cdn" {
+  name  = "/housing-tl/staging/common-app-url"
+  type  = "String"
+  value = "https://${cloudfront-staging.domain_name}"
+}
