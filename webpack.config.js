@@ -23,6 +23,35 @@ module.exports = (webpackConfigEnv, argv) => {
       'common/lib/config': path.join(__dirname, 'lib', 'config'),
       'common/lib/components': path.join(__dirname, 'lib', 'components'),
       'common/lib/hooks': path.join(__dirname, 'lib', 'hooks'),
+      'common/lib/utils': path.join(__dirname, 'lib', 'utils'),
+      'common/lib/api/person/v1': path.join(
+        __dirname,
+        'lib',
+        'api',
+        'person',
+        'v1'
+      ),
+      'common/lib/api/contact-details/v1': path.join(
+        __dirname,
+        'lib',
+        'api',
+        'contact-details',
+        'v1'
+      ),
+      'common/lib/api/tenure/v1': path.join(
+        __dirname,
+        'lib',
+        'api',
+        'tenure',
+        'v1'
+      ),
+      'common/lib/api/comments/v1': path.join(
+        __dirname,
+        'lib',
+        'api',
+        'comments',
+        'v1'
+      ),
     },
     output: {
       filename: '[name].[contenthash].js',
@@ -47,7 +76,11 @@ module.exports = (webpackConfigEnv, argv) => {
         AUTH_DOMAIN: dotenv.AUTHDOMAIN || '',
         COOKIE_DOMAIN: dotenv.COOKIE_DOMAIN || '',
         AUTH_TOKEN_NAME: dotenv.AUTH_TOKEN_NAME || '',
-        CONFIGURATION_API_URL: dotenv.CONFIGURATION_API_URL || '',
+        CONFIGURATION_API_URL_V1: dotenv.CONFIGURATION_API_URL_V1 || '',
+        CONTACT_DETAILS_API_URL_V1: dotenv.CONTACT_DETAILS_API_URL_V1 || '',
+        PERSON_API_URL_V1: dotenv.PERSON_API_URL_V1 || '',
+        NOTES_API_URL_V1: dotenv.NOTES_API_URL_V1 || '',
+        TENURE_API_URL_V1: dotenv.TENURE_API_URL_V1 || '',
       }),
       new ImportMapWebpackPlugin({
         namespace: '@mtfh',

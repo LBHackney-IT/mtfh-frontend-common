@@ -50,7 +50,7 @@ export const getConfiguration = async (): Promise<void> => {
 
   try {
     const res = await axiosInstance.get<Configuration[]>(
-      `${config.configurationApiUrl}/api/v1/configuration?types=MMH`
+      `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`
     );
     res.data.forEach(({ type, featureToggles }) => {
       const toggles = featureToggleStore.getValue();
