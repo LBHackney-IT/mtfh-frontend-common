@@ -81,6 +81,8 @@ module.exports = (webpackConfigEnv, argv) => {
         PERSON_API_URL_V1: dotenv.PERSON_API_URL_V1 || '',
         NOTES_API_URL_V1: dotenv.NOTES_API_URL_V1 || '',
         TENURE_API_URL_V1: dotenv.TENURE_API_URL_V1 || '',
+        PROPERTY_API_URL_V1: dotenv.PROPERTY_API_URL_V1 || '',
+        REFERENCE_DATA_API_URL_V1: dotenv.REFERENCE_DATA_API_URL_V1 || '',
       }),
       new ImportMapWebpackPlugin({
         namespace: '@mtfh',
