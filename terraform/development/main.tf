@@ -46,4 +46,5 @@ resource "aws_ssm_parameter" "cdn" {
   name  = "/housing-tl/development/common-app-url"
   type  = "String"
   value = "https://${module.cloudfront-development.cloudfront_domain_name}"
+  overwrite = true
 }
