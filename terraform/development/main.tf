@@ -45,5 +45,5 @@ module "cloudfront-development" {
 resource "aws_ssm_parameter" "cdn" {
   name  = "/housing-tl/development/common-app-url"
   type  = "String"
-  value = "https://${cloudfront-development.domain_name}"
+  value = "https://${module.cloudfront-development.domain_name}"
 }

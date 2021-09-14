@@ -45,5 +45,5 @@ module "cloudfront-staging" {
 resource "aws_ssm_parameter" "cdn" {
   name  = "/housing-tl/staging/common-app-url"
   type  = "String"
-  value = "https://${cloudfront-staging.domain_name}"
+  value = "https://${module.cloudfront-staging.domain_name}"
 }
