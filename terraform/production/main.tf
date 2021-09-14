@@ -43,6 +43,7 @@ module "cloudfront-production" {
 }
 
 resource "aws_ssm_parameter" "cdn" {
+  depends_on = [module.cloudfront-production.domain_name]
   name  = "/housing-tl/production/common-app-url"
   type  = "String"
   value = "https://${module.cloudfront-production.domain_name}"
