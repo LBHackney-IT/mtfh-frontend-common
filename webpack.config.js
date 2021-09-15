@@ -21,6 +21,7 @@ module.exports = (webpackConfigEnv, argv) => {
       'common/lib/auth': path.join(__dirname, 'lib', 'auth'),
       'common/lib/http': path.join(__dirname, 'lib', 'http'),
       'common/lib/config': path.join(__dirname, 'lib', 'config'),
+      'common/lib/configuration': path.join(__dirname, 'lib', 'configuration'),
       'common/lib/components': path.join(__dirname, 'lib', 'components'),
       'common/lib/hooks': path.join(__dirname, 'lib', 'hooks'),
     },

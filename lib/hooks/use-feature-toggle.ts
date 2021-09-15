@@ -3,7 +3,7 @@ import {
   FeatureTogglePaths,
   featureToggleStore,
   hasToggle,
-} from '../configuration';
+} from '@mtfh/common/lib/configuration';
 
 export const useFeatureToggle = (path: FeatureTogglePaths): boolean => {
   const [toggle, setToggle] = useState(hasToggle(path));
