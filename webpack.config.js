@@ -15,6 +15,8 @@ module.exports = (webpackConfigEnv, argv) => {
     argv,
   });
 
+  const apiPath = path.join(__dirname, 'lib', 'api');
+
   return merge(defaultConfig, {
     entry: {
       common: path.join(__dirname, 'lib', 'mtfh-common.tsx'),
@@ -24,6 +26,21 @@ module.exports = (webpackConfigEnv, argv) => {
       'common/lib/configuration': path.join(__dirname, 'lib', 'configuration'),
       'common/lib/components': path.join(__dirname, 'lib', 'components'),
       'common/lib/hooks': path.join(__dirname, 'lib', 'hooks'),
+      'common/lib/utils': path.join(__dirname, 'lib', 'utils'),
+      'common/lib/api/person/v1': path.join(apiPath, 'person', 'v1'),
+      'common/lib/api/contact-details/v1': path.join(
+        apiPath,
+        'contact-details',
+        'v1'
+      ),
+      'common/lib/api/tenure/v1': path.join(apiPath, 'tenure', 'v1'),
+      'common/lib/api/comments/v1': path.join(apiPath, 'comments', 'v1'),
+      'common/lib/api/property/v1': path.join(apiPath, 'property', 'v1'),
+      'common/lib/api/reference-data/v1': path.join(
+        apiPath,
+        'reference-data',
+        'v1'
+      ),
     },
     output: {
       filename: '[name].[contenthash].js',
@@ -48,7 +65,17 @@ module.exports = (webpackConfigEnv, argv) => {
         AUTH_DOMAIN: dotenv.AUTHDOMAIN || '',
         COOKIE_DOMAIN: dotenv.COOKIE_DOMAIN || '',
         AUTH_TOKEN_NAME: dotenv.AUTH_TOKEN_NAME || '',
-        CONFIGURATION_API_URL: dotenv.CONFIGURATION_API_URL || '',
+        CONFIGURATION_API_URL_V1: dotenv.CONFIGURATION_API_URL_V1 || '',
+        CONTACT_DETAILS_API_URL_V1: dotenv.CONTACT_DETAILS_API_URL_V1 || '',
+        PERSON_API_URL_V1: dotenv.PERSON_API_URL_V1 || '',
+        NOTES_API_URL_V1: dotenv.NOTES_API_URL_V1 || '',
+        TENURE_API_URL_V1: dotenv.TENURE_API_URL_V1 || '',
+        PROPERTY_API_URL_V1: dotenv.PROPERTY_API_URL_V1 || '',
+        REFERENCE_DATA_API_URL_V1: dotenv.REFERENCE_DATA_API_URL_V1 || '',
+      }),
+      new ImportMapWebpackPlugin({
+        namespace: '@mtfh',
+        basePath: process.env.APP_CDN || 'http://localhost:8040',
       }),
       new ImportMapWebpackPlugin({
         namespace: '@mtfh',
