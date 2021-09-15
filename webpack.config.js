@@ -77,6 +77,10 @@ module.exports = (webpackConfigEnv, argv) => {
         namespace: '@mtfh',
         basePath: process.env.APP_CDN || 'http://localhost:8040',
       }),
+      new ImportMapWebpackPlugin({
+        namespace: '@mtfh',
+        basePath: process.env.APP_CDN || 'http://localhost:8040',
+      }),
     ],
   });
 };
