@@ -1,8 +1,7 @@
 import React, { isValidElement } from 'react';
 import { RenderOptions, RenderResult, render } from '@testing-library/react';
-import { RunOptions } from 'axe-core';
 import { MemoryHistory, createMemoryHistory } from 'history';
-import { axe, toHaveNoViolations } from 'jest-axe';
+import { JestAxeConfigureOptions, axe, toHaveNoViolations } from 'jest-axe';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { Route, Router } from 'react-router-dom';
@@ -30,7 +29,7 @@ afterAll(() => {
 export { axe };
 
 type UI = Parameters<typeof render>[0];
-type TestA11YOptions = RenderOptions & { axeOptions?: RunOptions };
+type TestA11YOptions = RenderOptions & { axeOptions?: JestAxeConfigureOptions };
 
 export const testA11y = async (
   ui: UI | Element,
