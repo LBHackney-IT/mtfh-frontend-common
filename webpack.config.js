@@ -15,6 +15,8 @@ module.exports = (webpackConfigEnv, argv) => {
     argv,
   });
 
+  const apiPath = path.join(__dirname, 'lib', 'api');
+
   return merge(defaultConfig, {
     entry: {
       common: path.join(__dirname, 'lib', 'mtfh-common.tsx'),
@@ -25,45 +27,17 @@ module.exports = (webpackConfigEnv, argv) => {
       'common/lib/components': path.join(__dirname, 'lib', 'components'),
       'common/lib/hooks': path.join(__dirname, 'lib', 'hooks'),
       'common/lib/utils': path.join(__dirname, 'lib', 'utils'),
-      'common/lib/api/person/v1': path.join(
-        __dirname,
-        'lib',
-        'api',
-        'person',
-        'v1'
-      ),
+      'common/lib/api/person/v1': path.join(apiPath, 'person', 'v1'),
       'common/lib/api/contact-details/v1': path.join(
-        __dirname,
-        'lib',
-        'api',
+        apiPath,
         'contact-details',
         'v1'
       ),
-      'common/lib/api/tenure/v1': path.join(
-        __dirname,
-        'lib',
-        'api',
-        'tenure',
-        'v1'
-      ),
-      'common/lib/api/comments/v1': path.join(
-        __dirname,
-        'lib',
-        'api',
-        'comments',
-        'v1'
-      ),
-      'common/lib/api/property/v1': path.join(
-        __dirname,
-        'lib',
-        'api',
-        'property',
-        'v1'
-      ),
+      'common/lib/api/tenure/v1': path.join(apiPath, 'tenure', 'v1'),
+      'common/lib/api/comments/v1': path.join(apiPath, 'comments', 'v1'),
+      'common/lib/api/property/v1': path.join(apiPath, 'property', 'v1'),
       'common/lib/api/reference-data/v1': path.join(
-        __dirname,
-        'lib',
-        'api',
+        apiPath,
         'reference-data',
         'v1'
       ),

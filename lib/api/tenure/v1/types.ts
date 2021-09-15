@@ -2,11 +2,6 @@ export interface TenureDetailsProperties {
   title: string;
 }
 
-// Once other possible param values are confirmed, we can reuse this for TenureType code
-export enum TenureTypeCode {
-  INT = 'INT',
-}
-
 export interface TenureType {
   code: string;
   description: string;
@@ -73,26 +68,23 @@ export interface NoticeType {
   effectiveDate: string;
 }
 
-export interface LegacyReferences {
+export interface LegacyReference {
   name: string;
   value: string;
 }
 
-export interface TenureSectionProps {
+export interface Tenure {
   id: string;
   tenuredAsset: TenureAsset;
   startOfTenureDate: string;
   endOfTenureDate: string | null;
   tenureType: TenureType;
   isActive: boolean;
-}
-export interface Tenure extends TenureSectionProps {
   accountType: AccountType;
   paymentReference: string;
   propertyReference: string;
   householdMembers: HouseholdMember[];
   charges: Charges;
-  tenureType: TenureType;
   isTenanted: boolean;
   terminated: {
     isTerminated: boolean;
@@ -105,7 +97,7 @@ export interface Tenure extends TenureSectionProps {
   evictionDate: string;
   potentialEndDate: string;
   notices: NoticeType[];
-  legacyReferences: LegacyReferences[];
+  legacyReferences: LegacyReference[];
   rentCostCentre: string;
   isMutualExchange: boolean;
   informHousingBenefitsForChanges: boolean;
