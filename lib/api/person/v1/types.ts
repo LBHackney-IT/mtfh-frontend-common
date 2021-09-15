@@ -1,6 +1,5 @@
 export enum PersonType {
-  TENANT = 'Tenant',
-  HOUSEHOLD = 'HouseholdMember',
+  PERSON = 'Person',
 }
 
 export enum PersonTitle {
@@ -59,6 +58,7 @@ export interface Person {
   reason: string;
   etag?: string;
 }
+
 export interface TenureSummary {
   assetFullAddress: string;
   assetId: string;
@@ -70,4 +70,24 @@ export interface TenureSummary {
   startDate: string;
   type: string;
   uprn: string;
+}
+
+export interface PersonSearchResult {
+  id: string;
+  title: string;
+  firstname: string;
+  middleName?: string;
+  surname: string;
+  preferredFirstname: string;
+  preferredSurname: string;
+  ethinicity: string;
+  nationality: string;
+  placeOfBirth: string;
+  dateOfBirth: string;
+  gender: string;
+  identification: Identification[];
+  personTypes: PersonType[];
+  isPersonCautionaryAlert: boolean;
+  isTenureCautionaryAlert: boolean;
+  tenures: TenureSummary[];
 }

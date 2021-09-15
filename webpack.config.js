@@ -21,6 +21,7 @@ module.exports = (webpackConfigEnv, argv) => {
       'common/lib/auth': path.join(__dirname, 'lib', 'auth'),
       'common/lib/http': path.join(__dirname, 'lib', 'http'),
       'common/lib/config': path.join(__dirname, 'lib', 'config'),
+      'common/lib/configuration': path.join(__dirname, 'lib', 'configuration'),
       'common/lib/components': path.join(__dirname, 'lib', 'components'),
       'common/lib/hooks': path.join(__dirname, 'lib', 'hooks'),
       'common/lib/utils': path.join(__dirname, 'lib', 'utils'),
@@ -50,6 +51,20 @@ module.exports = (webpackConfigEnv, argv) => {
         'lib',
         'api',
         'comments',
+        'v1'
+      ),
+      'common/lib/api/property/v1': path.join(
+        __dirname,
+        'lib',
+        'api',
+        'property',
+        'v1'
+      ),
+      'common/lib/api/reference-data/v1': path.join(
+        __dirname,
+        'lib',
+        'api',
+        'reference-data',
         'v1'
       ),
     },
