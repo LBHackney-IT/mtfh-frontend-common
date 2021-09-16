@@ -8398,10 +8398,10 @@ tree-kill@^1.2.2:
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
-ts-config-single-spa@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ts-config-single-spa/-/ts-config-single-spa-2.0.1.tgz#23224b9ffccf36acd6f5693f931a88ab167ad7bd"
-  integrity sha512-zGTozFbnMqdoNCsOJ+gqYSJNIm7QUJtN/3o8uyOCuFxwfrBETQ+lyHnvvgVO29IEVhhrnOp6NQAyOIVE8lmqxA==
+ts-config-single-spa@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ts-config-single-spa/-/ts-config-single-spa-3.0.0.tgz#113112236cc1e13a59b6d351a57ae93aed7c763f"
+  integrity sha512-SS24+FHn9mi0awcoHN4l6uioBxPjgOnwI8adVZeNnw8oXJ8VyAGDqBfRF1EMVtd9Va0bxA8kkeU0SWtLS/Guvg==
 
 tsconfig-paths@^3.9.0:
   version "3.11.0"
