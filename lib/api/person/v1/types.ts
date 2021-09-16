@@ -1,5 +1,6 @@
 export enum PersonType {
   PERSON = 'Person',
+  HOUSING_OFFICER = 'Housing Officer',
 }
 
 export enum PersonTitle {
@@ -28,6 +29,7 @@ export enum PersonCommunincationRequirements {
 export enum IdentificationTypes {
   PASSPORT = 'Passport',
   DRIVING_LICENCE = 'DrivingLicence',
+  NI = 'NI',
 }
 
 export interface Identification {
