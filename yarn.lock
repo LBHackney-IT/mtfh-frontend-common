@@ -8786,7 +8786,7 @@ webpack-cli@^4.2.0:
     v8-compile-cache "^2.2.0"
     webpack-merge "^5.7.3"
 
-webpack-config-single-spa-react-ts@^4.0.1:
+webpack-config-single-spa-react-ts@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/webpack-config-single-spa-react-ts/-/webpack-config-single-spa-react-ts-4.0.1.tgz#9adf312a0f5b4bfd17d0776aa945474bd50dcb4a"
   integrity sha512-d1EnwUYXW/UYIpXJA0oDF7z236qCDOYoCGK+jMfULUr8td2CuuTSnGaeQ9L9epMmBDJvdQoOCKKVHewch32JRg==
