@@ -3025,7 +3025,7 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.1, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-css-loader@^5.2.4, css-loader@^5.2.6:
+css-loader@^5.2.4, css-loader@^5.2.7:
   version "5.2.7"
   resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-5.2.7.tgz#9b9f111edf6fb2be5dc62525644cbc9c232064ae"
   integrity sha512-Q7mOvpBNBG7YrVGMxRxcBJZFL75o+cH2abNASdibkj/fffYD8qWbInZrD0S9ccI6vZclF3DsHE7njGlLtaHbhg==
@@ -4224,7 +4224,7 @@ for-in@^1.0.2:
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
   integrity sha1-gQaNKVqBQuwKxybG4iAMMPttXoA=
 
-fork-ts-checker-webpack-plugin@^6.2.12:
+fork-ts-checker-webpack-plugin@^6.3.2:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-6.3.3.tgz#73a9d8e1dc5821fa19a3daedc8be7568b095c8ab"
   integrity sha512-S3uMSg8IsIvs0H6VAfojtbf6RcnEXxEpDMT2Q41M2l0m20JO8eA1t4cCJybvrasC8SvvPEtK4B8ztxxfLljhNg==
@@ -7981,10 +7981,10 @@ stack-utils@^2.0.2:
     escape-string-regexp "^2.0.0"
     source-map-support "^0.5.20"
 
-standalone-single-spa-webpack-plugin@^2.0.2:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/standalone-single-spa-webpack-plugin/-/standalone-single-spa-webpack-plugin-2.1.0.tgz#72e3de510eef43c0e8102f43e50de5f71e2b1bcb"
-  integrity sha512-NV4CcyX8pDnAFdtr2gcHYbQCcb8ur+mgWVPjQmI9zCKfL70tdlka2AEKoOdtE27cDDgInD70PI87hdUU48hcdg==
+standalone-single-spa-webpack-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/standalone-single-spa-webpack-plugin/-/standalone-single-spa-webpack-plugin-3.0.0.tgz#629267e4597b938f1f8c177108a909d4e51a9f50"
+  integrity sha512-qj/iVNXMEWlwMnQbhZC7QqzifoWyps+zlIgbXS6/jvUMZVxD2U4psudPvWsjYw5Q9+HjM0WYdlgl69g9vEyw8w==
 
 static-extend@^0.1.1:
   version "0.1.2"
@@ -8154,7 +8154,7 @@ style-loader@^2.0.0:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
 
-style-loader@^3.0.0:
+style-loader@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-3.2.1.tgz#63cb920ec145c8669e9a50e92961452a1ef5dcde"
   integrity sha512-1k9ZosJCRFaRbY6hH49JFlRB0fVSbmnyq1iTPjNxUmGVjBNEmwrrHPenhlp+Lgo51BojHSf6pl2FcqYaN3PfVg==
@@ -8786,41 +8786,41 @@ webpack-cli@^4.2.0:
     v8-compile-cache "^2.2.0"
     webpack-merge "^5.7.3"
 
-webpack-config-single-spa-react-ts@^2.2.2:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/webpack-config-single-spa-react-ts/-/webpack-config-single-spa-react-ts-2.2.4.tgz#d2339f1d257f0581718d5ffdaec2d25f854b666d"
-  integrity sha512-cfJqlS0P5eQzpwhg1ncFQ6ZQIVfYfzx4M/1JirejbFtp3k+qgp3X1ywqpAjh15RX8rYzP/23REbI8yiVPXxSdQ==
+webpack-config-single-spa-react-ts@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/webpack-config-single-spa-react-ts/-/webpack-config-single-spa-react-ts-4.0.1.tgz#9adf312a0f5b4bfd17d0776aa945474bd50dcb4a"
+  integrity sha512-d1EnwUYXW/UYIpXJA0oDF7z236qCDOYoCGK+jMfULUr8td2CuuTSnGaeQ9L9epMmBDJvdQoOCKKVHewch32JRg==
   dependencies:
-    webpack-config-single-spa-react "2.2.4"
-    webpack-config-single-spa-ts "2.2.4"
+    webpack-config-single-spa-react "4.0.1"
+    webpack-config-single-spa-ts "4.1.0"
 
-webpack-config-single-spa-react@2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/webpack-config-single-spa-react/-/webpack-config-single-spa-react-2.2.4.tgz#31f53730bfc8099d13cb245590dcde818d259415"
-  integrity sha512-E+vrs7c4WmcXCLa6c/swwXQqyrs7jqQAy5sYG7oe7WMZye8qa7yvUTMJw+Tww2KDwHSCRVRLJp7WFYeccLA1gg==
+webpack-config-single-spa-react@4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/webpack-config-single-spa-react/-/webpack-config-single-spa-react-4.0.1.tgz#bc304923b59fcfea578bb0c64ecccc6d63125b38"
+  integrity sha512-4Wi7oP/r26jR2vvpcnMc8h63d8KDOmUM3QykA7I9Fb3pFRvprV0rAUoyImyrbHIWwEeH8nywyd63EGnJDYSKVQ==
   dependencies:
-    webpack-config-single-spa "3.1.0"
+    webpack-config-single-spa "5.1.0"
 
-webpack-config-single-spa-ts@2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/webpack-config-single-spa-ts/-/webpack-config-single-spa-ts-2.2.4.tgz#5b9bbd3ff520eb6fb21a2ea635fb4b9f5c68040a"
-  integrity sha512-VKAQdrPZ6KTarzPsNmv9Z+GRGwHKWZ3A/QhZUbbxBh0RIsdfxk233A7FUP8aAP8n8WxNlcV583J1ytGsHTxFbQ==
+webpack-config-single-spa-ts@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/webpack-config-single-spa-ts/-/webpack-config-single-spa-ts-4.1.0.tgz#b2b103e791690c4ac039b2f3f6d1be9f605e9f4a"
+  integrity sha512-DeEYyHdmqu/Qhfz7pckleliA8Pu9uv3q+36hNFZelSsaU+VMg+fHhEEjZ06OSUJFDN2JG3JZpFX+p4Di8QgjVw==
   dependencies:
-    fork-ts-checker-webpack-plugin "^6.2.12"
+    fork-ts-checker-webpack-plugin "^6.3.2"
     typescript "^4.1.2"
-    webpack-config-single-spa "3.1.0"
+    webpack-config-single-spa "5.1.0"
     webpack-merge "^5.8.0"
 
-webpack-config-single-spa@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/webpack-config-single-spa/-/webpack-config-single-spa-3.1.0.tgz#ec3e5384896b41c9ea15284c93413cb8b3318325"
-  integrity sha512-tONwO/w6ugTjuWkWa0pcoJnsUmpNZToWenaD+IIhXbjU3fnQGUPGRuYf6tkn1YSaqpe79dyR2nIWv4XxzA5jkA==
+webpack-config-single-spa@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/webpack-config-single-spa/-/webpack-config-single-spa-5.1.0.tgz#a6c2a9cdc5c7fecbb4ee9446fd6b45bc02a80bde"
+  integrity sha512-MfiG783+Faxsdh8DkoJFT+awQdp0fGkbNbOG8GfndB6v8g/CR8z2ldDnn4vM8lp1OOCKclNu200RCGX6SJdMtg==
   dependencies:
     babel-loader "^8.2.2"
-    css-loader "^5.2.6"
+    css-loader "^5.2.7"
     html-webpack-plugin "^5.3.2"
-    standalone-single-spa-webpack-plugin "^2.0.2"
-    style-loader "^3.0.0"
+    standalone-single-spa-webpack-plugin "^3.0.0"
+    style-loader "^3.2.1"
     systemjs-webpack-interop "^2.3.7"
     unused-files-webpack-plugin "^3.4.0"
     webpack-bundle-analyzer "^4.4.2"
@@ -8836,7 +8836,7 @@ webpack-dev-middleware@^5.1.0:
     range-parser "^1.2.1"
     schema-utils "^3.1.0"
 
-webpack-dev-server@^4.0.0-beta.0:
+webpack-dev-server@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-4.2.1.tgz#12e912b3cad8ddd5222a4ba2c41c6fc69d2545fb"
   integrity sha512-SQrIyQDZsTaF84p/WMAXNRKxjTeIaewhDIiHYZ423ENhNAsQWyubvqPTn0IoLMGkbhWyWv8/GYnCjItt0ZNC5w==
