@@ -8,14 +8,19 @@ export interface AssetAddress {
   postPreamble: string;
 }
 
-export interface TenureSummary {
-  endOfTenureDate: string | null;
-}
-
 export interface Property {
   id: string;
   assetId: string;
   assetType: string;
   assetAddress: AssetAddress;
-  tenure: TenureSummary | null;
+  tenure: PropertyTenure | null;
+}
+
+export interface PropertyTenure {
+  id: string;
+  paymentReference: string;
+  type: string;
+  startOfTenureDate: string;
+  endOfTenureDate: string | null;
+  isActive: boolean;
 }
