@@ -1,3 +1,5 @@
+import { PersonType } from '../../person/v1/types';
+
 export interface TenureDetailsProperties {
   title: string;
 }
@@ -12,19 +14,13 @@ export enum TenureAssetType {
   GARAGE = 'garage',
 }
 
-export type PersonTenureType =
-  | 'Tenant'
-  | 'Leaseholder'
-  | 'Freeholder'
-  | 'HouseholdMember';
-
 export interface HouseholdMember {
   id: string;
   type: string;
   fullName: string;
   isResponsible: boolean;
   dateOfBirth: string;
-  personTenureType?: PersonTenureType;
+  personTenureType?: PersonType;
 }
 
 export interface TenureAsset {
