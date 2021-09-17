@@ -1,7 +1,8 @@
-export enum PersonType {
-  PERSON = 'Person',
-  HOUSING_OFFICER = 'Housing Officer',
-}
+export type PersonType =
+  | 'Tenant'
+  | 'Leaseholder'
+  | 'Freeholder'
+  | 'HouseholdMember';
 
 export enum PersonTitle {
   MR = 'Mr',
@@ -55,7 +56,7 @@ export interface Person {
   preferredSurname?: string | null;
   placeOfBirth?: string | null;
   dateOfBirth: string;
-  personTypes: PersonType[];
+  personTypes?: PersonType[];
   tenures: TenureSummary[];
   reason: string;
   etag?: string;
@@ -88,7 +89,7 @@ export interface PersonSearchResult {
   dateOfBirth: string;
   gender: string;
   identification: Identification[];
-  personTypes: PersonType[];
+  personTypes?: PersonType[];
   isPersonCautionaryAlert: boolean;
   isTenureCautionaryAlert: boolean;
   tenures: TenureSummary[];
