@@ -8,6 +8,7 @@ const config = {
   configurationApiUrlV1: process.env.CONFIGURATION_API_URL_V1 || '/api',
   contactDetailsApiUrlV1: process.env.CONTACT_DETAILS_API_URL_V1 || '/api',
   personApiUrlV1: process.env.PERSON_API_URL_V1 || '/api',
+  personApiUrlV2: process.env.PERSON_API_URL_V2 || '/api',
   notesApiUrlV1: process.env.NOTES_API_URL_V1 || '/api',
   tenureApiUrlV1: process.env.TENURE_API_URL_V1 || '/api',
   propertyApiUrlV1: process.env.PROPERTY_API_URL_V1 || '/api',
