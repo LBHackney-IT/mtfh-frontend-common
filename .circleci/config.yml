@@ -136,7 +136,13 @@ jobs:
             export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
             export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
             export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
-            export CONFIGURATION_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONTACT_DETAILS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/contact-details-api-url --query Parameter.Value --output text)
+            export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
+            export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
+            export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -163,7 +169,13 @@ jobs:
             export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
             export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
             export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
-            export CONFIGURATION_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONTACT_DETAILS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/contact-details-api-url --query Parameter.Value --output text)
+            export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
+            export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
+            export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -190,7 +202,13 @@ jobs:
             export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
             export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
             export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
-            export CONFIGURATION_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONTACT_DETAILS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/contact-details-api-url --query Parameter.Value --output text)
+            export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
+            export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
+            export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
