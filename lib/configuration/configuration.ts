@@ -14,6 +14,7 @@ const initialFeatureToggles = {
     TenureActivityHistory: false,
     RefactorComments: false,
     CreateTenure: false,
+    EditTenure: false,
   },
 };
 

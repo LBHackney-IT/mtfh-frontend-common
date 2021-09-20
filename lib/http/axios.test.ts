@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 import { logout } from '@mtfh/common/lib/auth';
 import { getFailure, getSuccess, server } from '../test-utils';
-import { axiosInstance, createCancelToken } from './axios';
+import { axiosInstance, createCancelToken, isAxiosError } from './axios';
 
 jest.mock('@mtfh/common/lib/auth', () => ({
   logout: jest.fn(),
@@ -30,7 +30,7 @@ describe('axiosInstance', () => {
     try {
       await axiosInstance.get('/api');
     } catch (e) {
-      //
+      expect(isAxiosError(e)).toBe(true);
     }
     expect(logout).toBeCalledTimes(1);
   });
