@@ -1,17 +1,28 @@
 import { config } from '@mtfh/common/lib/config';
-import { AxiosSWRResponse, mutate, useAxiosSWR } from '@mtfh/common/lib/hooks';
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRResponse,
+  mutate,
+  useAxiosSWR,
+} from '@mtfh/common/lib/hooks';
 import { axiosInstance } from '@mtfh/common/lib/http';
 import { HouseholdMember, Tenure, TenureAsset, TenureType } from './types';
 
-export const useTenure = (targetId: string): AxiosSWRResponse<Tenure> => {
-  return useAxiosSWR(`${config.tenureApiUrlV1}/tenures/${targetId}`);
+export const useTenure = (
+  id: string | null,
+  options?: AxiosSWRConfiguration<Tenure>
+): AxiosSWRResponse<Tenure> => {
+  return useAxiosSWR(id && `${config.tenureApiUrlV1}/tenures/${id}`, options);
 };
 
-export interface AddTenureParams {
-  tenuredAsset: TenureAsset;
+export interface TenureParams {
   startOfTenureDate: string;
-  endOfTenureDate?: string;
+  endOfTenureDate?: string | null;
   tenureType: TenureType;
+}
+
+export interface AddTenureParams extends TenureParams {
+  tenuredAsset: TenureAsset;
 }
 
 export const addTenure = async (params: AddTenureParams): Promise<Tenure> => {
@@ -37,4 +48,20 @@ export const addPersonToTenure = async (
     params.householdMember
   );
   return householdMember;
+};
+
+export interface EditTenureParams extends Partial<TenureParams> {
+  id: string;
+  etag: string;
+}
+
+export const editTenure = async ({
+  id,
+  ...data
+}: EditTenureParams): Promise<void> => {
+  const response = await axiosInstance.patch(
+    `${config.tenureApiUrlV1}/tenures/${id}`,
+    data
+  );
+  return response.data;
 };
