@@ -65,7 +65,7 @@ export interface Person {
 export interface TenureSummary {
   assetFullAddress: string;
   assetId: string;
-  endDate: string;
+  endDate: string | null;
   id: string;
   isActive: boolean;
   paymentReference: string;
