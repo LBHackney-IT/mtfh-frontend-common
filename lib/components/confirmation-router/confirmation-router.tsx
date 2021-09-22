@@ -11,7 +11,6 @@ interface ConfirmationMessage {
   action: 'POP' | 'PUSH';
   title: string;
   body?: string;
-  exact?: boolean;
 }
 
 export const ConfirmationRouter: FC<BrowserRouterProps> = ({
