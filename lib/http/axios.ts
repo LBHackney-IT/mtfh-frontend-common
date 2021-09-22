@@ -10,7 +10,7 @@ interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
 }
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   responseType: 'json',
 });
 
@@ -46,6 +46,7 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
+export const createCancelToken = (): CancelTokenSource =>
+  axios.CancelToken.source();
 
-export { axiosInstance, createCancelToken };
+export const isAxiosError = (e: any): e is AxiosError => axios.isAxiosError(e);

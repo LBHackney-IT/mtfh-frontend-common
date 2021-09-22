@@ -1,7 +1,14 @@
 import { config } from '@mtfh/common/lib/config';
-import { AxiosSWRResponse, useAxiosSWR } from '@mtfh/common/lib/hooks';
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRResponse,
+  useAxiosSWR,
+} from '@mtfh/common/lib/hooks';
 import { Property } from './types';
 
-export function useProperty(targetId: string): AxiosSWRResponse<Property> {
-  return useAxiosSWR(`${config.propertyApiUrlV1}/assets/${targetId}`);
+export function useProperty(
+  id: string | null,
+  options?: AxiosSWRConfiguration<Property>
+): AxiosSWRResponse<Property> {
+  return useAxiosSWR(id && `${config.propertyApiUrlV1}/assets/${id}`, options);
 }

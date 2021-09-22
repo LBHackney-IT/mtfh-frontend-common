@@ -9,10 +9,13 @@ import { axiosInstance } from '@mtfh/common/lib/http';
 import { Person, TenureSummary } from './types';
 
 export const usePerson = (
-  id: string,
+  id: string | null,
   options?: AxiosSWRConfiguration<Person>
 ): AxiosSWRResponse<Person> => {
-  return useAxiosSWR<Person>(`${config.personApiUrlV1}/persons/${id}`, options);
+  return useAxiosSWR<Person>(
+    id && `${config.personApiUrlV1}/persons/${id}`,
+    options
+  );
 };
 
 export interface PostPersonRequestData extends Omit<Person, 'id' | 'tenures'> {
