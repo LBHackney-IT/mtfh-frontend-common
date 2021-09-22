@@ -45,10 +45,7 @@ export const ConfirmationRouter: FC<BrowserRouterProps> = ({
             incomingMessage &&
             !matchPath(incomingMessage.pathname, {
               path: incomingMessage.path,
-              exact:
-                incomingMessage.exact === undefined
-                  ? true
-                  : incomingMessage.exact,
+              exact: true,
               strict: true,
             })
           ) {
