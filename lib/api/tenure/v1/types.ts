@@ -99,6 +99,7 @@ export interface Tenure {
   informHousingBenefitsForChanges: boolean;
   isSublet: boolean;
   subletEndDate: string;
+  etag?: string;
 }
 
 export type FetchState = 'loading' | 'error' | 'invalid' | 'done';

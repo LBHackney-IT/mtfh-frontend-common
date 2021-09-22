@@ -36,3 +36,15 @@ test('it intercepts onbeforeunload', () => {
 
   expect(returnValue).toBeCalledWith('');
 });
+
+test('it skips confirmation if needed', () => {
+  render(
+    <ConfirmationRouter>
+      <Link to="/test">Link</Link>
+      <DialogPrompt title="Error" skipConfirmation={() => true} />
+    </ConfirmationRouter>
+  );
+  userEvent.click(screen.getByRole('link'));
+
+  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+});

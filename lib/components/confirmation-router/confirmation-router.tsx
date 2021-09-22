@@ -11,6 +11,7 @@ interface ConfirmationMessage {
   action: 'POP' | 'PUSH';
   title: string;
   body?: string;
+  exact?: boolean;
 }
 
 export const ConfirmationRouter: FC<BrowserRouterProps> = ({
@@ -44,7 +45,10 @@ export const ConfirmationRouter: FC<BrowserRouterProps> = ({
             incomingMessage &&
             !matchPath(incomingMessage.pathname, {
               path: incomingMessage.path,
-              exact: true,
+              exact:
+                incomingMessage.exact === undefined
+                  ? true
+                  : incomingMessage.exact,
               strict: true,
             })
           ) {
