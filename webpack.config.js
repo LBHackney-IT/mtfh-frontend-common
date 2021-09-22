@@ -28,6 +28,7 @@ module.exports = (webpackConfigEnv, argv) => {
       'common/lib/hooks': path.join(__dirname, 'lib', 'hooks'),
       'common/lib/utils': path.join(__dirname, 'lib', 'utils'),
       'common/lib/api/person/v1': path.join(apiPath, 'person', 'v1'),
+      'common/lib/api/person/v2': path.join(apiPath, 'person', 'v2'),
       'common/lib/api/contact-details/v1': path.join(
         apiPath,
         'contact-details',
@@ -68,6 +69,7 @@ module.exports = (webpackConfigEnv, argv) => {
         CONFIGURATION_API_URL_V1: dotenv.CONFIGURATION_API_URL_V1 || '',
         CONTACT_DETAILS_API_URL_V1: dotenv.CONTACT_DETAILS_API_URL_V1 || '',
         PERSON_API_URL_V1: dotenv.PERSON_API_URL_V1 || '',
+        PERSON_API_URL_V2: dotenv.PERSON_API_URL_V2 || '',
         NOTES_API_URL_V1: dotenv.NOTES_API_URL_V1 || '',
         TENURE_API_URL_V1: dotenv.TENURE_API_URL_V1 || '',
         PROPERTY_API_URL_V1: dotenv.PROPERTY_API_URL_V1 || '',

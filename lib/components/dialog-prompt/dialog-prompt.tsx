@@ -4,11 +4,13 @@ import { Prompt, PromptProps, useRouteMatch } from 'react-router-dom';
 export interface DialogPromptProps extends Omit<PromptProps, 'message'> {
   title: string;
   body?: string;
+  skipConfirmation?: (location: { pathname: string }) => boolean;
 }
 
 export const DialogPrompt = ({
   title,
   body,
+  skipConfirmation,
   ...props
 }: DialogPromptProps): JSX.Element => {
   const { path } = useRouteMatch();
@@ -27,15 +29,16 @@ export const DialogPrompt = ({
   return (
     <Prompt
       {...props}
-      message={(location, action) =>
-        JSON.stringify({
+      message={(location, action) => {
+        if (skipConfirmation && skipConfirmation(location)) return true;
+        return JSON.stringify({
           action,
           path,
           pathname: location.pathname,
           title,
           body: body || '',
-        })
-      }
+        });
+      }}
     />
   );
 };
