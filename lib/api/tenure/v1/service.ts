@@ -50,14 +50,14 @@ export const addPersonToTenure = async (
     { ...params.householdMember, etag: params.etag }
   );
 
-export interface RemovePersonToTenureParams {
+export interface RemovePersonFromTenureParams {
   etag: string;
   tenureId: string;
   householdMemberId: string;
 }
 
-export const removePersonToTenure = async (
-  params: RemovePersonToTenureParams
+export const removePersonFromTenure = async (
+  params: RemovePersonFromTenureParams
 ): Promise<AxiosResponse> =>
   axiosInstance.delete(
     `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`
