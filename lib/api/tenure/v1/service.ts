@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios';
 import { config } from '@mtfh/common/lib/config';
 import {
   AxiosSWRConfiguration,
@@ -43,13 +44,24 @@ export interface AddPersonToTenureParams {
 
 export const addPersonToTenure = async (
   params: AddPersonToTenureParams
-): Promise<HouseholdMember> => {
-  const { data: householdMember } = await axiosInstance.patch<HouseholdMember>(
+): Promise<AxiosResponse> =>
+  axiosInstance.patch(
     `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMember.id}`,
     { ...params.householdMember, etag: params.etag }
   );
-  return householdMember;
-};
+
+export interface RemovePersonFromTenureParams {
+  etag: string;
+  tenureId: string;
+  householdMemberId: string;
+}
+
+export const removePersonFromTenure = async (
+  params: RemovePersonFromTenureParams
+): Promise<AxiosResponse> =>
+  axiosInstance.delete(
+    `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`
+  );
 
 export interface EditTenureParams extends Partial<TenureParams> {
   id: string;
