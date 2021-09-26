@@ -1,16 +1,8 @@
-export interface CommentCategorisation {
-  category: string;
-  subCategory: string;
-  description: string;
-}
-
-export interface CommentAuthor {
-  fullName: string;
-  email?: string;
-}
+import type { CommentAuthor, CommentCategorisation } from "../v1/types";
 
 export interface Comment {
   id: string;
+  title?: string;
   description: string;
   categorisation?: CommentCategorisation;
   author: CommentAuthor;
