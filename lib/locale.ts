@@ -1,14 +1,13 @@
 const locale = {
   components: {
     conflictErrorSummary: {
-      changesNotSaved: 'Changes not saved',
-      anotherUserMadeEdit:
-        'Another user has edited this page since you opened it.',
-      youEntered: 'You entered:',
-      toSaveMakeEdit: 'To save your changes you must make your edits again.',
+      changesNotSaved: "Changes not saved",
+      anotherUserMadeEdit: "Another user has edited this page since you opened it.",
+      youEntered: "You entered:",
+      toSaveMakeEdit: "To save your changes you must make your edits again.",
     },
     formErrorSummary: {
-      error: 'Error',
+      error: "Error",
     },
     statusErrorSummary: {
       statusTitle: (code: number): string => {
@@ -18,7 +17,7 @@ const locale = {
           case 409:
             return locale.components.conflictErrorSummary.changesNotSaved;
           default:
-            return 'There was a problem with completing the action';
+            return "There was a problem with completing the action";
         }
       },
       statusDescription: (code: number): string => {
@@ -26,7 +25,7 @@ const locale = {
           case 409:
             return locale.components.conflictErrorSummary.anotherUserMadeEdit;
           default:
-            return 'Please try again. If the issue persists, please contact support.';
+            return "Please try again. If the issue persists, please contact support.";
         }
       },
     },

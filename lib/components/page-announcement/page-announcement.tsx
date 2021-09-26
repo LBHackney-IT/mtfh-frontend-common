@@ -1,12 +1,12 @@
-import React, { ComponentPropsWithoutRef, forwardRef, useContext } from 'react';
-import cn from 'classnames';
+import React, { ComponentPropsWithoutRef, forwardRef, useContext } from "react";
+import cn from "classnames";
 
-import { PageAnnouncementContext, PageAnnouncementState } from './context';
-import './styles.scss';
+import { PageAnnouncementContext, PageAnnouncementState } from "./context";
+import "./styles.scss";
 
 interface PageAnnouncementProps
   extends Partial<PageAnnouncementState>,
-    ComponentPropsWithoutRef<'section'> {}
+    ComponentPropsWithoutRef<"section"> {}
 
 export const PageAnnouncement = forwardRef<HTMLElement, PageAnnouncementProps>(
   function PageAnnouncement({ className, ...props }, ref) {
@@ -19,7 +19,7 @@ export const PageAnnouncement = forwardRef<HTMLElement, PageAnnouncementProps>(
     const {
       heading,
       description,
-      variant = 'success',
+      variant = "success",
       ...rest
     } = {
       ...context?.state,
@@ -30,12 +30,11 @@ export const PageAnnouncement = forwardRef<HTMLElement, PageAnnouncementProps>(
       <section
         ref={ref}
         className={cn(
-          'lbh-page-announcement',
+          "lbh-page-announcement",
           {
-            [`lbh-page-announcement--${variant}`]:
-              variant && variant !== 'success',
+            [`lbh-page-announcement--${variant}`]: variant && variant !== "success",
           },
-          className
+          className,
         )}
         {...rest}
         role="alert"
@@ -46,5 +45,5 @@ export const PageAnnouncement = forwardRef<HTMLElement, PageAnnouncementProps>(
         )}
       </section>
     );
-  }
+  },
 );

@@ -1,49 +1,49 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render } from "@testing-library/react";
 
-import { testA11y } from '../../test-utils';
-import { Link } from '../link';
-import { SummaryList, SummaryListItem } from './summary-list';
+import { testA11y } from "../../test-utils";
+import { Link } from "../link";
+import { SummaryList, SummaryListItem } from "./summary-list";
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(
     <SummaryList>
       <SummaryListItem title="Person">Test</SummaryListItem>
-    </SummaryList>
+    </SummaryList>,
   );
 
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders correctly with fallback', () => {
+test("it renders correctly with fallback", () => {
   const { container } = render(
     <SummaryList>
       <SummaryListItem title="Email" />
       <SummaryListItem title="Mobile"> </SummaryListItem>
       <SummaryListItem title="Phone">{null}</SummaryListItem>
       <SummaryListItem title="Address">{undefined}</SummaryListItem>
-    </SummaryList>
+    </SummaryList>,
   );
 
   expect(container).toMatchSnapshot();
 });
 
-test('it renders correctly with single action', async () => {
+test("it renders correctly with single action", async () => {
   const { container } = render(
     <SummaryList>
       <SummaryListItem title="First Name" actions={<Link href="/">Edit</Link>}>
         John
       </SummaryListItem>
       <SummaryListItem title="Last Name">Smith</SummaryListItem>
-    </SummaryList>
+    </SummaryList>,
   );
 
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders correctly with multiple action', async () => {
+test("it renders correctly with multiple action", async () => {
   const { container } = render(
     <SummaryList>
       <SummaryListItem
@@ -60,14 +60,14 @@ test('it renders correctly with multiple action', async () => {
         John
       </SummaryListItem>
       <SummaryListItem title="Last Name">Smith</SummaryListItem>
-    </SummaryList>
+    </SummaryList>,
   );
 
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders correctly with columns', () => {
+test("it renders correctly with columns", () => {
   const { container } = render(
     <SummaryList overrides={[1 / 2, 1 / 4, 1 / 2]}>
       <SummaryListItem
@@ -85,7 +85,7 @@ test('it renders correctly with columns', () => {
       </SummaryListItem>
       <SummaryListItem title="Last Name">Smith</SummaryListItem>
       <SummaryListItem title="Gender">M</SummaryListItem>
-    </SummaryList>
+    </SummaryList>,
   );
 
   expect(container).toMatchSnapshot();

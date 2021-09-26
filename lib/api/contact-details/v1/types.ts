@@ -34,25 +34,25 @@ type CreatedBy = {
 };
 
 export enum ContactDetailTargetTypes {
-  PERSON = 'person',
-  ORGANISATION = 'organisation',
+  PERSON = "person",
+  ORGANISATION = "organisation",
 }
 
 export enum ContactInformationContactTypes {
-  PHONE = 'phone',
-  EMAIL = 'email',
-  ADDRESS = 'address',
+  PHONE = "phone",
+  EMAIL = "email",
+  ADDRESS = "address",
 }
 
 export enum ContactDetailsPhoneTypes {
-  MOBILE = 'mobile',
-  HOME = 'home',
-  WORK = 'work',
-  OTHER = 'other',
+  MOBILE = "mobile",
+  HOME = "home",
+  WORK = "work",
+  OTHER = "other",
 }
 
 export enum ContactDetailsAddressTypes {
-  CORRESPONDENCE_ADDRESS = 'correspondenceAddress',
+  CORRESPONDENCE_ADDRESS = "correspondenceAddress",
 }
 
 export type ContactInformationSubTypes =

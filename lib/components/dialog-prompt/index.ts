@@ -1,1 +1,1 @@
-export * from './dialog-prompt';
+export * from "./dialog-prompt";

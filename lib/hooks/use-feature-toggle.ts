@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   FeatureTogglePaths,
   featureToggleStore,
   hasToggle,
-} from '@mtfh/common/lib/configuration';
+} from "@mtfh/common/lib/configuration";
 
 export const useFeatureToggle = (path: FeatureTogglePaths): boolean => {
   const [toggle, setToggle] = useState(hasToggle(path));

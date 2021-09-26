@@ -1,4 +1,4 @@
-import useMediaBreakpoint from 'use-breakpoint';
+import useMediaBreakpoint from "use-breakpoint";
 
 export const BREAKPOINTS = {
   base: 0,
@@ -6,16 +6,16 @@ export const BREAKPOINTS = {
   md: 768,
   lg: 992,
   xl: 1280,
-  '2xl': 1536,
+  "2xl": 1536,
 };
 
 export const queries = {
-  base: '(min-width: 0px) and (max-width: 479px)',
-  sm: '(min-width: 480px) and (max-width: 767px)',
-  md: '(min-width: 768px) and (max-width: 991px)',
-  lg: '(min-width: 992px) and (max-width: 1279px)',
-  xl: '(min-width: 1280px) and (max-width: 1535px)',
-  '2xl': '(min-width: 1536px)',
+  base: "(min-width: 0px) and (max-width: 479px)",
+  sm: "(min-width: 480px) and (max-width: 767px)",
+  md: "(min-width: 768px) and (max-width: 991px)",
+  lg: "(min-width: 992px) and (max-width: 1279px)",
+  xl: "(min-width: 1280px) and (max-width: 1535px)",
+  "2xl": "(min-width: 1536px)",
 };
 
 const breakpoints = new Map(Object.entries(BREAKPOINTS));
@@ -24,7 +24,7 @@ export type BreakpointKey = keyof typeof BREAKPOINTS;
 
 export const useBreakpoint = (
   breakpoint: BreakpointKey,
-  defaultBreakpoint?: BreakpointKey
+  defaultBreakpoint?: BreakpointKey,
 ): boolean | undefined => {
   const { minWidth } = useMediaBreakpoint(BREAKPOINTS, defaultBreakpoint);
   const point = breakpoints.get(breakpoint);
@@ -36,12 +36,9 @@ export const useBreakpoint = (
 
 export const useBreakpointValue = <T extends any>(
   breakpointRecord: Partial<Record<BreakpointKey, T>>,
-  defaultBreakpoint?: BreakpointKey
+  defaultBreakpoint?: BreakpointKey,
 ): T | undefined => {
-  const { minWidth, breakpoint } = useMediaBreakpoint(
-    BREAKPOINTS,
-    defaultBreakpoint
-  );
+  const { minWidth, breakpoint } = useMediaBreakpoint(BREAKPOINTS, defaultBreakpoint);
   const valueKeys = Object.keys(breakpointRecord) as BreakpointKey[];
   const index = valueKeys.indexOf(breakpoint);
   if (index !== -1) {

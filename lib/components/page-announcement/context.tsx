@@ -6,20 +6,20 @@ import React, {
   useContext,
   useMemo,
   useReducer,
-} from 'react';
+} from "react";
 
 export interface PageAnnouncementState {
   heading: string;
   description?: string;
-  variant?: 'success' | 'warning' | 'info';
+  variant?: "success" | "warning" | "info";
 }
 
 export type PageAnnouncementActions =
   | {
-      type: 'ADD';
+      type: "ADD";
       payload: PageAnnouncementState;
     }
-  | { type: 'CLEAR' };
+  | { type: "CLEAR" };
 
 export interface PageAnnouncementContextState {
   state?: PageAnnouncementState;
@@ -29,7 +29,7 @@ export interface PageAnnouncementContextState {
 export const PageAnnouncementContext = createContext<
   PageAnnouncementContextState | undefined
 >(undefined);
-PageAnnouncementContext.displayName = 'PageAnnouncementContext';
+PageAnnouncementContext.displayName = "PageAnnouncementContext";
 
 interface UsePageAnnouncementValue {
   state?: PageAnnouncementState;
@@ -42,7 +42,7 @@ export const usePageAnnouncement = (): UsePageAnnouncementValue => {
 
   if (!context) {
     const error = new Error(
-      'usePageAnnouncementContext: `context` is undefined. Seems you forgot to wrap component within the Provider'
+      "usePageAnnouncementContext: `context` is undefined. Seems you forgot to wrap component within the Provider",
     );
     Error.captureStackTrace?.(error, usePageAnnouncement);
     throw error;
@@ -53,10 +53,10 @@ export const usePageAnnouncement = (): UsePageAnnouncementValue => {
   return {
     state,
     addAnnouncement: (props: PageAnnouncementState) => {
-      dispatch({ type: 'ADD', payload: props });
+      dispatch({ type: "ADD", payload: props });
     },
     clearAnnouncement: () => {
-      dispatch({ type: 'CLEAR' });
+      dispatch({ type: "CLEAR" });
     },
   };
 };
@@ -69,14 +69,14 @@ export const PageAnnouncementProvider: FC<PageAnnouncementProviderProps> = ({
   sessionKey,
   children,
 }): JSX.Element => {
-  const reducer: Reducer<
-    PageAnnouncementState | undefined,
-    PageAnnouncementActions
-  > = (state, action) => {
+  const reducer: Reducer<PageAnnouncementState | undefined, PageAnnouncementActions> = (
+    state,
+    action,
+  ) => {
     switch (action.type) {
-      case 'ADD':
+      case "ADD":
         return action.payload;
-      case 'CLEAR':
+      case "CLEAR":
       default:
         return undefined;
     }
@@ -85,13 +85,12 @@ export const PageAnnouncementProvider: FC<PageAnnouncementProviderProps> = ({
   const initialData = useMemo(() => {
     if (sessionKey) {
       const data = {
-        heading: window.sessionStorage.getItem(`${sessionKey}:heading`) || '',
+        heading: window.sessionStorage.getItem(`${sessionKey}:heading`) || "",
         variant:
           (window.sessionStorage.getItem(
-            `${sessionKey}:variant`
-          ) as PageAnnouncementState['variant']) || 'success',
-        description:
-          window.sessionStorage.getItem(`${sessionKey}:description`) || '',
+            `${sessionKey}:variant`,
+          ) as PageAnnouncementState["variant"]) || "success",
+        description: window.sessionStorage.getItem(`${sessionKey}:description`) || "",
       };
 
       if (data.heading) {

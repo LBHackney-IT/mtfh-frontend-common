@@ -1,9 +1,9 @@
-import React, { FC, useState } from 'react';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import React, { FC, useState } from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
-import { testA11y } from '../../test-utils';
-import { Dialog, DialogActions } from './dialog';
+import { testA11y } from "../../test-utils";
+import { Dialog, DialogActions } from "./dialog";
 
 const Component: FC = ({ children }) => {
   const [isOpen, setOpen] = useState(false);
@@ -12,34 +12,30 @@ const Component: FC = ({ children }) => {
       <button type="button" onClick={() => setOpen(true)}>
         Toggle
       </button>
-      <Dialog
-        isOpen={isOpen}
-        title="Dialog Title"
-        onDismiss={() => setOpen(false)}
-      >
+      <Dialog isOpen={isOpen} title="Dialog Title" onDismiss={() => setOpen(false)}>
         {children}
       </Dialog>
     </>
   );
 };
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(
     <Component>
       <p>Content</p>
-    </Component>
+    </Component>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 
-  const toggle = screen.getByText('Toggle') as HTMLButtonElement;
+  const toggle = screen.getByText("Toggle") as HTMLButtonElement;
   userEvent.click(toggle);
 
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders correctly with actions', async () => {
+test("it renders correctly with actions", async () => {
   const { container } = render(
     <Component>
       <p>Content</p>
@@ -47,10 +43,10 @@ test('it renders correctly with actions', async () => {
         <button type="button">Confirm</button>
         <a href="/">Cancel</a>
       </DialogActions>
-    </Component>
+    </Component>,
   );
 
-  const toggle = screen.getByText('Toggle') as HTMLButtonElement;
+  const toggle = screen.getByText("Toggle") as HTMLButtonElement;
   userEvent.click(toggle);
 
   expect(container).toMatchSnapshot();

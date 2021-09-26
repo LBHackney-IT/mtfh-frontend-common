@@ -1,1 +1,1 @@
-export * from './confirmation-router';
+export * from "./confirmation-router";

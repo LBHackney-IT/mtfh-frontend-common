@@ -1,11 +1,11 @@
-import React, { ReactElement, forwardRef, useEffect, useRef } from 'react';
-import type * as Polymorphic from '@radix-ui/react-polymorphic';
-import cn from 'classnames';
-import { Accordion as AccordionJs } from 'lbh-frontend';
-import mergeRefs from 'react-merge-refs';
+import React, { ReactElement, forwardRef, useEffect, useRef } from "react";
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
+import cn from "classnames";
+import { Accordion as AccordionJs } from "lbh-frontend";
+import mergeRefs from "react-merge-refs";
 
-import { widthOverrides } from '../../utils';
-import './styles.scss';
+import { widthOverrides } from "../../utils";
+import "./styles.scss";
 
 export interface AccordionItemProps {
   id: string;
@@ -13,41 +13,36 @@ export interface AccordionItemProps {
 }
 
 export type AccordionItemComponent = Polymorphic.ForwardRefComponent<
-  'div',
+  "div",
   AccordionItemProps
 >;
 
-export const AccordionItem: AccordionItemComponent = forwardRef(
-  function AccordionItem(
-    { as: AccordionItemComp = 'div', children, className, id, title },
-    ref
-  ) {
-    return (
-      <AccordionItemComp
-        ref={ref}
-        className={cn('govuk-accordion__section', className)}
+export const AccordionItem: AccordionItemComponent = forwardRef(function AccordionItem(
+  { as: AccordionItemComp = "div", children, className, id, title },
+  ref,
+) {
+  return (
+    <AccordionItemComp ref={ref} className={cn("govuk-accordion__section", className)}>
+      <div className="govuk-accordion__section-header">
+        <h3 className="govuk-accordion__section-heading lbh-heading-h5">
+          <span
+            className="govuk-accordion__section-button"
+            id={`accordion-heading-${id}`}
+          >
+            {title}
+          </span>
+        </h3>
+      </div>
+      <div
+        id={`accordion-content-${id}`}
+        className="govuk-accordion__section-content"
+        aria-labelledby={`accordion-heading-${id}`}
       >
-        <div className="govuk-accordion__section-header">
-          <h3 className="govuk-accordion__section-heading lbh-heading-h5">
-            <span
-              className="govuk-accordion__section-button"
-              id={`accordion-heading-${id}`}
-            >
-              {title}
-            </span>
-          </h3>
-        </div>
-        <div
-          id={`accordion-content-${id}`}
-          className="govuk-accordion__section-content"
-          aria-labelledby={`accordion-heading-${id}`}
-        >
-          {children}
-        </div>
-      </AccordionItemComp>
-    );
-  }
-);
+        {children}
+      </div>
+    </AccordionItemComp>
+  );
+});
 
 type AccordionChild =
   | ReactElement<AccordionItemProps>
@@ -62,21 +57,18 @@ export interface AccordionProps {
   override?: number;
 }
 
-export type AccordionComponent = Polymorphic.ForwardRefComponent<
-  'div',
-  AccordionProps
->;
+export type AccordionComponent = Polymorphic.ForwardRefComponent<"div", AccordionProps>;
 
 export const Accordion: AccordionComponent = forwardRef(function Accordion(
   {
-    as: AccordionComp = 'div',
+    as: AccordionComp = "div",
     className,
     defaultIndex,
     override,
     visuallyHideControls = false,
     ...props
   },
-  ref
+  ref,
 ) {
   const localRef = useRef<HTMLElement>(null);
   const defaultIndexRef = useRef<number | undefined>(defaultIndex);
@@ -92,17 +84,14 @@ export const Accordion: AccordionComponent = forwardRef(function Accordion(
         /* istanbul ignore else */
         if (section) {
           const button = section.querySelector<HTMLButtonElement>(
-            `.${acc.sectionButtonClass}`
+            `.${acc.sectionButtonClass}`,
           );
           /* istanbul ignore else */
           if (button) {
-            const contentId = button.getAttribute('aria-controls');
+            const contentId = button.getAttribute("aria-controls");
             /* istanbul ignore else */
             if (contentId && !window.sessionStorage.getItem(contentId)) {
-              acc.setExpanded(
-                true,
-                acc.$sections.item(defaultIndexRef.current)
-              );
+              acc.setExpanded(true, acc.$sections.item(defaultIndexRef.current));
             }
           }
         }
@@ -113,11 +102,11 @@ export const Accordion: AccordionComponent = forwardRef(function Accordion(
   return (
     <AccordionComp
       className={cn(
-        'govuk-accordion',
-        'lbh-accordion',
-        { 'lbh-accordion--hide-controls': visuallyHideControls },
+        "govuk-accordion",
+        "lbh-accordion",
+        { "lbh-accordion--hide-controls": visuallyHideControls },
         widthOverrides(override),
-        className
+        className,
       )}
       data-attribute="value"
       ref={mergeRefs([localRef, ref])}
