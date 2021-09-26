@@ -1,1 +1,1 @@
-export * from './split-contact-details';
+export * from "./split-contact-details";

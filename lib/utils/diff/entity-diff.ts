@@ -1,9 +1,6 @@
-import { diff } from 'deep-diff';
+import { diff } from "deep-diff";
 
-export const entityDiff = <T extends Record<string, any>>(
-  lhs: T,
-  rhs: T
-): Partial<T> => {
+export const entityDiff = <T extends Record<string, any>>(lhs: T, rhs: T): Partial<T> => {
   const deepDiff = diff(lhs, rhs) || [];
   return deepDiff.reduce((acc, change) => {
     const [path] = change.path as any[];

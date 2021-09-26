@@ -1,9 +1,7 @@
-import { isAfter, parseISO } from 'date-fns';
-import { TenureSummary } from '../../types';
+import { isAfter, parseISO } from "date-fns";
+import { TenureSummary } from "../../types";
 
-export const sortTenuresByActive = (
-  tenures: TenureSummary[]
-): TenureSummary[] => {
+export const sortTenuresByActive = (tenures: TenureSummary[]): TenureSummary[] => {
   return tenures.sort((a, b) => {
     if (a.isActive && !b.isActive) {
       return -1;
@@ -13,11 +11,11 @@ export const sortTenuresByActive = (
       return 1;
     }
 
-    if (a.type === 'Secure' && b.type !== 'Secure') {
+    if (a.type === "Secure" && b.type !== "Secure") {
       return -1;
     }
 
-    if (a.type !== 'Secure' && b.type === 'Secure') {
+    if (a.type !== "Secure" && b.type === "Secure") {
       return 1;
     }
 

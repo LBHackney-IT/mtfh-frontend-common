@@ -1,17 +1,13 @@
-import axios, {
-  AxiosError,
-  AxiosRequestConfig,
-  CancelTokenSource,
-} from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 
-import { $auth, logout } from '@mtfh/common/lib/auth';
+import { $auth, logout } from "@mtfh/common/lib/auth";
 
 interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
 }
 
 export const axiosInstance = axios.create({
-  responseType: 'json',
+  responseType: "json",
 });
 
 axiosInstance.interceptors.request.use((config) => {
@@ -23,8 +19,8 @@ axiosInstance.interceptors.request.use((config) => {
     },
   };
 
-  if (req.method === 'patch' && Object.keys(req.data || {}).includes('etag')) {
-    req.headers['If-Match'] = req.data.etag;
+  if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
+    req.headers["If-Match"] = req.data.etag;
     delete req.data.etag;
   }
 
@@ -33,7 +29,7 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (res) => {
-    if (res.config.method === 'get' && res.data?.id) {
+    if (res.config.method === "get" && res.data?.id) {
       res.data.etag = res.headers.etag;
     }
     return res;
@@ -43,10 +39,9 @@ axiosInstance.interceptors.response.use(
       logout();
     }
     throw error;
-  }
+  },
 );
 
-export const createCancelToken = (): CancelTokenSource =>
-  axios.CancelToken.source();
+export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
 
 export const isAxiosError = (e: any): e is AxiosError => axios.isAxiosError(e);

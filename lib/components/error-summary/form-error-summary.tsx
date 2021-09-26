@@ -1,10 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import locale from '../../locale';
-import { ErrorSummary, ErrorSummaryProps } from './error-summary';
+import locale from "../../locale";
+import { ErrorSummary, ErrorSummaryProps } from "./error-summary";
 
-interface FormErrorSummaryProps
-  extends Partial<Omit<ErrorSummaryProps, 'description'>> {
+interface FormErrorSummaryProps extends Partial<Omit<ErrorSummaryProps, "description">> {
   id: string;
   prefix: string;
   errors: Record<string, string>;

@@ -1,21 +1,21 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render } from "@testing-library/react";
 
-import { testA11y } from '../../test-utils';
-import { FormGroup } from '../form-group';
-import { Checkbox, CheckboxConditional, CheckboxGroup } from './checkboxes';
+import { testA11y } from "../../test-utils";
+import { FormGroup } from "../form-group";
+import { Checkbox, CheckboxConditional, CheckboxGroup } from "./checkboxes";
 
-test('it passes a11y on single checkbox', async () => {
+test("it passes a11y on single checkbox", async () => {
   const { container } = render(
     <FormGroup id="test" name="test" label="Checkbox Test">
       <Checkbox id="radio">Label</Checkbox>
-    </FormGroup>
+    </FormGroup>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it passes a11y on checkbox group', async () => {
+test("it passes a11y on checkbox group", async () => {
   const { container } = render(
     <FormGroup id="test" label="Checkbox Test">
       <CheckboxGroup>
@@ -26,37 +26,37 @@ test('it passes a11y on checkbox group', async () => {
           Label2
         </Checkbox>
       </CheckboxGroup>
-    </FormGroup>
+    </FormGroup>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders a checkbox', () => {
+test("it renders a checkbox", () => {
   const { container } = render(<Checkbox id="test">Label</Checkbox>);
   expect(container).toMatchSnapshot();
 });
 
-test('it renders a checkbox with a hint', () => {
+test("it renders a checkbox with a hint", () => {
   const { container } = render(
     <Checkbox id="test" hint="A short description">
       Label
-    </Checkbox>
+    </Checkbox>,
   );
   expect(container).toMatchSnapshot();
 });
 
-test('it renders a group of checkboxes', () => {
+test("it renders a group of checkboxes", () => {
   const { container } = render(
     <CheckboxGroup>
       <Checkbox id="test">Label</Checkbox>
       <Checkbox id="test2">Label2</Checkbox>
-    </CheckboxGroup>
+    </CheckboxGroup>,
   );
   expect(container).toMatchSnapshot();
 });
 
-test('it renders a group of checkboxes with a conditional', () => {
+test("it renders a group of checkboxes with a conditional", () => {
   const { container } = render(
     <CheckboxGroup>
       <Checkbox id="test" conditionalId="conditional">
@@ -64,7 +64,7 @@ test('it renders a group of checkboxes with a conditional', () => {
       </Checkbox>
       <CheckboxConditional id="conditional">Hello</CheckboxConditional>
       <Checkbox id="test2">Label2</Checkbox>
-    </CheckboxGroup>
+    </CheckboxGroup>,
   );
   expect(container).toMatchSnapshot();
 });

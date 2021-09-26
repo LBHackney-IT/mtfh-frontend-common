@@ -1,33 +1,45 @@
 import { stringify } from "query-string";
 
 import { config } from "@mtfh/common/lib/config";
-import { AxiosSWRInfiniteResponse, useAxiosSWRInfinite } from "@mtfh/common/lib/hooks";
-import { Comment } from "./types";
+import {
+  AxiosSWRInfiniteConfiguration,
+  AxiosSWRInfiniteResponse,
+  useAxiosSWRInfinite,
+} from "@mtfh/common/lib/hooks";
+import type { Comment } from "./types";
 
-export interface GetCommentsByTargetIdResponse {
+export interface CommentsResponse {
   results: Comment[];
   paginationDetails: {
     nextToken: string | null;
   };
 }
 
-export interface GetCommentsByIdRequestData {
+export interface GetCommentsRequestData {
   targetId: string;
   pageSize?: number;
+}
+
+export interface CommentsRequestParams extends GetCommentsRequestData {
   paginationToken?: string | null;
 }
 
+export interface CommentsConfiguration
+  extends AxiosSWRInfiniteConfiguration<CommentsResponse> {
+  pageSize?: number;
+}
+
 export const useComments = (
-  id: string,
-  pageSize = 5,
-): AxiosSWRInfiniteResponse<GetCommentsByTargetIdResponse> => {
-  return useAxiosSWRInfinite<GetCommentsByTargetIdResponse>(
+  id: string | null,
+  { pageSize = 5, ...options }: CommentsConfiguration = {},
+): AxiosSWRInfiniteResponse<CommentsResponse> => {
+  return useAxiosSWRInfinite<CommentsResponse>(
     (page, previous) => {
-      if (previous && !previous?.paginationDetails?.nextToken) {
+      if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
         return null;
       }
 
-      const params: GetCommentsByIdRequestData = {
+      const params: CommentsRequestParams = {
         targetId: id,
         pageSize,
       };
@@ -36,7 +48,7 @@ export const useComments = (
         params.paginationToken = previous.paginationDetails.nextToken;
       }
 
-      return `${config.notesApiUrlV1}/notes?${stringify(params)}`;
+      return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
     },
     {
       onErrorRetry: /* istanbul ignore next: unreachable in test suite */ (
@@ -54,6 +66,7 @@ export const useComments = (
           ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
         setTimeout(() => revalidate({ retryCount }), timeout);
       },
+      ...options,
     },
   );
 };

@@ -1,12 +1,12 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { Link, Prompt, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Link, Prompt, Route, Switch } from "react-router-dom";
 
-import { ConfirmationRouter } from './confirmation-router';
+import { ConfirmationRouter } from "./confirmation-router";
 
 const setupRouter = () => {
-  window.history.pushState({}, '', '/test');
+  window.history.pushState({}, "", "/test");
   render(
     <ConfirmationRouter>
       <Switch>
@@ -20,10 +20,10 @@ const setupRouter = () => {
               message={(location, action) =>
                 JSON.stringify({
                   action,
-                  path: '/test',
+                  path: "/test",
                   pathname: location.pathname,
-                  title: 'Whoops',
-                  body: 'Are you sure?',
+                  title: "Whoops",
+                  body: "Are you sure?",
                 })
               }
             />
@@ -31,79 +31,79 @@ const setupRouter = () => {
           </>
         </Route>
       </Switch>
-    </ConfirmationRouter>
+    </ConfirmationRouter>,
   );
 };
 
-test('it renders the confirmation router', () => {
+test("it renders the confirmation router", () => {
   render(
     <ConfirmationRouter>
       <div>Hello</div>
-    </ConfirmationRouter>
+    </ConfirmationRouter>,
   );
 
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-  expect(screen.getByText('Hello')).toBeInTheDocument();
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  expect(screen.getByText("Hello")).toBeInTheDocument();
 });
 
-test('it shows a dialog when a prompt triggers', () => {
+test("it shows a dialog when a prompt triggers", () => {
   setupRouter();
 
-  userEvent.click(screen.getByText('Link'));
+  userEvent.click(screen.getByText("Link"));
 
-  expect(screen.getByRole('dialog')).toBeInTheDocument();
-  expect(screen.queryByText('Hello')).not.toBeInTheDocument();
+  expect(screen.getByRole("dialog")).toBeInTheDocument();
+  expect(screen.queryByText("Hello")).not.toBeInTheDocument();
 });
 
-test('it navigates to the destination on confirmation', () => {
+test("it navigates to the destination on confirmation", () => {
   setupRouter();
 
-  userEvent.click(screen.getByText('Link'));
+  userEvent.click(screen.getByText("Link"));
 
-  expect(screen.getByRole('dialog')).toBeInTheDocument();
+  expect(screen.getByRole("dialog")).toBeInTheDocument();
 
-  userEvent.click(screen.getByText('Yes'));
+  userEvent.click(screen.getByText("Yes"));
 
-  expect(screen.getByText('Hello')).toBeInTheDocument();
+  expect(screen.getByText("Hello")).toBeInTheDocument();
 });
 
-test('it stays on the current page if confirmation is declined', () => {
+test("it stays on the current page if confirmation is declined", () => {
   setupRouter();
 
-  userEvent.click(screen.getByText('Link'));
+  userEvent.click(screen.getByText("Link"));
 
-  expect(screen.getByRole('dialog')).toBeInTheDocument();
+  expect(screen.getByRole("dialog")).toBeInTheDocument();
 
-  userEvent.click(screen.getByText('Cancel'));
+  userEvent.click(screen.getByText("Cancel"));
 
-  expect(screen.queryByText('Hello')).not.toBeInTheDocument();
+  expect(screen.queryByText("Hello")).not.toBeInTheDocument();
 });
 
-test('it intercepts browser back button and returns to page if cancelled', async () => {
-  window.history.pushState({}, '', '/');
+test("it intercepts browser back button and returns to page if cancelled", async () => {
+  window.history.pushState({}, "", "/");
   setupRouter();
 
   window.history.back();
 
   await waitFor(() => {
-    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
   });
 
-  userEvent.click(screen.getByText('Close'));
+  userEvent.click(screen.getByText("Close"));
 
-  expect(screen.getByText('Link')).toBeInTheDocument();
+  expect(screen.getByText("Link")).toBeInTheDocument();
 });
 
-test('it only prompts if the path changes', () => {
+test("it only prompts if the path changes", () => {
   setupRouter();
 
-  userEvent.click(screen.getByText('Home'));
+  userEvent.click(screen.getByText("Home"));
 
-  expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
 });
 
-test('it ignores messages that are malformed', () => {
-  window.history.pushState({}, '', '/test');
+test("it ignores messages that are malformed", () => {
+  window.history.pushState({}, "", "/test");
   render(
     <ConfirmationRouter>
       <Switch>
@@ -112,13 +112,13 @@ test('it ignores messages that are malformed', () => {
         </Route>
         <Route path="/test" exact>
           <>
-            <Prompt message={() => 'test'} />
+            <Prompt message={() => "test"} />
             <Link to="/">Link</Link>
           </>
         </Route>
       </Switch>
-    </ConfirmationRouter>
+    </ConfirmationRouter>,
   );
-  userEvent.click(screen.getByText('Link'));
-  expect(screen.getByText('Hello')).toBeInTheDocument();
+  userEvent.click(screen.getByText("Link"));
+  expect(screen.getByText("Hello")).toBeInTheDocument();
 });

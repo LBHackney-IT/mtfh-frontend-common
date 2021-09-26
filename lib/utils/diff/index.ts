@@ -1,1 +1,1 @@
-export * from './entity-diff';
+export * from "./entity-diff";

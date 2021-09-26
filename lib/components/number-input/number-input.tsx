@@ -1,6 +1,6 @@
-import React, { forwardRef, useCallback, useMemo, useState } from 'react';
+import React, { forwardRef, useCallback, useMemo, useState } from "react";
 
-import { Input, InputProps } from '../input';
+import { Input, InputProps } from "../input";
 
 export interface NumberInputProps extends InputProps {
   min?: number;
@@ -24,23 +24,23 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       padStart = 0,
       ...props
     },
-    ref
+    ref,
   ) {
     const parser = useCallback(
       (num: string | number) => {
-        let numString = String(num).replace(/[^\d]+/g, '');
+        let numString = String(num).replace(/[^\d]+/g, "");
         if (maxLength !== undefined && maxLength < numString.length) {
           numString = numString.slice(0, maxLength);
         }
 
         return numString;
       },
-      [maxLength]
+      [maxLength],
     );
 
     const formatter = useCallback(
       (num: string | number) => {
-        if (num === '') return '';
+        if (num === "") return "";
         let numInt = parseInt(String(num), 10);
         if (max !== undefined && numInt > max) {
           numInt = max;
@@ -50,12 +50,12 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
           numInt = min;
         }
 
-        return String(numInt).padStart(padStart, '0');
+        return String(numInt).padStart(padStart, "0");
       },
-      [min, max, padStart]
+      [min, max, padStart],
     );
 
-    const [output, setOutput] = useState(parser(defaultValue ?? value ?? ''));
+    const [output, setOutput] = useState(parser(defaultValue ?? value ?? ""));
 
     const outputInt = useMemo(() => {
       const target = parseInt(output, 10);
@@ -95,5 +95,5 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         {...props}
       />
     );
-  }
+  },
 );

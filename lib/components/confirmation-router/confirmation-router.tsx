@@ -1,14 +1,14 @@
-import React, { Dispatch, FC, useCallback, useState } from 'react';
-import { BrowserRouter, BrowserRouterProps, matchPath } from 'react-router-dom';
-import { Button } from '../button';
-import { Dialog, DialogActions } from '../dialog';
-import { Link } from '../link';
-import { ScrollToTop } from '../scroll-to-top';
+import React, { Dispatch, FC, useCallback, useState } from "react";
+import { BrowserRouter, BrowserRouterProps, matchPath } from "react-router-dom";
+import { Button } from "../button";
+import { Dialog, DialogActions } from "../dialog";
+import { Link } from "../link";
+import { ScrollToTop } from "../scroll-to-top";
 
 interface ConfirmationMessage {
   path: string;
   pathname: string;
-  action: 'POP' | 'PUSH';
+  action: "POP" | "PUSH";
   title: string;
   body?: string;
 }
@@ -27,12 +27,12 @@ export const ConfirmationRouter: FC<BrowserRouterProps> = ({
       if (confirmation) {
         confirmation(ok);
       }
-      if (!ok && message?.action === 'POP') {
+      if (!ok && message?.action === "POP") {
         window.history.forward();
       }
       setIsConfim(false);
     },
-    [confirmation, setIsConfim, message]
+    [confirmation, setIsConfim, message],
   );
 
   return (

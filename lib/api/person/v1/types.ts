@@ -1,36 +1,32 @@
-export type PersonType =
-  | 'Tenant'
-  | 'Leaseholder'
-  | 'Freeholder'
-  | 'HouseholdMember';
+export type PersonType = "Tenant" | "Leaseholder" | "Freeholder" | "HouseholdMember";
 
 export enum PersonTitle {
-  MR = 'Mr',
-  MRS = 'Mrs',
-  MISS = 'Miss',
-  MS = 'Ms',
-  DR = 'Dr',
-  MASTER = 'Master',
-  RABBI = 'Rabbi',
-  REVEREND = 'Reverend',
-  OTHER = 'Other',
+  MR = "Mr",
+  MRS = "Mrs",
+  MISS = "Miss",
+  MS = "Ms",
+  DR = "Dr",
+  MASTER = "Master",
+  RABBI = "Rabbi",
+  REVEREND = "Reverend",
+  OTHER = "Other",
 }
 
 export enum PersonGender {
-  M = 'M',
-  F = 'F',
-  O = 'O',
+  M = "M",
+  F = "F",
+  O = "O",
 }
 
 export enum PersonCommunincationRequirements {
-  SIGN_LANGUAGE = 'SignLanguage',
-  INTERPRETER_REQUIRED = 'InterpreterRequired',
+  SIGN_LANGUAGE = "SignLanguage",
+  INTERPRETER_REQUIRED = "InterpreterRequired",
 }
 
 export enum IdentificationTypes {
-  PASSPORT = 'Passport',
-  DRIVING_LICENCE = 'DrivingLicence',
-  NI = 'NI',
+  PASSPORT = "Passport",
+  DRIVING_LICENCE = "DrivingLicence",
+  NI = "NI",
 }
 
 export interface Identification {
@@ -69,7 +65,7 @@ export interface TenureSummary {
   id: string;
   isActive: boolean;
   paymentReference: string;
-  propertyReference: string;
+  propertyReference: string | null;
   startDate: string;
   type: string;
   uprn: string;

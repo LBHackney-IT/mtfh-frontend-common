@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import locale from '../../locale';
-import { ErrorSummary, ErrorSummaryProps } from './error-summary';
+import locale from "../../locale";
+import { ErrorSummary, ErrorSummaryProps } from "./error-summary";
 
 interface StautsErrorSummaryProps extends Partial<ErrorSummaryProps> {
   id: string;
@@ -17,7 +17,5 @@ export const StatusErrorSummary = ({
   description = statusDescription(code),
   ...props
 }: StautsErrorSummaryProps): JSX.Element => {
-  return (
-    <ErrorSummary id={id} title={title} description={description} {...props} />
-  );
+  return <ErrorSummary id={id} title={title} description={description} {...props} />;
 };

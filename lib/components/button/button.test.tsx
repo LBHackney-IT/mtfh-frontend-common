@@ -1,47 +1,47 @@
-import React, { useEffect } from 'react';
-import { render, screen } from '@testing-library/react';
+import React, { useEffect } from "react";
+import { render, screen } from "@testing-library/react";
 
-import { testA11y } from '../../test-utils';
-import { Button } from './button';
+import { testA11y } from "../../test-utils";
+import { Button } from "./button";
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(<Button>Test Button</Button>);
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it shows a loading state', async () => {
+test("it shows a loading state", async () => {
   const { container } = render(<Button isLoading>Test Button</Button>);
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it shows a loading state with custom text', () => {
+test("it shows a loading state with custom text", () => {
   render(
     <Button isLoading loadingText="Processing">
       Test Button
-    </Button>
+    </Button>,
   );
-  expect(screen.getByText('Processing')).toBeInTheDocument();
+  expect(screen.getByText("Processing")).toBeInTheDocument();
 });
 
-test('it renders the correct variant', async () => {
+test("it renders the correct variant", async () => {
   const { container } = render(<Button variant="secondary">Test Link</Button>);
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it can render as a link', async () => {
+test("it can render as a link", async () => {
   const { container } = render(
     <Button as="a" href="/">
       Test Link
-    </Button>
+    </Button>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it accepts a ref', () => {
+test("it accepts a ref", () => {
   const callback = jest.fn();
   const Comp = () => {
     const ref = React.createRef<HTMLButtonElement>();

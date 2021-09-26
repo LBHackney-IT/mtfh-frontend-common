@@ -26,7 +26,7 @@ parameters:
     type: boolean
 
 references:
-  workspace_root: &workspace_root '~'
+  workspace_root: &workspace_root "~"
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *workspace_root
@@ -37,7 +37,7 @@ executors:
       - image: circleci/node:14.15.4-browsers
   docker-terraform:
     docker:
-      - image: 'hashicorp/terraform:light'
+      - image: "hashicorp/terraform:light"
   docker-python:
     docker:
       - image: circleci/python:3.7
@@ -47,7 +47,7 @@ executors:
 
 commands:
   assume-role-and-persist-workspace:
-    description: 'Assume deployment role and persist credentials across jobs'
+    description: "Assume deployment role and persist credentials across jobs"
     parameters:
       aws-account:
         type: string
@@ -56,14 +56,14 @@ commands:
       - aws_assume_role/assume_role:
           account: <<parameters.aws-account>>
           profile_name: default
-          role: 'LBH_Circle_CI_Deployment_Role'
+          role: "LBH_Circle_CI_Deployment_Role"
       - persist_to_workspace:
           root: *workspace_root
           paths:
             - .aws
 
   terraform-init-then-apply:
-    description: 'Initialize and apply the terraform configuration'
+    description: "Initialize and apply the terraform configuration"
     parameters:
       environment:
         type: string
@@ -141,6 +141,7 @@ jobs:
             export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
             export PERSON_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url-v2 --query Parameter.Value --output text)
             export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url-v2 --query Parameter.Value --output text)
             export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
             export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
             export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
@@ -175,6 +176,7 @@ jobs:
             export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
             export PERSON_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url-v2 --query Parameter.Value --output text)
             export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url-v2 --query Parameter.Value --output text)
             export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
             export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
             export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
@@ -209,6 +211,7 @@ jobs:
             export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
             export PERSON_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url-v2 --query Parameter.Value --output text)
             export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url-v2 --query Parameter.Value --output text)
             export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
             export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
             export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
@@ -241,19 +244,19 @@ jobs:
     executor: docker-terraform
     steps:
       - terraform-init-then-apply:
-          environment: 'development'
+          environment: "development"
 
   terraform-init-and-apply-to-staging:
     executor: docker-terraform
     steps:
       - terraform-init-then-apply:
-          environment: 'staging'
+          environment: "staging"
 
   terraform-init-and-apply-to-production:
     executor: docker-terraform
     steps:
       - terraform-init-then-apply:
-          environment: 'production'
+          environment: "production"
 
   trigger-e2e-pipeline:
     executor: cimg-base
@@ -311,7 +314,7 @@ workflows:
             branches:
               only: main
       - build-deploy-development:
-          stage: 'development'
+          stage: "development"
           requires:
             - terraform-init-and-apply-to-development
           filters:
@@ -353,7 +356,7 @@ workflows:
             branches:
               only: main
       - build-deploy-staging:
-          stage: 'staging'
+          stage: "staging"
           requires:
             - terraform-init-and-apply-to-staging
           filters:
@@ -395,7 +398,7 @@ workflows:
             branches:
               only: main
       - build-deploy-production:
-          stage: 'production'
+          stage: "production"
           requires:
             - terraform-init-and-apply-to-production
           filters:
