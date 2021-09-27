@@ -1,8 +1,8 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
+import { screen, waitFor } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 
-import { testA11y } from "../../test-utils";
 import { PageAnnouncementProvider, usePageAnnouncement } from "./context";
 import { PageAnnouncement } from "./page-announcement";
 

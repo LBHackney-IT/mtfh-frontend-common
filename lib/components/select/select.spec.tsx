@@ -1,7 +1,6 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from "../../test-utils";
 import { FormGroup } from "../form-group";
 import { Select } from "./select";
 

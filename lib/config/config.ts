@@ -3,7 +3,7 @@ const config = {
   authDomain: process.env.AUTH_DOMAIN || "//auth.hackney.gov.uk/auth",
   cookieDomain: process.env.COOKIE_DOMAIN || "hackney.gov.uk",
   authToken: process.env.AUTH_TOKEN_NAME || "hackneyToken",
-  configurationApiUrlV1: process.env.CONFIGURATION_API_URL_V1 || "/api",
+  configurationApiUrlV1: process.env.CONFIGURATION_API_URL_V1 || "",
   contactDetailsApiUrlV1: process.env.CONTACT_DETAILS_API_URL_V1 || "/api",
   personApiUrlV1: process.env.PERSON_API_URL_V1 || "/api/v1",
   personApiUrlV2: process.env.PERSON_API_URL_V2 || "/api/v2",

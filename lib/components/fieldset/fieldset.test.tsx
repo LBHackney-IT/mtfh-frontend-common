@@ -1,8 +1,8 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { FormGroup, Input } from "..";
-import { testA11y } from "../../test-utils";
+import { FormGroup } from "../form-group";
+import { Input } from "../input";
 import { Fieldset } from "./fieldset";
 
 test("it renders correctly", async () => {

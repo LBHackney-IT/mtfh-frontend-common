@@ -1,5 +1,7 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
+
 import locale from "../../locale";
 import { StatusErrorSummary } from "./status-error-summary";
 

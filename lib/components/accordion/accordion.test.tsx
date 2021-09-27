@@ -1,7 +1,7 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
 
-import { testA11y } from "../../test-utils";
 import { Accordion, AccordionItem } from "./accordion";
 
 test("it passes a11y", async () => {

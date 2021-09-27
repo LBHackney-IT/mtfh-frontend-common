@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
-import { render } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from "../../test-utils";
 import { Icon } from "./icon";
 
 test("it renders a icon with defaults", async () => {
