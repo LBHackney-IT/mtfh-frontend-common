@@ -1,10 +1,9 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from '../../test-utils';
-import { SimplePagination, SimplePaginationButton } from './simple-pagination';
+import { SimplePagination, SimplePaginationButton } from "./simple-pagination";
 
-test('it renders the nav with buttons', async () => {
+test("it renders the nav with buttons", async () => {
   const { container } = render(
     <SimplePagination>
       <SimplePaginationButton href="/prev" variant="previous">
@@ -13,13 +12,13 @@ test('it renders the nav with buttons', async () => {
       <SimplePaginationButton href="/next" variant="next">
         Next
       </SimplePaginationButton>
-    </SimplePagination>
+    </SimplePagination>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders the nav with buttons and titles', () => {
+test("it renders the nav with buttons and titles", () => {
   const { container } = render(
     <SimplePagination>
       <SimplePaginationButton href="/prev" variant="previous" title="1 of 3">
@@ -28,7 +27,7 @@ test('it renders the nav with buttons and titles', () => {
       <SimplePaginationButton href="/next" variant="next" title="3 of 3">
         Next
       </SimplePaginationButton>
-    </SimplePagination>
+    </SimplePagination>,
   );
   expect(container).toMatchSnapshot();
 });

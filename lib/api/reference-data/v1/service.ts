@@ -1,10 +1,10 @@
-import { config } from '@mtfh/common/lib/config';
+import { config } from "@mtfh/common/lib/config";
 import {
   AxiosSWRConfiguration,
   AxiosSWRResponse,
   useAxiosSWR,
-} from '@mtfh/common/lib/hooks';
-import { ReferenceData } from './types';
+} from "@mtfh/common/lib/hooks";
+import { ReferenceData } from "./types";
 
 type ReferenceDataResponse<T extends string> = { [key in T]: ReferenceData[] };
 
@@ -15,7 +15,7 @@ interface ReferenceDataRequestParams {
 
 export const useReferenceData = <T extends string>(
   { category, subCategory }: ReferenceDataRequestParams,
-  options?: AxiosSWRConfiguration<ReferenceDataResponse<T>>
+  options?: AxiosSWRConfiguration<ReferenceDataResponse<T>>,
 ): AxiosSWRResponse<ReferenceDataResponse<T>> => {
   let params = `category=${category}`;
   /* istanbul ignore else */
@@ -24,6 +24,6 @@ export const useReferenceData = <T extends string>(
   }
   return useAxiosSWR<ReferenceDataResponse<T>>(
     `${config.referenceDataApiUrlV1}/reference-data?${params}`,
-    options
+    options,
   );
 };

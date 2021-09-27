@@ -1,13 +1,9 @@
-import React, {
-  ComponentPropsWithoutRef,
-  ReactElement,
-  cloneElement,
-} from 'react';
+import React, { ComponentPropsWithoutRef, ReactElement, cloneElement } from "react";
 
-import { useField } from 'formik';
-import { DateInput } from '../date-input';
-import { FormGroup } from '../form-group';
-import { NumberInputProps } from '../number-input';
+import { useField } from "formik";
+import { DateInput } from "../date-input";
+import { FormGroup } from "../form-group";
+import { NumberInputProps } from "../number-input";
 
 export interface FieldProps {
   name: string;
@@ -16,7 +12,7 @@ export interface FieldProps {
   children: ReactElement;
   className?: string;
   required?: boolean;
-  type?: 'checkbox' | 'radio' | 'text' | 'number';
+  type?: "checkbox" | "radio" | "text" | "number";
 }
 
 export const Field = ({
@@ -28,7 +24,7 @@ export const Field = ({
   ...props
 }: FieldProps): JSX.Element => {
   const [field, meta] = useField({ name, type, value: children.props.value });
-  const comp = type === 'checkbox' || type === 'radio' ? 'fieldset' : 'div';
+  const comp = type === "checkbox" || type === "radio" ? "fieldset" : "div";
   return (
     <FormGroup as={comp} id={id} label={label} error={meta.error} {...props}>
       {cloneElement(children, { ...field })}
@@ -39,7 +35,7 @@ export const Field = ({
 export interface InlineFieldProps {
   name: string;
   children: ReactElement;
-  type?: 'checkbox' | 'radio' | 'text' | 'number';
+  type?: "checkbox" | "radio" | "text" | "number";
 }
 
 export const InlineField = ({
@@ -52,9 +48,9 @@ export const InlineField = ({
   return cloneElement(children, { ...field, ...props, error: meta.error });
 };
 
-type DateInputFieldProps = Omit<NumberInputProps, 'name'> & { name: string };
+type DateInputFieldProps = Omit<NumberInputProps, "name"> & { name: string };
 
-export interface DateFieldProps extends ComponentPropsWithoutRef<'fieldset'> {
+export interface DateFieldProps extends ComponentPropsWithoutRef<"fieldset"> {
   id: string;
   label: string;
   dayProps: DateInputFieldProps;

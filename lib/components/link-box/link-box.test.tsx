@@ -1,17 +1,16 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from '../../test-utils';
-import { Link } from '../link';
-import { LinkBox, LinkOverlay } from './link-box';
+import { Link } from "../link";
+import { LinkBox, LinkOverlay } from "./link-box";
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(
     <LinkBox>
       <LinkOverlay>
         <Link href="https://localhost">Link</Link>
       </LinkOverlay>
-    </LinkBox>
+    </LinkBox>,
   );
 
   expect(container).toMatchSnapshot();

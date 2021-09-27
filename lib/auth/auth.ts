@@ -1,8 +1,8 @@
-import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
-import { BehaviorSubject } from 'rxjs';
+import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
+import { BehaviorSubject } from "rxjs";
 
-import { config } from '@mtfh/common/lib/config';
+import { config } from "@mtfh/common/lib/config";
 
 export interface JWTPayload {
   sub: string;
@@ -18,11 +18,11 @@ export interface AuthUser extends JWTPayload {
 }
 
 const voidUser: AuthUser = {
-  token: '',
-  sub: '',
-  email: '',
-  iss: '',
-  name: '',
+  token: "",
+  sub: "",
+  email: "",
+  iss: "",
+  name: "",
   groups: [],
   iat: Number.NaN,
 };
@@ -67,11 +67,9 @@ export const logout = (): void => {
   window.location.reload();
 };
 
-export const login = (
-  redirectUrl = `${window.location.origin}/search`
-): void => {
+export const login = (redirectUrl = `${window.location.origin}/search`): void => {
   logout();
-  window.location.href = `${
-    config.authDomain
-  }?redirect_uri=${encodeURIComponent(redirectUrl)}`;
+  window.location.href = `${config.authDomain}?redirect_uri=${encodeURIComponent(
+    redirectUrl,
+  )}`;
 };

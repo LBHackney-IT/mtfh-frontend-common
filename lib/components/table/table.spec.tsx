@@ -1,8 +1,7 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from '../../test-utils';
-import { Table, TableCaption, Tbody, Td, Th, Thead, Tr } from './table';
+import { Table, TableCaption, Tbody, Td, Th, Thead, Tr } from "./table";
 
 const TableHeadSample = () => (
   <Thead>
@@ -34,51 +33,51 @@ const TableBodySample = () => (
   </Tbody>
 );
 
-test('it displays a basic table passes a11y', async () => {
+test("it displays a basic table passes a11y", async () => {
   const { container } = render(
     <Table>
       <TableBodySample />
-    </Table>
+    </Table>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it displays a custom styled basic table passes a11y', async () => {
-  const tableClass = 'customTableClass';
+test("it displays a custom styled basic table passes a11y", async () => {
+  const tableClass = "customTableClass";
   const { container } = render(
     <Table className={tableClass}>
       <TableBodySample />
-    </Table>
+    </Table>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it displays a table with a header and passes a11y', async () => {
+test("it displays a table with a header and passes a11y", async () => {
   const { container } = render(
     <Table>
       <TableHeadSample />
       <TableBodySample />
-    </Table>
+    </Table>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it displays a table with a caption and header and passes a11y', async () => {
+test("it displays a table with a caption and header and passes a11y", async () => {
   const { container } = render(
     <Table>
       <TableCaption>Caption 1: Months and rates</TableCaption>
       <TableHeadSample />
       <TableBodySample />
-    </Table>
+    </Table>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-const captionSizes = ['xlarge', 'large', 'medium', 'small'];
+const captionSizes = ["xlarge", "large", "medium", "small"];
 captionSizes.map((size) =>
   test(`it displays a table with a ${size} caption and header and passes a11y`, async () => {
     const { container } = render(
@@ -86,9 +85,9 @@ captionSizes.map((size) =>
         <TableCaption>{size} Caption 1: Months and rates</TableCaption>
         <TableHeadSample />
         <TableBodySample />
-      </Table>
+      </Table>,
     );
     expect(container).toMatchSnapshot();
     await testA11y(container);
-  })
+  }),
 );

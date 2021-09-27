@@ -1,25 +1,20 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+import React from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from '../../test-utils';
-import { LinkButton } from './link-button';
+import { LinkButton } from "./link-button";
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(<LinkButton>Test Button</LinkButton>);
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders a variant', () => {
-  const { container } = render(
-    <LinkButton variant="muted">Test Button</LinkButton>
-  );
+test("it renders a variant", () => {
+  const { container } = render(<LinkButton variant="muted">Test Button</LinkButton>);
   expect(container).toMatchSnapshot();
 });
 
-test('it renders a back link', () => {
-  const { container } = render(
-    <LinkButton variant="back-link">Test Button</LinkButton>
-  );
+test("it renders a back link", () => {
+  const { container } = render(<LinkButton variant="back-link">Test Button</LinkButton>);
   expect(container).toMatchSnapshot();
 });

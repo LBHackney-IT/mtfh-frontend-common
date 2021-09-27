@@ -1,11 +1,8 @@
-import { stringify } from 'query-string';
+import { stringify } from "query-string";
 
-import { config } from '@mtfh/common/lib/config';
-import {
-  AxiosSWRInfiniteResponse,
-  useAxiosSWRInfinite,
-} from '@mtfh/common/lib/hooks';
-import { Comment } from './types';
+import { config } from "@mtfh/common/lib/config";
+import { AxiosSWRInfiniteResponse, useAxiosSWRInfinite } from "@mtfh/common/lib/hooks";
+import { Comment } from "./types";
 
 export interface GetCommentsByTargetIdResponse {
   results: Comment[];
@@ -22,7 +19,7 @@ export interface GetCommentsByIdRequestData {
 
 export const useComments = (
   id: string,
-  pageSize = 5
+  pageSize = 5,
 ): AxiosSWRInfiniteResponse<GetCommentsByTargetIdResponse> => {
   return useAxiosSWRInfinite<GetCommentsByTargetIdResponse>(
     (page, previous) => {
@@ -47,7 +44,7 @@ export const useComments = (
         key,
         config,
         revalidate,
-        { retryCount }
+        { retryCount },
       ) => {
         if (error.response?.status === 404) return;
         if (retryCount >= 3) return;
@@ -57,6 +54,6 @@ export const useComments = (
           ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
         setTimeout(() => revalidate({ retryCount }), timeout);
       },
-    }
+    },
   );
 };

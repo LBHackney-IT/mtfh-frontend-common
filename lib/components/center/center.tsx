@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react';
-import type * as Polymorphic from '@radix-ui/react-polymorphic';
-import cn from 'classnames';
+import React, { forwardRef } from "react";
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
+import cn from "classnames";
 
-import { widthOverrides } from '../../utils';
-import './styles.scss';
+import { widthOverrides } from "../../utils";
+import "./styles.scss";
 
 export interface CenterProps {
   horizontally?: boolean;
@@ -11,33 +11,30 @@ export interface CenterProps {
   override?: number;
 }
 
-export type CenterComponent = Polymorphic.ForwardRefComponent<
-  'div',
-  CenterProps
->;
+export type CenterComponent = Polymorphic.ForwardRefComponent<"div", CenterProps>;
 
 export const Center: CenterComponent = forwardRef(function Center(
   {
-    as: CenterComp = 'div',
+    as: CenterComp = "div",
     horizontally = true,
     vertically = true,
     className,
     override,
     ...props
   },
-  ref
+  ref,
 ) {
   return (
     <CenterComp
       ref={ref}
       className={cn(
-        'mtfh-center',
+        "mtfh-center",
         {
-          'mtfh-center--horizontal': horizontally,
-          'mtfh-center--vertical': vertically,
+          "mtfh-center--horizontal": horizontally,
+          "mtfh-center--vertical": vertically,
         },
         widthOverrides(override),
-        className
+        className,
       )}
       {...props}
     />

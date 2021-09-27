@@ -1,27 +1,24 @@
-import React, { forwardRef } from 'react';
-import type * as Polymorphic from '@radix-ui/react-polymorphic';
-import cn from 'classnames';
+import React, { forwardRef } from "react";
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
+import cn from "classnames";
 
-import { widthOverrides } from '../../utils';
-import './styles.scss';
+import { widthOverrides } from "../../utils";
+import "./styles.scss";
 
 export interface ButtonProps {
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
   isLoading?: boolean;
   isDisabled?: boolean;
   loadingText?: string;
   override?: number;
 }
 
-export type ButtonComponent = Polymorphic.ForwardRefComponent<
-  'button',
-  ButtonProps
->;
+export type ButtonComponent = Polymorphic.ForwardRefComponent<"button", ButtonProps>;
 
 export const Button: ButtonComponent = forwardRef(function Button(
   {
-    as: ButtonComp = 'button',
-    variant = 'primary',
+    as: ButtonComp = "button",
+    variant = "primary",
     isLoading = false,
     loadingText,
     isDisabled,
@@ -30,17 +27,17 @@ export const Button: ButtonComponent = forwardRef(function Button(
     override,
     ...props
   },
-  ref
+  ref,
 ) {
   const buttonClasses = cn(
-    'govuk-button',
-    'lbh-button',
+    "govuk-button",
+    "lbh-button",
     {
-      'govuk-button--secondary lbh-button--secondary': variant === 'secondary',
-      'lbh-button--disabled govuk-button--disabled': isDisabled,
+      "govuk-button--secondary lbh-button--secondary": variant === "secondary",
+      "lbh-button--disabled govuk-button--disabled": isDisabled,
     },
     widthOverrides(override),
-    className
+    className,
   );
 
   const disabled = isDisabled || isLoading || undefined;
@@ -49,8 +46,8 @@ export const Button: ButtonComponent = forwardRef(function Button(
     <ButtonComp
       ref={ref}
       className={buttonClasses}
-      type={ButtonComp === 'button' ? 'button' : undefined}
-      disabled={ButtonComp === 'button' ? disabled : undefined}
+      type={ButtonComp === "button" ? "button" : undefined}
+      disabled={ButtonComp === "button" ? disabled : undefined}
       aria-disabled={disabled}
       {...props}
     >

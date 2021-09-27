@@ -1,16 +1,14 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-
-import { testA11y } from '../../test-utils';
+import React from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
 import {
   Pagination,
   PaginationButton,
   PaginationControls,
   PaginationSummary,
-} from './pagination';
+} from "./pagination";
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(
     <Pagination>
       <PaginationSummary>Showing 101—150 of 246 results</PaginationSummary>
@@ -29,13 +27,13 @@ test('it renders correctly', async () => {
           Next
         </PaginationButton>
       </PaginationControls>
-    </Pagination>
+    </Pagination>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders without a summary', async () => {
+test("it renders without a summary", async () => {
   const { container } = render(
     <Pagination>
       <PaginationControls>
@@ -48,13 +46,13 @@ test('it renders without a summary', async () => {
           Next
         </PaginationButton>
       </PaginationControls>
-    </Pagination>
+    </Pagination>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it renders control as buttons', async () => {
+test("it renders control as buttons", async () => {
   const { container } = render(
     <Pagination>
       <PaginationControls>
@@ -66,7 +64,7 @@ test('it renders control as buttons', async () => {
           Next
         </PaginationButton>
       </PaginationControls>
-    </Pagination>
+    </Pagination>,
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);

@@ -1,14 +1,16 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { FormErrorSummary } from './form-error-summary';
+import React from "react";
+import { render } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
 
-test('FormErrorSummary renders error', () => {
+import { FormErrorSummary } from "./form-error-summary";
+
+test("FormErrorSummary renders error", () => {
   render(
     <FormErrorSummary
       id="form"
-      errors={{ firstName: 'First name cannot be blank' }}
+      errors={{ firstName: "First name cannot be blank" }}
       prefix="form"
-    />
+    />,
   );
-  expect(screen.getByText('First name cannot be blank')).toBeInTheDocument();
+  expect(screen.getByText("First name cannot be blank")).toBeInTheDocument();
 });

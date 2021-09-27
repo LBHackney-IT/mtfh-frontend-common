@@ -9,7 +9,7 @@
       "error",
       {
         "devDependencies": [
-          "lib/test-utils.tsx",
+          "lib/test-utils.ts",
           "**/*.+(test|spec).+(j|t)s?(x)",
           "test?(s)/**/*.+(j|t)s?(x)"
         ]

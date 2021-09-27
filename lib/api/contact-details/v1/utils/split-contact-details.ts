@@ -1,4 +1,4 @@
-import { ContactDetail, ContactInformationContactTypes } from '../types';
+import { ContactDetail, ContactInformationContactTypes } from "../types";
 
 interface SplitContactDetailsByType {
   emails: ContactDetail[];
@@ -7,7 +7,7 @@ interface SplitContactDetailsByType {
 }
 
 export const splitContactDetailsByType = (
-  contacts: ContactDetail[]
+  contacts: ContactDetail[],
 ): SplitContactDetailsByType => {
   const emails: ContactDetail[] = [];
   const phones: ContactDetail[] = [];

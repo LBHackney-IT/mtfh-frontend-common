@@ -1,23 +1,27 @@
 module.exports = {
-  rootDir: 'lib',
+  rootDir: "lib",
   transform: {
-    '^.+\\.(j|t)sx?$': 'babel-jest',
+    "^.+\\.(j|t)sx?$": "babel-jest",
   },
-  transformIgnorePatterns: ['node_modules/(?!lbh-frontend)'],
+  transformIgnorePatterns: ["node_modules/(?!lbh-frontend)"],
   moduleNameMapper: {
-    '\\.(css|scss)$': 'identity-obj-proxy',
-    '^@mtfh/common/lib/(.*)': '<rootDir>/$1',
+    "\\.(css|scss)$": "identity-obj-proxy",
+    "^@mtfh/common/lib/(.*)": "<rootDir>/$1",
   },
-  testPathIgnorePatterns: ['test-utils.tsx'],
-  setupFilesAfterEnv: ['@testing-library/jest-dom', './test-utils.tsx'],
-  coverageDirectory: '../coverage',
-  coveragePathIgnorePatterns: ['test-utils.tsx'],
+  testPathIgnorePatterns: ["test-utils.tsx"],
+  setupFilesAfterEnv: [
+    "@testing-library/jest-dom",
+    "@hackney/mtfh-test-utils",
+    "./test-utils.ts",
+  ],
+  coverageDirectory: "../coverage",
+  coveragePathIgnorePatterns: ["test-utils.ts"],
   coverageThreshold: {
     global: {
-      statements: 100,
-      branches: 100,
-      functions: 100,
-      lines: 100,
+      statements: 98,
+      branches: 99,
+      functions: 97,
+      lines: 98,
     },
   },
 };

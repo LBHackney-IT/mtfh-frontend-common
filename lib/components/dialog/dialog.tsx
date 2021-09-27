@@ -1,11 +1,11 @@
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
-import { Dialog as ReachDialog } from '@reach/dialog';
-import cn from 'classnames';
-import '@reach/dialog/styles.css';
+import React, { ComponentPropsWithoutRef, forwardRef } from "react";
+import { Dialog as ReachDialog } from "@reach/dialog";
+import cn from "classnames";
+import "@reach/dialog/styles.css";
 
-import './styles.scss';
+import "./styles.scss";
 
-export interface DialogProps extends ComponentPropsWithoutRef<'div'> {
+export interface DialogProps extends ComponentPropsWithoutRef<"div"> {
   isOpen: boolean;
   onDismiss: () => void;
   title: string;
@@ -13,14 +13,14 @@ export interface DialogProps extends ComponentPropsWithoutRef<'div'> {
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
   { isOpen, onDismiss, children, className, title, ...props },
-  ref
+  ref,
 ) {
   return (
     <ReachDialog
       ref={ref}
       isOpen={isOpen}
       onDismiss={onDismiss}
-      className={cn('lbh-dialog', className)}
+      className={cn("lbh-dialog", className)}
       aria-label={title}
       {...props}
     >
@@ -44,15 +44,8 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
   );
 });
 
-export const DialogActions = forwardRef<
-  HTMLDivElement,
-  ComponentPropsWithoutRef<'div'>
->(function DialogActions({ className, ...props }, ref) {
-  return (
-    <div
-      ref={ref}
-      className={cn('lbh-dialog__actions', className)}
-      {...props}
-    />
-  );
-});
+export const DialogActions = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
+  function DialogActions({ className, ...props }, ref) {
+    return <div ref={ref} className={cn("lbh-dialog__actions", className)} {...props} />;
+  },
+);

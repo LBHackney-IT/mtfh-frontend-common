@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import { render } from '@testing-library/react';
+import React, { useEffect } from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
 
-import { testA11y } from '../../test-utils';
-import { Spinner } from './spinner';
+import { Spinner } from "./spinner";
 
-test('it renders correctly', async () => {
+test("it renders correctly", async () => {
   const { container } = render(<Spinner />);
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
-test('it accepts a ref', () => {
+test("it accepts a ref", () => {
   const callback = jest.fn();
   const Comp = () => {
     const ref = React.createRef<SVGSVGElement>();

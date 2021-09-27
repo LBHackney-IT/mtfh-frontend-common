@@ -1,4 +1,4 @@
-import { PersonType } from '../../person/v1/types';
+import { PersonType } from "../../person/v1/types";
 
 export interface TenureDetailsProperties {
   title: string;
@@ -10,8 +10,8 @@ export interface TenureType {
 }
 
 export enum TenureAssetType {
-  DWELLING = 'dwelling',
-  GARAGE = 'garage',
+  DWELLING = "dwelling",
+  GARAGE = "garage",
 }
 
 export interface HouseholdMember {
@@ -78,10 +78,10 @@ export interface Tenure {
   isActive: boolean;
   accountType: AccountType;
   paymentReference: string;
-  propertyReference: string;
+  propertyReference: string | null;
   householdMembers: HouseholdMember[];
   charges: Charges;
-  isTenanted: boolean;
+  isTenanted: boolean | null;
   terminated: {
     isTerminated: boolean;
     reasonForTermination: string;
@@ -102,4 +102,4 @@ export interface Tenure {
   etag?: string;
 }
 
-export type FetchState = 'loading' | 'error' | 'invalid' | 'done';
+export type FetchState = "loading" | "error" | "invalid" | "done";

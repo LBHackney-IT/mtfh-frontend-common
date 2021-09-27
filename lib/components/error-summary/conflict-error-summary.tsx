@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import locale from '../../locale';
-import { SummaryList, SummaryListItem } from '../summary-list';
-import { ErrorSummary, ErrorSummaryProps } from './error-summary';
+import locale from "../../locale";
+import { SummaryList, SummaryListItem } from "../summary-list";
+import { ErrorSummary, ErrorSummaryProps } from "./error-summary";
 
 interface ConflictErrorSummaryProps extends Partial<ErrorSummaryProps> {
   id: string;

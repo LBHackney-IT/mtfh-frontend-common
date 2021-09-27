@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import { Prompt, PromptProps, useRouteMatch } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Prompt, PromptProps, useRouteMatch } from "react-router-dom";
 
-export interface DialogPromptProps extends Omit<PromptProps, 'message'> {
+export interface DialogPromptProps extends Omit<PromptProps, "message"> {
   title: string;
   body?: string;
   skipConfirmation?: (location: { pathname: string }) => boolean;
@@ -17,12 +17,12 @@ export const DialogPrompt = ({
 
   useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => {
-      e.returnValue = '';
+      e.returnValue = "";
       return e.returnValue as string;
     };
-    window.addEventListener('beforeunload', handler);
+    window.addEventListener("beforeunload", handler);
     return () => {
-      window.removeEventListener('beforeunload', handler);
+      window.removeEventListener("beforeunload", handler);
     };
   }, []);
 
@@ -36,7 +36,7 @@ export const DialogPrompt = ({
           path,
           pathname: location.pathname,
           title,
-          body: body || '',
+          body: body || "",
         });
       }}
     />
