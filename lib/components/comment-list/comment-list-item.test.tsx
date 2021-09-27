@@ -11,7 +11,7 @@ test("Comment renders", () => {
 
 test("Comment renders date in the correct format", () => {
   render(<CommentListItem comment={mockCommentV2} />);
-  expect(screen.getByText("27/08/2021")).toBeInTheDocument();
+  expect(screen.getByText(/\d{2}\/\d{2}\/\d{4}/)).toBeInTheDocument();
 });
 
 test("Comment does not display title if it is missing", () => {
