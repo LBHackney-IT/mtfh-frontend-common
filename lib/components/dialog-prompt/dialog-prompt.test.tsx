@@ -1,17 +1,17 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Link } from "react-router-dom";
 
-import { ConfirmationRouter } from "../confirmation-router";
 import { DialogPrompt } from "./dialog-prompt";
 
 test("it issues a prompt when navigating", () => {
   render(
-    <ConfirmationRouter>
+    <>
       <Link to="/test">Link</Link>
       <DialogPrompt title="Error" />
-    </ConfirmationRouter>,
+    </>,
   );
 
   userEvent.click(screen.getByRole("link"));
@@ -20,11 +20,7 @@ test("it issues a prompt when navigating", () => {
 });
 
 test("it intercepts onbeforeunload", () => {
-  render(
-    <ConfirmationRouter>
-      <DialogPrompt title="Error" />
-    </ConfirmationRouter>,
-  );
+  render(<DialogPrompt title="Error" />);
   const event: BeforeUnloadEvent = new Event("beforeunload");
   const returnValue = jest.fn();
   Object.defineProperty(event, "returnValue", {
@@ -39,10 +35,10 @@ test("it intercepts onbeforeunload", () => {
 
 test("it skips confirmation if needed", () => {
   render(
-    <ConfirmationRouter>
+    <>
       <Link to="/test">Link</Link>
       <DialogPrompt title="Error" skipConfirmation={() => true} />
-    </ConfirmationRouter>,
+    </>,
   );
   userEvent.click(screen.getByRole("link"));
 

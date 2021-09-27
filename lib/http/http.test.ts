@@ -1,18 +1,21 @@
+import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
-import { logout } from "@mtfh/common/lib/auth";
-import { getFailure, getSuccess, server } from "../test-utils";
-import { axiosInstance, createCancelToken, isAxiosError } from "./axios";
+import { axiosInstance, createCancelToken, isAxiosError } from "./http";
 
-jest.mock("@mtfh/common/lib/auth", () => ({
-  logout: jest.fn(),
-  $auth: {
-    getValue: jest.fn(() => ({ token: "string" })),
-  },
-}));
+const defaultRequest = { path: "/api", code: 200 };
 
 describe("axiosInstance", () => {
+  Object.defineProperty(window, "location", {
+    value: {
+      href: "http://localhost/",
+      origin: "http://localhost",
+      reload: jest.fn(),
+    },
+    writable: true,
+  });
+
   test("it calls with Authorization header", async () => {
-    getSuccess("success");
+    request({ method: "get", ...defaultRequest, data: "success" });
 
     const res = await axiosInstance.get("/api");
 
@@ -20,19 +23,19 @@ describe("axiosInstance", () => {
   });
 
   test("it throws an error on bad request", () => {
-    getFailure("failure");
+    request({ method: "get", ...defaultRequest, data: "failure", code: 500 });
 
     return expect(axiosInstance.get("/api")).rejects.toThrow();
   });
 
   test("it will logout on 403", async () => {
-    getFailure("failure", 403);
+    request({ method: "get", ...defaultRequest, data: "failure", code: 403 });
     try {
       await axiosInstance.get("/api");
     } catch (e) {
       expect(isAxiosError(e)).toBe(true);
     }
-    expect(logout).toBeCalledTimes(1);
+    expect(window.location.reload).toBeCalledTimes(1);
   });
 
   test("it can generate a cancel token", () => {
@@ -41,11 +44,19 @@ describe("axiosInstance", () => {
   });
 
   test("etag is appended to response in get request", async () => {
-    getSuccess({ id: "70a8d798-d707-4eee-8c9e-7fe1ecaf42cb" });
+    server.use(
+      rest.get("/api", (req, res, ctx) => {
+        return res(
+          ctx.status(200),
+          ctx.set("ETag", '"1"'),
+          ctx.json({ id: "70a8d798-d707-4eee-8c9e-7fe1ecaf42cb" }),
+        );
+      }),
+    );
 
     const res = await axiosInstance.get("/api");
 
-    expect(res.data.etag).toBe("1");
+    expect(res.data.etag).toBe('"1"');
   });
 
   test("etag in patch data is appended to If-Match header", async () => {

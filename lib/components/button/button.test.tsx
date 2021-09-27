@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { render, screen } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
 
-import { testA11y } from "../../test-utils";
 import { Button } from "./button";
 
 test("it renders correctly", async () => {

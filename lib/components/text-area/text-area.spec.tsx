@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
+import { fireEvent, screen } from "@testing-library/react";
 
-import { testA11y } from "../../test-utils";
 import { FormGroup } from "../form-group";
 import { TextArea } from "./text-area";
 

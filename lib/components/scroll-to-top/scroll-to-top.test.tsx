@@ -1,6 +1,8 @@
 import React from "react";
-import { waitFor } from "@testing-library/react";
-import { routeRender } from "../../test-utils";
+import { render, waitFor } from "@testing-library/react";
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
+
 import { ScrollToTop } from "./scroll-to-top";
 
 const mockScrollTo = jest.fn();
@@ -14,14 +16,26 @@ beforeEach(() => {
 });
 
 test("it scrolls to top on route change", async () => {
-  const { history } = routeRender(<ScrollToTop />);
+  const history = createMemoryHistory();
+  history.push("/");
+  render(
+    <Router history={history}>
+      <ScrollToTop />
+    </Router>,
+  );
   history.push("/test");
   await waitFor(() => expect(mockScrollTo).toBeCalledTimes(1));
   expect(mockScrollTo).toBeCalledWith(0, 0);
 });
 
 test("it will not trigger on back or forward", async () => {
-  const { history } = routeRender(<ScrollToTop />);
+  const history = createMemoryHistory();
+  history.push("/");
+  render(
+    <Router history={history}>
+      <ScrollToTop />
+    </Router>,
+  );
   history.push("/test");
   await waitFor(() => expect(mockScrollTo).toBeCalledTimes(1));
   expect(mockScrollTo).toBeCalledWith(0, 0);

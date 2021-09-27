@@ -1,11 +1,11 @@
+import { request } from "@hackney/mtfh-test-utils";
 import { act, renderHook } from "@testing-library/react-hooks";
 
-import { getSuccess } from "../../test-utils";
 import { useAxiosSWR, useAxiosSWRInfinite } from "../use-axios-swr";
 
 describe("useAxiosSWR", () => {
   test("it configures useSWR correctly", async () => {
-    getSuccess("request");
+    request({ method: "get", data: "request", path: "/api" });
     const { result, waitForNextUpdate } = renderHook(() => useAxiosSWR<string>("/api"));
     expect(result.current.data).toBe(undefined);
     await waitForNextUpdate();
@@ -15,8 +15,8 @@ describe("useAxiosSWR", () => {
 
 describe("useAxiosSWRInfinite", () => {
   test("it configures useSWRInfinite correctly", async () => {
-    getSuccess("request 1", "1");
-    getSuccess("request 2", "2");
+    request({ method: "get", data: "request 1", path: "/api/1" });
+    request({ method: "get", data: "request 2", path: "/api/2" });
     const { result, waitForNextUpdate } = renderHook(() =>
       useAxiosSWRInfinite<string>((index) => `/api/${index + 1}`),
     );

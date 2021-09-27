@@ -1,79 +1,63 @@
-import React, { ReactElement } from "react";
-import { render, screen } from "@testing-library/react";
-import MatchMediaMock from "jest-matchmedia-mock";
+import React from "react";
+import { render, testA11y } from "@hackney/mtfh-test-utils";
+import { screen } from "@testing-library/react";
 
-import { queries, testA11y } from "../../test-utils";
 import { SideBar, SideBarSection } from "./side-bar";
 
-let matchMedia: MatchMediaMock;
-
-beforeAll(() => {
-  matchMedia = new MatchMediaMock();
-});
-
-afterEach(() => {
-  matchMedia.clear();
-});
-
-const renderWithQuery = (ui: ReactElement, query: string) => {
-  matchMedia.useMediaQuery(query);
-  return render(ui);
-};
-
 test("it renders correctly on desktop", async () => {
-  const { container } = renderWithQuery(
+  const { container } = render(
     <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details">
         <div>Content</div>
       </SideBarSection>
     </SideBar>,
-    queries.lg,
+    { query: "lg" },
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
 test("it renders correctly on mobile", async () => {
-  const { container } = renderWithQuery(
+  const { container } = render(
     <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details">
         <div>Content</div>
       </SideBarSection>
     </SideBar>,
-    queries.base,
+    { query: "base" },
   );
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
 
 test("it renders a heading on desktop", async () => {
-  const { container } = renderWithQuery(
+  const { container } = render(
     <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details" heading="A Heading">
         <div>Content</div>
       </SideBarSection>
     </SideBar>,
-    queries.lg,
+    { query: "lg" },
   );
   expect(screen.getByRole("heading")).toHaveTextContent("A Heading");
   await testA11y(container);
 });
 
 test("it does not renders a heading on mobile", async () => {
-  const { container } = renderWithQuery(
+  const { container } = render(
     <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details" heading="A Heading">
         <div>Content</div>
       </SideBarSection>
     </SideBar>,
-    queries.base,
+    { query: "base" },
   );
   expect(screen.queryByText("A Heading")).toBe(null);
   await testA11y(container);
 });
 
 test("accepts and ignores a null child", () => {
-  const { container } = renderWithQuery(
+  const { container } = render(
     <SideBar id="sidebar">
       <SideBarSection id="section-1" title="More Details" heading="A Heading">
         <div>Content</div>
@@ -84,7 +68,7 @@ test("accepts and ignores a null child", () => {
       </SideBarSection>
       {null}
     </SideBar>,
-    queries.base,
+    { query: "base" },
   );
   expect(container).toMatchSnapshot();
 });
