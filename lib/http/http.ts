@@ -36,7 +36,6 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error.response?.status === 403) {
-      console.log(logout);
       logout();
     }
     throw error;
