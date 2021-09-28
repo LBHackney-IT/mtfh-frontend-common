@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { useReferenceData } from '../../api/reference-data/v1';
+import { useReferenceData } from '@mtfh/common/lib/api/reference-data/v1';
+
 import locale from '../../locale';
 import { useErrorCodes } from '../use-error-codes';
 
@@ -9,15 +10,6 @@ const { errorMessages } = hooks;
 
 describe('useErrorCodes', () => {
   const $useReferenceDataMock = useReferenceData as jest.Mock;
-  test('it returns default error codes them', () => {
-    $useReferenceDataMock.mockReturnValueOnce({
-      data: [{}],
-      error: null,
-    });
-
-    const { result } = renderHook(() => useErrorCodes());
-    expect(result.current).toBe(errorMessages);
-  });
 
   test('it returns null if call to the referenceData API has not resolved', () => {
     $useReferenceDataMock.mockReturnValueOnce({
