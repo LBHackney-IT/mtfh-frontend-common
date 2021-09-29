@@ -11,8 +11,6 @@ export type Configuration = {
 const initialFeatureToggles = {
   MMH: {
     Test: false,
-    TenureActivityHistory: false,
-    RefactorComments: false,
     CreateTenure: false,
     EditTenure: false,
   },
