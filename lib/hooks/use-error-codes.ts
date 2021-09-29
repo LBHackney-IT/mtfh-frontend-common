@@ -1,44 +1,29 @@
-import { useEffect, useState } from 'react';
-import { useReferenceData } from '../api/reference-data/v1';
-import locale from '../locale';
+import { useEffect, useState } from "react";
+import { useReferenceData } from "@mtfh/common/lib/api/reference-data/v1";
+import locale from "../locale";
 
+const { hooks } = locale;
+const { defaultErrorMessages } = hooks;
 interface ErrorMessages {
   [key: string]: string;
 }
 
 export const useErrorCodes = () => {
-  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(
-    locale.hooks.errorMessages
-  );
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>(defaultErrorMessages);
 
-  const { data, error } = useReferenceData(
-    { category: 'error-code', subCategory: 'mmh' },
-    {
-      revalidateIfStale: false,
-    }
-  );
+  const { data, error } = useReferenceData<"mmh">({
+    category: "error-code",
+    subCategory: "mmh",
+  });
 
   useEffect(() => {
-    if (data) {
-      const fromErrorsDefaultData = Object.entries(errorMessages).map(
-        ([key, value]) => ({
-          [key]: value,
-        })
-      );
+    if (data?.mmh) {
+      const fromErr = data?.mmh.reduce((acc, obj) => {
+        acc[obj.code] = obj.value;
+        return acc;
+      }, {} as Record<string, string>);
 
-      const fromErrorsReferenceData =
-        // @ts-ignore
-        data.map((item: any) => ({
-          [item.code]: item.value,
-        })) || [];
-
-      const mergedErrors = [
-        ...new Set([...fromErrorsDefaultData, ...fromErrorsReferenceData]),
-      ].reduce((obj, item) => {
-        const errorCode = Object.keys(item)[0];
-        obj[errorCode] = item[errorCode];
-        return obj;
-      }, {});
+      const mergedErrors = { ...defaultErrorMessages, ...fromErr };
       setErrorMessages(mergedErrors);
     }
   }, [data]);
