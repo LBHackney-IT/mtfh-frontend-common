@@ -43,12 +43,11 @@ export interface AddPersonToTenureParams {
 
 export const addPersonToTenure = async ({
   tenureId,
-  householdMember,
-  etag,
+  ...data
 }: AddPersonToTenureParams): Promise<void> => {
   await axiosInstance.patch(
-    `${config.tenureApiUrlV1}/tenures/${tenureId}/person/${householdMember.id}`,
-    { ...householdMember, etag },
+    `${config.tenureApiUrlV1}/tenures/${tenureId}/person/${data.householdMember.id}`,
+    data,
   );
 };
 

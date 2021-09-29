@@ -32,9 +32,5 @@ export const useErrorCodes = () => {
     return null;
   }
 
-  if (error) {
-    return errorMessages;
-  }
-
   return errorMessages;
 };
