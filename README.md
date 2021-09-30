@@ -125,7 +125,8 @@ import { useFeatureToggle } from "@mtfh/common/lib/hooks";
 
 Currently we use a trunk based approach to development and CD is possible because of the
 use of feature toggles. For more information around how to create and use feature toggles,
-read this [doc](https://slack-files.com/T02D15XMM-F02GQKR6YMN-0fef1885ce)
+read this
+[doc](https://github.com/LBHackney-IT/mtfh-frontend-root/blob/main/docs/feature-toggles.md)
 
 ## Architecture
 
@@ -162,3 +163,24 @@ EQUALITY_INFORMATION_API_URL_V1=https://api-url.com/api/v1
 ```
 
 Urls are available on the API gateways of AWS
+
+## Testing
+
+To run unit and integration tests:
+
+```
+yarn test
+yarn coverage
+```
+
+To run pact contract tests
+
+```
+yarn test:pact
+```
+
+To publish pact tests (should be run from CircleCI)
+
+```
+yarn publish:pact
+```

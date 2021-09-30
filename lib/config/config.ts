@@ -1,5 +1,5 @@
 const withBaseUrl = (url: string) => {
-  const baseUrl = process.env.BASE_URL || process.env.PACT_BASE_URL || "";
+  const baseUrl = process.env.PACT_BASE_URL || "";
   return `${baseUrl}${url}`;
 };
 

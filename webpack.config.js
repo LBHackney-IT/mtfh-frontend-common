@@ -63,6 +63,7 @@ module.exports = (webpackConfigEnv, argv) => {
     plugins: [
       new webpack.EnvironmentPlugin({
         APP_ENV: process.env.APP_ENV || "test",
+        PACT_BASE_URL: "",
         AUTH_ALLOWED_GROUPS: dotenv.AUTH_ALLOWED_GROUPS || "",
         AUTH_DOMAIN: dotenv.AUTHDOMAIN || "",
         COOKIE_DOMAIN: dotenv.COOKIE_DOMAIN || "",

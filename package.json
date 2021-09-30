@@ -13,8 +13,9 @@
     "test": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --coverage",
     "test:ci": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --runInBand --coverage",
     "test:pact": "cross-env PACT_BASE_URL=\"http://localhost:9090\" BABEL_ENV=test jest .pact --passWithNoTests",
-    "publish:pact": "pact-broker publish ./pact/pacts --consumer-app-version=0.0.1 --broker-base-url=$PACT_BROKER_BASE_URL --broker-username=$PACT_BROKER_USERNAME --broker-password=$PACT_BROKER_PASSWORD",
-    "watch-tests": "cross-env BABEL_ENV=test TZ=utc jest --watch"
+    "watch-tests": "cross-env BABEL_ENV=test TZ=utc jest --watch",
+    "coverage": "cross-env BABEL_ENV=test jest --coverage",
+    "publish:pact": "node publish-pacts.js"
   },
   "husky": {
     "hooks": {
