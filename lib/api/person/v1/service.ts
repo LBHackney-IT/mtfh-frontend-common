@@ -2,10 +2,11 @@ import { config } from "@mtfh/common/lib/config";
 import {
   AxiosSWRConfiguration,
   AxiosSWRResponse,
+  axiosInstance,
   mutate,
   useAxiosSWR,
-} from "@mtfh/common/lib/hooks";
-import { axiosInstance } from "@mtfh/common/lib/http";
+} from "@mtfh/common/lib/http";
+
 import { Person, TenureSummary } from "./types";
 
 export const usePerson = (

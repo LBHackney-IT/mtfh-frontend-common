@@ -1,7 +1,7 @@
 import { stringify } from "query-string";
 
 import { config } from "@mtfh/common/lib/config";
-import { AxiosSWRInfiniteResponse, useAxiosSWRInfinite } from "@mtfh/common/lib/hooks";
+import { AxiosSWRInfiniteResponse, useAxiosSWRInfinite } from "@mtfh/common/lib/http";
 import { Comment } from "./types";
 
 export interface GetCommentsByTargetIdResponse {

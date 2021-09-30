@@ -3,7 +3,7 @@ import {
   AxiosSWRConfiguration,
   AxiosSWRResponse,
   useAxiosSWR,
-} from "@mtfh/common/lib/hooks";
+} from "@mtfh/common/lib/http";
 import { Property } from "./types";
 
 export function useProperty(
