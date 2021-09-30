@@ -6,6 +6,14 @@ exports[`it renders correctly 1`] = `
     class="mtfh-layout"
   >
     <div
+      id="backLink"
+    >
+      Back Link
+    </div>
+    <div
+      id="content"
+    />
+    <div
       id="top"
     >
       Top
@@ -41,6 +49,9 @@ exports[`it renders correctly without a side 1`] = `
   <div
     class="mtfh-layout mtfh-layout--narrow"
   >
+    <div
+      id="content"
+    />
     <div
       class="mtfh-layout__container"
     >
