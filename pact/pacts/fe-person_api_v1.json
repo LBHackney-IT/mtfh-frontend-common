@@ -1,0 +1,147 @@
+{
+  "consumer": {
+    "name": "FE"
+  },
+  "provider": {
+    "name": "Person API V1"
+  },
+  "interactions": [
+    {
+      "description": "A GET request for /persons/:id",
+      "providerState": "the Person API is up and running",
+      "request": {
+        "method": "GET",
+        "path": "/api/v1/persons/6fbe024f-2316-4265-a6e8-d65a837e308a",
+        "headers": {
+          "Authorization": "Bearer"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": "6fbe024f-2316-4265-a6e8-d65a837e308a",
+          "title": "OTHER",
+          "firstName": "Haylee",
+          "middleName": "",
+          "surname": "Macejkovic",
+          "preferredTitle": "",
+          "preferredFirstName": "",
+          "preferredMiddleName": "a",
+          "preferredSurname": "Schmidt",
+          "placeOfBirth": "Wisokyfort",
+          "dateOfBirth": "2021-06-07T01:55:25.852Z",
+          "personTypes": [
+            "Freeholder"
+          ],
+          "tenures": [
+            {
+              "id": "ed1d0420-ea19-46af-a83b-452acd600c9f",
+              "type": "Short Life Lse",
+              "assetFullAddress": "224 Brakus Square, 44902",
+              "assetId": "e412801a-e3e4-4479-8999-2f94b3186fb7",
+              "startDate": "2018-08-26T01:17:40.061Z",
+              "endDate": "",
+              "isActive": true,
+              "paymentReference": "ej1rj1n5is",
+              "propertyReference": "y1lvwj4g5w",
+              "uprn": "tdej5nxdck"
+            }
+          ],
+          "reason": "Voluptas molestiae fuga voluptatem quia et qui.",
+          "etag": ""
+        },
+        "matchingRules": {
+          "$.body.id": {
+            "match": "type"
+          },
+          "$.body.title": {
+            "match": "type"
+          },
+          "$.body.firstName": {
+            "match": "type"
+          },
+          "$.body.middleName": {
+            "match": "type"
+          },
+          "$.body.surname": {
+            "match": "type"
+          },
+          "$.body.preferredTitle": {
+            "match": "type"
+          },
+          "$.body.preferredFirstName": {
+            "match": "type"
+          },
+          "$.body.preferredMiddleName": {
+            "match": "type"
+          },
+          "$.body.preferredSurname": {
+            "match": "type"
+          },
+          "$.body.placeOfBirth": {
+            "match": "type"
+          },
+          "$.body.dateOfBirth": {
+            "match": "type"
+          },
+          "$.body.personTypes": {
+            "min": 1
+          },
+          "$.body.personTypes[*].*": {
+            "match": "type"
+          },
+          "$.body.tenures": {
+            "min": 1
+          },
+          "$.body.tenures[*].*": {
+            "match": "type"
+          },
+          "$.body.tenures[*].id": {
+            "match": "type"
+          },
+          "$.body.tenures[*].type": {
+            "match": "type"
+          },
+          "$.body.tenures[*].assetFullAddress": {
+            "match": "type"
+          },
+          "$.body.tenures[*].assetId": {
+            "match": "type"
+          },
+          "$.body.tenures[*].startDate": {
+            "match": "type"
+          },
+          "$.body.tenures[*].endDate": {
+            "match": "type"
+          },
+          "$.body.tenures[*].isActive": {
+            "match": "type"
+          },
+          "$.body.tenures[*].paymentReference": {
+            "match": "type"
+          },
+          "$.body.tenures[*].propertyReference": {
+            "match": "type"
+          },
+          "$.body.tenures[*].uprn": {
+            "match": "type"
+          },
+          "$.body.reason": {
+            "match": "type"
+          },
+          "$.body.etag": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

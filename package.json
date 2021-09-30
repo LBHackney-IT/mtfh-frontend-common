@@ -12,6 +12,8 @@
     "check-format": "prettier --check .",
     "test": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --coverage",
     "test:ci": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --runInBand --coverage",
+    "test:pact": "cross-env PACT_BASE_URL=\"http://localhost:9090\" BABEL_ENV=test jest .pact --passWithNoTests",
+    "publish:pact": "pact-broker publish ./pact/pacts --consumer-app-version=0.0.1 --broker-base-url=$PACT_BROKER_BASE_URL --broker-username=$PACT_BROKER_USERNAME --broker-password=$PACT_BROKER_PASSWORD",
     "watch-tests": "cross-env BABEL_ENV=test TZ=utc jest --watch"
   },
   "husky": {
@@ -31,6 +33,7 @@
     "@hackney/mtfh-test-utils": "^1.8.5",
     "@hackney/prettier-config": "^1.0.1",
     "@hackney/webpack-import-map-plugin": "^1.1.3",
+    "@pact-foundation/pact": "^9.16.1",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/react-hooks": "^6.0.0",
@@ -62,6 +65,7 @@
     "jest-axe": "^5.0.1",
     "jest-cli": "^26.6.3",
     "jest-matchmedia-mock": "^1.1.0",
+    "jest-pact": "^0.9.1",
     "msw": "^0.35.0",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.0",
