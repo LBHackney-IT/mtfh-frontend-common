@@ -5,11 +5,12 @@ import "./styles.scss";
 
 export interface LayoutProps extends ComponentPropsWithoutRef<"div"> {
   top?: ReactElement;
+  backLink?: ReactElement;
   side?: ReactElement;
 }
 
 export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
-  { children, top, side, className, ...props },
+  { children, top, backLink, side, className, ...props },
   ref,
 ) {
   return (
@@ -18,6 +19,8 @@ export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
       className={cn("mtfh-layout", { "mtfh-layout--narrow": !side }, className)}
       {...props}
     >
+      {backLink}
+      <div id="content" />
       {top}
       <div className="mtfh-layout__container">
         {side ? <div className="mtfh-layout__aside">{side}</div> : null}

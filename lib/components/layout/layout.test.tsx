@@ -5,7 +5,11 @@ import { Layout } from "./layout";
 
 test("it renders correctly", async () => {
   const { container } = render(
-    <Layout side={<div id="side">Side Bar</div>} top={<div id="top">Top</div>}>
+    <Layout
+      side={<div id="side">Side Bar</div>}
+      top={<div id="top">Top</div>}
+      backLink={<div id="backLink">Back Link</div>}
+    >
       <div id="main">Main</div>
     </Layout>,
   );
