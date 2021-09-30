@@ -5,7 +5,7 @@ import {
   AxiosSWRInfiniteConfiguration,
   AxiosSWRInfiniteResponse,
   useAxiosSWRInfinite,
-} from "@mtfh/common/lib/hooks";
+} from "@mtfh/common/lib/http";
 import type { Comment } from "./types";
 
 export interface CommentsResponse {

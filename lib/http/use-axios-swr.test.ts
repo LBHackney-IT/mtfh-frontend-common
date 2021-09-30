@@ -1,7 +1,7 @@
 import { request } from "@hackney/mtfh-test-utils";
 import { act, renderHook } from "@testing-library/react-hooks";
 
-import { useAxiosSWR, useAxiosSWRInfinite } from "../use-axios-swr";
+import { useAxiosSWR, useAxiosSWRInfinite } from "./use-axios-swr";
 
 describe("useAxiosSWR", () => {
   test("it configures useSWR correctly", async () => {

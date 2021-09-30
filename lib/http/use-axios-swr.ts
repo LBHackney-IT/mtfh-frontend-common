@@ -6,7 +6,7 @@ import useSWRInfinite, {
   SWRInfiniteResponse,
 } from "swr/infinite";
 
-import { axiosInstance } from "@mtfh/common/lib/http";
+import { axiosInstance } from "./http";
 
 export type AxiosSWRError = AxiosError;
 export type AxiosSWRResponse<T> = SWRResponse<T, AxiosSWRError>;

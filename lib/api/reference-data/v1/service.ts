@@ -3,7 +3,7 @@ import {
   AxiosSWRConfiguration,
   AxiosSWRResponse,
   useAxiosSWR,
-} from "@mtfh/common/lib/hooks";
+} from "@mtfh/common/lib/http";
 import { ReferenceData } from "./types";
 
 type ReferenceDataResponse<T extends string> = { [key in T]: ReferenceData[] };
