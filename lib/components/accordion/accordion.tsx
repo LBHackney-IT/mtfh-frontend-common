@@ -5,6 +5,7 @@ import { Accordion as AccordionJs } from "lbh-frontend";
 import mergeRefs from "react-merge-refs";
 
 import { widthOverrides } from "../../utils";
+import { Heading } from "../heading";
 import "./styles.scss";
 
 export interface AccordionItemProps {
@@ -24,14 +25,14 @@ export const AccordionItem: AccordionItemComponent = forwardRef(function Accordi
   return (
     <AccordionItemComp ref={ref} className={cn("govuk-accordion__section", className)}>
       <div className="govuk-accordion__section-header">
-        <h3 className="govuk-accordion__section-heading lbh-heading-h5">
+        <Heading as="h3" variant="h5" className="govuk-accordion__section-heading">
           <span
             className="govuk-accordion__section-button"
             id={`accordion-heading-${id}`}
           >
             {title}
           </span>
-        </h3>
+        </Heading>
       </div>
       <div
         id={`accordion-content-${id}`}
