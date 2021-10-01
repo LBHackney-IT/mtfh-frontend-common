@@ -3,6 +3,7 @@ import { Dialog as ReachDialog } from "@reach/dialog";
 import cn from "classnames";
 import "@reach/dialog/styles.css";
 
+import { Heading } from "../heading";
 import "./styles.scss";
 
 export interface DialogProps extends ComponentPropsWithoutRef<"div"> {
@@ -24,7 +25,9 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
       aria-label={title}
       {...props}
     >
-      <h2 className="lbh-heading-h2 lbh-dialog__title">{title}</h2>
+      <Heading as="h2" className="lbh-dialog__title">
+        {title}
+      </Heading>
       <button type="button" onClick={onDismiss} className="lbh-dialog__close">
         <span className="govuk-visually-hidden">Close</span>
 

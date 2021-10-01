@@ -11,6 +11,7 @@ export * from "./error-summary";
 export * from "./field";
 export * from "./fieldset";
 export * from "./form-group";
+export * from "./heading";
 export * from "./icon";
 export * from "./input";
 export * from "./layout";

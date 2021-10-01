@@ -10,6 +10,7 @@ import cn from "classnames";
 
 import { useBreakpoint } from "../../hooks";
 import { Accordion, AccordionItem, AccordionItemProps } from "../accordion";
+import { Heading } from "../heading";
 import "./styles.scss";
 
 export interface SideBarSectionProps extends AccordionItemProps {
@@ -36,7 +37,7 @@ export const SideBarSection: SideBarSectionComponent = forwardRef(function SideB
 
   return (
     <div ref={ref} className={cn("mtfh-sidebar-section", className)} {...props}>
-      {heading ? <h2 className="lbh-heading-h2">{heading}</h2> : undefined}
+      {heading ? <Heading as="h2">{heading}</Heading> : undefined}
       {children}
     </div>
   );

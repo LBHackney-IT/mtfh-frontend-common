@@ -30,7 +30,7 @@ exports[`it passes a11y 1`] = `
         class="govuk-accordion__section-header"
       >
         <h3
-          class="govuk-accordion__section-heading lbh-heading-h5"
+          class="lbh-heading-h5 govuk-accordion__section-heading"
         >
           <button
             aria-controls="test-content-1"
@@ -62,7 +62,7 @@ exports[`it passes a11y 1`] = `
         class="govuk-accordion__section-header"
       >
         <h3
-          class="govuk-accordion__section-heading lbh-heading-h5"
+          class="lbh-heading-h5 govuk-accordion__section-heading"
         >
           <button
             aria-controls="test-content-2"

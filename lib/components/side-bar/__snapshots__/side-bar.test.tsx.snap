@@ -33,7 +33,7 @@ exports[`accepts and ignores a null child 1`] = `
           class="govuk-accordion__section-header"
         >
           <h3
-            class="govuk-accordion__section-heading lbh-heading-h5"
+            class="lbh-heading-h5 govuk-accordion__section-heading"
           >
             <button
               aria-controls="sidebar-content-1"
@@ -67,7 +67,7 @@ exports[`accepts and ignores a null child 1`] = `
           class="govuk-accordion__section-header"
         >
           <h3
-            class="govuk-accordion__section-heading lbh-heading-h5"
+            class="lbh-heading-h5 govuk-accordion__section-heading"
           >
             <button
               aria-controls="sidebar-content-2"
@@ -154,7 +154,7 @@ exports[`it renders correctly on mobile 1`] = `
           class="govuk-accordion__section-header"
         >
           <h3
-            class="govuk-accordion__section-heading lbh-heading-h5"
+            class="lbh-heading-h5 govuk-accordion__section-heading"
           >
             <button
               aria-controls="sidebar-content-1"
