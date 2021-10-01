@@ -31,7 +31,7 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/api/tenure/v1": path.join(apiPath, "tenure", "v1"),
       "common/lib/api/comments/v1": path.join(apiPath, "comments", "v1"),
       "common/lib/api/comments/v2": path.join(apiPath, "comments", "v2"),
-      "common/lib/api/property/v1": path.join(apiPath, "property", "v1"),
+      "common/lib/api/asset/v1": path.join(apiPath, "asset", "v1"),
       "common/lib/api/reference-data/v1": path.join(apiPath, "reference-data", "v1"),
     },
     output: {

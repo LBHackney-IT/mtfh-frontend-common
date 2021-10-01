@@ -8,7 +8,7 @@ module.exports = {
     "\\.(css|scss)$": "identity-obj-proxy",
     "^@mtfh/common/lib/(.*)": "<rootDir>/$1",
   },
-  testPathIgnorePatterns: ["test-utils.tsx"],
+  testPathIgnorePatterns: ["test-utils.ts"],
   setupFilesAfterEnv: [
     "@testing-library/jest-dom",
     "@hackney/mtfh-test-utils",

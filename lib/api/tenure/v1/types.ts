@@ -1,3 +1,4 @@
+import { AssetType } from "../../asset/v1/types";
 import { PersonType } from "../../person/v1/types";
 
 export interface TenureDetailsProperties {
@@ -7,11 +8,6 @@ export interface TenureDetailsProperties {
 export interface TenureType {
   code: string;
   description: string;
-}
-
-export enum TenureAssetType {
-  DWELLING = "dwelling",
-  GARAGE = "garage",
 }
 
 export interface HouseholdMember {
@@ -25,7 +21,7 @@ export interface HouseholdMember {
 
 export interface TenureAsset {
   id: string;
-  type: string;
+  type: AssetType;
   fullAddress: string;
   uprn: string;
 }
