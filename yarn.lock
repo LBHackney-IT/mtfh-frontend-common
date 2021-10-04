@@ -1041,13 +1041,12 @@
   resolved "https://registry.yarnpkg.com/@hackney/mtfh-system/-/mtfh-system-1.0.2.tgz#af81b5b2708b5029bf4b82c167d9749df16ffb69"
   integrity sha512-oDoYexKF8URW3WT1UzRWRPG2iN9UCC16lpANasa/rxatpasj8PU0NX+USdg9rMeilmlFXZhUlWmsE5vroMPg9w==
 
-"@hackney/mtfh-test-utils@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@hackney/mtfh-test-utils/-/mtfh-test-utils-1.2.0.tgz#92d0dd26c353726c71a711f8923e5617929ef476"
-  integrity sha512-iTmKkZnc/WYL+JlkNc4191Lp4r24q4K8yBsi+pHiQEMMGeVJ+an9jGEZllA5Z3HKG45hsC6VfaoIleAO1kpcVA==
+"@hackney/mtfh-test-utils@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@hackney/mtfh-test-utils/-/mtfh-test-utils-1.2.1.tgz#ae1a40317a30739a90ccf352c885d598ef6ff99d"
+  integrity sha512-KbPGdX4vwxkVx2vRaMh2pu4tCst83OZJasTimNaRaYX6KO+qozCxpdLlPJbn/G2vc4gBrKrtNKKaKEllUmAshA==
   dependencies:
     "@hackney/mtfh-system" "^1.0.2"
-    "@mtfh/common" "https://github.com/LBHackney-IT/mtfh-common.git"
     date-fns "^2.24.0"
     faker "^5.5.3"
     jest-axe "^5.0.1"
@@ -1304,37 +1303,6 @@
     headers-utils "^3.0.2"
     outvariant "^1.2.0"
     strict-event-emitter "^0.2.0"
-
-"@mtfh/common@git+https://github.com/LBHackney-IT/mtfh-common.git":
-  version "0.0.1"
-  resolved "git+https://github.com/LBHackney-IT/mtfh-common.git#d5ce8b2041955c358c2cb59f1d21215d0b4a99bc"
-  dependencies:
-    "@babel/preset-react" "^7.13.13"
-    "@radix-ui/react-polymorphic" "^0.0.12"
-    "@reach/dialog" "^0.15.0"
-    "@types/deep-diff" "^1.0.1"
-    "@types/jest" "^26.0.16"
-    "@types/js-cookie" "^2.2.6"
-    "@types/react" "17.0.20"
-    "@types/react-dom" "17.0.9"
-    "@types/react-router-dom" "5.1.9"
-    "@types/systemjs" "^6.1.0"
-    "@types/webpack-env" "^1.16.0"
-    axios "^0.21.3"
-    classnames "^2.3.1"
-    date-fns "^2.23.0"
-    deep-diff "^1.0.2"
-    formik "^2.2.9"
-    js-cookie "^2.2.1"
-    jwt-decode "^3.1.2"
-    lbh-frontend "^3.6.1"
-    query-string "^7.0.1"
-    react-merge-refs "^1.1.0"
-    react-router-dom "5.2.0"
-    rxjs "^7.0.1"
-    single-spa "^5.9.3"
-    swr "1.0.1"
-    use-breakpoint "^2.0.1"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
