@@ -1,32 +1,104 @@
-import { axiosInstance } from "@mtfh/common/lib/http";
-import { AddPersonToTenureParams, addPersonToTenure } from "./service";
+import { AddTenureParams } from ".";
+import { config } from "@mtfh/common/lib/config";
+import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
+import {
+  AddPersonToTenureParams,
+  EditTenureParams,
+  RemovePersonFromTenureParams,
+  addPersonToTenure,
+  addTenure,
+  editTenure,
+  removePersonFromTenure,
+  useTenure,
+} from "./service";
+import { Tenure } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
-  axiosInstance: { patch: jest.fn() },
+  axiosInstance: { patch: jest.fn(), post: jest.fn(), delete: jest.fn() },
+  useAxiosSWR: jest.fn(),
 }));
 
-describe("Tenure service: Add person to tenure", () => {
-  test("it should send the right body to the API", async () => {
-    const addPersonToTenureParams: AddPersonToTenureParams = {
-      tenureId: "id",
-      etag: "etag",
-      householdMember: {
-        id: "hhmid",
-        dateOfBirth: "",
-        fullName: "Paco el flaco",
-        isResponsible: true,
-        type: "Person",
-        personTenureType: "HouseholdMember",
-      },
-    };
-    addPersonToTenure(addPersonToTenureParams);
-    expect(axiosInstance.patch).toBeCalledWith(
-      `/api/tenures/${addPersonToTenureParams.tenureId}/person/${addPersonToTenureParams.householdMember.id}`,
-      {
-        etag: addPersonToTenureParams.etag,
-        ...addPersonToTenureParams.householdMember,
-      },
-    );
-  });
+test("addPersonToTenure: it should send the right thing to the API", async () => {
+  const addPersonToTenureParams: AddPersonToTenureParams = {
+    tenureId: "id",
+    etag: "etag",
+    householdMember: {
+      id: "hhmid",
+      dateOfBirth: "",
+      fullName: "Paco el flaco",
+      isResponsible: true,
+      type: "Person",
+      personTenureType: "HouseholdMember",
+    },
+  };
+  addPersonToTenure(addPersonToTenureParams);
+  expect(axiosInstance.patch).toBeCalledWith(
+    `${config.tenureApiUrlV1}/tenures/${addPersonToTenureParams.tenureId}/person/${addPersonToTenureParams.householdMember.id}`,
+    {
+      etag: addPersonToTenureParams.etag,
+      ...addPersonToTenureParams.householdMember,
+    },
+  );
+});
+
+test("useTenure: it should send the right body to the API", async () => {
+  const id = "id";
+  const options: AxiosSWRConfiguration<Tenure> = { dedupingInterval: 10 };
+  useTenure(id, options);
+  expect(useAxiosSWR).toBeCalledWith(`${config.tenureApiUrlV1}/tenures/${id}`, options);
+});
+
+test("addTenure: it should send the right body to the API", async () => {
+  const params: AddTenureParams = {
+    startOfTenureDate: "",
+    tenureType: {
+      code: "",
+      description: "",
+    },
+    tenuredAsset: {
+      id: "",
+      type: "type",
+      fullAddress: "",
+      uprn: "",
+    },
+  };
+  const tenureReturned = { id: "tenureId" };
+  (axiosInstance.post as jest.Mock).mockResolvedValueOnce({ data: tenureReturned });
+
+  addTenure(params);
+
+  expect(axiosInstance.post).toBeCalledWith(`${config.tenureApiUrlV1}/tenures`, params);
+});
+
+test("removePersonFromTenure: it should send the right body to the API", async () => {
+  const params: RemovePersonFromTenureParams = {
+    etag: "",
+    tenureId: "id",
+    householdMemberId: "hhmid",
+  };
+
+  removePersonFromTenure(params);
+
+  expect(axiosInstance.delete).toBeCalledWith(
+    `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
+  );
+});
+
+test("editTenure: it should send the right body to the API", async () => {
+  const params: EditTenureParams = {
+    id: "id",
+    etag: "",
+  };
+  const response = {
+    data: {},
+  };
+  (axiosInstance.patch as jest.Mock).mockResolvedValueOnce(response);
+  const editTenureResponse = await editTenure(params);
+
+  expect(axiosInstance.patch).toBeCalledWith(
+    `${config.tenureApiUrlV1}/tenures/${params.id}`,
+    { etag: params.etag },
+  );
+  expect(editTenureResponse).toBe(response.data);
 });
