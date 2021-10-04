@@ -13,6 +13,7 @@ const initialFeatureToggles = {
     Test: false,
     CreateTenure: false,
     EditTenure: false,
+    EnhancedComments: false,
   },
 };
 
