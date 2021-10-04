@@ -1,4 +1,4 @@
-import { formatDate } from "./date-format";
+import { formatDate, isFutureDate } from "./date-format";
 
 test("formats the date correctly", () => {
   expect(formatDate("2021-01-01")).toBe("01/01/2021");
@@ -14,4 +14,10 @@ test("formatted date will not break with a malformed date string", () => {
 
 test("formatted date will not break with a null date value", () => {
   expect(formatDate(null)).toBe("");
+});
+
+test("is future date", () => {
+  expect(isFutureDate("1900-01-01")).toBe(true);
+  expect(isFutureDate(null)).toBe(true);
+  expect(isFutureDate("2100-01-02")).toBe(true);
 });
