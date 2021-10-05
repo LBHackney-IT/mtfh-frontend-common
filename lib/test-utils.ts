@@ -19,6 +19,7 @@ const commentsV2 = Array.from({ length: 20 }).map((_, index) =>
   generateMockCommentV2({
     title: `Comment title ${index + 1}`,
     author: {
+      id: String(index + 1),
       fullName: `Full name ${index + 1}`,
       email: `email${index}@test.com`,
     },

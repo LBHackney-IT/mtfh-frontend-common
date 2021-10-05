@@ -16,8 +16,12 @@ test("Comment renders date in the correct format", () => {
 
 test("Comment does not display title if it is missing", () => {
   const mockCommentWithoutTitle = mockCommentV2;
-  delete mockCommentWithoutTitle.title;
-  delete mockCommentWithoutTitle.categorisation;
+  mockCommentWithoutTitle.title = null;
+  mockCommentWithoutTitle.categorisation = {
+    category: null,
+    subCategory: null,
+    description: null,
+  };
   render(<CommentListItem categories={[]} comment={mockCommentWithoutTitle} />);
   expect(screen.queryByText(mockCommentWithoutTitle.author.fullName)).toBeInTheDocument();
 });
