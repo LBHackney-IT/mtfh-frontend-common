@@ -1,7 +1,12 @@
 import { stringify } from "query-string";
 
+import { $auth } from "@mtfh/common/lib/auth";
 import { config } from "@mtfh/common/lib/config";
-import { AxiosSWRInfiniteResponse, useAxiosSWRInfinite } from "@mtfh/common/lib/http";
+import {
+  AxiosSWRInfiniteResponse,
+  axiosInstance,
+  useAxiosSWRInfinite,
+} from "@mtfh/common/lib/http";
 import { Comment } from "./types";
 
 export interface GetCommentsByTargetIdResponse {
@@ -56,4 +61,23 @@ export const useComments = (
       },
     },
   );
+};
+
+export type PostCommentRequestData = Omit<
+  Comment,
+  "id" | "categorisation" | "author" | "createdAt"
+>;
+
+export const addComment = async (data: PostCommentRequestData): Promise<Comment> => {
+  const auth = $auth.getValue();
+  const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV1}/notes`, {
+    ...data,
+    createdAt: new Date().toISOString(),
+    author: {
+      id: auth.sub,
+      email: auth.email,
+      fullName: auth.name,
+    },
+  });
+  return comment;
 };

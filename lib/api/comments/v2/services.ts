@@ -1,9 +1,11 @@
 import { stringify } from "query-string";
 
+import { $auth } from "@mtfh/common/lib/auth";
 import { config } from "@mtfh/common/lib/config";
 import {
   AxiosSWRInfiniteConfiguration,
   AxiosSWRInfiniteResponse,
+  axiosInstance,
   useAxiosSWRInfinite,
 } from "@mtfh/common/lib/http";
 import type { Comment } from "./types";
@@ -69,4 +71,20 @@ export const useComments = (
       ...options,
     },
   );
+};
+
+export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt">;
+
+export const addComment = async (data: PostCommentRequestData): Promise<Comment> => {
+  const auth = $auth.getValue();
+  const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV1}/notes`, {
+    ...data,
+    createdAt: new Date().toISOString(),
+    author: {
+      id: auth.sub,
+      email: auth.email,
+      fullName: auth.name,
+    },
+  });
+  return comment;
 };
