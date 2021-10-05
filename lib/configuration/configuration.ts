@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
+import { $options, axiosInstance } from "@mtfh/common/lib/http";
 
 export type Configuration = {
   type: "MMH" | "Common";
@@ -32,6 +32,10 @@ type PathImpl<T, Key extends keyof T> = Key extends string
 type Path<T> = PathImpl<T, keyof T>;
 
 export type FeatureTogglePaths = Path<typeof initialFeatureToggles>;
+
+featureToggleStore.subscribe((features) =>
+  $options.next({ xCorrelationId: features.MMH.XCorrelationId }),
+);
 
 export const getConfiguration = async (): Promise<void> => {
   try {

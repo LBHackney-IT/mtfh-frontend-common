@@ -11,11 +11,7 @@ export const axiosInstance = axios.create({
   responseType: "json",
 });
 
-export const $options = new BehaviorSubject({
-  MMH: {
-    XCorrelationId: false,
-  },
-});
+export const $options = new BehaviorSubject<Record<string, boolean>>({});
 
 axiosInstance.interceptors.request.use((config) => {
   const req: Config = {
@@ -23,7 +19,7 @@ axiosInstance.interceptors.request.use((config) => {
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
-      ...($options.getValue().MMH.XCorrelationId ? { "x-correlation-id": uuid() } : {}),
+      ...($options.getValue().xCorrelationId ? { "x-correlation-id": uuid() } : {}),
     },
   };
 

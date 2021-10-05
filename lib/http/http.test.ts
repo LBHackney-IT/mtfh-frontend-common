@@ -97,9 +97,8 @@ describe("axiosInstance", () => {
   });
 
   test("x-correlation-id is appended to the request headers when feature toggle is on", async () => {
-    const features = $options.getValue();
     $options.next({
-      MMH: { ...features.MMH, XCorrelationId: true },
+      xCorrelationId: true,
     });
     server.use(
       rest.get("/api", (req, res, ctx) => {
