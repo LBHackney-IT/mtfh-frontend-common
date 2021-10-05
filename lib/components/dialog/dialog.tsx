@@ -25,7 +25,7 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
       aria-label={title}
       {...props}
     >
-      <Heading as="h2" className="lbh-dialog__title">
+      <Heading as="h2" variant="h2" className="lbh-dialog__title">
         {title}
       </Heading>
       <button type="button" onClick={onDismiss} className="lbh-dialog__close">
