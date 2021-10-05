@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  getCommentV2,
-  mockCommentV2,
-  mockCommentsV2,
-  render,
-  server,
-} from "@hackney/mtfh-test-utils";
+import { getCommentV2, mockCommentV2, render, server } from "@hackney/mtfh-test-utils";
 import { screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -15,7 +9,9 @@ test("it renders correctly", async () => {
   render(<CommentList targetId="123" />);
   await waitFor(() => expect(screen.queryByText(/Loading/)).not.toBeInTheDocument());
 
-  await screen.findByText(mockCommentsV2[0].author.fullName);
+  await screen.findByText("Full name 2");
+  await screen.findByText("Comment title 2");
+  await screen.findByText("Category value 2");
 });
 
 test("it renders no comments with no results", async () => {
@@ -31,11 +27,11 @@ test("it pages the results", async () => {
   await waitForElementToBeRemoved(screen.queryByText(/Loading/));
 
   userEvent.click(screen.getByText(/Next/));
-  await screen.findByText(mockCommentsV2[6].title as string);
+  await screen.findByText("Comment title 6");
 
   userEvent.click(screen.getByText(/Previous/));
 
-  await screen.findByText(mockCommentsV2[0].title as string);
+  await screen.findByText("Comment title 1");
 });
 
 test("it does not render pagination unnecessarily", async () => {
