@@ -1,13 +1,15 @@
 import type { CommentAuthor, CommentCategorisation } from "../v1/types";
 
+export type CommentType = "person" | "asset" | "tenure" | "repair";
+
 export interface Comment {
   id: string;
-  title?: string;
+  targetType: CommentType;
+  targetId: string;
+  title: string | null;
   description: string;
-  highlight?: boolean;
+  highlight: boolean;
   categorisation?: CommentCategorisation;
   author: CommentAuthor;
   createdAt: string;
-  targetType?: string;
-  targetId?: string;
 }
