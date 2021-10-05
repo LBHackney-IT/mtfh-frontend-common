@@ -77,7 +77,7 @@ export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt"
 
 export const addComment = async (data: PostCommentRequestData): Promise<Comment> => {
   const auth = $auth.getValue();
-  const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV1}/notes`, {
+  const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV2}/notes`, {
     ...data,
     createdAt: new Date().toISOString(),
     author: {
