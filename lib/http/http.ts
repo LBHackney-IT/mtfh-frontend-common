@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
+import { BehaviorSubject } from "rxjs";
 import { v4 as uuid } from "uuid";
-
 import { $auth, logout } from "@mtfh/common/lib/auth";
 
 interface Config extends AxiosRequestConfig {
@@ -11,13 +11,15 @@ export const axiosInstance = axios.create({
   responseType: "json",
 });
 
+export const $options = new BehaviorSubject<Record<string, boolean>>({});
+
 axiosInstance.interceptors.request.use((config) => {
   const req: Config = {
     ...config,
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
-      "X-Correlation-ID": uuid(),
+      ...($options.getValue().xCorrelationId ? { "x-correlation-id": uuid() } : {}),
     },
   };
 
