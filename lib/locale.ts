@@ -9,6 +9,13 @@ const locale = {
     formErrorSummary: {
       error: "Error",
     },
+    commentList: {
+      errors: {
+        unableToFetchReferenceData: "There was a problem retrieving the reference data",
+        unableToFetchReferenceDataDescription:
+          "Please try again. If the issue persists, please contact support.",
+      },
+    },
     statusErrorSummary: {
       statusTitle: (code: number): string => {
         switch (code) {

@@ -4,6 +4,7 @@ export interface Comment {
   id: string;
   title?: string;
   description: string;
+  highlight?: boolean;
   categorisation?: CommentCategorisation;
   author: CommentAuthor;
   createdAt: string;
