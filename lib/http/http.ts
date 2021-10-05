@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
-
 import { $auth, logout } from "@mtfh/common/lib/auth";
+import { hasToggle } from "../configuration/feature-toggle";
 
 interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
@@ -12,12 +12,15 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
+  const xCorrelationId = hasToggle("MMH.XCorrelationId")
+    ? { "X-Correlation-ID": uuid() }
+    : {};
   const req: Config = {
     ...config,
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
-      "X-Correlation-ID": uuid(),
+      ...xCorrelationId,
     },
   };
 

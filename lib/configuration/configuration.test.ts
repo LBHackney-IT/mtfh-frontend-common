@@ -1,5 +1,5 @@
 import { request } from "@hackney/mtfh-test-utils";
-import { featureToggleStore, getConfiguration, hasToggle } from "./configuration";
+import { featureToggleStore, getConfiguration, hasToggle } from ".";
 
 const initialStore = featureToggleStore.getValue();
 

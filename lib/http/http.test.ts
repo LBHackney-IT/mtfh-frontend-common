@@ -1,5 +1,6 @@
 import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
+import { featureToggleStore } from "../configuration";
 import { axiosInstance, createCancelToken, isAxiosError } from "./http";
 
 const defaultRequest = { path: "/api", code: 200 };
@@ -96,7 +97,12 @@ describe("axiosInstance", () => {
     expect(res.data).toStrictEqual({ success: true });
   });
 
-  test("x-correlation-id is appended to the request headers", async () => {
+  test("x-correlation-id is appended to the request headers when feature toggle is on", async () => {
+    const features = featureToggleStore.getValue();
+    featureToggleStore.next({
+      MMH: { ...features.MMH, XCorrelationId: true },
+    });
+
     server.use(
       rest.get("/api", (req, res, ctx) => {
         if (req.headers?.has("x-correlation-id")) {
