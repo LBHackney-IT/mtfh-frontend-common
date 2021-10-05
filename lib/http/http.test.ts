@@ -95,4 +95,19 @@ describe("axiosInstance", () => {
     expect(res.status).toBe(200);
     expect(res.data).toStrictEqual({ success: true });
   });
+
+  test("x-correlation-id is appended to the request headers", async () => {
+    server.use(
+      rest.get("/api", (req, res, ctx) => {
+        if (req.headers?.has("x-correlation-id")) {
+          return res.once(ctx.status(200));
+        }
+        return res.once(ctx.status(500));
+      }),
+    );
+
+    const res = await axiosInstance.get("/api");
+
+    expect(res.status).toBe(200);
+  });
 });

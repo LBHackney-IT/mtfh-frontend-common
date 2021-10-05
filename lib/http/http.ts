@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
+import { v4 as uuid } from "uuid";
 
 import { $auth, logout } from "@mtfh/common/lib/auth";
 
@@ -16,6 +17,7 @@ axiosInstance.interceptors.request.use((config) => {
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
+      "X-Correlation-ID": uuid(),
     },
   };
 
