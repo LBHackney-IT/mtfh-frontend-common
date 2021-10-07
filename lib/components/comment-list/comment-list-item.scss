@@ -10,6 +10,10 @@
     margin-top: 0;
   }
 
+  &__date-time {
+    margin-top: 0;
+  }
+
   &__title {
     &.--highlight {
       background-color: rgba(lbh-colour("lbh-a04"), 0.3);

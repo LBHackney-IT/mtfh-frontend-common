@@ -19,6 +19,12 @@ export const formatDate = (date: string | null): string => {
   return format(parsedDate, "dd/MM/yyyy");
 };
 
+export const formatTime = (date: string | null): string => {
+  const parsedDate = parseDate(date);
+  if (!parsedDate) return "";
+  return format(parsedDate, "HH:mm:ss");
+};
+
 export const isFutureDate = (date: string | null): boolean => {
   const parsedDate = parseDate(date);
 

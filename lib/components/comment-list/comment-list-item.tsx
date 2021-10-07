@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 
 import cn from "classnames";
 import type { Comment } from "@mtfh/common/lib/api/comments/v2";
-import { formatDate } from "@mtfh/common/lib/utils";
+import { formatDate, formatTime } from "@mtfh/common/lib/utils";
 
 import "./comment-list-item.scss";
 import { ReferenceData } from "../../api/reference-data/v1";
@@ -22,9 +22,13 @@ export function CommentListItem({
   categories,
 }: CommentListItemParameters): JSX.Element {
   const createdAtDate = useMemo(() => formatDate(createdAt), [createdAt]);
+  const createdAtTime = useMemo(() => formatTime(createdAt), [createdAt]);
   return (
     <div className="comment">
-      <div className="comment__item">{createdAtDate}</div>
+      <div className="comment__item">
+        <div className="comment__date-time">{createdAtDate}</div>
+        <div className="comment__date-time">{createdAtTime}</div>
+      </div>
       <div className="comment__item --center">
         {title && (
           <div className={cn("comment__title", { "--highlight": highlight })}>
