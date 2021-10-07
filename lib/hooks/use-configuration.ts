@@ -5,12 +5,12 @@ import {
   hasToggle,
 } from "@mtfh/common/lib/configuration";
 
-export const useFeatureToggle = (path: FeatureTogglePaths): string | boolean => {
-  const [toggle, setToggle] = useState(hasToggle(path));
+export const useConfiguration = (path: FeatureTogglePaths): string | boolean => {
+  const [config, setConfig] = useState(hasToggle(path));
 
   useEffect(() => {
     const subscription = featureToggleStore.subscribe(() => {
-      setToggle(hasToggle(path));
+      setConfig(hasToggle(path));
     });
 
     return () => {
@@ -18,5 +18,5 @@ export const useFeatureToggle = (path: FeatureTogglePaths): string | boolean => 
     };
   }, [path]);
 
-  return toggle;
+  return config;
 };

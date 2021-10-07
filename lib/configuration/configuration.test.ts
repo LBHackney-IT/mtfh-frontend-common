@@ -45,3 +45,19 @@ test("configuration is persisted to localStorage on success", async () => {
   await getConfiguration();
   expect(window.localStorage.getItem("features")).toContain('"Test":true');
 });
+
+test("configuration is hydrated from api", async () => {
+  request({
+    method: "get",
+    data: [
+      {
+        type: "MMH",
+        featureToggles: { Test: true },
+        configuration: { TestConfig: "TestConfigString" },
+      },
+    ],
+    path: "/api/v1/configuration",
+  });
+  await getConfiguration();
+  expect(hasToggle("MMH.TestConfig")).toBe("TestConfigString");
+});
