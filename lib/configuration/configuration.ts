@@ -16,6 +16,7 @@ const initialFeatureToggles = {
     EnhancedComments: false,
     AddPersonToTenureOnEditTenure: false,
     XCorrelationId: false,
+    TestConfig: "",
   },
 };
 
@@ -58,12 +59,13 @@ export const getConfiguration = async (): Promise<void> => {
     const res = await axiosInstance.get<Configuration[]>(
       `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`,
     );
-    res.data.forEach(({ type, featureToggles }) => {
+    res.data.forEach(({ type, featureToggles, configuration }) => {
       const toggles = featureToggleStore.getValue();
       featureToggleStore.next({
         ...toggles,
         [type]: {
           ...featureToggles,
+          ...configuration,
         },
       });
     });
@@ -76,7 +78,7 @@ export const getConfiguration = async (): Promise<void> => {
   }
 };
 
-export const hasToggle = (path: FeatureTogglePaths): boolean => {
+export const hasToggle = (path: FeatureTogglePaths): any => {
   const toggles = featureToggleStore.getValue();
   const pathArray = path.match(/([^[.\]])+/g);
   const result =
@@ -86,5 +88,6 @@ export const hasToggle = (path: FeatureTogglePaths): boolean => {
       }
       return undefined;
     }, toggles) || undefined;
-  return typeof result === "boolean" ? result : false;
+  // return typeof result === "boolean" ? result : false;
+  return result ?? false;
 };
