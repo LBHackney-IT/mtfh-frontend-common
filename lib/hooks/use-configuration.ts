@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import {
   FeatureTogglePaths,
-  featureToggleStore,
-  hasToggle,
+  configurationStore,
+  hasConfiguration,
 } from "@mtfh/common/lib/configuration";
 
 export const useConfiguration = (path: FeatureTogglePaths): string | boolean => {
-  const [config, setConfig] = useState(hasToggle(path));
+  const [config, setConfig] = useState(hasConfiguration(path));
 
   useEffect(() => {
-    const subscription = featureToggleStore.subscribe(() => {
-      setConfig(hasToggle(path));
+    const subscription = configurationStore.subscribe(() => {
+      setConfig(hasConfiguration(path));
     });
 
     return () => {
