@@ -8,7 +8,7 @@ export type Configuration = {
   featureToggles: Record<string, boolean>;
 };
 
-const initialFeatureToggles = {
+const initialConfiguration = {
   MMH: {
     Test: false,
     CreateTenure: false,
@@ -20,7 +20,7 @@ const initialFeatureToggles = {
   },
 };
 
-export const featureToggleStore = new BehaviorSubject(initialFeatureToggles);
+export const configurationStore = new BehaviorSubject(initialConfiguration);
 
 type PathImpl<T, Key extends keyof T> = Key extends string
   ? T[Key] extends Record<string, any>
@@ -32,9 +32,9 @@ type PathImpl<T, Key extends keyof T> = Key extends string
 
 type Path<T> = PathImpl<T, keyof T>;
 
-export type FeatureTogglePaths = Path<typeof initialFeatureToggles>;
+export type FeatureTogglePaths = Path<typeof initialConfiguration>;
 
-featureToggleStore.subscribe((features) =>
+configurationStore.subscribe((features) =>
   $options.next({ xCorrelationId: features.MMH.XCorrelationId }),
 );
 
@@ -42,10 +42,10 @@ export const getConfiguration = async (): Promise<void> => {
   try {
     const features = JSON.parse(
       window.localStorage.getItem("features") || "",
-    ) as typeof initialFeatureToggles;
+    ) as typeof initialConfiguration;
 
     if (typeof features === "object") {
-      featureToggleStore.next(features);
+      configurationStore.next(features);
     } else {
       throw new Error("Invalid feature store in local storage");
     }
@@ -60,9 +60,9 @@ export const getConfiguration = async (): Promise<void> => {
       `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`,
     );
     res.data.forEach(({ type, featureToggles, configuration }) => {
-      const toggles = featureToggleStore.getValue();
-      featureToggleStore.next({
-        ...toggles,
+      const configs = configurationStore.getValue();
+      configurationStore.next({
+        ...configs,
         [type]: {
           ...featureToggles,
           ...configuration,
@@ -71,15 +71,15 @@ export const getConfiguration = async (): Promise<void> => {
     });
     window.localStorage.setItem(
       "features",
-      JSON.stringify(featureToggleStore.getValue()),
+      JSON.stringify(configurationStore.getValue()),
     );
   } catch (e) {
     // TODO add logging for failed configuration
   }
 };
 
-export const hasToggle = (path: FeatureTogglePaths): any => {
-  const toggles = featureToggleStore.getValue();
+export const hasConfiguration = (path: FeatureTogglePaths): any => {
+  const configs = configurationStore.getValue();
   const pathArray = path.match(/([^[.\]])+/g);
   const result =
     pathArray?.reduce((prevObj, key): any => {
@@ -87,7 +87,7 @@ export const hasToggle = (path: FeatureTogglePaths): any => {
         return prevObj[`${key}` as keyof typeof prevObj];
       }
       return undefined;
-    }, toggles) || undefined;
+    }, configs) || undefined;
   // return typeof result === "boolean" ? result : false;
   return result ?? false;
 };
