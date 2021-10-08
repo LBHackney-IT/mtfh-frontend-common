@@ -23,7 +23,7 @@ test("is future date", () => {
 });
 
 test("formats the time correctly", () => {
-  expect(formatTime("2021-10-07T16:05:26.909Z")).toBe("17:05:26");
+  expect(formatTime("2021-10-06T10:36:25.805Z")).toBe("11:36:25");
 });
 
 test("formatted time will not break with a malformed date string", () => {

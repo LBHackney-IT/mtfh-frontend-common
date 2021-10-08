@@ -3,15 +3,19 @@ import { getCommentV2, mockCommentV2, render, server } from "@hackney/mtfh-test-
 import { screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { mockCommentsV2 } from "../../test-utils";
+import { formatDate, formatTime } from "../../utils";
 import { CommentList } from "./comment-list";
 
 test("it renders correctly", async () => {
   render(<CommentList targetId="123" />);
   await waitFor(() => expect(screen.queryByText(/Loading/)).not.toBeInTheDocument());
 
-  await screen.findByText("Full name 2");
-  await screen.findByText("Comment title 2");
+  await screen.findByText(mockCommentsV2[0].author.fullName);
+  await screen.findByText(mockCommentsV2[0].title || "");
   await screen.findByText("Category value 2");
+  await screen.findByText(formatDate(mockCommentsV2[0].createdAt));
+  await screen.findByText(formatTime(mockCommentsV2[0].createdAt));
 });
 
 test("it renders no comments with no results", async () => {

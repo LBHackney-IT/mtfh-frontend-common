@@ -6,7 +6,7 @@ import {
   server,
 } from "@hackney/mtfh-test-utils";
 
-const categoryReferenceDataV1 = Array.from({ length: 3 }).map((_, index) =>
+const mockCategoryReferenceDataV1 = Array.from({ length: 3 }).map((_, index) =>
   generateMockReferenceDataV1({
     category: "comments",
     subCategory: "category",
@@ -15,7 +15,7 @@ const categoryReferenceDataV1 = Array.from({ length: 3 }).map((_, index) =>
   }),
 );
 
-const commentsV2 = Array.from({ length: 20 }).map((_, index) =>
+export const mockCommentsV2 = Array.from({ length: 20 }).map((_, index) =>
   generateMockCommentV2({
     title: `Comment title ${index + 1}`,
     author: {
@@ -32,5 +32,8 @@ const commentsV2 = Array.from({ length: 20 }).map((_, index) =>
 );
 
 beforeEach(() => {
-  server.use(getCommentV2(commentsV2), getReferenceDataV1(categoryReferenceDataV1));
+  server.use(
+    getCommentV2(mockCommentsV2),
+    getReferenceDataV1(mockCategoryReferenceDataV1),
+  );
 });

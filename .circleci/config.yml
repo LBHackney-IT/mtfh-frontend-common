@@ -117,6 +117,7 @@ jobs:
           command: yarn test:ci
           environment:
             NODE_OPTIONS: --max_old_space_size=4096
+            TZ: "UTC"
   build-deploy-development:
     executor: node-executor
     environment:
