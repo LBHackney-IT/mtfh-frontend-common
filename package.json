@@ -10,10 +10,10 @@
     "lint": "eslint lib --ext js,ts,tsx --quiet",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
-    "test:ci": "cross-env BABEL_ENV=test jest --passWithNoTests --runInBand",
-    "watch-tests": "cross-env BABEL_ENV=test jest --watch",
-    "coverage": "cross-env BABEL_ENV=test jest --coverage"
+    "test": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests",
+    "test:ci": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --runInBand",
+    "watch-tests": "cross-env BABEL_ENV=test TZ=utc jest --watch",
+    "coverage": "cross-env BABEL_ENV=test TZ=utc jest --coverage"
   },
   "husky": {
     "hooks": {
