@@ -32,3 +32,10 @@ test("it does not print title", () => {
   render(<Stepper steps={[stepTenureDetails, stepSelectResidents]} />);
   expect(screen.queryByText(stepperTitle)).not.toBeInTheDocument();
 });
+
+test("it displays a human readable step count", () => {
+  render(<Stepper steps={[stepTenureDetails, stepSelectResidents]} />);
+  expect(screen.queryByText("0")).not.toBeInTheDocument();
+  screen.getByText("1");
+  screen.getByText("2");
+});

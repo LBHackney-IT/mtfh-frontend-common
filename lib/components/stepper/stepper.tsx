@@ -38,7 +38,7 @@ export const Stepper = ({ title, steps, activeStep = 0 }: StepperProps): JSX.Ele
                         <span className="govuk-visually-hidden">
                           {locale.components.stepper.step}
                         </span>
-                        {stepIndex}
+                        {stepIndex + 1}
                       </span>
                     </span>
                   </span>

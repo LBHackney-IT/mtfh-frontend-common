@@ -37,7 +37,7 @@ exports[`it renders correctly 1`] = `
                     >
                       Step
                     </span>
-                    0
+                    1
                   </span>
                 </span>
               </span>
@@ -76,7 +76,7 @@ exports[`it renders correctly 1`] = `
                     >
                       Step
                     </span>
-                    1
+                    2
                   </span>
                 </span>
               </span>
