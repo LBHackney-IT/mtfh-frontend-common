@@ -4,21 +4,23 @@ import cn from "classnames";
 import { Heading } from "../heading";
 import { StepProps } from "./step";
 
-type StepChild = ReactElement<StepProps> | ReactElement<StepProps>[] | null;
+export type StepChild = ReactElement<StepProps> | ReactElement<StepProps>[] | null;
 
 interface StepperProps {
   title?: string;
   activeStep?: number;
   children: StepChild;
+  [x: string]: any;
 }
 
 export const Stepper = ({
   activeStep = 0,
   title,
   children,
+  ...props
 }: StepperProps): JSX.Element => {
   return (
-    <div>
+    <div {...props}>
       {title && (
         <Heading as="h2" variant="h2">
           {title}
