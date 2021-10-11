@@ -16,6 +16,9 @@ const locale = {
           "Please try again. If the issue persists, please contact support.",
       },
     },
+    stepper: {
+      step: "Step",
+    },
     statusErrorSummary: {
       statusTitle: (code: number): string => {
         switch (code) {

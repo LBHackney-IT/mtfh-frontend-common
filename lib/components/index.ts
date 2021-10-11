@@ -30,3 +30,4 @@ export * from "./spinner";
 export * from "./summary-list";
 export * from "./table";
 export * from "./text-area";
+export * from "./stepper";
