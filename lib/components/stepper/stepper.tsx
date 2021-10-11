@@ -1,11 +1,15 @@
-import React, { Children, ReactNode, cloneElement, isValidElement } from "react";
+import React, { Children, ReactElement, cloneElement, isValidElement } from "react";
 import "./styles.scss";
+import cn from "classnames";
 import { Heading } from "../heading";
+import { StepProps } from "./step";
+
+type StepChild = ReactElement<StepProps> | ReactElement<StepProps>[] | null;
 
 interface StepperProps {
   title?: string;
   activeStep?: number;
-  children: ReactNode;
+  children: StepChild;
 }
 
 export const Stepper = ({
@@ -26,12 +30,18 @@ export const Stepper = ({
             children,
             (child, stepIndex) =>
               child &&
-              isValidElement(child) &&
-              cloneElement(child, {
-                ...child.props,
-                stepIndex: stepIndex + 1,
-                isActive: stepIndex === activeStep,
-              }),
+              isValidElement(child) && (
+                <li
+                  className={cn("mtfh-stepper__step", {
+                    "mtfh-stepper__step--active": stepIndex === activeStep,
+                  })}
+                >
+                  {cloneElement(child, {
+                    ...child.props,
+                    stepIndex: stepIndex + 1,
+                  })}
+                </li>
+              ),
           )}
         </ol>
       </div>
