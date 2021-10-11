@@ -54,7 +54,7 @@ exports[`it renders correctly 1`] = `
           </div>
         </li>
         <li
-          class="mtfh-stepper__step "
+          class="mtfh-stepper__step"
         >
           <div
             class="mtfh-stepper__header"
