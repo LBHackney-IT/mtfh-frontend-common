@@ -61,7 +61,6 @@ $top-border: solid 2px govuk-colour("mid-grey");
 
 .mtfh-stepper__button {
   color: $govuk-link-colour;
-  cursor: pointer;
   background: none;
   border: 0;
   margin: 0;
@@ -239,10 +238,6 @@ $top-border: solid 2px govuk-colour("mid-grey");
   padding: govuk-spacing(3) 0;
   border-top: $top-border;
 
-  .mtfh-stepper--active & {
-    cursor: pointer;
-  }
-
   .mtfh-stepper__button {
     &:focus {
       @include govuk-focused-text;
@@ -250,18 +245,6 @@ $top-border: solid 2px govuk-colour("mid-grey");
       .mtfh-stepper__toggle-link {
         @include govuk-focused-text;
       }
-    }
-  }
-
-  &:hover {
-    .mtfh-stepper__button:not(:focus),
-    .mtfh-stepper__circle {
-      color: $govuk-link-colour;
-    }
-
-    .mtfh-stepper__toggle-link {
-      @include govuk-link-common;
-      @include govuk-link-hover-decoration;
     }
   }
 

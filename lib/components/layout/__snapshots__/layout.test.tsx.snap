@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`it renders a side on the right 1`] = `
+<div>
+  <div
+    class="mtfh-layout"
+  >
+    <div
+      id="content"
+    />
+    <div
+      class="mtfh-layout__container"
+    >
+      <div
+        class="mtfh-layout__aside mtfh-layout__aside--right"
+      >
+        <div
+          id="side"
+        >
+          Side Bar
+        </div>
+      </div>
+      <div
+        class="mtfh-layout__main mtfh-layout__main__aside--right"
+      >
+        <div
+          id="main"
+        >
+          Main
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`it renders correctly 1`] = `
 <div>
   <div

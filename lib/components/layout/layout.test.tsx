@@ -25,3 +25,12 @@ test("it renders correctly without a side", () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+test("it renders a side on the right", () => {
+  const { container } = render(
+    <Layout sidePosition="right" side={<div id="side">Side Bar</div>}>
+      <div id="main">Main</div>
+    </Layout>,
+  );
+  expect(container).toMatchSnapshot();
+});
