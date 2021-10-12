@@ -17,6 +17,7 @@ const initialFeatureToggles = {
     EnhancedPersonComments: false,
     AddPersonToTenureOnEditTenure: false,
     XCorrelationId: false,
+    WarningComponents: false,
   },
 };
 
