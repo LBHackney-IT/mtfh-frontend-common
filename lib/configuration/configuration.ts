@@ -30,11 +30,7 @@ const initialConfiguration = {
     FeatureToggles: {
       Test: false,
       CreateTenure: false,
-      EditTenure: false,
-      EnhancedComments: false,
       EnhancedPersonComments: false,
-      AddPersonToTenureOnEditTenure: false,
-      XCorrelationId: false,
       WarningComponents: false,
       Stepper: false,
     },
