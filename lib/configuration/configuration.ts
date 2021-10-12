@@ -13,7 +13,6 @@ const initialFeatureToggles = {
     Test: false,
     CreateTenure: false,
     EditTenure: false,
-    EnhancedComments: false,
     EnhancedPersonComments: false,
     AddPersonToTenureOnEditTenure: false,
     XCorrelationId: false,
