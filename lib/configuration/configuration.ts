@@ -24,10 +24,10 @@ export type ConfigurationPaths = AppConfigPaths | FeatureTogglePaths;
 
 const initialConfiguration = {
   MMH: {
-    AppConfigs: {
+    configuration: {
       TestConfig: "",
     },
-    FeatureToggles: {
+    featureToggles: {
       Test: false,
       CreateTenure: false,
       EnhancedPersonComments: false,
@@ -79,16 +79,18 @@ export const getConfiguration = async (): Promise<void> => {
   }
 };
 
-export const hasAppConfig = (path: AppConfigPaths): string => {
+const pathValue = (path: ConfigurationPaths) => {
   const configs: any = configurationStore.getValue();
   const [stream, key] = path.split(".");
-  const pathResult = configs[`${stream}`][`${key}`];
-  return pathResult ?? "";
+  return configs[`${stream}`][`${key}`];
 };
 
-export const hasToggle = (path: FeatureTogglePaths): boolean => {
-  const configs: any = configurationStore.getValue();
-  const [stream, key] = path.split(".");
-  const pathResult = configs[`${stream}`][`${key}`];
-  return typeof pathResult === "boolean" ? pathResult : false;
+export const isConfiguration = (path: ConfigurationPaths): string => {
+  const value = pathValue(path);
+  return value ?? "";
+};
+
+export const isToggle = (path: ConfigurationPaths): boolean => {
+  const value = pathValue(path);
+  return typeof value === "boolean" ? value : false;
 };

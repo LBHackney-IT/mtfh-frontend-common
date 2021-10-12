@@ -11,8 +11,8 @@ describe("useFeatureToggle", () => {
       configurationStore.next({
         MMH: {
           ...features.MMH,
-          FeatureToggles: {
-            ...features.MMH.FeatureToggles,
+          featureToggles: {
+            ...features.MMH.featureToggles,
             Test: true,
           },
         },

@@ -11,8 +11,8 @@ describe("useConfiguration", () => {
       configurationStore.next({
         MMH: {
           ...features.MMH,
-          AppConfigs: {
-            ...features.MMH.AppConfigs,
+          configuration: {
+            ...features.MMH.configuration,
             TestConfig: "TestConfigString",
           },
         },

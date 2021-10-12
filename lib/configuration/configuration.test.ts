@@ -2,8 +2,8 @@ import { request } from "@hackney/mtfh-test-utils";
 import {
   configurationStore,
   getConfiguration,
-  hasAppConfig,
-  hasToggle,
+  isConfiguration,
+  isToggle,
 } from "./configuration";
 
 const initialStore = configurationStore.getValue();
@@ -14,21 +14,21 @@ beforeEach(() => {
 });
 
 test("configuration is set from instatiation", () => {
-  expect(hasToggle("MMH.Test")).toBe(false);
+  expect(isToggle("MMH.Test")).toBe(false);
 });
 
 test("configuration is hydrated from localStorage first", async () => {
   request({ method: "get", data: [], path: "/api/v1/configuration" });
   window.localStorage.setItem("features", JSON.stringify({ MMH: { Test: true } }));
   await getConfiguration();
-  expect(hasToggle("MMH.Test")).toBe(true);
+  expect(isToggle("MMH.Test")).toBe(true);
 });
 
 test("configuration not hydrated if localStorage is malformed", async () => {
   request({ method: "get", data: [], path: "/api/v1/configuration" });
   window.localStorage.setItem("features", JSON.stringify(1));
   await getConfiguration();
-  expect(hasToggle("MMH.Test")).toBe(false);
+  expect(isToggle("MMH.Test")).toBe(false);
 });
 
 test("configuration is hydrated from api", async () => {
@@ -38,7 +38,7 @@ test("configuration is hydrated from api", async () => {
     path: "/api/v1/configuration",
   });
   await getConfiguration();
-  expect(hasToggle("MMH.Test")).toBe(true);
+  expect(isToggle("MMH.Test")).toBe(true);
 });
 
 test("configuration is persisted to localStorage on success", async () => {
@@ -64,5 +64,5 @@ test("configuration is hydrated from api", async () => {
     path: "/api/v1/configuration",
   });
   await getConfiguration();
-  expect(hasAppConfig("MMH.TestConfig")).toBe("TestConfigString");
+  expect(isConfiguration("MMH.TestConfig")).toBe("TestConfigString");
 });

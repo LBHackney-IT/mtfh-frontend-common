@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import {
-  AppConfigPaths,
+  ConfigurationPaths,
   configurationStore,
-  hasAppConfig,
+  isConfiguration,
 } from "@mtfh/common/lib/configuration";
 
-export const useConfiguration = (path: AppConfigPaths): string => {
-  const [config, setConfig] = useState(hasAppConfig(path));
+export const useConfiguration = (path: ConfigurationPaths): string => {
+  const [config, setConfig] = useState(isConfiguration(path));
 
   useEffect(() => {
     const subscription = configurationStore.subscribe(() => {
-      setConfig(hasAppConfig(path));
+      setConfig(isConfiguration(path));
     });
 
     return () => {
