@@ -12,10 +12,7 @@ const initialFeatureToggles = {
   MMH: {
     Test: false,
     CreateTenure: false,
-    EditTenure: false,
     EnhancedPersonComments: false,
-    AddPersonToTenureOnEditTenure: false,
-    XCorrelationId: false,
     WarningComponents: false,
     Stepper: false,
   },
