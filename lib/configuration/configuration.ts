@@ -8,42 +8,41 @@ export type Configuration = {
   featureToggles: Record<string, boolean>;
 };
 
+export type AppConfigPaths = "MMH.TestConfig";
+export type FeatureTogglePaths =
+  | "MMH.Test"
+  | "MMH.CreateTenure"
+  | "MMH.EditTenure"
+  | "MMH.EnhancedComments"
+  | "MMH.EnhancedPersonComments"
+  | "MMH.AddPersonToTenureOnEditTenure"
+  | "MMH.XCorrelationId"
+  | "MMH.WarningComponents"
+  | "MMH.Stepper";
+
+export type ConfigurationPaths = AppConfigPaths | FeatureTogglePaths;
+
 const initialConfiguration = {
   MMH: {
-    Test: false,
-    CreateTenure: false,
-    EditTenure: false,
-    EnhancedComments: false,
-    EnhancedPersonComments: false,
-    AddPersonToTenureOnEditTenure: false,
-    XCorrelationId: false,
-    WarningComponents: false,
-    Stepper: false,
-    TestConfig: "",
+    AppConfigs: {
+      TestConfig: "",
+    },
+    FeatureToggles: {
+      Test: false,
+      CreateTenure: false,
+      EditTenure: false,
+      EnhancedComments: false,
+      EnhancedPersonComments: false,
+      AddPersonToTenureOnEditTenure: false,
+      XCorrelationId: false,
+      WarningComponents: false,
+      Stepper: false,
+    },
   },
 };
 
 export const configurationStore = new BehaviorSubject(initialConfiguration);
 
-type PathImpl<T, Key extends keyof T> = Key extends string
-  ? T[Key] extends Record<string, any>
-    ?
-        | `${Key}.${PathImpl<T[Key], Exclude<keyof T[Key], keyof any[]>> & string}`
-        | `${Key}.${Exclude<keyof T[Key], keyof any[]> & string}`
-    : never
-  : never;
-
-type Path<T> = PathImpl<T, keyof T>;
-
-export type FeatureTogglePaths = Path<typeof initialConfiguration>;
-
-<<<<<<< HEAD
-=======
-configurationStore.subscribe((features) =>
-  $options.next({ xCorrelationId: features.MMH.XCorrelationId }),
-);
-
->>>>>>> a219df9 (feat(TL-90): updated param names)
 export const getConfiguration = async (): Promise<void> => {
   try {
     const features = JSON.parse(
@@ -84,16 +83,16 @@ export const getConfiguration = async (): Promise<void> => {
   }
 };
 
-export const hasConfiguration = (path: FeatureTogglePaths): any => {
-  const configs = configurationStore.getValue();
-  const pathArray = path.match(/([^[.\]])+/g);
-  const result =
-    pathArray?.reduce((prevObj, key): any => {
-      if (prevObj && prevObj[`${key}` as keyof typeof prevObj]) {
-        return prevObj[`${key}` as keyof typeof prevObj];
-      }
-      return undefined;
-    }, configs) || undefined;
-  // return typeof result === "boolean" ? result : false;
-  return result ?? false;
+export const hasAppConfig = (path: AppConfigPaths): string => {
+  const configs: any = configurationStore.getValue();
+  const [stream, key] = path.split(".");
+  const pathResult = configs[`${stream}`][`${key}`];
+  return pathResult ?? "";
+};
+
+export const hasToggle = (path: FeatureTogglePaths): boolean => {
+  const configs: any = configurationStore.getValue();
+  const [stream, key] = path.split(".");
+  const pathResult = configs[`${stream}`][`${key}`];
+  return typeof pathResult === "boolean" ? pathResult : false;
 };

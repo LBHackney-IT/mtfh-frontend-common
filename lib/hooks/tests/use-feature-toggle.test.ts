@@ -8,7 +8,15 @@ describe("useFeatureToggle", () => {
     const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
     expect(result.current).toBe(false);
     act(() => {
-      configurationStore.next({ MMH: { ...features.MMH, Test: true } });
+      configurationStore.next({
+        MMH: {
+          ...features.MMH,
+          FeatureToggles: {
+            ...features.MMH.FeatureToggles,
+            Test: true,
+          },
+        },
+      });
     });
     expect(result.current).toBe(true);
     act(() => {
