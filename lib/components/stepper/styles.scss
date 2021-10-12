@@ -50,6 +50,7 @@ $top-border: solid 2px govuk-colour("mid-grey");
 }
 
 .mtfh-stepper {
+  margin-top: 0;
   margin-bottom: govuk-spacing(6);
 
   &.mtfh-stepper--large {
@@ -74,6 +75,14 @@ $top-border: solid 2px govuk-colour("mid-grey");
   border: 0;
 }
 
+.mtfh-stepper__main-title {
+  margin: govuk-spacing(5) 0;
+}
+
+.mtfh-stepper__top-border {
+  border-top: 2px solid lbh-colour("lbh-primary-button");
+}
+
 .mtfh-stepper__button--title {
   @include mtfh-stepper-font(19, $weight: bold, $line-height: 1.4);
   display: inline-block;
@@ -82,7 +91,7 @@ $top-border: solid 2px govuk-colour("mid-grey");
   color: govuk-colour("black");
 
   .mtfh-stepper--large & {
-    @include mtfh-stepper-font(19, $tablet-size: 24, $weight: bold, $line-height: 1.4);
+    @include mtfh-stepper-font(19, $tablet-size: 22, $weight: bold, $line-height: 1.4);
   }
 }
 
@@ -250,7 +259,7 @@ $top-border: solid 2px govuk-colour("mid-grey");
 
   .mtfh-stepper--large & {
     @include govuk-media-query($from: tablet) {
-      padding: govuk-spacing(6) 0;
+      padding: govuk-spacing(5) 0;
     }
   }
 }

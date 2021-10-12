@@ -22,7 +22,7 @@ export const Stepper = ({
   return (
     <div {...props}>
       {title && (
-        <Heading as="h2" variant="h2">
+        <Heading as="h3" variant="h3" className="mtfh-stepper__main-title">
           {title}
         </Heading>
       )}
