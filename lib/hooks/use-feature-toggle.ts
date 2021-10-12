@@ -5,7 +5,7 @@ import {
   hasToggle,
 } from "@mtfh/common/lib/configuration";
 
-export const useFeatureToggle = (path: FeatureTogglePaths): string | boolean => {
+export const useFeatureToggle = (path: FeatureTogglePaths): boolean => {
   const [toggle, setToggle] = useState(hasToggle(path));
 
   useEffect(() => {
