@@ -9,7 +9,7 @@ export interface StepProps {
 
 export const Step = ({ stepIndex, children }: StepProps): JSX.Element => (
   <div className="mtfh-stepper__header">
-    <Heading as="h3" variant="h3" className="mtfh-stepper__title">
+    <Heading as="h4" variant="h4" className="mtfh-stepper__title">
       <span className="mtfh-stepper__circle mtfh-stepper__circle--number">
         <span className="mtfh-stepper__circle-inner">
           <span className="mtfh-stepper__circle-background">

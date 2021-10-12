@@ -3,11 +3,11 @@
 exports[`it renders correctly 1`] = `
 <div>
   <div>
-    <h2
-      class="lbh-heading-h2"
+    <h3
+      class="lbh-heading-h3 mtfh-stepper__main-title"
     >
       Stepper title
-    </h2>
+    </h3>
     <div
       class="mtfh-stepper mtfh-stepper--large mtfh-stepper--active"
     >
@@ -20,8 +20,8 @@ exports[`it renders correctly 1`] = `
           <div
             class="mtfh-stepper__header"
           >
-            <h3
-              class="lbh-heading-h3 mtfh-stepper__title"
+            <h4
+              class="lbh-heading-h4 mtfh-stepper__title"
             >
               <span
                 class="mtfh-stepper__circle mtfh-stepper__circle--number"
@@ -50,7 +50,7 @@ exports[`it renders correctly 1`] = `
                   </span>
                 </button>
               </span>
-            </h3>
+            </h4>
           </div>
         </li>
         <li
@@ -59,8 +59,8 @@ exports[`it renders correctly 1`] = `
           <div
             class="mtfh-stepper__header"
           >
-            <h3
-              class="lbh-heading-h3 mtfh-stepper__title"
+            <h4
+              class="lbh-heading-h4 mtfh-stepper__title"
             >
               <span
                 class="mtfh-stepper__circle mtfh-stepper__circle--number"
@@ -89,7 +89,7 @@ exports[`it renders correctly 1`] = `
                   </span>
                 </button>
               </span>
-            </h3>
+            </h4>
           </div>
         </li>
       </ol>

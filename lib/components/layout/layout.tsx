@@ -7,10 +7,11 @@ export interface LayoutProps extends ComponentPropsWithoutRef<"div"> {
   top?: ReactElement;
   backLink?: ReactElement;
   side?: ReactElement;
+  sidePosition?: "left" | "right";
 }
 
 export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
-  { children, top, backLink, side, className, ...props },
+  { children, top, backLink, side, className, sidePosition = "left", ...props },
   ref,
 ) {
   return (
@@ -23,8 +24,22 @@ export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
       <div id="content" />
       {top}
       <div className="mtfh-layout__container">
-        {side ? <div className="mtfh-layout__aside">{side}</div> : null}
-        <div className="mtfh-layout__main">{children}</div>
+        {side ? (
+          <div
+            className={cn("mtfh-layout__aside", {
+              "mtfh-layout__aside--right": sidePosition === "right",
+            })}
+          >
+            {side}
+          </div>
+        ) : null}
+        <div
+          className={cn("mtfh-layout__main", {
+            "mtfh-layout__main__aside--right": sidePosition === "right",
+          })}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

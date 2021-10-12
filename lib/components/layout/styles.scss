@@ -1,5 +1,5 @@
-@import '~lbh-frontend/lbh/base';
-@import '~govuk-frontend/govuk/helpers/media-queries';
+@import "~lbh-frontend/lbh/base";
+@import "~govuk-frontend/govuk/helpers/media-queries";
 
 .mtfh-layout {
   @include govuk-media-query($from: desktop) {
@@ -23,11 +23,19 @@
       }
     }
 
+    &__aside--right {
+      grid-area: 1 / 3 / 2 / 4;
+    }
+
     &__main {
       margin-top: 0;
 
       .mtfh-layout:not(.mtfh-layout--narrow) & {
         grid-area: 1 / 2 / 2 / 3;
+
+        &__aside--right {
+          grid-area: 1 / 1 / 2 / 3;
+        }
       }
     }
   }
