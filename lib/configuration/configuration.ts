@@ -18,6 +18,7 @@ const initialFeatureToggles = {
     AddPersonToTenureOnEditTenure: false,
     XCorrelationId: false,
     WarningComponents: false,
+    Stepper: false,
   },
 };
 
