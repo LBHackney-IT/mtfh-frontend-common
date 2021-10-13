@@ -2,12 +2,6 @@ import { BehaviorSubject } from "rxjs";
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
-// export type Configuration = {
-//   type: "MMH" | "Common";
-//   configuration: Record<string, string>;
-//   featureToggles: Record<string, boolean>;
-// };
-
 type Configuration = {
   configuration: Record<string, string | undefined>;
   featureToggles: Record<string, boolean | undefined>;
