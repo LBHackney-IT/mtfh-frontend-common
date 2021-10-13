@@ -1,10 +1,10 @@
 import { act, renderHook } from "@testing-library/react-hooks";
-import { $configurationStore } from "../../configuration";
+import { $configuration } from "../../configuration";
 import { useFeatureToggle } from "../use-feature-toggle";
 
 describe("useFeatureToggle", () => {
   beforeEach(() => {
-    $configurationStore.next({});
+    $configuration.next({});
   });
 
   test("it returns false for unconfigured toggle", async () => {
@@ -13,7 +13,7 @@ describe("useFeatureToggle", () => {
   });
 
   test("it retrieves the correct toggle", async () => {
-    $configurationStore.next({
+    $configuration.next({
       MMH: {
         configuration: {},
         featureToggles: {
@@ -26,7 +26,7 @@ describe("useFeatureToggle", () => {
   });
 
   test("it listens to updated to feature toggles", async () => {
-    $configurationStore.next({
+    $configuration.next({
       MMH: {
         configuration: {},
         featureToggles: {
@@ -38,7 +38,7 @@ describe("useFeatureToggle", () => {
     expect(result.current).toBe(false);
 
     act(() => {
-      $configurationStore.next({
+      $configuration.next({
         MMH: {
           configuration: {},
           featureToggles: {

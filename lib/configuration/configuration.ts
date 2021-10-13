@@ -43,7 +43,7 @@ export const hydrateConfiguration = () => {
   return {};
 };
 
-export const $configurationStore = new BehaviorSubject(hydrateConfiguration());
+export const $configuration = new BehaviorSubject(hydrateConfiguration());
 
 export const getConfiguration = async (): Promise<void> => {
   try {
@@ -51,8 +51,8 @@ export const getConfiguration = async (): Promise<void> => {
       `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`,
     );
     res.data.forEach(({ type, featureToggles, configuration }) => {
-      const configs = $configurationStore.getValue();
-      $configurationStore.next({
+      const configs = $configuration.getValue();
+      $configuration.next({
         ...configs,
         [type]: {
           featureToggles,
@@ -60,17 +60,14 @@ export const getConfiguration = async (): Promise<void> => {
         },
       });
     });
-    window.localStorage.setItem(
-      "features",
-      JSON.stringify($configurationStore.getValue()),
-    );
+    window.localStorage.setItem("features", JSON.stringify($configuration.getValue()));
   } catch (e) {
     // TODO add logging for failed configuration
   }
 };
 
 const getAppConfig = (type: string): Configuration | null => {
-  const configs = $configurationStore.getValue();
+  const configs = $configuration.getValue();
   const appConfig = configs[type];
   return appConfig || null;
 };
