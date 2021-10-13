@@ -3,24 +3,51 @@ import { configurationStore } from "../../configuration";
 import { useFeatureToggle } from "../use-feature-toggle";
 
 describe("useFeatureToggle", () => {
-  test("it retrieves the correct toogle", () => {
-    const features = configurationStore.getValue();
+  beforeEach(() => {
+    configurationStore.next({});
+  });
+
+  test("it returns false for unconfigured toggle", async () => {
     const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
     expect(result.current).toBe(false);
+  });
+
+  test("it retrieves the correct toggle", async () => {
+    configurationStore.next({
+      MMH: {
+        configuration: {},
+        featureToggles: {
+          Test: true,
+        },
+      },
+    });
+    const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
+    expect(result.current).toBe(true);
+  });
+
+  test("it listens to updated to feature toggles", async () => {
+    configurationStore.next({
+      MMH: {
+        configuration: {},
+        featureToggles: {
+          Test: false,
+        },
+      },
+    });
+    const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
+    expect(result.current).toBe(false);
+
     act(() => {
       configurationStore.next({
         MMH: {
-          ...features.MMH,
+          configuration: {},
           featureToggles: {
-            ...features.MMH.featureToggles,
             Test: true,
           },
         },
       });
     });
+
     expect(result.current).toBe(true);
-    act(() => {
-      configurationStore.next(features);
-    });
   });
 });

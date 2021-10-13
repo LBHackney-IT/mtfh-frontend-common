@@ -2,27 +2,21 @@ import { BehaviorSubject } from "rxjs";
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
-export type Configuration = {
-  type: "MMH" | "Common";
-  configuration: Record<string, string>;
-  featureToggles: Record<string, boolean>;
+// export type Configuration = {
+//   type: "MMH" | "Common";
+//   configuration: Record<string, string>;
+//   featureToggles: Record<string, boolean>;
+// };
+
+type Configuration = {
+  configuration: Record<string, string | undefined>;
+  featureToggles: Record<string, boolean | undefined>;
 };
+type ConfigCollection = Record<string, Configuration>;
 
-export type AppConfigPaths = "MMH.TestConfig";
-export type FeatureTogglePaths =
-  | "MMH.Test"
-  | "MMH.CreateTenure"
-  | "MMH.EditTenure"
-  | "MMH.EnhancedComments"
-  | "MMH.EnhancedPersonComments"
-  | "MMH.AddPersonToTenureOnEditTenure"
-  | "MMH.XCorrelationId"
-  | "MMH.WarningComponents"
-  | "MMH.Stepper";
+type ConfigResponse = Array<Configuration & { type: string }>;
 
-export type ConfigurationPaths = AppConfigPaths | FeatureTogglePaths;
-
-const initialConfiguration = {
+const initialConfiguration: ConfigCollection = {
   MMH: {
     configuration: {
       TestConfig: "",
@@ -37,27 +31,29 @@ const initialConfiguration = {
   },
 };
 
-export const configurationStore = new BehaviorSubject(initialConfiguration);
-
-export const getConfiguration = async (): Promise<void> => {
+export const hydrateConfiguration = () => {
   try {
     const features = JSON.parse(
       window.localStorage.getItem("features") || "",
     ) as typeof initialConfiguration;
 
     if (typeof features === "object") {
-      configurationStore.next(features);
-    } else {
-      throw new Error("Invalid feature store in local storage");
+      return features;
     }
+    throw new Error("Invalid feature store in local storage");
   } catch (e) {
     if (localStorage.getItem("features")) {
       window.localStorage.removeItem("features");
     }
   }
+  return {};
+};
 
+export const configurationStore = new BehaviorSubject(hydrateConfiguration());
+
+export const getConfiguration = async (): Promise<void> => {
   try {
-    const res = await axiosInstance.get<Configuration[]>(
+    const res = await axiosInstance.get<ConfigResponse>(
       `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`,
     );
     res.data.forEach(({ type, featureToggles, configuration }) => {
@@ -65,8 +61,8 @@ export const getConfiguration = async (): Promise<void> => {
       configurationStore.next({
         ...configs,
         [type]: {
-          ...featureToggles,
-          ...configuration,
+          featureToggles,
+          configuration,
         },
       });
     });
@@ -79,18 +75,21 @@ export const getConfiguration = async (): Promise<void> => {
   }
 };
 
-const pathValue = (path: ConfigurationPaths) => {
-  const configs: any = configurationStore.getValue();
-  const [stream, key] = path.split(".");
-  return configs[`${stream}`][`${key}`];
+const getAppConfig = (type: string): Configuration | null => {
+  const configs = configurationStore.getValue();
+  const appConfig = configs[type];
+  return appConfig || null;
 };
 
-export const isConfiguration = (path: ConfigurationPaths): string => {
-  const value = pathValue(path);
-  return value ?? "";
+export const getConfigItem = (path: string): string => {
+  const [type, key] = path.split(".");
+  const appConfig = getAppConfig(type);
+  return appConfig?.configuration[key] || "";
 };
 
-export const isToggle = (path: ConfigurationPaths): boolean => {
-  const value = pathValue(path);
+export const getFeatureToggle = (path: string): boolean => {
+  const [type, key] = path.split(".");
+  const appConfig = getAppConfig(type);
+  const value = appConfig?.featureToggles[key];
   return typeof value === "boolean" ? value : false;
 };
