@@ -4,7 +4,13 @@ import { axiosInstance } from "@mtfh/common/lib/http";
 
 interface LogErrorArgs {
   logMessage: string;
-  mfeName: string;
+  mfeName:
+    | "Search"
+    | "Property"
+    | "Personal details"
+    | "Comments"
+    | "Tenure"
+    | "Activity history";
   type: "log" | "error";
 }
 
