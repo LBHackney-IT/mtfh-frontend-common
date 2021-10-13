@@ -1,10 +1,10 @@
 import { act, renderHook } from "@testing-library/react-hooks";
-import { configurationStore } from "../../configuration";
+import { $configurationStore } from "../../configuration";
 import { useConfiguration } from "../use-configuration";
 
 describe("useConfiguration", () => {
   beforeEach(() => {
-    configurationStore.next({});
+    $configurationStore.next({});
   });
 
   test("it returns an empty string for when no configuration is found", () => {
@@ -13,7 +13,7 @@ describe("useConfiguration", () => {
   });
 
   test("it returns the correct configuratio value", () => {
-    configurationStore.next({
+    $configurationStore.next({
       MMH: {
         configuration: {
           TestConfig: "TestConfigString",
@@ -26,7 +26,7 @@ describe("useConfiguration", () => {
   });
 
   test("it listens to updated on configuration", () => {
-    configurationStore.next({
+    $configurationStore.next({
       MMH: {
         configuration: {},
         featureToggles: {},
@@ -36,7 +36,7 @@ describe("useConfiguration", () => {
     expect(result.current).toBe("");
 
     act(() => {
-      configurationStore.next({
+      $configurationStore.next({
         MMH: {
           configuration: {
             TestConfig: "TestConfigString",

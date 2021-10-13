@@ -1,13 +1,13 @@
 import { request } from "@hackney/mtfh-test-utils";
 import {
-  configurationStore,
+  $configurationStore,
   getConfiguration,
   getFeatureToggle,
   hydrateConfiguration,
 } from "./configuration";
 
 beforeEach(() => {
-  configurationStore.next({});
+  $configurationStore.next({});
   window.localStorage.removeItem("features");
 });
 
@@ -47,7 +47,7 @@ test("configuration is hydrated from api", async () => {
     path: "/api/v1/configuration",
   });
   await getConfiguration();
-  const configs = configurationStore.getValue();
+  const configs = $configurationStore.getValue();
   expect(configs).toStrictEqual({
     MMH: { configuration: { TestConfig: "TestConfig" }, featureToggles: { Test: true } },
   });
