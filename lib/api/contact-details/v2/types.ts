@@ -21,12 +21,12 @@ export type ContactInformation = {
   addressExtended?: ContactInformationAddressExtended | null;
 };
 
-type SourceServiceArea = {
+export type SourceServiceArea = {
   area: string;
   isDefault: boolean;
 };
 
-type CreatedBy = {
+export type CreatedBy = {
   createdBy: string;
   id: string;
   fullName: string;
@@ -63,4 +63,9 @@ type ContactInformationAddressExtended = {
   uprn: string;
   isOverseasAddress: boolean;
   overseasAddress: string;
+  addressLine1: string;
+  addressLine2: string;
+  addressLine3: string;
+  addressLine4: string;
+  postCode: string;
 };
