@@ -2,84 +2,85 @@ import { BehaviorSubject } from "rxjs";
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
-export type Configuration = {
-  type: "MMH" | "Common";
-  configuration: Record<string, string>;
-  featureToggles: Record<string, boolean>;
+type Configuration = {
+  configuration: Record<string, string | undefined>;
+  featureToggles: Record<string, boolean | undefined>;
 };
+type ConfigCollection = Record<string, Configuration>;
 
-const initialFeatureToggles = {
+type ConfigResponse = Array<Configuration & { type: string }>;
+
+const initialConfiguration: ConfigCollection = {
   MMH: {
-    Test: false,
-    CreateTenure: false,
-    EnhancedPersonComments: false,
-    WarningComponents: false,
-    Stepper: false,
+    configuration: {
+      TestConfig: "",
+    },
+    featureToggles: {
+      Test: false,
+      CreateTenure: false,
+      EnhancedPersonComments: false,
+      WarningComponents: false,
+      Stepper: false,
+    },
   },
 };
 
-export const featureToggleStore = new BehaviorSubject(initialFeatureToggles);
-
-type PathImpl<T, Key extends keyof T> = Key extends string
-  ? T[Key] extends Record<string, any>
-    ?
-        | `${Key}.${PathImpl<T[Key], Exclude<keyof T[Key], keyof any[]>> & string}`
-        | `${Key}.${Exclude<keyof T[Key], keyof any[]> & string}`
-    : never
-  : never;
-
-type Path<T> = PathImpl<T, keyof T>;
-
-export type FeatureTogglePaths = Path<typeof initialFeatureToggles>;
-
-export const getConfiguration = async (): Promise<void> => {
+export const hydrateConfiguration = () => {
   try {
     const features = JSON.parse(
       window.localStorage.getItem("features") || "",
-    ) as typeof initialFeatureToggles;
+    ) as typeof initialConfiguration;
 
     if (typeof features === "object") {
-      featureToggleStore.next(features);
-    } else {
-      throw new Error("Invalid feature store in local storage");
+      return features;
     }
+    throw new Error("Invalid feature store in local storage");
   } catch (e) {
     if (localStorage.getItem("features")) {
       window.localStorage.removeItem("features");
     }
   }
+  return {};
+};
 
+export const $configuration = new BehaviorSubject(hydrateConfiguration());
+
+export const getConfiguration = async (): Promise<void> => {
   try {
-    const res = await axiosInstance.get<Configuration[]>(
+    const res = await axiosInstance.get<ConfigResponse>(
       `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`,
     );
-    res.data.forEach(({ type, featureToggles }) => {
-      const toggles = featureToggleStore.getValue();
-      featureToggleStore.next({
-        ...toggles,
+    res.data.forEach(({ type, featureToggles, configuration }) => {
+      const configs = $configuration.getValue();
+      $configuration.next({
+        ...configs,
         [type]: {
-          ...featureToggles,
+          featureToggles,
+          configuration,
         },
       });
     });
-    window.localStorage.setItem(
-      "features",
-      JSON.stringify(featureToggleStore.getValue()),
-    );
+    window.localStorage.setItem("features", JSON.stringify($configuration.getValue()));
   } catch (e) {
     // TODO add logging for failed configuration
   }
 };
 
-export const hasToggle = (path: FeatureTogglePaths): boolean => {
-  const toggles = featureToggleStore.getValue();
-  const pathArray = path.match(/([^[.\]])+/g);
-  const result =
-    pathArray?.reduce((prevObj, key): any => {
-      if (prevObj && prevObj[`${key}` as keyof typeof prevObj]) {
-        return prevObj[`${key}` as keyof typeof prevObj];
-      }
-      return undefined;
-    }, toggles) || undefined;
-  return typeof result === "boolean" ? result : false;
+const getAppConfig = (type: string): Configuration | null => {
+  const configs = $configuration.getValue();
+  const appConfig = configs[type];
+  return appConfig || null;
+};
+
+export const getConfigItem = (path: string): string => {
+  const [type, key] = path.split(".");
+  const appConfig = getAppConfig(type);
+  return appConfig?.configuration[key] || "";
+};
+
+export const getFeatureToggle = (path: string): boolean => {
+  const [type, key] = path.split(".");
+  const appConfig = getAppConfig(type);
+  const value = appConfig?.featureToggles[key];
+  return typeof value === "boolean" ? value : false;
 };

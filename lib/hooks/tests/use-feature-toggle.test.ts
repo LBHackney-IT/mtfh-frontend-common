@@ -1,18 +1,53 @@
 import { act, renderHook } from "@testing-library/react-hooks";
-import { featureToggleStore } from "../../configuration";
+import { $configuration } from "../../configuration";
 import { useFeatureToggle } from "../use-feature-toggle";
 
 describe("useFeatureToggle", () => {
-  test("it retrieves the correct toogle", () => {
-    const features = featureToggleStore.getValue();
+  beforeEach(() => {
+    $configuration.next({});
+  });
+
+  test("it returns false for unconfigured toggle", async () => {
     const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
     expect(result.current).toBe(false);
-    act(() => {
-      featureToggleStore.next({ MMH: { ...features.MMH, Test: true } });
+  });
+
+  test("it retrieves the correct toggle", async () => {
+    $configuration.next({
+      MMH: {
+        configuration: {},
+        featureToggles: {
+          Test: true,
+        },
+      },
     });
+    const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
     expect(result.current).toBe(true);
-    act(() => {
-      featureToggleStore.next(features);
+  });
+
+  test("it listens to updated to feature toggles", async () => {
+    $configuration.next({
+      MMH: {
+        configuration: {},
+        featureToggles: {
+          Test: false,
+        },
+      },
     });
+    const { result } = renderHook(() => useFeatureToggle("MMH.Test"));
+    expect(result.current).toBe(false);
+
+    act(() => {
+      $configuration.next({
+        MMH: {
+          configuration: {},
+          featureToggles: {
+            Test: true,
+          },
+        },
+      });
+    });
+
+    expect(result.current).toBe(true);
   });
 });
