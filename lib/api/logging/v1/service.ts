@@ -1,3 +1,4 @@
+import { getTime } from "date-fns";
 import { v4 as uuid } from "uuid";
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
@@ -12,18 +13,20 @@ interface LogErrorArgs {
     | "Tenure"
     | "Activity history";
   type: "log" | "error";
+  actionId: string;
 }
 
 export const logError = async ({
   logMessage,
   mfeName,
   type,
+  actionId,
 }: LogErrorArgs): Promise<void> => {
   axiosInstance.post(`${config.loggingApiUrlV1}/log/${type}-log`, {
     logGroupName: "fe-test-logging",
-    logStreamName: mfeName,
+    logStreamName: `${getTime(new Date())}-${mfeName} `,
     logMessage,
-    actionId: "", // what?
+    actionId,
     correlationId: uuid(),
   });
 };
