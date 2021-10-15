@@ -77,7 +77,7 @@ const locale = {
       W35: "You must enter a phone number to proceed",
       W36: "You must select a valid type to proceed",
       W38: "You must enter an email address to proceed",
-      W40: "You must enter a valid phone number to proceed",
+      W40: "You must enter a valid email number to proceed",
       W41: "You must enter a valid phone number to proceed",
       W43: "You cannot add more than xx contact details",
       W44: "We encountered an error. Try again.",
