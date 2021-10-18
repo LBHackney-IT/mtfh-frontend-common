@@ -1,4 +1,3 @@
-import { AddTenureParams } from ".";
 import { config } from "@mtfh/common/lib/config";
 import {
   AxiosSWRConfiguration,
@@ -8,6 +7,7 @@ import {
 } from "@mtfh/common/lib/http";
 import {
   AddPersonToTenureParams,
+  AddTenureParams,
   EditTenureParams,
   RemovePersonFromTenureParams,
   addPersonToTenure,
@@ -16,6 +16,7 @@ import {
   removePersonFromTenure,
   useTenure,
 } from "./service";
+
 import { Tenure } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
