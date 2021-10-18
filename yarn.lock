@@ -1041,10 +1041,10 @@
   resolved "https://registry.yarnpkg.com/@hackney/mtfh-system/-/mtfh-system-1.0.2.tgz#af81b5b2708b5029bf4b82c167d9749df16ffb69"
   integrity sha512-oDoYexKF8URW3WT1UzRWRPG2iN9UCC16lpANasa/rxatpasj8PU0NX+USdg9rMeilmlFXZhUlWmsE5vroMPg9w==
 
-"@hackney/mtfh-test-utils@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@hackney/mtfh-test-utils/-/mtfh-test-utils-1.4.0.tgz#18f2276b81ab08a08b84ab2bb414efe556202bad"
-  integrity sha512-aAHTEd+QzpYVTOZrk9aIRIV/Yl6vyq/UYkgbZ+esJ5HIoHSMO+RDWLeVrudBhpjj9irdN+ptlJnnkS9GwiNhSw==
+"@hackney/mtfh-test-utils@1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@hackney/mtfh-test-utils/-/mtfh-test-utils-1.4.1.tgz#ebe926e47cde36ae832ee925938d90a9a825392a"
+  integrity sha512-Y2xSW1vsVuM/SYrKn/f2UW7wmjaiK+zzDOnFXHNCV/WB479jLA/VSUfS2B5hXjpVuzvDoo/6s9fd2+TCqnxggQ==
   dependencies:
     "@hackney/mtfh-system" "^1.0.2"
     date-fns "^2.24.0"
