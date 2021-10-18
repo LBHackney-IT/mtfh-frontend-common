@@ -24,6 +24,7 @@ export interface TenureAsset {
   type: AssetType;
   fullAddress: string;
   uprn: string;
+  propertyReference: string | null;
 }
 
 export interface AccountType {
@@ -74,7 +75,6 @@ export interface Tenure {
   isActive: boolean;
   accountType: AccountType;
   paymentReference: string;
-  propertyReference: string | null;
   householdMembers: HouseholdMember[];
   charges: Charges;
   isTenanted: boolean | null;

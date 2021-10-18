@@ -71,6 +71,7 @@ test("addTenure: it should send the right body to the API", async () => {
       type: "type",
       fullAddress: "",
       uprn: "",
+      propertyReference: "",
     },
   };
   const tenureReturned = { id: "tenureId" };

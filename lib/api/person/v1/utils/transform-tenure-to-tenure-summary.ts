@@ -1,15 +1,14 @@
-import { Tenure } from '../../../tenure/v1/types';
-import { TenureSummary } from '../types';
+import { Tenure } from "../../../tenure/v1/types";
+import { TenureSummary } from "../types";
 
 export const transformTenureToTenureSummary = ({
   id,
   startOfTenureDate,
   endOfTenureDate,
-  tenuredAsset: { id: assetId, fullAddress, uprn },
+  tenuredAsset: { id: assetId, fullAddress, uprn, propertyReference },
   tenureType: { description: type },
   isActive,
   paymentReference,
-  propertyReference,
 }: Tenure): TenureSummary => ({
   id,
   startDate: startOfTenureDate,
