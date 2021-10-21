@@ -14,6 +14,7 @@ import { config } from "@mtfh/common/lib/config";
 
 import {
   addContactDetail,
+  addCorrespondenceAddress,
   addEmailContact,
   addPhoneContact,
   useContactDetails,
@@ -175,6 +176,34 @@ test("addPhoneContact: it should send the right thing to the API and return the 
     targetId: id,
     targetType: "person",
   });
+  expect(url).toContain(expectedUrl);
+  expect(method).toBe(expectedMethod);
+});
+
+test("addCorrespondenceAddress: it should send the right thing to the API and return the response", async () => {
+  const data = {
+    id: "id",
+    addressLine1: "addressLine1",
+    postCode: "postCode",
+  };
+
+  let method = "";
+  const expectedMethod = "POST";
+  let url = "";
+  const expectedUrl = `${config.contactDetailsApiUrlV2}/contactDetails`;
+  const response = { id: data.id };
+
+  server.use(
+    postContactDetailV2((req: RestRequest) => {
+      method = req.method;
+      url = req.url.toString();
+      return response;
+    }),
+  );
+
+  const res = await addCorrespondenceAddress(data);
+
+  expect(res).toMatchObject(response);
   expect(url).toContain(expectedUrl);
   expect(method).toBe(expectedMethod);
 });
