@@ -110,4 +110,21 @@ describe("axiosInstance", () => {
 
     expect(res.status).toBe(200);
   });
+
+  test("x-correlation-id is not appended to the request headers if skip-x-correlation-id is", async () => {
+    server.use(
+      rest.get("/api", (req, res, ctx) => {
+        if (req.headers?.has("x-correlation-id")) {
+          return res.once(ctx.status(500));
+        }
+        return res.once(ctx.status(200));
+      }),
+    );
+
+    const res = await axiosInstance.get("/api", {
+      headers: { "skip-x-correlation-id": true },
+    });
+
+    expect(res.status).toBe(200);
+  });
 });

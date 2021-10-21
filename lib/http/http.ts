@@ -16,9 +16,10 @@ axiosInstance.interceptors.request.use((config) => {
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
-      "x-correlation-id": uuid(),
+      ...(config.headers["skip-x-correlation-id"] ? {} : { "x-correlation-id": uuid() }),
     },
   };
+  delete req.headers["skip-x-correlation-id"];
 
   if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
     req.headers["If-Match"] = req.data.etag;
