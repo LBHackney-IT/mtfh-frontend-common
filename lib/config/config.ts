@@ -13,6 +13,7 @@ const config = {
   tenureApiUrlV1: process.env.TENURE_API_URL_V1 || "/api/v1",
   assetApiUrlV1: process.env.PROPERTY_API_URL_V1 || "/api/v1",
   referenceDataApiUrlV1: process.env.REFERENCE_DATA_API_URL_V1 || "/api/v1",
+  addressApiUrlV1: process.env.ADDRESS_API_URL_V1 || "/api/v1",
 };
 
 export default config;

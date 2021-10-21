@@ -8,6 +8,7 @@ import {
 import { removeWhitespace } from "@mtfh/common/lib/utils";
 import {
   ContactDetail,
+  ContactDetailsAddressTypes,
   ContactDetailsPhoneTypes,
   ContactInformation,
   ContactInformationContactTypes,
@@ -85,4 +86,44 @@ export const addPhoneContact = async (
     value: phone,
     subType: type,
     description,
+  });
+
+export interface AddCorrespondenceAddressArgs {
+  id: string;
+  addressLine1: string;
+  addressLine2?: string | null;
+  addressLine3?: string | null;
+  addressLine4?: string | null;
+  postCode: string;
+  description?: string | null;
+  isOverseasAddress?: boolean;
+  overseasAddress?: string | null;
+}
+
+export const addCorrespondenceAddress = async ({
+  id,
+  addressLine1,
+  addressLine2 = null,
+  addressLine3 = null,
+  addressLine4 = null,
+  postCode,
+  description = null,
+  isOverseasAddress = false,
+  overseasAddress = null,
+}: AddCorrespondenceAddressArgs): Promise<ContactDetail> =>
+  addContactDetail(id, {
+    contactType: ContactInformationContactTypes.ADDRESS,
+    value: "",
+    subType: ContactDetailsAddressTypes.CORRESPONDENCE_ADDRESS,
+    description,
+    addressExtended: {
+      uprn: null,
+      addressLine1,
+      addressLine2,
+      addressLine3,
+      addressLine4,
+      postCode,
+      overseasAddress,
+      isOverseasAddress,
+    },
   });

@@ -34,6 +34,7 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/api/comments/v2": path.join(apiPath, "comments", "v2"),
       "common/lib/api/asset/v1": path.join(apiPath, "asset", "v1"),
       "common/lib/api/reference-data/v1": path.join(apiPath, "reference-data", "v1"),
+      "common/lib/api/address/v1": path.join(apiPath, "address", "v1"),
     },
     output: {
       filename: "[name].[contenthash].js",
@@ -68,6 +69,7 @@ module.exports = (webpackConfigEnv, argv) => {
         TENURE_API_URL_V1: dotenv.TENURE_API_URL_V1 || "",
         PROPERTY_API_URL_V1: dotenv.PROPERTY_API_URL_V1 || "",
         REFERENCE_DATA_API_URL_V1: dotenv.REFERENCE_DATA_API_URL_V1 || "",
+        ADDRESS_API_URL_V1: dotenv.ADDRESS_API_URL_V1 || "",
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",

@@ -59,13 +59,13 @@ export type ContactInformationSubTypes =
   | ContactDetailsPhoneTypes
   | ContactDetailsAddressTypes;
 
-type ContactInformationAddressExtended = {
-  uprn: string;
+export type ContactInformationAddressExtended = {
+  uprn: string | null;
   isOverseasAddress: boolean;
-  overseasAddress: string;
+  overseasAddress: string | null;
   addressLine1: string;
-  addressLine2: string;
-  addressLine3: string;
-  addressLine4: string;
+  addressLine2: string | null;
+  addressLine3: string | null;
+  addressLine4: string | null;
   postCode: string;
 };

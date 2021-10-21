@@ -21,6 +21,7 @@ const initialConfiguration: ConfigCollection = {
       EnhancedPersonComments: false,
       WarningComponents: false,
       Stepper: false,
+      CorrespondenceAddress: false,
     },
   },
 };
