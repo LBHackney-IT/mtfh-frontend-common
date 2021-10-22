@@ -35,6 +35,11 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/api/asset/v1": path.join(apiPath, "asset", "v1"),
       "common/lib/api/reference-data/v1": path.join(apiPath, "reference-data", "v1"),
       "common/lib/api/address/v1": path.join(apiPath, "address", "v1"),
+      "common/lib/api/equality-information/v1": path.join(
+        apiPath,
+        "equality-information",
+        "v1",
+      ),
     },
     output: {
       filename: "[name].[contenthash].js",
@@ -70,6 +75,7 @@ module.exports = (webpackConfigEnv, argv) => {
         PROPERTY_API_URL_V1: dotenv.PROPERTY_API_URL_V1 || "",
         REFERENCE_DATA_API_URL_V1: dotenv.REFERENCE_DATA_API_URL_V1 || "",
         ADDRESS_API_URL_V1: dotenv.ADDRESS_API_URL_V1 || "",
+        EQUALITY_INFORMATION_API_URL_V1: dotenv.EQUALITY_INFORMATION_API_URL_V1 || "",
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",

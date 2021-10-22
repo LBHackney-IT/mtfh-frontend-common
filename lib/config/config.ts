@@ -14,6 +14,7 @@ const config = {
   assetApiUrlV1: process.env.PROPERTY_API_URL_V1 || "/api/v1",
   referenceDataApiUrlV1: process.env.REFERENCE_DATA_API_URL_V1 || "/api/v1",
   addressApiUrlV1: process.env.ADDRESS_API_URL_V1 || "/api/v1",
+  equalityInformationApiUrlV1: process.env.EQUALITY_INFORMATION_API_URL_V1 || "/api/v1",
 };
 
 export default config;
