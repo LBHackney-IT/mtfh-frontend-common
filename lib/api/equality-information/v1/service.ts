@@ -73,6 +73,6 @@ export const updateEqualityInformation = async (
   data: Omit<EqualityData, "id">,
 ) =>
   axiosInstance.patch(
-    `${config.equalityInformationApiUrlV1}/${id}/equality-information`,
+    `${config.equalityInformationApiUrlV1}/equality-information/${id}`,
     data,
   );
