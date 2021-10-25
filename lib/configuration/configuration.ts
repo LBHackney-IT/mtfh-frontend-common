@@ -22,6 +22,7 @@ const initialConfiguration: ConfigCollection = {
       WarningComponents: false,
       CorrespondenceAddress: false,
       EqualityDetails: false,
+      EnhancedPropertyComments: false,
     },
   },
 };
