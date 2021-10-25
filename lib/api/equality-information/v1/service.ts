@@ -20,21 +20,6 @@ export const useEqualityInformation = (
     `${config.equalityInformationApiUrlV1}/equality-information?targetId=${targetId}`,
     {
       ...options,
-      onErrorRetry: /* istanbul ignore next: unreachable in test suite */ (
-        error,
-        key,
-        config,
-        revalidate,
-        { retryCount },
-      ) => {
-        if (error.response?.status === 404) return;
-        if (retryCount >= 3) return;
-
-        const count = Math.min(retryCount, 8);
-        const timeout =
-          ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
-        setTimeout(() => revalidate({ retryCount }), timeout);
-      },
     },
   );
 
@@ -45,24 +30,7 @@ export const useEqualityInformationById = (
 ): AxiosSWRResponse<EqualityData> =>
   useAxiosSWR(
     `${config.equalityInformationApiUrlV1}/equality-information/${id}?targetId=${targetId}`,
-    {
-      ...options,
-      onErrorRetry: /* istanbul ignore next: unreachable in test suite */ (
-        error,
-        key,
-        config,
-        revalidate,
-        { retryCount },
-      ) => {
-        if (error.response?.status === 404) return;
-        if (retryCount >= 3) return;
-
-        const count = Math.min(retryCount, 8);
-        const timeout =
-          ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
-        setTimeout(() => revalidate({ retryCount }), timeout);
-      },
-    },
+    options,
   );
 
 export const addEqualityInformation = async (data: Omit<EqualityData, "id">) =>

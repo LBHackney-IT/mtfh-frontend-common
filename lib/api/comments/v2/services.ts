@@ -35,42 +35,22 @@ export const useComments = (
   id: string | null,
   { pageSize = 5, ...options }: CommentsConfiguration = {},
 ): AxiosSWRInfiniteResponse<CommentsResponse> => {
-  return useAxiosSWRInfinite<CommentsResponse>(
-    (page, previous) => {
-      if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
-        return null;
-      }
+  return useAxiosSWRInfinite<CommentsResponse>((page, previous) => {
+    if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
+      return null;
+    }
 
-      const params: CommentsRequestParams = {
-        targetId: id,
-        pageSize,
-      };
+    const params: CommentsRequestParams = {
+      targetId: id,
+      pageSize,
+    };
 
-      if (page !== 0 && previous?.paginationDetails.nextToken) {
-        params.paginationToken = previous.paginationDetails.nextToken;
-      }
+    if (page !== 0 && previous?.paginationDetails.nextToken) {
+      params.paginationToken = previous.paginationDetails.nextToken;
+    }
 
-      return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
-    },
-    {
-      onErrorRetry: /* istanbul ignore next: unreachable in test suite */ (
-        error,
-        key,
-        config,
-        revalidate,
-        { retryCount },
-      ) => {
-        if (error.response?.status === 404) return;
-        if (retryCount >= 3) return;
-
-        const count = Math.min(retryCount, 8);
-        const timeout =
-          ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
-        setTimeout(() => revalidate({ retryCount }), timeout);
-      },
-      ...options,
-    },
-  );
+    return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
+  }, options);
 };
 
 export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt">;

@@ -22,24 +22,10 @@ export const useContactDetails = (
   id: string,
   options?: AxiosSWRConfiguration<ContactDetailsResponse>,
 ): AxiosSWRResponse<ContactDetailsResponse> =>
-  useAxiosSWR(id && `${config.contactDetailsApiUrlV2}/contactDetails?targetId=${id}`, {
-    ...options,
-    onErrorRetry: /* istanbul ignore next: unreachable in test suite */ (
-      error,
-      key,
-      config,
-      revalidate,
-      { retryCount },
-    ) => {
-      if (error.response?.status === 404) return;
-      if (retryCount >= 3) return;
-
-      const count = Math.min(retryCount, 8);
-      const timeout =
-        ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
-      setTimeout(() => revalidate({ retryCount }), timeout);
-    },
-  });
+  useAxiosSWR(
+    id && `${config.contactDetailsApiUrlV2}/contactDetails?targetId=${id}`,
+    options,
+  );
 
 export const addContactDetail = async (
   id: string,

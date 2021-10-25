@@ -21,7 +21,10 @@ export const useAxiosSWR = <ResponseData>(
   key: Key,
   options: AxiosSWRConfiguration<ResponseData> = {},
 ): AxiosSWRResponse<ResponseData> =>
-  useSwr<ResponseData, AxiosSWRError>(key, axiosFetcher, options);
+  useSwr<ResponseData, AxiosSWRError>(key, axiosFetcher, {
+    shouldRetryOnError: false,
+    ...options,
+  });
 
 export const useAxiosSWRInfinite = <ResponseData>(
   key: KeyLoader<ResponseData>,
