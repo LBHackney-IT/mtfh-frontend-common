@@ -1,35 +1,29 @@
 import React, { ReactNode } from "react";
+import cn from "classnames";
 import "./phase-banner.styles.scss";
 
-type TagColorVariants =
-  | "grey"
-  | "purple"
-  | "turquoise"
-  | "blue"
-  | "yellow"
-  | "orange"
-  | "red"
-  | "pink"
-  | "green";
+type TagColorVariants = "grey" | "blue" | "yellow" | "red" | "green";
 
 export interface PhaseBannerProps {
   tag: string;
   children: ReactNode;
-  variant?: TagColorVariants;
+  variant?: TagColorVariants | string;
 }
 
 export const PhaseBanner = ({
   tag,
   children,
-  variant,
+  variant = "grey",
 }: PhaseBannerProps): JSX.Element => {
-  const lbhTagColor = variant ? `lbh-tag--${variant} lbh-tag--${variant}` : "";
-
+  const lbhTagColor = `lbh-tag--${variant}`;
   return (
     <div className="container-max-width lbh-phase-banner">
       <p className="govuk-phase-banner__content">
         <strong
-          className={`govuk-phase-banner__content__tag govuk-tag lbh-tag ${lbhTagColor}`}
+          className={cn(
+            `${lbhTagColor}`,
+            "govuk-phase-banner__content__tag govuk-tag lbh-tag",
+          )}
         >
           {tag}
         </strong>

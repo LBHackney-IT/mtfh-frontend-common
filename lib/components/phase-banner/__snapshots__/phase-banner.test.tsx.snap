@@ -9,7 +9,7 @@ exports[`it renders a default blue variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="govuk-phase-banner__content__tag govuk-tag lbh-tag "
+        class="lbh-tag--grey govuk-phase-banner__content__tag govuk-tag lbh-tag"
       >
         DEV
       </strong>
@@ -32,7 +32,7 @@ exports[`it renders a green variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="govuk-phase-banner__content__tag govuk-tag lbh-tag lbh-tag--green lbh-tag--green"
+        class="lbh-tag--green govuk-phase-banner__content__tag govuk-tag lbh-tag"
       >
         BETA
       </strong>
@@ -55,7 +55,7 @@ exports[`it renders a red variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="govuk-phase-banner__content__tag govuk-tag lbh-tag lbh-tag--red lbh-tag--red"
+        class="lbh-tag--red govuk-phase-banner__content__tag govuk-tag lbh-tag"
       >
         TEST
       </strong>
@@ -78,7 +78,7 @@ exports[`it renders a yellow variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="govuk-phase-banner__content__tag govuk-tag lbh-tag lbh-tag--yellow lbh-tag--yellow"
+        class="lbh-tag--yellow govuk-phase-banner__content__tag govuk-tag lbh-tag"
       >
         STAGING
       </strong>
