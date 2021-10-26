@@ -2,13 +2,13 @@ import React, { ReactNode } from "react";
 import "./phase-banner.styles.scss";
 
 export interface PhaseBannerProps {
-  tagLabel: string;
+  tag: string;
   children: ReactNode;
   variant: "green" | "amber" | "red";
 }
 
 export const PhaseBanner = ({
-  tagLabel,
+  tag,
   children,
   variant,
 }: PhaseBannerProps): JSX.Element => {
@@ -18,7 +18,7 @@ export const PhaseBanner = ({
         <strong
           className={`phase-tag-${variant} govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag`}
         >
-          {tagLabel}
+          {tag}
         </strong>
         <span className="govuk-phase-banner__text">{children}</span>
       </p>

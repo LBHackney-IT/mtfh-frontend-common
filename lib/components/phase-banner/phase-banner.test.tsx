@@ -5,7 +5,7 @@ import { PhaseBanner } from ".";
 
 test("it renders a red variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tagLabel="DEV" variant="red">
+    <PhaseBanner tag="DEV" variant="red">
       Development Environment
     </PhaseBanner>,
   );
@@ -17,7 +17,7 @@ test("it renders a red variant of the Phase Banner", async () => {
 
 test("it renders a amber variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tagLabel="STAGING" variant="amber">
+    <PhaseBanner tag="STAGING" variant="amber">
       Staging Environment
     </PhaseBanner>,
   );
@@ -29,7 +29,7 @@ test("it renders a amber variant of the Phase Banner", async () => {
 
 test("it renders a red variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tagLabel="BETA" variant="green">
+    <PhaseBanner tag="BETA" variant="green">
       Production / Beta Environment
     </PhaseBanner>,
   );
