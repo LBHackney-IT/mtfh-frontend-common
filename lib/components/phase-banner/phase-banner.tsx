@@ -1,10 +1,21 @@
 import React, { ReactNode } from "react";
 import "./phase-banner.styles.scss";
 
+type TagColorVariants =
+  | "grey"
+  | "purple"
+  | "turquoise"
+  | "blue"
+  | "yellow"
+  | "orange"
+  | "red"
+  | "pink"
+  | "green";
+
 export interface PhaseBannerProps {
   tag: string;
   children: ReactNode;
-  variant: "green" | "amber" | "red";
+  variant?: TagColorVariants;
 }
 
 export const PhaseBanner = ({
@@ -12,11 +23,13 @@ export const PhaseBanner = ({
   children,
   variant,
 }: PhaseBannerProps): JSX.Element => {
+  const lbhTagColor = variant ? `lbh-tag--${variant} govuk-tag--${variant}` : "";
+
   return (
     <div className="container-max-width lbh-phase-banner">
       <p className="govuk-phase-banner__content">
         <strong
-          className={`phase-tag-${variant} govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag`}
+          className={`govuk-phase-banner__content__tag govuk-tag lbh-tag ${lbhTagColor}`}
         >
           {tag}
         </strong>

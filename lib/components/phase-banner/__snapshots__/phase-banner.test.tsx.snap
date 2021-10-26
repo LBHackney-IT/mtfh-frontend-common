@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders a amber variant of the Phase Banner 1`] = `
+exports[`it renders a default blue variant of the Phase Banner 1`] = `
 <div>
   <div
     class="container-max-width lbh-phase-banner"
@@ -9,14 +9,37 @@ exports[`it renders a amber variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="phase-tag-amber govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag"
+        class="govuk-phase-banner__content__tag govuk-tag lbh-tag "
       >
-        STAGING
+        DEV
       </strong>
       <span
         class="govuk-phase-banner__text"
       >
-        Staging Environment
+        Development Environment
+      </span>
+    </p>
+  </div>
+</div>
+`;
+
+exports[`it renders a green variant of the Phase Banner 1`] = `
+<div>
+  <div
+    class="container-max-width lbh-phase-banner"
+  >
+    <p
+      class="govuk-phase-banner__content"
+    >
+      <strong
+        class="govuk-phase-banner__content__tag govuk-tag lbh-tag lbh-tag--green govuk-tag--green"
+      >
+        BETA
+      </strong>
+      <span
+        class="govuk-phase-banner__text"
+      >
+        Production / Beta Environment
       </span>
     </p>
   </div>
@@ -32,21 +55,21 @@ exports[`it renders a red variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="phase-tag-red govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag"
+        class="govuk-phase-banner__content__tag govuk-tag lbh-tag lbh-tag--red govuk-tag--red"
       >
-        DEV
+        TEST
       </strong>
       <span
         class="govuk-phase-banner__text"
       >
-        Development Environment
+        Test Environment
       </span>
     </p>
   </div>
 </div>
 `;
 
-exports[`it renders a red variant of the Phase Banner 2`] = `
+exports[`it renders a yellow variant of the Phase Banner 1`] = `
 <div>
   <div
     class="container-max-width lbh-phase-banner"
@@ -55,14 +78,14 @@ exports[`it renders a red variant of the Phase Banner 2`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="phase-tag-green govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag"
+        class="govuk-phase-banner__content__tag govuk-tag lbh-tag lbh-tag--yellow govuk-tag--yellow"
       >
-        BETA
+        STAGING
       </strong>
       <span
         class="govuk-phase-banner__text"
       >
-        Production / Beta Environment
+        Staging Environment
       </span>
     </p>
   </div>

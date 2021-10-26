@@ -3,11 +3,9 @@ import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { PhaseBanner } from ".";
 
-test("it renders a red variant of the Phase Banner", async () => {
+test("it renders a default blue variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tag="DEV" variant="red">
-      Development Environment
-    </PhaseBanner>,
+    <PhaseBanner tag="DEV">Development Environment</PhaseBanner>,
   );
 
   expect(container).toMatchSnapshot();
@@ -15,9 +13,9 @@ test("it renders a red variant of the Phase Banner", async () => {
   expect(screen.getByText("Development Environment")).toBeInTheDocument();
 });
 
-test("it renders a amber variant of the Phase Banner", async () => {
+test("it renders a yellow variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tag="STAGING" variant="amber">
+    <PhaseBanner tag="STAGING" variant="yellow">
       Staging Environment
     </PhaseBanner>,
   );
@@ -27,7 +25,7 @@ test("it renders a amber variant of the Phase Banner", async () => {
   expect(screen.getByText("Staging Environment")).toBeInTheDocument();
 });
 
-test("it renders a red variant of the Phase Banner", async () => {
+test("it renders a green variant of the Phase Banner", async () => {
   const { container } = render(
     <PhaseBanner tag="BETA" variant="green">
       Production / Beta Environment
@@ -37,4 +35,16 @@ test("it renders a red variant of the Phase Banner", async () => {
   expect(container).toMatchSnapshot();
   expect(screen.getByText("BETA")).toBeInTheDocument();
   expect(screen.getByText("Production / Beta Environment")).toBeInTheDocument();
+});
+
+test("it renders a red variant of the Phase Banner", async () => {
+  const { container } = render(
+    <PhaseBanner tag="TEST" variant="red">
+      Test Environment
+    </PhaseBanner>,
+  );
+
+  expect(container).toMatchSnapshot();
+  expect(screen.getByText("TEST")).toBeInTheDocument();
+  expect(screen.getByText("Test Environment")).toBeInTheDocument();
 });
