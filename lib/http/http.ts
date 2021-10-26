@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios"
 import axiosRetry from "axios-retry";
 import { v4 as uuid } from "uuid";
 import { $auth, logout } from "@mtfh/common/lib/auth";
+import { config } from "@mtfh/common/lib/config";
 
 interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
@@ -13,7 +14,7 @@ export const axiosInstance = axios.create({
 
 axiosRetry(axiosInstance, {
   retries: 3,
-  retryDelay: (retryCount) => retryCount * 300,
+  retryDelay: (retryCount) => (config.appEnv === "test" ? 10 : retryCount * 300),
 });
 
 axiosInstance.interceptors.request.use((config) => {
