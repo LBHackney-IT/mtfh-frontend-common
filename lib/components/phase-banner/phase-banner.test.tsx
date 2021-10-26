@@ -5,7 +5,9 @@ import { PhaseBanner } from ".";
 
 test("it renders a default blue variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tag="DEV">Development Environment</PhaseBanner>,
+    <PhaseBanner tag="DEV">
+      <span>Development Environment</span>
+    </PhaseBanner>,
   );
 
   expect(container).toMatchSnapshot();
@@ -16,7 +18,7 @@ test("it renders a default blue variant of the Phase Banner", async () => {
 test("it renders a yellow variant of the Phase Banner", async () => {
   const { container } = render(
     <PhaseBanner tag="STAGING" variant="yellow">
-      Staging Environment
+      <span>Staging Environment</span>
     </PhaseBanner>,
   );
 
@@ -28,7 +30,7 @@ test("it renders a yellow variant of the Phase Banner", async () => {
 test("it renders a green variant of the Phase Banner", async () => {
   const { container } = render(
     <PhaseBanner tag="BETA" variant="green">
-      Production / Beta Environment
+      <span>Production / Beta Environment</span>
     </PhaseBanner>,
   );
 
@@ -39,8 +41,8 @@ test("it renders a green variant of the Phase Banner", async () => {
 
 test("it renders a red variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner tag="TEST" variant="red">
-      Test Environment
+    <PhaseBanner tag="TEST" variant="green">
+      <span>Test Environment</span>
     </PhaseBanner>,
   );
 

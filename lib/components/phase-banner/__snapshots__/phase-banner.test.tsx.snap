@@ -16,7 +16,9 @@ exports[`it renders a default blue variant of the Phase Banner 1`] = `
       <span
         class="govuk-phase-banner__text"
       >
-        Development Environment
+        <span>
+          Development Environment
+        </span>
       </span>
     </p>
   </div>
@@ -39,7 +41,9 @@ exports[`it renders a green variant of the Phase Banner 1`] = `
       <span
         class="govuk-phase-banner__text"
       >
-        Production / Beta Environment
+        <span>
+          Production / Beta Environment
+        </span>
       </span>
     </p>
   </div>
@@ -55,14 +59,16 @@ exports[`it renders a red variant of the Phase Banner 1`] = `
       class="govuk-phase-banner__content"
     >
       <strong
-        class="lbh-tag--red govuk-phase-banner__content__tag govuk-tag lbh-tag"
+        class="lbh-tag--green govuk-phase-banner__content__tag govuk-tag lbh-tag"
       >
         TEST
       </strong>
       <span
         class="govuk-phase-banner__text"
       >
-        Test Environment
+        <span>
+          Test Environment
+        </span>
       </span>
     </p>
   </div>
@@ -85,7 +91,9 @@ exports[`it renders a yellow variant of the Phase Banner 1`] = `
       <span
         class="govuk-phase-banner__text"
       >
-        Staging Environment
+        <span>
+          Staging Environment
+        </span>
       </span>
     </p>
   </div>

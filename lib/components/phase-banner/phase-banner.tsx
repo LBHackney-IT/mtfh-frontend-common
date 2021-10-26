@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { FC, ReactElement } from "react";
 import cn from "classnames";
 import "./phase-banner.styles.scss";
 
@@ -6,15 +6,15 @@ type TagColorVariants = "grey" | "blue" | "yellow" | "red" | "green";
 
 export interface PhaseBannerProps {
   tag: string;
-  children: ReactNode;
+  children: ReactElement;
   variant?: TagColorVariants | string;
 }
 
-export const PhaseBanner = ({
+export const PhaseBanner: FC<PhaseBannerProps> = ({
   tag,
   children,
   variant = "grey",
-}: PhaseBannerProps): JSX.Element => {
+}): JSX.Element => {
   const lbhTagColor = `lbh-tag--${variant}`;
   return (
     <div className="container-max-width lbh-phase-banner">
