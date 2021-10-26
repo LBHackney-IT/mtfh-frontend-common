@@ -1,0 +1,15 @@
+@import "~lbh-frontend/lbh/base";
+@import "~govuk-frontend/govuk/components/phase-banner";
+
+.phase-tag-green {
+  background-color: lbh-colour("lbh-a01");
+}
+
+.phase-tag-amber {
+  color: lbh-colour("lbh-text");
+  background-color: lbh-colour("lbh-h04");
+}
+
+.phase-tag-red {
+  background-color: lbh-colour("lbh-f03");
+}
