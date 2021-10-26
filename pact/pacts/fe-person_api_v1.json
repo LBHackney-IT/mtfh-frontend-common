@@ -8,7 +8,7 @@
   "interactions": [
     {
       "description": "A GET request for /persons/:id",
-      "providerState": "the Person API is up and running",
+      "providerState": "the Person API has a person with an id:6fbe024f-2316-4265-a6e8-d65a837e308a",
       "request": {
         "method": "GET",
         "path": "/api/v1/persons/6fbe024f-2316-4265-a6e8-d65a837e308a",

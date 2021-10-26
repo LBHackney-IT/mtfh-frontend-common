@@ -44,7 +44,8 @@ pactWith(
     describe("Persons V1", () => {
       beforeEach(async () => {
         await provider.addInteraction({
-          state: "the Person API is up and running",
+          state:
+            "the Person API has a person with an id:6fbe024f-2316-4265-a6e8-d65a837e308a",
           uponReceiving: "A GET request for /persons/:id",
           withRequest: {
             method: "GET",
