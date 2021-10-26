@@ -1,12 +1,12 @@
 import React from "react";
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
-import { PhaseBanner, PhaseBannerColor } from ".";
+import { PhaseBanner } from ".";
 
 test("it renders a red variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner environmentName="DEV" color={PhaseBannerColor.RED}>
-      <span className="govuk-phase-banner__text">Development Environment</span>
+    <PhaseBanner tagLabel="DEV" variant="red">
+      Development Environment
     </PhaseBanner>,
   );
 
@@ -17,8 +17,8 @@ test("it renders a red variant of the Phase Banner", async () => {
 
 test("it renders a amber variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner environmentName="STAGING" color={PhaseBannerColor.AMBER}>
-      <span className="govuk-phase-banner__text">Staging Environment</span>
+    <PhaseBanner tagLabel="STAGING" variant="amber">
+      Staging Environment
     </PhaseBanner>,
   );
 
@@ -29,8 +29,8 @@ test("it renders a amber variant of the Phase Banner", async () => {
 
 test("it renders a red variant of the Phase Banner", async () => {
   const { container } = render(
-    <PhaseBanner environmentName="BETA" color={PhaseBannerColor.GREEN}>
-      <span className="govuk-phase-banner__text">Production / Beta Environment</span>
+    <PhaseBanner tagLabel="BETA" variant="green">
+      Production / Beta Environment
     </PhaseBanner>,
   );
 

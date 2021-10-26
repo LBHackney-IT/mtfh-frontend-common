@@ -1,32 +1,26 @@
 import React, { ReactNode } from "react";
 import "./phase-banner.styles.scss";
 
-export enum PhaseBannerColor {
-  RED = "red",
-  AMBER = "amber",
-  GREEN = "green",
-}
-
 export interface PhaseBannerProps {
-  environmentName: string;
+  tagLabel: string;
   children: ReactNode;
-  color: PhaseBannerColor;
+  variant: "green" | "amber" | "red";
 }
 
 export const PhaseBanner = ({
-  environmentName,
+  tagLabel,
   children,
-  color,
+  variant,
 }: PhaseBannerProps): JSX.Element => {
   return (
     <div className="container-max-width lbh-phase-banner">
       <p className="govuk-phase-banner__content">
         <strong
-          className={`phase-tag-${color} govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag`}
+          className={`phase-tag-${variant} govuk-tag govuk-phase-banner__content__tag lbh-tag phase-tag`}
         >
-          {environmentName}
+          {tagLabel}
         </strong>
-        {children}
+        <span className="govuk-phase-banner__text">{children}</span>
       </p>
     </div>
   );
