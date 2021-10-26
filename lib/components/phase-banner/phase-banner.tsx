@@ -23,7 +23,7 @@ export const PhaseBanner = ({
   children,
   variant,
 }: PhaseBannerProps): JSX.Element => {
-  const lbhTagColor = variant ? `lbh-tag--${variant} govuk-tag--${variant}` : "";
+  const lbhTagColor = variant ? `lbh-tag--${variant} lbh-tag--${variant}` : "";
 
   return (
     <div className="container-max-width lbh-phase-banner">
