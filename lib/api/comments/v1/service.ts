@@ -26,41 +26,22 @@ export const useComments = (
   id: string,
   pageSize = 5,
 ): AxiosSWRInfiniteResponse<GetCommentsByTargetIdResponse> => {
-  return useAxiosSWRInfinite<GetCommentsByTargetIdResponse>(
-    (page, previous) => {
-      if (previous && !previous?.paginationDetails?.nextToken) {
-        return null;
-      }
+  return useAxiosSWRInfinite<GetCommentsByTargetIdResponse>((page, previous) => {
+    if (previous && !previous?.paginationDetails?.nextToken) {
+      return null;
+    }
 
-      const params: GetCommentsByIdRequestData = {
-        targetId: id,
-        pageSize,
-      };
+    const params: GetCommentsByIdRequestData = {
+      targetId: id,
+      pageSize,
+    };
 
-      if (page !== 0 && previous?.paginationDetails.nextToken) {
-        params.paginationToken = previous.paginationDetails.nextToken;
-      }
+    if (page !== 0 && previous?.paginationDetails.nextToken) {
+      params.paginationToken = previous.paginationDetails.nextToken;
+    }
 
-      return `${config.notesApiUrlV1}/notes?${stringify(params)}`;
-    },
-    {
-      onErrorRetry: /* istanbul ignore next: unreachable in test suite */ (
-        error,
-        key,
-        config,
-        revalidate,
-        { retryCount },
-      ) => {
-        if (error.response?.status === 404) return;
-        if (retryCount >= 3) return;
-
-        const count = Math.min(retryCount, 8);
-        const timeout =
-          ~~((Math.random() + 0.5) * (1 << count)) * config.errorRetryInterval;
-        setTimeout(() => revalidate({ retryCount }), timeout);
-      },
-    },
-  );
+    return `${config.notesApiUrlV1}/notes?${stringify(params)}`;
+  });
 };
 
 export type PostCommentRequestData = Omit<

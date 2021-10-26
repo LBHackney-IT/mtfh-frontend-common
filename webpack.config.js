@@ -60,6 +60,7 @@ module.exports = (webpackConfigEnv, argv) => {
     externals: ["react", "react-dom", "react-router-dom", "formik"],
     plugins: [
       new webpack.EnvironmentPlugin({
+        APP_ENV: process.env.APP_ENV || "test",
         AUTH_ALLOWED_GROUPS: dotenv.AUTH_ALLOWED_GROUPS || "",
         AUTH_DOMAIN: dotenv.AUTHDOMAIN || "",
         COOKIE_DOMAIN: dotenv.COOKIE_DOMAIN || "",
