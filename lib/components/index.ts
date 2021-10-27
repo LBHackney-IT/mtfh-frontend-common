@@ -21,6 +21,7 @@ export * from "./link-button";
 export * from "./number-input";
 export * from "./page-announcement";
 export * from "./pagination";
+export * from "./phase-banner";
 export * from "./radios";
 export * from "./scroll-to-top";
 export * from "./select";
