@@ -19,7 +19,8 @@
       "response": {
         "status": 200,
         "headers": {
-          "Content-Type": "application/json; charset=utf-8"
+          "Content-Type": "application/json; charset=utf-8",
+          "etag": "8"
         },
         "body": {
           "id": "6fbe024f-2316-4265-a6e8-d65a837e308a",
@@ -50,10 +51,12 @@
               "uprn": "tdej5nxdck"
             }
           ],
-          "reason": "Voluptas molestiae fuga voluptatem quia et qui.",
-          "etag": ""
+          "reason": "Voluptas molestiae fuga voluptatem quia et qui."
         },
         "matchingRules": {
+          "$.headers.etag": {
+            "match": "type"
+          },
           "$.body.id": {
             "match": "type"
           },
@@ -130,9 +133,6 @@
             "match": "type"
           },
           "$.body.reason": {
-            "match": "type"
-          },
-          "$.body.etag": {
             "match": "type"
           }
         }

@@ -33,7 +33,6 @@ const mockPersonMatcher = {
     uprn: like("tdej5nxdck"),
   }),
   reason: like("Voluptas molestiae fuga voluptatem quia et qui."),
-  etag: like(""),
 };
 
 const baseUrl = new URL(config.personApiUrlV1);
@@ -58,6 +57,7 @@ pactWith(
             status: 200,
             headers: {
               "Content-Type": "application/json; charset=utf-8",
+              etag: like("8"),
             },
             body: mockPersonMatcher,
           },
