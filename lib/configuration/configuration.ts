@@ -19,6 +19,7 @@ const initialConfiguration: ConfigCollection = {
       Test: false,
       CreateTenure: false,
       CorrespondenceAddress: false,
+      CorrespondenceAddressLookup: false,
       EqualityDetails: false,
       EnhancedPropertyComments: false,
     },
