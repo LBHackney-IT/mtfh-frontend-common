@@ -63,7 +63,7 @@ export interface EqualityData {
   nationalInsuranceNumber: string | null;
   languages: Languages[];
   caringResponsibilities: CaringResponsibilities;
-  disabled: string;
+  disabled: string | null;
   communicationRequirements: string[];
   economicSituation: EconomicSituation;
   homeSituation: HomeSituation;
