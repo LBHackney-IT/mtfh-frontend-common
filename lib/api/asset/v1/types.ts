@@ -8,7 +8,7 @@ export interface Asset {
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
   assetCharacteristics: AssetCharacteristics;
-  tenure: AssetTenure;
+  tenure: AssetTenure | null;
   rootAsset: string;
   parentAssetIds: string;
 }

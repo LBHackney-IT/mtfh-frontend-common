@@ -18,10 +18,9 @@ const initialConfiguration: ConfigCollection = {
     featureToggles: {
       Test: false,
       CreateTenure: false,
-      EnhancedPersonComments: false,
-      WarningComponents: false,
       CorrespondenceAddress: false,
       EqualityDetails: false,
+      EnhancedPropertyComments: false,
     },
   },
 };
