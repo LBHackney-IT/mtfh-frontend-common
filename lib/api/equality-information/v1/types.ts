@@ -1,70 +1,71 @@
 export interface Gender {
-  genderValue: string;
-  genderValueIfOther: string;
-  genderDifferentToBirthSex: boolean;
+  genderValue: string | null;
+  genderValueIfOther: string | null;
+  genderDifferentToBirthSex: string | null;
 }
 
 export interface Ethnicity {
-  ethnicGroupValue: string;
-  ethnicGroupValueIfOther: string;
+  ethnicGroupValue: string | null;
+  ethnicGroupValueIfOther: string | null;
 }
 
 export interface ReligionOrBelief {
-  religionOrBeliefValue: string;
-  religionOrBeliefValueIfOther: string;
+  religionOrBeliefValue: string | null;
+  religionOrBeliefValueIfOther: string | null;
 }
 
 export interface SexualOrientation {
-  sexualOrientationValue: string;
-  sexualOrientationValueIfOther: string;
+  sexualOrientationValue: string | null;
+  sexualOrientationValueIfOther: string | null;
 }
 
 export interface MarriageOrCivilPartnership {
-  married: boolean;
-  civilPartnership: boolean;
+  married: string | null;
+  civilPartnership: string | null;
 }
 
 export interface PregnancyOrMaternity {
-  pregnancyDate: string;
-  pregnancyValidUntil: string;
+  pregnancyDate: string | null;
+  pregnancyValidUntil: string | null;
 }
 
 export interface Languages {
-  language: string;
-  isPrimary: boolean;
+  language: string | null;
+  isPrimary: boolean | null;
 }
 
 export interface CaringResponsibilities {
-  provideUnpaidCare: boolean;
-  hoursSpentProvidingUnpaidCare: string;
+  provideUnpaidCare: string | null;
+  hoursSpentProvidingUnpaidCare: string | null;
 }
 
 export interface EconomicSituation {
-  economicSituationValue: string;
-  economicSituationValueIfOther: string;
+  economicSituationValue: string | null;
+  economicSituationValueIfOther: string | null;
 }
 
 export interface HomeSituation {
-  homeSituationValue: string;
-  homeSituationValueIfOther: string;
+  homeSituationValue: string | null;
+  homeSituationValueIfOther: string | null;
 }
 
 export interface EqualityData {
   id: string;
   targetId: string;
+  ageGroup: string | null;
   gender: Gender;
-  nationality: string;
+  nationality: string | null;
   ethnicity: Ethnicity;
   religionOrBelief: ReligionOrBelief;
   sexualOrientation: SexualOrientation;
   marriageOrCivilPartnership: MarriageOrCivilPartnership;
   pregnancyOrMaternity: PregnancyOrMaternity[];
-  nationalInsuranceNumber: string;
+  nationalInsuranceNumber: string | null;
   languages: Languages[];
   caringResponsibilities: CaringResponsibilities;
-  disabled: boolean;
+  disabled: string | null;
   communicationRequirements: string[];
   economicSituation: EconomicSituation;
   homeSituation: HomeSituation;
-  armedForces: string;
+  armedForces: string | null;
 }

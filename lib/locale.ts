@@ -85,6 +85,7 @@ const locale = {
       W46: "Person could not be created",
       W47: "Person created but could not be added to tenure",
       W48: "Person created but could not be added to tenure",
+      W49: "You must enter details when Other is selected",
     },
   },
 };
