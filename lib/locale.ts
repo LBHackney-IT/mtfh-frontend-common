@@ -16,6 +16,10 @@ const locale = {
           "Please try again. If the issue persists, please contact support.",
       },
     },
+    repairList: {
+      raisedAt: "Raised at",
+      priority: "Priority",
+    },
     stepper: {
       step: "Step",
     },
