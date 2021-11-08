@@ -1,5 +1,6 @@
 import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
+import { $auth } from "@mtfh/common/lib/auth";
 import { axiosInstance, createCancelToken, isAxiosError } from "./http";
 
 const defaultRequest = { path: "/api", code: 200 };
@@ -29,6 +30,15 @@ describe("axiosInstance", () => {
   });
 
   test("it will logout on 403", async () => {
+    $auth.next({
+      token: "",
+      sub: "",
+      email: "",
+      iss: "",
+      name: "",
+      iat: Number.NaN,
+      groups: ["TEST_GROUP"],
+    });
     request({ method: "get", ...defaultRequest, data: "failure", code: 403 });
     try {
       await axiosInstance.get("/api");
