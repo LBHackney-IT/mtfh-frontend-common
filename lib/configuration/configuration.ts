@@ -17,8 +17,6 @@ const initialConfiguration: ConfigCollection = {
     },
     featureToggles: {
       Test: false,
-      CreateTenure: false,
-      CorrespondenceAddress: false,
       EqualityDetails: false,
     },
   },
