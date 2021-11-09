@@ -3,12 +3,13 @@ import {
   generateMockReferenceDataV1,
   getCommentV2,
   getReferenceDataV1,
+  mockCommentReferenceDataV1,
   server,
 } from "@hackney/mtfh-test-utils";
 
-const mockCategoryReferenceDataV1 = Array.from({ length: 3 }).map((_, index) =>
+export const mockCategoryReferenceDataV1 = Array.from({ length: 3 }).map((_, index) =>
   generateMockReferenceDataV1({
-    category: "comments",
+    category: "comment",
     subCategory: "category",
     code: `categoryCode${index + 1}`,
     value: `Category value ${index + 1}`,
@@ -34,6 +35,6 @@ export const mockCommentsV2 = Array.from({ length: 20 }).map((_, index) =>
 beforeEach(() => {
   server.use(
     getCommentV2(mockCommentsV2),
-    getReferenceDataV1(mockCategoryReferenceDataV1),
+    getReferenceDataV1([...mockCategoryReferenceDataV1, ...mockCommentReferenceDataV1]),
   );
 });

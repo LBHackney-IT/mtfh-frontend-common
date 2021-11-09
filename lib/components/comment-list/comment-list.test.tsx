@@ -10,7 +10,8 @@ import { screen, waitFor, waitForElementToBeRemoved } from "@testing-library/rea
 import userEvent from "@testing-library/user-event";
 
 import locale from "../../locale";
-import { mockCommentsV2 } from "../../test-utils";
+import { mockCategoryReferenceDataV1, mockCommentsV2 } from "../../test-utils";
+
 import { formatDate, formatTime } from "../../utils";
 import { CommentList } from "./comment-list";
 
@@ -20,7 +21,7 @@ test("it renders correctly", async () => {
 
   await screen.findByText(mockCommentsV2[0].author.fullName);
   await screen.findByText(mockCommentsV2[0].title || "");
-  await screen.findByText("Category value 2");
+  await screen.findByText(mockCategoryReferenceDataV1[0].value);
   await screen.findByText(formatDate(mockCommentsV2[0].createdAt));
   await screen.findByText(formatTime(mockCommentsV2[0].createdAt));
 });
