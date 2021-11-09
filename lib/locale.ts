@@ -19,6 +19,12 @@ const locale = {
     repairList: {
       raisedAt: "Raised at",
       priority: "Priority",
+      errors: {
+        unableToFetchRepairs: "There was a problem retrieving repairs",
+        unableToFetchRepairsDescription:
+          "Please try again. If the issue persists, please contact support.",
+      },
+      seeAllRepairs: "See all live repairs in Repairs Hub >",
     },
     stepper: {
       step: "Step",

@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepairList renders 1`] = `
+<div>
+  <div>
+    <div
+      class="mtfh-card-list"
+    >
+      <div
+        class="mtfh-link-box"
+      >
+        <div
+          class="mtfh-card-list-item"
+        >
+          <div
+            class="mtfh-link-overlay"
+          >
+            <a
+              class="govuk-link lbh-link lbh-link"
+              href="/api/v1/work-orders/2267941"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span
+                class="repair-list-item__trim"
+              >
+                Electrical
+                : 
+                Please carryout full NICEIC testing to Property (2
+              </span>
+            </a>
+          </div>
+          <dl
+            class="mtfh-card-list-rows"
+          >
+            <div
+              class="mtfh-card-list-rows__row"
+            >
+              <dt
+                class="mtfh-card-list-rows__label"
+              >
+                Raised at
+                :
+              </dt>
+              <dd
+                class="mtfh-card-list-rows__value"
+              >
+                07/09/2020
+              </dd>
+            </div>
+            <div
+              class="mtfh-card-list-rows__row"
+            >
+              <dt
+                class="mtfh-card-list-rows__label"
+              >
+                Priority
+                :
+              </dt>
+              <dd
+                class="mtfh-card-list-rows__value"
+              >
+                ELECTRICAL PLANS
+              </dd>
+            </div>
+          </dl>
+          <hr
+            class="mtfh-card-list-break"
+          />
+          <div
+            class="repair-list-item__status"
+          >
+             
+            Locked
+          </div>
+        </div>
+      </div>
+      <div
+        class="mtfh-link-box"
+      >
+        <div
+          class="mtfh-card-list-item"
+        >
+          <div
+            class="mtfh-link-overlay"
+          >
+            <a
+              class="govuk-link lbh-link lbh-link"
+              href="/api/v1/work-orders/2254479"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <span
+                class=""
+              >
+                Domestic gas: servicing
+                : 
+                Annual Gas Service
+              </span>
+            </a>
+          </div>
+          <dl
+            class="mtfh-card-list-rows"
+          >
+            <div
+              class="mtfh-card-list-rows__row"
+            >
+              <dt
+                class="mtfh-card-list-rows__label"
+              >
+                Raised at
+                :
+              </dt>
+              <dd
+                class="mtfh-card-list-rows__value"
+              >
+                07/08/2020
+              </dd>
+            </div>
+            <div
+              class="mtfh-card-list-rows__row"
+            >
+              <dt
+                class="mtfh-card-list-rows__label"
+              >
+                Priority
+                :
+              </dt>
+              <dd
+                class="mtfh-card-list-rows__value"
+              >
+                GAS SERVICING
+              </dd>
+            </div>
+          </dl>
+          <hr
+            class="mtfh-card-list-break"
+          />
+          <div
+            class="repair-list-item__status"
+          >
+             
+            In Progress
+          </div>
+        </div>
+      </div>
+    </div>
+    <a
+      class="govuk-link lbh-link repair-list__link"
+      href="/api/v1/properties/00023400"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      See all live repairs in Repairs Hub &gt;
+    </a>
+  </div>
+</div>
+`;

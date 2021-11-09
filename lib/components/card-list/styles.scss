@@ -1,0 +1,70 @@
+@import "~lbh-frontend/lbh/base";
+@import "~govuk-frontend/govuk/helpers/media-queries";
+
+.mtfh-card-list {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: flex-start;
+  overflow: hidden;
+  margin-bottom: 2rem;
+
+  @include govuk-media-query($from: tablet) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include govuk-media-query($from: desktop) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include govuk-media-query($from: 992px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  > * {
+    margin: 0;
+  }
+
+  &-item {
+    padding: 10px;
+    border: 1px solid rgba(173, 171, 171, 0.4);
+    border-radius: 3px;
+
+    > * {
+      margin: 6px 0 0;
+    }
+
+    a {
+      @include lbh-heading-h4;
+      margin: 0;
+    }
+  }
+
+  &-rows {
+    margin: 10px 0;
+
+    &__row {
+      display: flex;
+      margin-top: 0;
+    }
+
+    &__label {
+      margin-top: 0;
+      font-weight: $lbh-font-weight-bold;
+      margin-right: 5px;
+    }
+
+    &__value {
+      margin-top: 0;
+      color: lbh-colour("lbh-grey-1");
+    }
+  }
+
+  &-break {
+    border: none;
+    border-bottom: 1px solid #bfc1c3;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 160px;
+  }
+}

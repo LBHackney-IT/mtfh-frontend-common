@@ -1,46 +1,58 @@
 import React, { useMemo } from "react";
 
+import cn from "classnames";
+
 import { formatDate } from "@mtfh/common/lib/utils";
 
-import { ReferenceData } from "../../api/reference-data/v1";
+import { config } from "../../config";
 import locale from "../../locale";
 
 import "./repair-list-item.scss";
+import { CardListBreak, CardListItem } from "../card-list";
+import { CardListRows } from "../card-list/card-list-rows";
+import { Link } from "../link";
+import { LinkBox, LinkOverlay } from "../link-box";
 import { Repair } from "./types";
 
 export interface RepairListItemParameters {
   repair: Repair;
-  statusReferenceData: ReferenceData[];
 }
 
-const getStatusLabel = (statusLabel: string, statusReferenceData: ReferenceData[]) => {
-  const status = statusReferenceData.find(
-    (statusRefData) => statusRefData.code === statusLabel,
-  );
-  return status?.value;
-};
+const DESCRIPTION_LENGTH = 50;
 
 const RepairListItem = ({
-  repair: { dateRaised, priority, tradeCode, status, tradeDescription },
-  statusReferenceData,
+  repair: { dateRaised, priority, tradeDescription, status, description, reference },
 }: RepairListItemParameters): JSX.Element => {
   const { components } = locale;
   const dateRaisedAt = useMemo(() => formatDate(dateRaised), [dateRaised]);
+
+  const rows = [
+    { value: dateRaisedAt, label: components.repairList.raisedAt },
+    { value: priority, label: components.repairList.priority },
+  ];
   return (
-    <div className="repair">
-      <div className="repair__title">
-        {tradeCode}: {tradeDescription}
-      </div>
-      <div className="repair__item --center">
-        <div className="repair__item">
-          {components.repairList.raisedAt}: {dateRaisedAt}
-        </div>
-        <div className="repair__item">
-          {components.repairList.priority}: {priority}
-        </div>
-      </div>
-      <div className="repair__item">{getStatusLabel(status, statusReferenceData)}</div>
-    </div>
+    <LinkBox>
+      <CardListItem>
+        <LinkOverlay>
+          <Link
+            className="lbh-link"
+            isExternal
+            href={`${config.repairsHubAppUrl}/work-orders/${reference}`}
+          >
+            <span
+              className={cn({
+                "repair-list-item__trim": description.length > DESCRIPTION_LENGTH,
+              })}
+            >
+              {tradeDescription}: {description.substring(0, DESCRIPTION_LENGTH)}
+            </span>
+          </Link>
+        </LinkOverlay>
+        <CardListRows rows={rows} />
+        <CardListBreak />
+        <div className="repair-list-item__status"> {status}</div>
+      </CardListItem>
+    </LinkBox>
   );
 };
 

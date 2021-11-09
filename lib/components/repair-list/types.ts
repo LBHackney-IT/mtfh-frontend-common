@@ -21,7 +21,7 @@ export type Status =
 export interface Repair {
   reference: number;
   dateRaised: string;
-  lastUpdated: string;
+  lastUpdated: string | null;
   priority: string;
   property: string;
   owner: string;
@@ -29,5 +29,5 @@ export interface Repair {
   propertyReference: string;
   tradeCode: string;
   tradeDescription: string;
-  status: Status;
+  status: string;
 }
