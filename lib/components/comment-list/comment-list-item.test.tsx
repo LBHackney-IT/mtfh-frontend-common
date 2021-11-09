@@ -1,5 +1,9 @@
 import React from "react";
-import { mockCommentV2, mockReferenceDataV1, render } from "@hackney/mtfh-test-utils";
+import {
+  generateMockReferenceDataV1,
+  mockCommentV2,
+  render,
+} from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import { CommentListItem } from "./comment-list-item";
 
@@ -37,11 +41,10 @@ test("Comment displays category value if categorisation exists", () => {
   };
 
   const mockCategories = [
-    {
-      ...mockReferenceDataV1,
+    generateMockReferenceDataV1({
       code: "categoryCode2",
       value: "Category value 2",
-    },
+    }),
   ];
 
   render(<CommentListItem categories={mockCategories} comment={mockCategoryCommentV2} />);
