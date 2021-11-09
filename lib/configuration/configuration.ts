@@ -20,7 +20,6 @@ const initialConfiguration: ConfigCollection = {
       CreateTenure: false,
       CorrespondenceAddress: false,
       EqualityDetails: false,
-      EnhancedPropertyComments: false,
     },
   },
 };
