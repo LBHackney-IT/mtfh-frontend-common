@@ -1,4 +1,4 @@
-export interface Repair {
+export interface WorkOrder {
   id: string;
   dateRaised: string;
   description: string;
@@ -14,9 +14,9 @@ export interface Repair {
   tradeDescription: string;
 }
 
-export type RepairsResponse = Repair[];
+export type WorkOrdersResponse = WorkOrder[];
 
-export enum RepairsFilters {
+export enum WorkOrdersFilters {
   CANCELLED = "Cancelled",
   COMPLETED = "Completed",
   IN_PROGRESS = "InProgress",
@@ -25,9 +25,9 @@ export enum RepairsFilters {
 }
 
 export const REPAIR_FILTER_LIST = [
-  { code: RepairsFilters.CANCELLED, value: "Cancelled" },
-  { code: RepairsFilters.COMPLETED, value: "Completed" },
-  { code: RepairsFilters.IN_PROGRESS, value: "In progress" },
-  { code: RepairsFilters.LOCKED, value: "Locked" },
-  { code: RepairsFilters.ON_HOLD, value: "On hold" },
+  { code: WorkOrdersFilters.CANCELLED, value: "Cancelled" },
+  { code: WorkOrdersFilters.COMPLETED, value: "Completed" },
+  { code: WorkOrdersFilters.IN_PROGRESS, value: "In progress" },
+  { code: WorkOrdersFilters.LOCKED, value: "Locked" },
+  { code: WorkOrdersFilters.ON_HOLD, value: "On hold" },
 ];

@@ -1,8 +1,8 @@
 import { config } from "@mtfh/common/lib/config";
 import { useAxiosSWR } from "@mtfh/common/lib/http";
-import { useRepairs } from "./service";
+import { useWorkOrders } from "./service";
 
-import { RepairsFilters } from "./types";
+import { WorkOrdersFilters } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -26,60 +26,60 @@ const repairsMock = [
   },
 ];
 
-test("useRepairs: it should send the correct query params to the API", async () => {
+test("useWorkOrders: it should send the correct query params to the API", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
-  const response = await useRepairs(id);
+  const response = await useWorkOrders(id);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&propertyReference=${id}`,
   );
   expect(response).toBe(repairsMock);
 });
 
-test("useRepairs: it should send the correct query params to the API for LOCKED status", async () => {
+test("useWorkOrders: it should send the correct query params to the API for LOCKED status", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
-  const response = await useRepairs(id, RepairsFilters.LOCKED);
+  const response = await useWorkOrders(id, WorkOrdersFilters.LOCKED);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=200&propertyReference=${id}`,
   );
   expect(response).toBe(repairsMock);
 });
 
-test("useRepairs: it should send the correct query params to the API for IN_PROGRESS status", async () => {
+test("useWorkOrders: it should send the correct query params to the API for IN_PROGRESS status", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
-  const response = await useRepairs(id, RepairsFilters.IN_PROGRESS);
+  const response = await useWorkOrders(id, WorkOrdersFilters.IN_PROGRESS);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=20%2660%2680%2690%26100%26110%26120%261000%261010%261080%261090&propertyReference=${id}`,
   );
   expect(response).toBe(repairsMock);
 });
 
-test("useRepairs: it should send the correct query params to the API for CANCELLED status", async () => {
+test("useWorkOrders: it should send the correct query params to the API for CANCELLED status", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
-  const response = await useRepairs(id, RepairsFilters.CANCELLED);
+  const response = await useWorkOrders(id, WorkOrdersFilters.CANCELLED);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=30&propertyReference=${id}`,
   );
   expect(response).toBe(repairsMock);
 });
 
-test("useRepairs: it should send the correct query params to the API for COMPLETED status", async () => {
+test("useWorkOrders: it should send the correct query params to the API for COMPLETED status", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
-  const response = await useRepairs(id, RepairsFilters.COMPLETED);
+  const response = await useWorkOrders(id, WorkOrdersFilters.COMPLETED);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=40%2650&propertyReference=${id}`,
   );
   expect(response).toBe(repairsMock);
 });
 
-test("useRepairs: it should send the correct query params to the API for ON_HOLD status", async () => {
+test("useWorkOrders: it should send the correct query params to the API for ON_HOLD status", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
-  const response = await useRepairs(id, RepairsFilters.ON_HOLD);
+  const response = await useWorkOrders(id, WorkOrdersFilters.ON_HOLD);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=10%2670&propertyReference=${id}`,
   );
