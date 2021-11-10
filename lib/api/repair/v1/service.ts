@@ -12,7 +12,7 @@ export interface RepairsRequestParams {
   StatusCode?: string;
 }
 
-const repairStatusGroupings = {
+const repairStatusGroupings: { [key: string]: number[] } = {
   [RepairsFilters.CANCELLED]: [30],
   [RepairsFilters.COMPLETED]: [40, 50],
   [RepairsFilters.IN_PROGRESS]: [20, 60, 80, 90, 100, 110, 120, 1000, 1010, 1080, 1090],
@@ -25,15 +25,18 @@ export const useRepairs = (
   filter?: RepairsFilters,
   pageNumber = 1,
   pageSize = 12,
-  // options?: AxiosSWRConfiguration<RepairsResponse>,
 ): AxiosSWRResponse<RepairsResponse> => {
   const params: RepairsRequestParams = {
     propertyReference: id,
     PageNumber: pageNumber,
     PageSize: pageSize,
     ...(!!filter && {
-      StatusCode: repairStatusGroupings[`${filter}`].join("&"),
+      StatusCode: (repairStatusGroupings as Record<string, number[]>)[`${filter}`].join(
+        "&",
+      ),
     }),
   };
-  return useAxiosSWR(`${config.repairsHubApiUrl}/worksOrders?${stringify(params)}`);
+  return useAxiosSWR<RepairsResponse>(
+    `${config.repairsHubApiUrl}/worksOrders?${stringify(params)}`,
+  );
 };

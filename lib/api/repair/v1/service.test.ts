@@ -76,12 +76,12 @@ test("useRepairs: it should send the correct query params to the API for COMPLET
   expect(response).toBe(repairsMock);
 });
 
-test.skip("useRepairs: it should send the correct query params to the API for ON_HOLD status", async () => {
+test("useRepairs: it should send the correct query params to the API for ON_HOLD status", async () => {
   const id = "00075623";
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(repairsMock);
   const response = await useRepairs(id, RepairsFilters.ON_HOLD);
   expect(useAxiosSWR).toBeCalledWith(
-    `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=10&70&propertyReference=${id}`,
+    `${config.tenureApiUrlV1}/worksOrders?PageNumber=1&PageSize=12&StatusCode=10%2670&propertyReference=${id}`,
   );
   expect(response).toBe(repairsMock);
 });
