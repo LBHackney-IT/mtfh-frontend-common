@@ -1,18 +1,17 @@
-import { server } from "@hackney/mtfh-test-utils";
-import { renderHook } from "@testing-library/react-hooks";
-import { useWorkOrders } from "./service";
-import { WorkOrdersFilters } from "./types";
-
 import {
   generateMockRepairWorkOrdersV1,
   getRepairWorkOrdersV1,
+  server,
 } from "@hackney/mtfh-test-utils";
+import { renderHook } from "@testing-library/react-hooks";
+import { useWorkOrders } from "./service";
+import { WorkOrdersFilters } from "./types";
 
 describe("useWorkOrders", () => {
   const id = "00075623";
 
   test("it should send the correct query params to the API", async () => {
-    const genericWorkOrdersMock = Array.from({ length: 3 }).map((_, index) =>
+    const genericWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockRepairWorkOrdersV1(),
     );
     server.use(getRepairWorkOrdersV1(genericWorkOrdersMock, 200));
@@ -26,7 +25,7 @@ describe("useWorkOrders", () => {
   });
 
   test("it should send the correct query params to the API for LOCKED status", async () => {
-    const lockedWorkOrdersMock = Array.from({ length: 3 }).map((_, index) =>
+    const lockedWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockRepairWorkOrdersV1({
         status: "Locked",
       }),
@@ -44,7 +43,7 @@ describe("useWorkOrders", () => {
   });
 
   test("it should send the correct query params to the API for IN_PROGRESS status", async () => {
-    const inProgressWorkOrdersMock = Array.from({ length: 3 }).map((_, index) =>
+    const inProgressWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockRepairWorkOrdersV1({
         status: "In progress",
       }),
@@ -62,7 +61,7 @@ describe("useWorkOrders", () => {
   });
 
   test("it should send the correct query params to the API for CANCELLED status", async () => {
-    const cancelledWorkOrdersMock = Array.from({ length: 3 }).map((_, index) =>
+    const cancelledWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockRepairWorkOrdersV1({
         status: "Cancelled",
       }),
@@ -80,7 +79,7 @@ describe("useWorkOrders", () => {
   });
 
   test("it should send the correct query params to the API for COMPLETED status", async () => {
-    const completedWorkOrdersMock = Array.from({ length: 3 }).map((_, index) =>
+    const completedWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockRepairWorkOrdersV1({
         status: "Completed",
       }),
@@ -99,7 +98,7 @@ describe("useWorkOrders", () => {
   });
 
   test("it should send the correct query params to the API for ON_HOLD status", async () => {
-    const onHoldWorkOrdersMock = Array.from({ length: 3 }).map((_, index) =>
+    const onHoldWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockRepairWorkOrdersV1({
         status: "On hold",
       }),
