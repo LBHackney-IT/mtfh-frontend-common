@@ -10,15 +10,14 @@
     "lint": "eslint lib --ext js,ts,tsx --quiet",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "test": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests",
-    "test:ci": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --runInBand",
-    "watch-tests": "cross-env BABEL_ENV=test TZ=utc jest --watch",
-    "coverage": "cross-env BABEL_ENV=test TZ=utc jest --coverage"
+    "test": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --coverage",
+    "test:ci": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --runInBand --coverage",
+    "watch-tests": "cross-env BABEL_ENV=test TZ=utc jest --watch"
   },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged && concurrently yarn:test yarn:lint",
-      "pre-push": "yarn coverage"
+      "pre-push": "yarn test"
     }
   },
   "devDependencies": {

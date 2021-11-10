@@ -154,7 +154,7 @@ jobs:
       - run:
           name: Deploy to S3
           command: |
-            aws s3 sync dist s3://lbh-housing-tl-common-frontend-development.hackney.gov.uk/ --exclude "*.json"
+            aws s3 sync dist s3://lbh-housing-tl-common-frontend-development.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
             aws s3 sync dist s3://lbh-housing-tl-common-frontend-development.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
   build-deploy-staging:
@@ -194,7 +194,7 @@ jobs:
       - run:
           name: Deploy to S3
           command: |
-            aws s3 sync dist s3://lbh-housing-tl-common-frontend-staging.hackney.gov.uk/ --exclude "*.json"
+            aws s3 sync dist s3://lbh-housing-tl-common-frontend-staging.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
             aws s3 sync dist s3://lbh-housing-tl-common-frontend-staging.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
   build-deploy-production:
@@ -234,7 +234,7 @@ jobs:
       - run:
           name: Deploy to S3
           command: |
-            aws s3 sync dist s3://lbh-housing-tl-common-frontend-production.hackney.gov.uk/ --exclude "*.json"
+            aws s3 sync dist s3://lbh-housing-tl-common-frontend-production.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
             aws s3 sync dist s3://lbh-housing-tl-common-frontend-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
   assume-role-development:
