@@ -16,15 +16,15 @@ const locale = {
           "Please try again. If the issue persists, please contact support.",
       },
     },
-    repairList: {
+    workOrderList: {
       raisedAt: "Raised at",
       priority: "Priority",
       errors: {
-        unableToFetchRepairs: "There was a problem retrieving repairs",
-        unableToFetchRepairsDescription:
+        unableToFetchWorkOrder: "There was a problem retrieving repairs",
+        unableToFetchWorkOrderDescription:
           "Please try again. If the issue persists, please contact support.",
       },
-      seeAllRepairs: "See all live repairs in Repairs Hub >",
+      seeAllWorkOrders: "See all live repairs in Repairs Hub >",
     },
     stepper: {
       step: "Step",

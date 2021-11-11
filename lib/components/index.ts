@@ -24,7 +24,7 @@ export * from "./page-announcement";
 export * from "./pagination";
 export * from "./phase-banner";
 export * from "./radios";
-export * from "./repair-list";
+export * from "./work-order-list";
 export * from "./scroll-to-top";
 export * from "./select";
 export * from "./side-bar";

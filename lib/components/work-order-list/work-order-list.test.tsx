@@ -8,10 +8,10 @@ import {
 import { screen, waitFor } from "@testing-library/react";
 import locale from "../../locale";
 import { formatDate } from "../../utils";
-import { RepairList } from "./repair-list";
+import { WorkOrderList } from "./work-order-list";
 
-test("RepairList renders", async () => {
-  const { container } = render(<RepairList assetId="00023400" />);
+test("WorkOrderList renders", async () => {
+  const { container } = render(<WorkOrderList assetId="00023400" />);
   const mockOrder = mockWorkOrders[0];
 
   await waitFor(() => {
@@ -27,18 +27,20 @@ test("RepairList renders", async () => {
   expect(screen.getAllByText("Raised at:").length).toBe(12);
   expect(screen.getAllByText("Priority:").length).toBe(12);
 
-  screen.getByText(locale.components.repairList.seeAllRepairs);
+  screen.getByText(locale.components.workOrderList.seeAllWorkOrders);
 
   expect(container).toMatchSnapshot();
 });
 
-test("RepairList returns an error from the api", async () => {
+test("WorkOrderList returns an error from the api", async () => {
   server.use(getWorkOrdersV2("error", 500));
 
-  render(<RepairList assetId="00023400" />);
+  render(<WorkOrderList assetId="00023400" />);
 
   await waitFor(() => {
-    screen.getByText(locale.components.repairList.errors.unableToFetchRepairs);
-    screen.getByText(locale.components.repairList.errors.unableToFetchRepairsDescription);
+    screen.getByText(locale.components.workOrderList.errors.unableToFetchWorkOrder);
+    screen.getByText(
+      locale.components.workOrderList.errors.unableToFetchWorkOrderDescription,
+    );
   });
 });

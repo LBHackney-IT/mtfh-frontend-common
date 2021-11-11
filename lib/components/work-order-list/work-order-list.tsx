@@ -7,27 +7,27 @@ import { Center } from "../center";
 import { ErrorSummary } from "../error-summary";
 import { Link } from "../link";
 import { Spinner } from "../spinner";
-import RepairListItem from "./repair-list-item";
+import WorkOrderListItem from "./work-order-list-item";
 
-interface RepairListProps {
+interface WorkOrderListProps {
   assetId: string;
 }
 
-export const RepairList = ({ assetId }: RepairListProps) => {
-  const { data: repairs, error } = useWorkOrders(assetId);
+export const WorkOrderList = ({ assetId }: WorkOrderListProps) => {
+  const { data: workOrders, error } = useWorkOrders(assetId);
   const { components } = locale;
 
   if (error) {
     return (
       <ErrorSummary
-        id="repair-list-error"
-        title={components.repairList.errors.unableToFetchRepairs}
-        description={components.repairList.errors.unableToFetchRepairsDescription}
+        id="work-order-list-error"
+        title={components.workOrderList.errors.unableToFetchWorkOrder}
+        description={components.workOrderList.errors.unableToFetchWorkOrderDescription}
       />
     );
   }
 
-  if (!repairs) {
+  if (!workOrders) {
     return (
       <Center>
         <Spinner />
@@ -38,8 +38,8 @@ export const RepairList = ({ assetId }: RepairListProps) => {
   return (
     <div>
       <CardList>
-        {repairs.map((repair, index) => (
-          <RepairListItem key={index} repair={repair} />
+        {workOrders.map((workOrder, index) => (
+          <WorkOrderListItem key={index} workOrder={workOrder} />
         ))}
       </CardList>
       <Link
@@ -47,7 +47,7 @@ export const RepairList = ({ assetId }: RepairListProps) => {
         isExternal
         className="repair-list__link"
       >
-        {components.repairList.seeAllRepairs}
+        {components.workOrderList.seeAllWorkOrders}
       </Link>
     </div>
   );

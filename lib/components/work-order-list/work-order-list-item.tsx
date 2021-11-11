@@ -4,30 +4,30 @@ import cn from "classnames";
 
 import { formatDate } from "@mtfh/common/lib/utils";
 
+import { WorkOrder } from "../../api/work-order/v2";
 import { config } from "../../config";
 import locale from "../../locale";
 
-import "./repair-list-item.scss";
+import "./work-order-list-item.scss";
 import { Card, CardBreak, CardRows } from "../card";
 import { Link } from "../link";
 import { LinkBox, LinkOverlay } from "../link-box";
-import { Repair } from "./types";
 
-export interface RepairListItemParameters {
-  repair: Repair;
+export interface WorkOrderListItemParameters {
+  workOrder: WorkOrder;
 }
 
 const DESCRIPTION_LENGTH = 50;
 
-const RepairListItem = ({
-  repair: { dateRaised, priority, tradeDescription, status, description, reference },
-}: RepairListItemParameters): JSX.Element => {
+const WorkOrderListItem = ({
+  workOrder: { dateRaised, priority, tradeDescription, status, description, reference },
+}: WorkOrderListItemParameters): JSX.Element => {
   const { components } = locale;
   const dateRaisedAt = useMemo(() => formatDate(dateRaised), [dateRaised]);
 
   const rows = [
-    { value: dateRaisedAt, label: components.repairList.raisedAt },
-    { value: priority, label: components.repairList.priority },
+    { value: dateRaisedAt, label: components.workOrderList.raisedAt },
+    { value: priority, label: components.workOrderList.priority },
   ];
   return (
     <LinkBox>
@@ -40,7 +40,7 @@ const RepairListItem = ({
           >
             <span
               className={cn({
-                "repair-list-item__trim": description.length > DESCRIPTION_LENGTH,
+                "work-order-list-item__trim": description.length > DESCRIPTION_LENGTH,
               })}
             >
               {tradeDescription}: {description.substring(0, DESCRIPTION_LENGTH)}
@@ -49,10 +49,10 @@ const RepairListItem = ({
         </LinkOverlay>
         <CardRows rows={rows} />
         <CardBreak />
-        <div className="repair-list-item__status"> {status}</div>
+        <div className="work-order-list-item__status"> {status}</div>
       </Card>
     </LinkBox>
   );
 };
 
-export default RepairListItem;
+export default WorkOrderListItem;
