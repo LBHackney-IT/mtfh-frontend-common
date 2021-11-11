@@ -23,6 +23,9 @@ axiosInstance.interceptors.request.use((config) => {
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
+      ...(config.url?.includes("workOrders") && {
+        "x-hackney-user": $auth.getValue().token,
+      }),
       ...(config.headers["skip-x-correlation-id"] ? {} : { "x-correlation-id": uuid() }),
     },
   };

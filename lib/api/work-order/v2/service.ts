@@ -39,6 +39,6 @@ export const useWorkOrders = (
     }),
   };
   return useAxiosSWR<WorkOrdersResponse>(
-    `${config.repairsHubApiUrl}/worksOrders?${stringify(params)}`,
+    `${config.repairsHubApiUrl}/workOrders?${stringify(params)}`,
   );
 };
