@@ -37,18 +37,24 @@ export const WorkOrderList = ({ assetId }: WorkOrderListProps) => {
 
   return (
     <div>
-      <CardList>
-        {workOrders.map((workOrder, index) => (
-          <WorkOrderListItem key={index} workOrder={workOrder} />
-        ))}
-      </CardList>
-      <Link
-        href={`${config.repairsHubAppUrl}/properties/${assetId}`}
-        isExternal
-        className="repair-list__link"
-      >
-        {components.workOrderList.seeAllWorkOrders}
-      </Link>
+      {!workOrders.length ? (
+        <p>{locale.components.workOrderList.noRepairsInProgress}</p>
+      ) : (
+        <>
+          <CardList>
+            {workOrders.map((workOrder, index) => (
+              <WorkOrderListItem key={index} workOrder={workOrder} />
+            ))}
+          </CardList>
+          <Link
+            href={`${config.repairsHubAppUrl}/properties/${assetId}`}
+            isExternal
+            className="repair-list__link"
+          >
+            {components.workOrderList.seeAllWorkOrders}
+          </Link>
+        </>
+      )}
     </div>
   );
 };
