@@ -1,5 +1,5 @@
 import React from "react";
-import { useRepairs } from "../../api/repair/v1";
+import { useWorkOrders } from "../../api/work-order/v2";
 import { config } from "../../config";
 import locale from "../../locale";
 import { CardList } from "../card-list";
@@ -14,7 +14,7 @@ interface RepairListProps {
 }
 
 export const RepairList = ({ assetId }: RepairListProps) => {
-  const { data: repairs, error } = useRepairs(assetId);
+  const { data: repairs, error } = useWorkOrders(assetId);
   const { components } = locale;
 
   if (error) {
