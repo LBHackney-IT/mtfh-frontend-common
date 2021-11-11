@@ -13,7 +13,11 @@ export type AxiosSWRResponse<T> = SWRResponse<T, AxiosSWRError>;
 export type AxiosSWRInfiniteResponse<T> = SWRInfiniteResponse<T, AxiosSWRError>;
 export type AxiosSWRConfiguration<T> = SWRConfiguration<T, AxiosError> &
   AxiosRequestConfig;
-export type AxiosSWRInfiniteConfiguration<T> = SWRInfiniteConfiguration<T, AxiosSWRError>;
+export type AxiosSWRInfiniteConfiguration<T> = SWRInfiniteConfiguration<
+  T,
+  AxiosSWRError
+> &
+  AxiosRequestConfig;
 
 export const axiosFetcher =
   (options: AxiosRequestConfig = {}) =>
@@ -33,6 +37,6 @@ export const useAxiosSWRInfinite = <ResponseData>(
   key: KeyLoader<ResponseData>,
   options: AxiosSWRInfiniteConfiguration<ResponseData> = {},
 ): AxiosSWRInfiniteResponse<ResponseData> =>
-  useSWRInfinite<ResponseData, AxiosSWRError>(key, axiosFetcher(), options);
+  useSWRInfinite<ResponseData, AxiosSWRError>(key, axiosFetcher(options), options);
 
 export { mutate };
