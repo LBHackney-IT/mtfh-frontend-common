@@ -1,6 +1,6 @@
 import {
-  generateMockRepairWorkOrdersV1,
-  getRepairWorkOrdersV1,
+  generateMockWorkOrdersV2,
+  getWorkOrdersV2,
   server,
 } from "@hackney/mtfh-test-utils";
 import { renderHook } from "@testing-library/react-hooks";
@@ -12,9 +12,9 @@ describe("useWorkOrders", () => {
 
   test("it should send the correct query params to the API", async () => {
     const genericWorkOrdersMock = Array.from({ length: 3 }).map(() =>
-      generateMockRepairWorkOrdersV1(),
+      generateMockWorkOrdersV2(),
     );
-    server.use(getRepairWorkOrdersV1(genericWorkOrdersMock, 200));
+    server.use(getWorkOrdersV2(genericWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() => useWorkOrders(id));
 
@@ -26,11 +26,11 @@ describe("useWorkOrders", () => {
 
   test("it should send the correct query params to the API for LOCKED status", async () => {
     const lockedWorkOrdersMock = Array.from({ length: 3 }).map(() =>
-      generateMockRepairWorkOrdersV1({
+      generateMockWorkOrdersV2({
         status: "Locked",
       }),
     );
-    server.use(getRepairWorkOrdersV1(lockedWorkOrdersMock, 200));
+    server.use(getWorkOrdersV2(lockedWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useWorkOrders(id, WorkOrdersFilters.LOCKED),
@@ -44,11 +44,11 @@ describe("useWorkOrders", () => {
 
   test("it should send the correct query params to the API for IN_PROGRESS status", async () => {
     const inProgressWorkOrdersMock = Array.from({ length: 3 }).map(() =>
-      generateMockRepairWorkOrdersV1({
+      generateMockWorkOrdersV2({
         status: "In progress",
       }),
     );
-    server.use(getRepairWorkOrdersV1(inProgressWorkOrdersMock, 200));
+    server.use(getWorkOrdersV2(inProgressWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useWorkOrders(id, WorkOrdersFilters.IN_PROGRESS),
@@ -62,11 +62,11 @@ describe("useWorkOrders", () => {
 
   test("it should send the correct query params to the API for CANCELLED status", async () => {
     const cancelledWorkOrdersMock = Array.from({ length: 3 }).map(() =>
-      generateMockRepairWorkOrdersV1({
+      generateMockWorkOrdersV2({
         status: "Cancelled",
       }),
     );
-    server.use(getRepairWorkOrdersV1(cancelledWorkOrdersMock, 200));
+    server.use(getWorkOrdersV2(cancelledWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useWorkOrders(id, WorkOrdersFilters.CANCELLED),
@@ -80,12 +80,12 @@ describe("useWorkOrders", () => {
 
   test("it should send the correct query params to the API for COMPLETED status", async () => {
     const completedWorkOrdersMock = Array.from({ length: 3 }).map(() =>
-      generateMockRepairWorkOrdersV1({
+      generateMockWorkOrdersV2({
         status: "Completed",
       }),
     );
 
-    server.use(getRepairWorkOrdersV1(completedWorkOrdersMock, 200));
+    server.use(getWorkOrdersV2(completedWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useWorkOrders(id, WorkOrdersFilters.COMPLETED),
@@ -99,12 +99,12 @@ describe("useWorkOrders", () => {
 
   test("it should send the correct query params to the API for ON_HOLD status", async () => {
     const onHoldWorkOrdersMock = Array.from({ length: 3 }).map(() =>
-      generateMockRepairWorkOrdersV1({
+      generateMockWorkOrdersV2({
         status: "On hold",
       }),
     );
 
-    server.use(getRepairWorkOrdersV1(onHoldWorkOrdersMock, 200));
+    server.use(getWorkOrdersV2(onHoldWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useWorkOrders(id, WorkOrdersFilters.ON_HOLD),

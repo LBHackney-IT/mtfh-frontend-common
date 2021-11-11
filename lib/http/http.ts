@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { $auth, isAuthorised, logout } from "@mtfh/common/lib/auth";
 import { config } from "@mtfh/common/lib/config";
 
-interface Config extends AxiosRequestConfig {
+export interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
 }
 
