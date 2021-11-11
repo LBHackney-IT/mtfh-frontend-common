@@ -35,26 +35,24 @@ export const WorkOrderList = ({ assetId }: WorkOrderListProps) => {
     );
   }
 
+  if (!workOrders.length) {
+    return <p>{locale.components.workOrderList.noRepairsInProgress}</p>;
+  }
+
   return (
     <div>
-      {!workOrders.length ? (
-        <p>{locale.components.workOrderList.noRepairsInProgress}</p>
-      ) : (
-        <>
-          <CardList>
-            {workOrders.map((workOrder, index) => (
-              <WorkOrderListItem key={index} workOrder={workOrder} />
-            ))}
-          </CardList>
-          <Link
-            href={`${config.repairsHubAppUrl}/properties/${assetId}`}
-            isExternal
-            className="repair-list__link"
-          >
-            {components.workOrderList.seeAllWorkOrders}
-          </Link>
-        </>
-      )}
+      <CardList>
+        {workOrders.map((workOrder, index) => (
+          <WorkOrderListItem key={index} workOrder={workOrder} />
+        ))}
+      </CardList>
+      <Link
+        href={`${config.repairsHubAppUrl}/properties/${assetId}`}
+        isExternal
+        className="repair-list__link"
+      >
+        {components.workOrderList.seeAllWorkOrders}
+      </Link>
     </div>
   );
 };
