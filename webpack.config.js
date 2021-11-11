@@ -25,6 +25,7 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/components": path.join(__dirname, "lib", "components"),
       "common/lib/hooks": path.join(__dirname, "lib", "hooks"),
       "common/lib/utils": path.join(__dirname, "lib", "utils"),
+      "common/lib/context": path.join(__dirname, "lib", "context"),
       "common/lib/api/person/v1": path.join(apiPath, "person", "v1"),
       "common/lib/api/person/v2": path.join(apiPath, "person", "v2"),
       "common/lib/api/contact-details/v1": path.join(apiPath, "contact-details", "v1"),
