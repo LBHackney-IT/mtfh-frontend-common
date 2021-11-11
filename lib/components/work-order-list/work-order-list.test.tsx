@@ -32,6 +32,16 @@ test("WorkOrderList renders", async () => {
   expect(container).toMatchSnapshot();
 });
 
+test("WorkOrderList returns message if there are no repairs", async () => {
+  server.use(getWorkOrdersV2([]));
+
+  render(<WorkOrderList assetId="00023400" />);
+
+  await waitFor(() => {
+    screen.getByText(locale.components.workOrderList.noRepairsInProgress);
+  });
+});
+
 test("WorkOrderList returns an error from the api", async () => {
   server.use(getWorkOrdersV2("error", 500));
 

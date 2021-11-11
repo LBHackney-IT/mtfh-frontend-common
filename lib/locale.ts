@@ -24,6 +24,7 @@ const locale = {
         unableToFetchWorkOrderDescription:
           "Please try again. If the issue persists, please contact support.",
       },
+      noRepairsInProgress: "No repairs in progress",
       seeAllWorkOrders: "See all live repairs in Repairs Hub >",
     },
     stepper: {

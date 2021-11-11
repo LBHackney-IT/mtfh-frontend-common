@@ -35,6 +35,10 @@ export const WorkOrderList = ({ assetId }: WorkOrderListProps) => {
     );
   }
 
+  if (!workOrders.length) {
+    return <p>{locale.components.workOrderList.noRepairsInProgress}</p>;
+  }
+
   return (
     <div>
       <CardList>
