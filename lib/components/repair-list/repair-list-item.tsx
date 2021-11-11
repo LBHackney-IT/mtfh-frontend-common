@@ -8,8 +8,7 @@ import { config } from "../../config";
 import locale from "../../locale";
 
 import "./repair-list-item.scss";
-import { CardListBreak, CardListItem } from "../card-list";
-import { CardListRows } from "../card-list/card-list-rows";
+import { Card, CardBreak, CardRows } from "../card";
 import { Link } from "../link";
 import { LinkBox, LinkOverlay } from "../link-box";
 import { Repair } from "./types";
@@ -32,7 +31,7 @@ const RepairListItem = ({
   ];
   return (
     <LinkBox>
-      <CardListItem>
+      <Card>
         <LinkOverlay>
           <Link
             className="lbh-link"
@@ -48,10 +47,10 @@ const RepairListItem = ({
             </span>
           </Link>
         </LinkOverlay>
-        <CardListRows rows={rows} />
-        <CardListBreak />
+        <CardRows rows={rows} />
+        <CardBreak />
         <div className="repair-list-item__status"> {status}</div>
-      </CardListItem>
+      </Card>
     </LinkBox>
   );
 };

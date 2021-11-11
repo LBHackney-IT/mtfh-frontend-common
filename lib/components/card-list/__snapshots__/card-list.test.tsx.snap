@@ -6,44 +6,42 @@ exports[`CardList renders 1`] = `
     class="mtfh-card-list"
   >
     <div
-      class="mtfh-card-list-item"
+      class="mtfh-card"
     >
       <dl
-        class="mtfh-card-list-rows"
+        class="govuk-summary-list govuk-summary-list--no-border mtfh-summary-list--inline lbh-summary-list"
       >
         <div
-          class="mtfh-card-list-rows__row"
+          class="govuk-summary-list__row"
         >
           <dt
-            class="mtfh-card-list-rows__label"
+            class="govuk-summary-list__key"
           >
-            Label 1
-            :
+            Label 1:
           </dt>
           <dd
-            class="mtfh-card-list-rows__value"
+            class="govuk-summary-list__value"
           >
             value1
           </dd>
         </div>
         <div
-          class="mtfh-card-list-rows__row"
+          class="govuk-summary-list__row"
         >
           <dt
-            class="mtfh-card-list-rows__label"
+            class="govuk-summary-list__key"
           >
-            Label 2
-            :
+            Label 2:
           </dt>
           <dd
-            class="mtfh-card-list-rows__value"
+            class="govuk-summary-list__value"
           >
             value2
           </dd>
         </div>
       </dl>
       <hr
-        class="mtfh-card-list-break"
+        class="mtfh-card-break"
       />
       <p>
         Additional content
