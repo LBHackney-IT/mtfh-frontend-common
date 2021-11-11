@@ -3,7 +3,7 @@ import {
   generateMockReferenceDataV1,
   getCommentV2,
   getReferenceDataV1,
-  getRepairWorkOrdersV1,
+  getWorkOrdersV2,
   mockCommentReferenceDataV1,
   server,
 } from "@hackney/mtfh-test-utils";
@@ -37,6 +37,6 @@ beforeEach(() => {
   server.use(
     getCommentV2(mockCommentsV2),
     getReferenceDataV1([...mockCategoryReferenceDataV1, ...mockCommentReferenceDataV1]),
-    getRepairWorkOrdersV1(),
+    getWorkOrdersV2(),
   );
 });

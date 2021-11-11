@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  getRepairWorkOrdersV1,
-  mockRepairWorkOrders,
+  getWorkOrdersV2,
+  mockWorkOrders,
   render,
   server,
 } from "@hackney/mtfh-test-utils";
@@ -12,7 +12,7 @@ import { RepairList } from "./repair-list";
 
 test("RepairList renders", async () => {
   const { container } = render(<RepairList assetId="00023400" />);
-  const mockOrder = mockRepairWorkOrders[0];
+  const mockOrder = mockWorkOrders[0];
 
   await waitFor(() => {
     screen.getByText(
@@ -33,7 +33,7 @@ test("RepairList renders", async () => {
 });
 
 test("RepairList returns an error from the api", async () => {
-  server.use(getRepairWorkOrdersV1("error", 500));
+  server.use(getWorkOrdersV2("error", 500));
 
   render(<RepairList assetId="00023400" />);
 

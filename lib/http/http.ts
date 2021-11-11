@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import { $auth, isAuthorised, logout } from "@mtfh/common/lib/auth";
 import { config } from "@mtfh/common/lib/config";
 
-interface Config extends AxiosRequestConfig {
+export interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
 }
 
@@ -23,9 +23,6 @@ axiosInstance.interceptors.request.use((config) => {
     headers: {
       ...config.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
-      ...(config.url?.includes("workOrders") && {
-        "x-hackney-user": $auth.getValue().token,
-      }),
       ...(config.headers["skip-x-correlation-id"] ? {} : { "x-correlation-id": uuid() }),
     },
   };

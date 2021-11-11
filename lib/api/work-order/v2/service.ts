@@ -1,5 +1,6 @@
 import { stringify } from "query-string";
 
+import { $auth } from "@mtfh/common/lib/auth";
 import { config } from "@mtfh/common/lib/config";
 import { AxiosSWRResponse, useAxiosSWR } from "@mtfh/common/lib/http";
 
@@ -40,5 +41,10 @@ export const useWorkOrders = (
   };
   return useAxiosSWR<WorkOrdersResponse>(
     `${config.repairsHubApiUrl}/workOrders?${stringify(params)}`,
+    {
+      headers: {
+        "x-hackney-user": $auth.getValue().token,
+      },
+    },
   );
 };
