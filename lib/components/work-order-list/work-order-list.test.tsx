@@ -6,6 +6,7 @@ import {
   server,
 } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import locale from "../../locale";
 import { formatDate } from "../../utils";
 import { WorkOrderList } from "./work-order-list";
@@ -32,13 +33,28 @@ test("WorkOrderList renders", async () => {
   expect(container).toMatchSnapshot();
 });
 
-test("WorkOrderList returns message if there are no repairs", async () => {
+test("WorkOrderList returns message if there are no repairs in progress", async () => {
   server.use(getWorkOrdersV2([]));
 
   render(<WorkOrderList assetId="00023400" />);
 
   await waitFor(() => {
-    screen.getByText(locale.components.workOrderList.noRepairsInProgress);
+    screen.getByText(`${locale.components.workOrderList.noRepairs} in progress`);
+  });
+});
+
+test("WorkOrderList returns message if there are no repairs on hold", async () => {
+  server.use(getWorkOrdersV2([]));
+
+  render(<WorkOrderList assetId="00023400" />);
+
+  userEvent.selectOptions(
+    screen.getByLabelText(`${locale.components.workOrderList.selectLabel}:`),
+    `${locale.components.workOrderList.selectOptionLabel} on hold`,
+  );
+
+  await waitFor(() => {
+    screen.getByText(`${locale.components.workOrderList.noRepairs} on hold`);
   });
 });
 
