@@ -25,9 +25,9 @@ export enum WorkOrdersFilters {
 }
 
 export const REPAIR_FILTER_LIST = [
-  { code: WorkOrdersFilters.CANCELLED, value: "Cancelled" },
-  { code: WorkOrdersFilters.COMPLETED, value: "Completed" },
-  { code: WorkOrdersFilters.IN_PROGRESS, value: "In progress" },
-  { code: WorkOrdersFilters.LOCKED, value: "Locked" },
-  { code: WorkOrdersFilters.ON_HOLD, value: "On hold" },
+  { code: WorkOrdersFilters.CANCELLED, value: "cancelled" },
+  { code: WorkOrdersFilters.COMPLETED, value: "completed" },
+  { code: WorkOrdersFilters.IN_PROGRESS, value: "in progress" },
+  { code: WorkOrdersFilters.LOCKED, value: "locked" },
+  { code: WorkOrdersFilters.ON_HOLD, value: "on hold" },
 ];
