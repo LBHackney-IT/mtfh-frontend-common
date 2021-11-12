@@ -71,7 +71,8 @@ export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps) => {
   }
 
   const getStatusLabel = (statusCode: WorkOrdersFilters) => {
-    return REPAIR_FILTER_LIST.find((item) => item.code === statusCode)?.value;
+    const label = REPAIR_FILTER_LIST.find((item) => item.code === statusCode)?.value;
+    return label || statusCode;
   };
 
   const ExternalLink = () => (
