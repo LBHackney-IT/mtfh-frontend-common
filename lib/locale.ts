@@ -25,7 +25,7 @@ const locale = {
           "Please try again. If the issue persists, please contact support.",
       },
       noRepairs: "No repairs",
-      seeAllWorkOrders: "See all live repairs in Repairs Hub >",
+      seeAllWorkOrders: "See all repairs in Repairs Hub >",
       selectLabel: "Show",
       selectOptionLabel: "repairs",
     },

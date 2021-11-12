@@ -863,7 +863,7 @@ exports[`WorkOrderList renders 1`] = `
         rel="noopener noreferrer"
         target="_blank"
       >
-        See all live repairs in Repairs Hub &gt;
+        See all repairs in Repairs Hub &gt;
       </a>
     </div>
   </div>
