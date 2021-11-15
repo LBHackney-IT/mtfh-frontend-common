@@ -8,15 +8,11 @@ import {
 
 import { EqualityData } from "./types";
 
-export interface EqualityInformationResponse {
-  equalityData: EqualityData[];
-}
-
 export const useEqualityInformation = (
   targetId: string,
-  options?: AxiosSWRConfiguration<EqualityInformationResponse>,
+  options?: AxiosSWRConfiguration<EqualityData>,
 ) =>
-  useAxiosSWR<EqualityInformationResponse>(
+  useAxiosSWR<EqualityData>(
     `${config.equalityInformationApiUrlV1}/equality-information?targetId=${targetId}`,
     {
       ...options,
