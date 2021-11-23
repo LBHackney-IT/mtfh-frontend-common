@@ -1,8 +1,10 @@
 import React, { forwardRef } from "react";
+
+import cn from "classnames";
+
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
 
 import "./styles.scss";
-import cn from "classnames";
 
 interface BoxProps {
   variant?: "warning" | "success";

@@ -1,7 +1,9 @@
 import React from "react";
+
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import { Details } from "./details";
 
 const mockTitle = "Title of details";

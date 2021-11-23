@@ -1,6 +1,8 @@
 import React from "react";
+
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+
 import { StatusHeading } from "./status-heading";
 
 test("it renders base variant title and icon correctly", () => {
