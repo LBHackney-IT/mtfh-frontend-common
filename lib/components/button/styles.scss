@@ -1,5 +1,5 @@
-@import '~lbh-frontend/lbh/base';
-@import '~lbh-frontend/lbh/components/lbh-button/button';
+@import "~lbh-frontend/lbh/base";
+@import "~lbh-frontend/lbh/components/lbh-button/button";
 
 .button-loading-indicator {
   display: inline-block;
@@ -30,6 +30,18 @@
     overflow: hidden;
     white-space: nowrap;
     position: absolute;
+  }
+}
+
+.lbh-button--chevron {
+  display: flex;
+  padding: 15px 24px;
+  align-items: center;
+  @include lbh-rem(font-size, 27);
+
+  & > svg {
+    margin-top: 0;
+    margin-left: 6px;
   }
 }
 

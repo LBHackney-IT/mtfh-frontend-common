@@ -41,6 +41,25 @@ test("it can render as a link", async () => {
   await testA11y(container);
 });
 
+test("it can render an 'add' variant", async () => {
+  const { container } = render(<Button variant="add">Add icon variant</Button>);
+  expect(container).toMatchSnapshot();
+});
+
+test("it can render an 'add' variant (without icon if loading)", async () => {
+  const { container } = render(
+    <Button isLoading variant="add">
+      Add icon variant
+    </Button>,
+  );
+  expect(container).toMatchSnapshot();
+});
+
+test("it can render a 'chevron' variant", async () => {
+  const { container } = render(<Button variant="chevron">Chevron icon variant</Button>);
+  expect(container).toMatchSnapshot();
+});
+
 test("it accepts a ref", () => {
   const callback = jest.fn();
   const Comp = () => {
