@@ -1,6 +1,8 @@
 import React from "react";
+
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+
 import { PhaseBanner } from ".";
 
 test("it renders a default blue variant of the Phase Banner", async () => {

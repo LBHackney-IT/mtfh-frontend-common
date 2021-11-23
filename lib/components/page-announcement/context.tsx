@@ -3,6 +3,7 @@ import React, {
   FC,
   Reducer,
   createContext,
+  useCallback,
   useContext,
   useMemo,
   useReducer,
@@ -50,14 +51,21 @@ export const usePageAnnouncement = (): UsePageAnnouncementValue => {
 
   const { state, dispatch } = context;
 
-  return {
-    state,
-    addAnnouncement: (props: PageAnnouncementState) => {
+  const addAnnouncement = useCallback(
+    (props: PageAnnouncementState) => {
       dispatch({ type: "ADD", payload: props });
     },
-    clearAnnouncement: () => {
-      dispatch({ type: "CLEAR" });
-    },
+    [dispatch],
+  );
+
+  const clearAnnouncement = useCallback(() => {
+    dispatch({ type: "CLEAR" });
+  }, [dispatch]);
+
+  return {
+    state,
+    addAnnouncement,
+    clearAnnouncement,
   };
 };
 
@@ -104,8 +112,9 @@ export const PageAnnouncementProvider: FC<PageAnnouncementProviderProps> = ({
   }, [sessionKey]);
 
   const [state, dispatch] = useReducer(reducer, initialData);
+  const value = useMemo(() => ({ state, dispatch }), [state, dispatch]);
   return (
-    <PageAnnouncementContext.Provider value={{ state, dispatch }}>
+    <PageAnnouncementContext.Provider value={value}>
       {children}
     </PageAnnouncementContext.Provider>
   );

@@ -1,11 +1,13 @@
 import React, { ReactElement, forwardRef, useEffect, useRef } from "react";
-import type * as Polymorphic from "@radix-ui/react-polymorphic";
+import mergeRefs from "react-merge-refs";
+
 import cn from "classnames";
 import { Accordion as AccordionJs } from "lbh-frontend";
-import mergeRefs from "react-merge-refs";
 
 import { widthOverrides } from "../../utils";
 import { Heading } from "../heading";
+
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import "./styles.scss";
 
 export interface AccordionItemProps {

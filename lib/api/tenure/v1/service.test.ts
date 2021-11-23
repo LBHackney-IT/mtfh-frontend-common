@@ -5,6 +5,7 @@ import {
   mutate,
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
+
 import {
   AddPersonToTenureParams,
   AddTenureParams,
@@ -17,7 +18,7 @@ import {
   useTenure,
 } from "./service";
 
-import { Tenure } from "./types";
+import type { Tenure } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -116,7 +117,9 @@ test("editTenure: it should send the right body to the API", async () => {
 
   expect(axiosInstance.patch).toBeCalledWith(
     `${config.tenureApiUrlV1}/tenures/${params.id}`,
-    { etag: params.etag },
+    {
+      etag: params.etag,
+    },
   );
   expect(editTenureResponse).toBe(response.data);
 });

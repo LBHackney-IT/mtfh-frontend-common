@@ -1,10 +1,14 @@
 export const removeWhitespace = (value?: string | null): string | null => {
-  if (value === null || value === undefined) return null;
+  if (value === null || value === undefined) {
+    return null;
+  }
   return value.replace(/\s/g, "");
 };
 
 export const removeWhitespaceAndCapitalise = (value?: string | null): string | null => {
-  if (value === null || value === undefined) return null;
+  if (value === null || value === undefined) {
+    return null;
+  }
   return removeWhitespace(value.toUpperCase());
 };
 

@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+
 import locale from "../../locale";
 import { Heading } from "../heading";
 

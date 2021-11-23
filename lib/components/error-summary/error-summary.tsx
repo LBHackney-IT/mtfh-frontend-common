@@ -1,17 +1,12 @@
-import React, {
-  ComponentProps,
-  ReactElement,
-  forwardRef,
-  isValidElement,
-  useEffect,
-  useRef,
-} from "react";
-import type * as Polymorphic from "@radix-ui/react-polymorphic";
-import cn from "classnames";
-import { ErrorSummary as ErrorSummaryJs } from "lbh-frontend";
+import React, { forwardRef, useEffect, useRef } from "react";
 import mergeRefs from "react-merge-refs";
 
+import cn from "classnames";
+import { ErrorSummary as ErrorSummaryJs } from "lbh-frontend";
+
 import { widthOverrides } from "../../utils";
+
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import "./styles.scss";
 
 export interface ErrorSummaryProps {
@@ -19,10 +14,6 @@ export interface ErrorSummaryProps {
   title: string;
   description?: string;
   reFocus?: number;
-  children?:
-    | ReactElement<ComponentProps<"a">>
-    | null
-    | Array<ReactElement<ComponentProps<"a">> | null>;
   override?: number;
 }
 
@@ -82,14 +73,7 @@ export const ErrorSummary: ErrorSummaryComponent = forwardRef(function ErrorSumm
       {description || children ? (
         <div className="govuk-error-summary__body">
           {description ? <p>{description}</p> : null}
-          {children ? (
-            <ul className="govuk-list govuk-error-summary__list">
-              {React.Children.map(
-                children,
-                (child) => child && isValidElement(child) && <li>{child}</li>,
-              )}
-            </ul>
-          ) : null}
+          {children}
         </div>
       ) : null}
     </ErrorSummaryComp>

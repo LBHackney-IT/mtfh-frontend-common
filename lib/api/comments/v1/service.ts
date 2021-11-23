@@ -7,7 +7,8 @@ import {
   axiosInstance,
   useAxiosSWRInfinite,
 } from "@mtfh/common/lib/http";
-import { Comment } from "./types";
+
+import type { Comment } from "./types";
 
 export interface GetCommentsByTargetIdResponse {
   results: Comment[];

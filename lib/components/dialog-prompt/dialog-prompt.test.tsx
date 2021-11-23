@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Link } from "react-router-dom";
 
 import { DialogPrompt } from "./dialog-prompt";
 

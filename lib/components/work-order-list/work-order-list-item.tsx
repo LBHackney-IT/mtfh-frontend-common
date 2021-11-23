@@ -7,11 +7,11 @@ import { formatDate } from "@mtfh/common/lib/utils";
 import { WorkOrder } from "../../api/work-order/v2";
 import { config } from "../../config";
 import locale from "../../locale";
-
-import "./work-order-list-item.scss";
 import { Card, CardBreak, CardRows } from "../card";
 import { Link } from "../link";
 import { LinkBox, LinkOverlay } from "../link-box";
+
+import "./work-order-list-item.scss";
 
 export interface WorkOrderListItemParameters {
   workOrder: WorkOrder;

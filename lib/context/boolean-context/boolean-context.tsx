@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useState } from "react";
+import React, { ReactNode, createContext, useCallback, useMemo, useState } from "react";
 
 export interface Booleans {
   [key: string]: boolean;
@@ -19,9 +19,11 @@ export const BooleanContextProvider = ({
   initialValue = {},
 }: BooleanContextProviderProps) => {
   const [booleans, setBooleansState] = useState(initialValue);
-  const setBooleans = (newBooleans: Booleans) =>
-    setBooleansState({ ...booleans, ...newBooleans });
+  const setBooleans = useCallback(
+    (newBooleans: Booleans) => setBooleansState({ ...booleans, ...newBooleans }),
+    [setBooleansState, booleans],
+  );
+  const value = useMemo(() => ({ booleans, setBooleans }), [booleans, setBooleans]);
 
-  const value = { booleans, setBooleans };
   return <BooleanContext.Provider value={value}>{children}</BooleanContext.Provider>;
 };

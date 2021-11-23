@@ -6,7 +6,7 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { EqualityData } from "./types";
+import type { EqualityData } from "./types";
 
 export const useEqualityInformation = (
   targetId: string,

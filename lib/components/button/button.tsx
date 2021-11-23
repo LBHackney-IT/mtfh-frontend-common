@@ -1,8 +1,10 @@
 import React, { forwardRef } from "react";
-import type * as Polymorphic from "@radix-ui/react-polymorphic";
+
 import cn from "classnames";
 
 import { widthOverrides } from "../../utils";
+
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import "./styles.scss";
 
 const AddIcon = () => {

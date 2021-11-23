@@ -10,9 +10,9 @@ import { SimplePagination, SimplePaginationButton } from "../simple-pagination";
 import { Spinner } from "../spinner";
 import { CommentListItem } from "./comment-list-item";
 
-function NoComments() {
+const NoComments = () => {
   return <p>No comments</p>;
-}
+};
 
 export interface CommentListProps {
   targetId: string;
@@ -28,7 +28,9 @@ export const CommentList = ({ targetId }: CommentListProps): JSX.Element => {
   });
 
   const response = useMemo(() => {
-    if (!data) return null;
+    if (!data) {
+      return null;
+    }
     return data[size - 1];
   }, [data, size]);
 

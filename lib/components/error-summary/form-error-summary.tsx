@@ -20,15 +20,17 @@ export const FormErrorSummary = ({
 }: FormErrorSummaryProps): JSX.Element => {
   return (
     <ErrorSummary id={id} title={title} {...props}>
-      {(Object.keys(errors) as Array<keyof typeof errors>)
-        .filter((key) => errors[key])
-        .map((key) => {
-          return (
-            <a key={key} href={`#${prefix}-${key}`}>
-              {errors[key]}
-            </a>
-          );
-        })}
+      <ul className="govuk-list govuk-error-summary__list">
+        {(Object.keys(errors) as Array<keyof typeof errors>)
+          .filter((key) => errors[key])
+          .map((key) => {
+            return (
+              <li key={key}>
+                <a href={`#${prefix}-${key}`}>{errors[key]}</a>
+              </li>
+            );
+          })}
+      </ul>
     </ErrorSummary>
   );
 };

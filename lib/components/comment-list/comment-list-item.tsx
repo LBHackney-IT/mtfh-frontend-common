@@ -1,11 +1,13 @@
 import React, { useMemo } from "react";
 
 import cn from "classnames";
+
 import type { Comment } from "@mtfh/common/lib/api/comments/v2";
 import { formatDate, formatTime } from "@mtfh/common/lib/utils";
 
+import type { ReferenceData } from "../../api/reference-data/v1";
+
 import "./comment-list-item.scss";
-import { ReferenceData } from "../../api/reference-data/v1";
 
 export interface CommentListItemParameters {
   comment: Comment;
@@ -13,14 +15,14 @@ export interface CommentListItemParameters {
 }
 
 const getCategoryLabel = (categoryCode: string, categories: ReferenceData[]) => {
-  const category = categories.find((category) => category.code === categoryCode);
+  const category = categories.find((cat) => cat.code === categoryCode);
   return category?.value;
 };
 
-export function CommentListItem({
+export const CommentListItem = ({
   comment: { categorisation, createdAt, title, description, author, highlight },
   categories,
-}: CommentListItemParameters): JSX.Element {
+}: CommentListItemParameters): JSX.Element => {
   const createdAtDate = useMemo(() => formatDate(createdAt), [createdAt]);
   const createdAtTime = useMemo(() => formatTime(createdAt), [createdAt]);
   return (
@@ -45,4 +47,4 @@ export function CommentListItem({
       <div className="comment__item">{author.fullName}</div>
     </div>
   );
-}
+};

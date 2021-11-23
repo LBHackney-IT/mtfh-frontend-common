@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   getWorkOrdersV2,
   mockWorkOrders,
@@ -7,12 +8,13 @@ import {
 } from "@hackney/mtfh-test-utils";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+
 import locale from "../../locale";
 import { formatDate } from "../../utils";
 import { WorkOrderList } from "./work-order-list";
 
 test("WorkOrderList renders", async () => {
-  const { container } = render(<WorkOrderList assetId="00023400" />);
+  render(<WorkOrderList assetId="00023400" />);
   const mockOrder = mockWorkOrders[0];
 
   await waitFor(() => {
@@ -21,16 +23,14 @@ test("WorkOrderList renders", async () => {
     );
   });
 
-  screen.getByText(formatDate(mockOrder.dateRaised));
-  screen.getByText(mockOrder.priority);
-  screen.getByText(mockOrder.status);
+  expect(screen.getByText(formatDate(mockOrder.dateRaised))).toBeInTheDocument();
 
   expect(screen.getAllByText("Raised at:").length).toBe(12);
   expect(screen.getAllByText("Priority:").length).toBe(12);
 
-  screen.getByText(locale.components.workOrderList.seeAllWorkOrders);
-
-  expect(container).toMatchSnapshot();
+  expect(
+    screen.getByText(locale.components.workOrderList.seeAllWorkOrders),
+  ).toBeInTheDocument();
 });
 
 test("WorkOrderList returns message if there are no repairs in progress", async () => {
@@ -38,9 +38,9 @@ test("WorkOrderList returns message if there are no repairs in progress", async 
 
   render(<WorkOrderList assetId="00023400" />);
 
-  await waitFor(() => {
-    screen.getByText(`${locale.components.workOrderList.noRepairs} in progress`);
-  });
+  expect(
+    await screen.findByText(`${locale.components.workOrderList.noRepairs} in progress`),
+  ).toBeInTheDocument();
 });
 
 test("WorkOrderList returns message if there are no repairs on hold", async () => {
@@ -53,9 +53,9 @@ test("WorkOrderList returns message if there are no repairs on hold", async () =
     `${locale.components.workOrderList.selectOptionLabel} on hold`,
   );
 
-  await waitFor(() => {
-    screen.getByText(`${locale.components.workOrderList.noRepairs} on hold`);
-  });
+  expect(
+    await screen.findByText(`${locale.components.workOrderList.noRepairs} on hold`),
+  ).toBeInTheDocument();
 });
 
 test("WorkOrderList returns an error from the api", async () => {
@@ -63,10 +63,14 @@ test("WorkOrderList returns an error from the api", async () => {
 
   render(<WorkOrderList assetId="00023400" />);
 
-  await waitFor(() => {
-    screen.getByText(locale.components.workOrderList.errors.unableToFetchWorkOrder);
+  expect(
+    await screen.findByText(
+      locale.components.workOrderList.errors.unableToFetchWorkOrder,
+    ),
+  ).toBeInTheDocument();
+  expect(
     screen.getByText(
       locale.components.workOrderList.errors.unableToFetchWorkOrderDescription,
-    );
-  });
+    ),
+  ).toBeInTheDocument();
 });

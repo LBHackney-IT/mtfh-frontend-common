@@ -1,4 +1,5 @@
 import { act, renderHook } from "@testing-library/react-hooks";
+
 import { $configuration } from "../../configuration";
 import { useConfiguration } from "../use-configuration";
 
