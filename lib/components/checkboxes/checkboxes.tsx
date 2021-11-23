@@ -8,9 +8,10 @@ import React, {
   useMemo,
   useRef,
 } from "react";
+import mergeRefs from "react-merge-refs";
+
 import cn from "classnames";
 import { Checkboxes } from "lbh-frontend";
-import mergeRefs from "react-merge-refs";
 
 import "./styles.scss";
 

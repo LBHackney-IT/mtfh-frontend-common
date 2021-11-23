@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   REPAIR_FILTER_LIST,
   WorkOrdersFilters,
@@ -17,32 +18,19 @@ import WorkOrderListItem from "./work-order-list-item";
 import "./work-order-list.scss";
 
 const { components } = locale;
-
-interface WorkOrderListProps {
+interface ExternalLinkProps {
   assetId: string;
 }
 
-export const WorkOrderList = ({ assetId }: WorkOrderListProps) => {
-  const [statusCode, setStatusCode] = useState(WorkOrdersFilters.IN_PROGRESS);
-  return (
-    <div className="work-order-list">
-      <FormGroup id="filter" label={`${components.workOrderList.selectLabel}:`}>
-        <Select
-          value={statusCode}
-          onChange={(e) => setStatusCode(e.target.value as WorkOrdersFilters)}
-          data-testid="work-order-list:filter"
-        >
-          {REPAIR_FILTER_LIST?.map((filter, index) => (
-            <option key={index} value={filter.code}>
-              {components.workOrderList.selectOptionLabel} {filter.value}
-            </option>
-          ))}
-        </Select>
-      </FormGroup>
-      <WorkOrders assetId={assetId} statusCode={statusCode} />
-    </div>
-  );
-};
+const ExternalLink = ({ assetId }: ExternalLinkProps) => (
+  <Link
+    href={`${config.repairsHubAppUrl}/properties/${assetId}`}
+    isExternal
+    className="repair-list__link"
+  >
+    {components.workOrderList.seeAllWorkOrders}
+  </Link>
+);
 
 interface WorkOrdersProps {
   assetId: string;
@@ -70,20 +58,10 @@ export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps) => {
     );
   }
 
-  const getStatusLabel = (statusCode: WorkOrdersFilters) => {
-    const label = REPAIR_FILTER_LIST.find((item) => item.code === statusCode)?.value;
-    return label || statusCode;
+  const getStatusLabel = (code: WorkOrdersFilters) => {
+    const label = REPAIR_FILTER_LIST.find((item) => item.code === code)?.value;
+    return label || code;
   };
-
-  const ExternalLink = () => (
-    <Link
-      href={`${config.repairsHubAppUrl}/properties/${assetId}`}
-      isExternal
-      className="repair-list__link"
-    >
-      {components.workOrderList.seeAllWorkOrders}
-    </Link>
-  );
 
   if (!workOrders.length) {
     return (
@@ -91,7 +69,7 @@ export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps) => {
         <p className="repair-list__no-work-orders">
           {`${locale.components.workOrderList.noRepairs} ${getStatusLabel(statusCode)}`}
         </p>
-        <ExternalLink />
+        <ExternalLink assetId={assetId} />
       </>
     );
   }
@@ -103,7 +81,33 @@ export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps) => {
           <WorkOrderListItem key={index} workOrder={workOrder} />
         ))}
       </CardList>
-      <ExternalLink />
+      <ExternalLink assetId={assetId} />
+    </div>
+  );
+};
+
+interface WorkOrderListProps {
+  assetId: string;
+}
+
+export const WorkOrderList = ({ assetId }: WorkOrderListProps) => {
+  const [statusCode, setStatusCode] = useState(WorkOrdersFilters.IN_PROGRESS);
+  return (
+    <div className="work-order-list">
+      <FormGroup id="filter" label={`${components.workOrderList.selectLabel}:`}>
+        <Select
+          value={statusCode}
+          onChange={(e) => setStatusCode(e.target.value as WorkOrdersFilters)}
+          data-testid="work-order-list:filter"
+        >
+          {REPAIR_FILTER_LIST?.map((filter, index) => (
+            <option key={index} value={filter.code}>
+              {components.workOrderList.selectOptionLabel} {filter.value}
+            </option>
+          ))}
+        </Select>
+      </FormGroup>
+      <WorkOrders assetId={assetId} statusCode={statusCode} />
     </div>
   );
 };

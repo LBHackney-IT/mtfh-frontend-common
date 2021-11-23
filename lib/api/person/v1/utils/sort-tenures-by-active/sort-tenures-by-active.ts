@@ -1,4 +1,5 @@
 import { isAfter, parseISO } from "date-fns";
+
 import { TenureSummary } from "../../types";
 
 export const sortTenuresByActive = (tenures: TenureSummary[]): TenureSummary[] => {

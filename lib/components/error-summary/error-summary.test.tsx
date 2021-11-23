@@ -1,4 +1,5 @@
 import React from "react";
+
 import { render, testA11y } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
 
@@ -17,11 +18,11 @@ test("it shows a description without children", () => {
   expect(screen.getByText("User error")).toBeInTheDocument();
 });
 
-test("it creates a list of the children", async () => {
+test("it allows children", async () => {
   const { container } = render(
     <ErrorSummary id="error" title="Something went wrong">
-      <a href="#test">Test</a>
-      <a href="#next">Next</a>
+      <p>Test</p>
+      <div>Error</div>
     </ErrorSummary>,
   );
   expect(container).toMatchSnapshot();

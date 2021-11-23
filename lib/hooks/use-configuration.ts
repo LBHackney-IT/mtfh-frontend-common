@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { $configuration, getConfigItem } from "@mtfh/common/lib/configuration";
 
 export const useConfiguration = (path: string): string => {

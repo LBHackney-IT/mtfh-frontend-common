@@ -1,6 +1,8 @@
 import React from "react";
+
 import { render, testA11y } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+
 import { Step, Stepper } from ".";
 
 const stepperTitle = "Stepper title";

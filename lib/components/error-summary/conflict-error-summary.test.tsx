@@ -1,6 +1,8 @@
 import React from "react";
+
 import { render } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+
 import locale from "../../locale";
 import { ConflictErrorSummary } from "./conflict-error-summary";
 
@@ -30,7 +32,7 @@ test("ConflictErrorSummary renders the key of no fieldLocale is available", () =
       updatedFields={{ test: "This is a test" }}
     />,
   );
-  expect(screen.getByText("test")).toBeInTheDocument();
+  expect(screen.getByText("test:")).toBeInTheDocument();
 });
 
 test("ConflictErrorSummary can transform the field output", () => {
@@ -39,7 +41,7 @@ test("ConflictErrorSummary can transform the field output", () => {
       id="conflict"
       fieldLocale={{ test: "Test" }}
       updatedFields={{ test: "This is a test" }}
-      fieldTransforms={{ test: (value: string) => value.toUpperCase() }}
+      fieldTransforms={{ test: (value) => (value as string).toUpperCase() }}
     />,
   );
   expect(screen.getByText("THIS IS A TEST")).toBeInTheDocument();

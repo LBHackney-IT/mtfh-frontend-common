@@ -4,7 +4,8 @@ import {
   AxiosSWRResponse,
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
-import { ReferenceData } from "./types";
+
+import type { ReferenceData } from "./types";
 
 type ReferenceDataResponse<T extends string> = { [key in T]: ReferenceData[] };
 

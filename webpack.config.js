@@ -58,7 +58,7 @@ module.exports = (webpackConfigEnv, argv) => {
         },
       ],
     },
-    externals: ["react", "react-dom", "react-router-dom", "formik"],
+    externals: ["react", "react-dom", "react-router-dom", "formik", "date-fns"],
     plugins: [
       new webpack.EnvironmentPlugin({
         APP_ENV: process.env.APP_ENV || "test",

@@ -1,8 +1,8 @@
-@import '~lbh-frontend/lbh/base';
-@import '~lbh-frontend/lbh/components/lbh-summary-list/summary-list';
+@import "~lbh-frontend/lbh/base";
+@import "~lbh-frontend/lbh/components/lbh-summary-list/summary-list";
 
 .govuk-summary-list.mtfh-summary-list--inline {
-  @include govuk-font($size: 16);
+  font-size: 100%;
   width: auto;
   display: flex;
   flex-direction: column;

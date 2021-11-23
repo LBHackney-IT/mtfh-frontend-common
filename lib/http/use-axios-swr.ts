@@ -1,6 +1,5 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
 import useSwr, { Key, KeyLoader, SWRConfiguration, SWRResponse, mutate } from "swr";
-
 import useSWRInfinite, {
   SWRInfiniteConfiguration,
   SWRInfiniteResponse,

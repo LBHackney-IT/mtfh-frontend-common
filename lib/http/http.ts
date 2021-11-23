@@ -1,8 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
-import axiosRetry from "axios-retry";
 import { v4 as uuid } from "uuid";
+
 import { $auth, isAuthorised, logout } from "@mtfh/common/lib/auth";
-import { config } from "@mtfh/common/lib/config";
 
 export interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
@@ -12,18 +11,15 @@ export const axiosInstance = axios.create({
   responseType: "json",
 });
 
-axiosRetry(axiosInstance, {
-  retries: 3,
-  retryDelay: (retryCount) => (config.appEnv === "test" ? 10 : retryCount * 300),
-});
-
-axiosInstance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((reqConfig) => {
   const req: Config = {
-    ...config,
+    ...reqConfig,
     headers: {
-      ...config.headers,
+      ...reqConfig.headers,
       Authorization: `Bearer ${$auth.getValue().token}`,
-      ...(config.headers["skip-x-correlation-id"] ? {} : { "x-correlation-id": uuid() }),
+      ...(reqConfig.headers["skip-x-correlation-id"]
+        ? {}
+        : { "x-correlation-id": uuid() }),
     },
   };
   delete req.headers["skip-x-correlation-id"];
@@ -55,4 +51,4 @@ axiosInstance.interceptors.response.use(
 
 export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
 
-export const isAxiosError = (e: any): e is AxiosError => axios.isAxiosError(e);
+export const isAxiosError = (e: unknown): e is AxiosError => axios.isAxiosError(e);

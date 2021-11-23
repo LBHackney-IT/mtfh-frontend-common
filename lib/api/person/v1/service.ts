@@ -7,7 +7,7 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { Person, TenureSummary } from "./types";
+import type { Person, TenureSummary } from "./types";
 
 export const usePerson = (
   id: string | null,

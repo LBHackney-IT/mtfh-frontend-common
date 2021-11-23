@@ -30,7 +30,9 @@ export const DialogPrompt = ({
     <Prompt
       {...props}
       message={(location, action) => {
-        if (skipConfirmation && skipConfirmation(location)) return true;
+        if (skipConfirmation && skipConfirmation(location)) {
+          return true;
+        }
         return JSON.stringify({
           action,
           path,

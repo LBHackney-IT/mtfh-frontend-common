@@ -1,7 +1,9 @@
 import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
+
 import { $auth } from "@mtfh/common/lib/auth";
-import { axiosInstance, createCancelToken, isAxiosError } from "./http";
+
+import { axiosInstance, createCancelToken } from "./http";
 
 const defaultRequest = { path: "/api", code: 200 };
 
@@ -26,7 +28,9 @@ describe("axiosInstance", () => {
   test("it throws an error on bad request", () => {
     request({ method: "get", ...defaultRequest, data: "failure", code: 500 });
 
-    return expect(axiosInstance.get("/api")).rejects.toThrow();
+    return expect(axiosInstance.get("/api")).rejects.toThrow(
+      "Request failed with status code 500",
+    );
   });
 
   test("it will logout on 403", async () => {
@@ -40,11 +44,10 @@ describe("axiosInstance", () => {
       groups: ["TEST_GROUP"],
     });
     request({ method: "get", ...defaultRequest, data: "failure", code: 403 });
-    try {
-      await axiosInstance.get("/api");
-    } catch (e) {
-      expect(isAxiosError(e)).toBe(true);
-    }
+    await expect(axiosInstance.get("/api")).rejects.toThrow(
+      "Request failed with status code 403",
+    );
+
     expect(window.location.reload).toBeCalledTimes(1);
   });
 

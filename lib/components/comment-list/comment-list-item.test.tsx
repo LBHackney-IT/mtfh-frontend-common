@@ -1,10 +1,12 @@
 import React from "react";
+
 import {
   generateMockReferenceDataV1,
   mockCommentV2,
   render,
 } from "@hackney/mtfh-test-utils";
 import { screen } from "@testing-library/react";
+
 import { CommentListItem } from "./comment-list-item";
 
 test("Comment renders", () => {

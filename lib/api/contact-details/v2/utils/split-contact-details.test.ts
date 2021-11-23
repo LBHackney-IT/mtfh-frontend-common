@@ -3,6 +3,7 @@ import {
   mockContactDetailEmailV2,
   mockContactDetailPhoneV2,
 } from "@hackney/mtfh-test-utils";
+
 import { splitContactDetailsByType } from "./split-contact-details";
 
 test("it should split contact details by type", () => {

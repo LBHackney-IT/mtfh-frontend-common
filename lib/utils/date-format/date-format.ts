@@ -6,7 +6,9 @@ function parseDate(date: null): null;
 function parseDate(date: string): Date;
 function parseDate(date: string | null): Date | null;
 function parseDate(date: string | null): Date | null {
-  if (!date) return null;
+  if (!date) {
+    return null;
+  }
   const parsedDate = parseISO(date);
   return !isSameDay(parsedDate, voidDate) && isValid(parsedDate) ? parsedDate : null;
 }
@@ -15,13 +17,17 @@ export { parseDate };
 
 export const formatDate = (date: string | null): string => {
   const parsedDate = parseDate(date);
-  if (!parsedDate) return "";
+  if (!parsedDate) {
+    return "";
+  }
   return format(parsedDate, "dd/MM/yyyy");
 };
 
 export const formatTime = (date: string | null): string => {
   const parsedDate = parseDate(date);
-  if (!parsedDate) return "";
+  if (!parsedDate) {
+    return "";
+  }
   return format(parsedDate, "HH:mm:ss");
 };
 

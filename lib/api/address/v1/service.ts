@@ -1,6 +1,7 @@
 import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
-import { Address } from "./types";
+import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
+
+import type { Address } from "./types";
 
 interface AddressAPIResponse {
   data: { address: Address[] };
@@ -25,3 +26,20 @@ export const searchAddress = (postCode: string): Promise<SearchAddressRespone> =
       }
       return res;
     });
+
+export const useAddressLookup = (
+  postCode?: string | null,
+  options: AxiosSWRConfiguration<AddressAPIResponse> = {},
+) => {
+  return useAxiosSWR<AddressAPIResponse>(
+    postCode ? `${config.addressApiUrlV1}/addresses?postcode=${postCode}` : null,
+    {
+      ...options,
+      timeout: 5000,
+      headers: {
+        ...options.headers,
+        "skip-x-correlation-id": true,
+      },
+    },
+  );
+};

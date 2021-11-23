@@ -6,11 +6,13 @@ import React, {
   isValidElement,
   useMemo,
 } from "react";
-import type * as Polymorphic from "@radix-ui/react-polymorphic";
+
 import classNames from "classnames";
 
 import { widthOverrides } from "../../utils";
 import { TextArea } from "../text-area";
+
+import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import "./styles.scss";
 
 export interface FormGroupProps {

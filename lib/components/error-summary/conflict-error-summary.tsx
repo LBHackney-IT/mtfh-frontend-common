@@ -6,9 +6,9 @@ import { ErrorSummary, ErrorSummaryProps } from "./error-summary";
 
 interface ConflictErrorSummaryProps extends Partial<ErrorSummaryProps> {
   id: string;
-  updatedFields?: Record<string, any>;
+  updatedFields?: Record<string, unknown>;
   fieldLocale: Record<string, string>;
-  fieldTransforms?: Record<string, (value: any) => string>;
+  fieldTransforms?: Record<string, (value: unknown) => string>;
   footNote?: string;
 }
 
@@ -32,23 +32,21 @@ export const ConflictErrorSummary = ({
       description={description}
       {...props}
     >
-      <>
-        {keys.length > 0 && updatedFields && (
-          <>
-            <p>{youEntered}</p>
-            <SummaryList variant="inline">
-              {Object.keys(updatedFields).map((key) => (
-                <SummaryListItem key={key} title={fieldLocale[key] || key}>
-                  {fieldTransforms && fieldTransforms[key]
-                    ? fieldTransforms[key](updatedFields[key])
-                    : updatedFields[key]}
-                </SummaryListItem>
-              ))}
-            </SummaryList>
-            {footNote && <p>{footNote}</p>}
-          </>
-        )}
-      </>
+      {keys.length > 0 && updatedFields && (
+        <>
+          <p>{youEntered}</p>
+          <SummaryList variant="inline">
+            {Object.keys(updatedFields).map((key) => (
+              <SummaryListItem key={key} title={`${fieldLocale[key] || key}:`}>
+                {fieldTransforms && fieldTransforms[key]
+                  ? fieldTransforms[key](updatedFields[key])
+                  : `${updatedFields[key]}`}
+              </SummaryListItem>
+            ))}
+          </SummaryList>
+          {footNote && <p>{footNote}</p>}
+        </>
+      )}
     </ErrorSummary>
   );
 };

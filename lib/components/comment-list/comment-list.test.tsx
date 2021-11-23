@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   getCommentV2,
   getReferenceDataV1,
@@ -11,7 +12,6 @@ import userEvent from "@testing-library/user-event";
 
 import locale from "../../locale";
 import { mockCategoryReferenceDataV1, mockCommentsV2 } from "../../test-utils";
-
 import { formatDate, formatTime } from "../../utils";
 import { CommentList } from "./comment-list";
 
