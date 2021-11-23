@@ -20,10 +20,13 @@ export const BooleanContextProvider = ({
 }: BooleanContextProviderProps) => {
   const [booleans, setBooleansState] = useState(initialValue);
   const setBooleans = useCallback(
-    (newBooleans: Booleans) => setBooleansState({ ...booleans, ...newBooleans }),
-    [setBooleansState, booleans],
+    (newBooleans: Booleans) =>
+      setBooleansState((current) => ({ ...current, ...newBooleans })),
+    [setBooleansState],
   );
-  const value = useMemo(() => ({ booleans, setBooleans }), [booleans, setBooleans]);
+  const value = useMemo(() => {
+    return { booleans, setBooleans };
+  }, [booleans, setBooleans]);
 
   return <BooleanContext.Provider value={value}>{children}</BooleanContext.Provider>;
 };
