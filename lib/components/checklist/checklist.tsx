@@ -40,24 +40,21 @@ const TickIcon = () => {
   );
 };
 
-interface StatusChecklistProps {
+interface ChecklistProps {
   items: {
     label: string;
-    status: boolean;
+    success: boolean;
   }[];
 }
 
-export const StatusChecklist = ({ items }: StatusChecklistProps) => {
+export const Checklist = ({ items }: ChecklistProps) => {
   return (
-    <ul className="mtfh-status-checklist">
+    <ul className="mtfh-checklist">
       {items.map((item, index) => (
         <li key={index}>
-          <span
-            className={`mtfh-status-checklist__${item.status ? "tick" : "cross"}-icon`}
-          >
-            {item.status ? <TickIcon /> : <CrossIcon />}
+          <span className={`mtfh-checklist__${item.success ? "tick" : "cross"}-icon`}>
+            {item.success ? <TickIcon /> : <CrossIcon />}
           </span>
-
           {item.label}
         </li>
       ))}

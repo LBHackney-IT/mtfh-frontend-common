@@ -80,19 +80,19 @@ const DefaultIcon = () => {
 
 interface StatusHeadingProps {
   title: string;
-  status?: "default" | "success" | "warning";
+  variant?: "base" | "success" | "warning";
 }
 
-export const StatusHeading = ({ title, status = "default" }: StatusHeadingProps) => {
+export const StatusHeading = ({ title, variant = "base" }: StatusHeadingProps) => {
   const icon = useMemo(() => {
-    if (status === "success") {
+    if (variant === "success") {
       return <SuccessIcon />;
     }
-    if (status === "warning") {
+    if (variant === "warning") {
       return <WarningIcon />;
     }
     return <DefaultIcon />;
-  }, [status]);
+  }, [variant]);
 
   return (
     <div className="mtfh-status-heading">

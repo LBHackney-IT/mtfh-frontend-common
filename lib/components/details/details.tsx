@@ -1,22 +1,26 @@
-import React, { useEffect, useRef } from "react";
+import React, { ComponentPropsWithoutRef, forwardRef, useEffect, useRef } from "react";
 import cn from "classnames";
 import { Details as DetailsJs } from "lbh-frontend";
+import mergeRefs from "react-merge-refs";
 import { ReactElement } from "react-router/node_modules/@types/react";
 
 import "./styles.scss";
 
-interface DetailsProps {
+export interface DetailsProps extends ComponentPropsWithoutRef<"details"> {
   title: string;
   children: ReactElement;
   className?: string;
 }
 
-export const Details = ({ title, children, className }: DetailsProps) => {
-  const ref = useRef(null);
+export const Details = forwardRef<HTMLElement, DetailsProps>(function Details(
+  { title, children, className },
+  ref,
+) {
+  const localRef = useRef(null);
 
   useEffect(() => {
-    if (ref.current) {
-      new DetailsJs(ref.current).init();
+    if (localRef.current) {
+      new DetailsJs(localRef.current).init();
     }
   }, []);
 
@@ -27,9 +31,10 @@ export const Details = ({ title, children, className }: DetailsProps) => {
   return (
     <details
       id="mtfh-details"
+      data-testid="mtfh-details"
       className={cn(classes, className)}
       data-module="govuk-details"
-      ref={ref}
+      ref={mergeRefs([localRef, ref])}
     >
       <summary className="govuk-details__summary">
         <span className="govuk-details__summary-text">{title}</span>
@@ -37,4 +42,4 @@ export const Details = ({ title, children, className }: DetailsProps) => {
       <div className="govuk-details__text">{children}</div>
     </details>
   );
-};
+});

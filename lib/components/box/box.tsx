@@ -5,19 +5,19 @@ import "./styles.scss";
 import cn from "classnames";
 
 interface BoxProps {
-  status?: "warning" | "success";
+  variant?: "warning" | "success";
 }
 
 export type BoxComponent = Polymorphic.ForwardRefComponent<"div", BoxProps>;
 
-export const Box: BoxComponent = forwardRef(function Link(
-  { as: BoxComponent = "div", status = "default", children },
+export const Box: BoxComponent = forwardRef(function Box(
+  { as: BoxComponent = "div", variant = "default", children },
   ref,
 ) {
   const classes = {
     "mtfh-box": true,
-    "mtfh-box--success": status === "success",
-    "mtfh-box--warning": status === "warning",
+    "mtfh-box--success": variant === "success",
+    "mtfh-box--warning": variant === "warning",
   };
 
   return (
