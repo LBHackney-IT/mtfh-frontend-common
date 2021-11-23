@@ -68,4 +68,5 @@ export interface EqualityData {
   economicSituation: EconomicSituation;
   homeSituation: HomeSituation;
   armedForces: string | null;
+  etag?: string;
 }
