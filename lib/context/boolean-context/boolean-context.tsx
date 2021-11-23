@@ -24,9 +24,7 @@ export const BooleanContextProvider = ({
       setBooleansState((current) => ({ ...current, ...newBooleans })),
     [setBooleansState],
   );
-  const value = useMemo(() => {
-    return { booleans, setBooleans };
-  }, [booleans, setBooleans]);
+  const value = useMemo(() => ({ booleans, setBooleans }), [booleans, setBooleans]);
 
   return <BooleanContext.Provider value={value}>{children}</BooleanContext.Provider>;
 };
