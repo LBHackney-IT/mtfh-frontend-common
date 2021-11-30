@@ -13,7 +13,7 @@ export interface TextProps {
 export type TextComponent = Polymorphic.ForwardRefComponent<"p", TextProps>;
 
 export const Text: TextComponent = forwardRef(function Text(
-  { as: TextComp = "p", variant = "base", size = "base", className, ...props },
+  { as: TextComp = "p", variant = "base", size = "md", className, ...props },
   ref,
 ) {
   return (
