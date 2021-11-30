@@ -3,7 +3,7 @@
 exports[`it renders correctly 1`] = `
 <div>
   <p
-    class=""
+    class="lbh-body-m"
   >
     Hello World
   </p>
