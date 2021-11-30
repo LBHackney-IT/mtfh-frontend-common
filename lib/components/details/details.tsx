@@ -17,7 +17,7 @@ export const Details = forwardRef<HTMLElement, DetailsProps>(function Details(
   { title, children, className },
   ref,
 ) {
-  const localRef = useRef(null);
+  const localRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (localRef.current) {
