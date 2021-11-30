@@ -37,4 +37,5 @@ export * from "./status-heading";
 export * from "./summary-list";
 export * from "./table";
 export * from "./text-area";
+export * from "./text";
 export * from "./stepper";
