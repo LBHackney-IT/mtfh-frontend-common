@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, isValidElement } from "react";
 
 import cn from "classnames";
 
@@ -7,13 +7,12 @@ import "./styles.scss";
 
 export interface ListProps {
   variant?: "base" | "bullets" | "numbers";
-  items: string[];
 }
 
 export type ListComponent = Polymorphic.ForwardRefComponent<"ul", ListProps>;
 
 export const List: ListComponent = forwardRef(function List(
-  { as: ListComp = "ul", variant = "base", items, className, ...props },
+  { as: ListComp = "ul", variant = "base", className, children, ...props },
   ref,
 ) {
   return (
@@ -29,9 +28,10 @@ export const List: ListComponent = forwardRef(function List(
       )}
       {...props}
     >
-      {items.map((item, index) => (
-        <li key={index}>{item}</li>
-      ))}
+      {React.Children.map(
+        children,
+        (child, index) => child && isValidElement(child) && <li key={index}>{child}</li>,
+      )}
     </ListComp>
   );
 });
