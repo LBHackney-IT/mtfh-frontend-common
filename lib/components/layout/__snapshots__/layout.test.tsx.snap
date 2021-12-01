@@ -9,7 +9,7 @@ exports[`it renders a side on the right 1`] = `
       id="content"
     />
     <div
-      class="mtfh-layout__container"
+      class="mtfh-layout__container mtfh-layout__container--right"
     >
       <div
         class="mtfh-layout__aside mtfh-layout__aside--right"
@@ -21,7 +21,7 @@ exports[`it renders a side on the right 1`] = `
         </div>
       </div>
       <div
-        class="mtfh-layout__main mtfh-layout__main__aside--right"
+        class="mtfh-layout__main mtfh-layout__main--right"
       >
         <div
           id="main"

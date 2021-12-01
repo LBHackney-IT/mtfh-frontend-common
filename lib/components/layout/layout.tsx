@@ -24,7 +24,11 @@ export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
       {backLink}
       <div id="content" />
       {top}
-      <div className="mtfh-layout__container">
+      <div
+        className={cn("mtfh-layout__container", {
+          "mtfh-layout__container--right": sidePosition === "right",
+        })}
+      >
         {side ? (
           <div
             className={cn("mtfh-layout__aside", {
@@ -36,7 +40,7 @@ export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
         ) : null}
         <div
           className={cn("mtfh-layout__main", {
-            "mtfh-layout__main__aside--right": sidePosition === "right",
+            "mtfh-layout__main--right": sidePosition === "right",
           })}
         >
           {children}
