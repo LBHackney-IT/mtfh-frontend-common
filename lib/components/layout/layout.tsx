@@ -18,33 +18,19 @@ export const Layout = forwardRef<HTMLDivElement, LayoutProps>(function Layout(
   return (
     <div
       ref={ref}
-      className={cn("mtfh-layout", { "mtfh-layout--narrow": !side }, className)}
+      className={cn(
+        "mtfh-layout",
+        { "mtfh-layout--narrow": !side, "mtfh-layout--right": sidePosition === "right" },
+        className,
+      )}
       {...props}
     >
       {backLink}
       <div id="content" />
       {top}
-      <div
-        className={cn("mtfh-layout__container", {
-          "mtfh-layout__container--right": sidePosition === "right",
-        })}
-      >
-        {side ? (
-          <div
-            className={cn("mtfh-layout__aside", {
-              "mtfh-layout__aside--right": sidePosition === "right",
-            })}
-          >
-            {side}
-          </div>
-        ) : null}
-        <div
-          className={cn("mtfh-layout__main", {
-            "mtfh-layout__main--right": sidePosition === "right",
-          })}
-        >
-          {children}
-        </div>
+      <div className="mtfh-layout__container">
+        {side ? <div className="mtfh-layout__aside">{side}</div> : null}
+        <div className="mtfh-layout__main">{children}</div>
       </div>
     </div>
   );
