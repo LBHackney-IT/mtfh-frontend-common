@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders correctly 1`] = `
+<div>
+  <ul
+    class="lbh-list"
+  >
+    <li>
+      string1
+    </li>
+    <li>
+      string2
+    </li>
+    <li>
+      string3
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`it renders with bullets 1`] = `
+<div>
+  <ul
+    class="lbh-list lbh-list--bullet"
+  >
+    <li>
+      string1
+    </li>
+    <li>
+      string2
+    </li>
+    <li>
+      string3
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`it renders with numbers 1`] = `
+<div>
+  <ol
+    class="lbh-list lbh-list--number"
+  >
+    <li>
+      string1
+    </li>
+    <li>
+      string2
+    </li>
+    <li>
+      string3
+    </li>
+  </ol>
+</div>
+`;
