@@ -17,6 +17,7 @@
 
     &__aside {
       grid-column: 1;
+      grid-row: 1;
 
       .lbh-button {
         min-width: 100%;
@@ -26,6 +27,7 @@
     &__main {
       margin-top: 0;
       grid-column: 2;
+      grid-row: 1;
 
       .mtfh-layout.mtfh-layout--narrow & {
         grid-column: 1;
