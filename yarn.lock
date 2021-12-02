@@ -1059,7 +1059,7 @@
     jest-axe "^5.0.1"
     jest-matchmedia-mock "^1.1.0"
 
-"@hackney/prettier-config@^1.0.0":
+"@hackney/prettier-config@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@hackney/prettier-config/-/prettier-config-1.0.1.tgz#cf03bde6599dd96b719fca195db769553afd80dd"
   integrity sha512-6C48yGjoUkKRw+kKGiohEK7ylJdMaPsYQKvrYncsrz0rCE4erc61S4GqtI6/g6U9iOgxem49I5zB8op72sV/UQ==
