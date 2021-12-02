@@ -18,6 +18,7 @@ const config = {
   equalityInformationApiUrlV1: process.env.EQUALITY_INFORMATION_API_URL_V1 || "/api/v1",
   repairsHubAppUrl: process.env.REPAIRS_HUB_APP_URL || "/api/v1",
   repairsHubApiUrl: process.env.REPAIRS_HUB_API_URL || "/api/v1",
+  processApiUrlV1: process.env.PROCESS_API_URL_V1 || "/api/v1",
 };
 
 export default config;
