@@ -150,6 +150,7 @@ jobs:
             export EQUALITY_INFORMATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/equality-information-api-url --query Parameter.Value --output text)
             export REPAIRS_HUB_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-app-url --query Parameter.Value --output text)
             export REPAIRS_HUB_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-api-url --query Parameter.Value --output text)
+            export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -190,6 +191,7 @@ jobs:
             export EQUALITY_INFORMATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/equality-information-api-url --query Parameter.Value --output text)
             export REPAIRS_HUB_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-app-url --query Parameter.Value --output text)
             export REPAIRS_HUB_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-api-url --query Parameter.Value --output text)
+            export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -229,7 +231,8 @@ jobs:
             export ADDRESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/address-api-url --query Parameter.Value --output text)
             export EQUALITY_INFORMATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/equality-information-api-url --query Parameter.Value --output text)
             export REPAIRS_HUB_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-app-url --query Parameter.Value --output text)
-            export REPAIRS_HUB_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-api-url --query Parameter.Value --output text)            
+            export REPAIRS_HUB_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-api-url --query Parameter.Value --output text) 
+            export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url --query Parameter.Value --output text)           
             yarn build
       - run:
           name: Deploy to S3

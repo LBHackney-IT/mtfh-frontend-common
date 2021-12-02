@@ -36,6 +36,7 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/api/asset/v1": path.join(apiPath, "asset", "v1"),
       "common/lib/api/reference-data/v1": path.join(apiPath, "reference-data", "v1"),
       "common/lib/api/address/v1": path.join(apiPath, "address", "v1"),
+      "common/lib/api/process/v1": path.join(apiPath, "process", "v1"),
       "common/lib/api/equality-information/v1": path.join(
         apiPath,
         "equality-information",
@@ -80,6 +81,7 @@ module.exports = (webpackConfigEnv, argv) => {
         EQUALITY_INFORMATION_API_URL_V1: dotenv.EQUALITY_INFORMATION_API_URL_V1 || "",
         REPAIRS_HUB_APP_URL: dotenv.REPAIRS_HUB_APP_URL || "",
         REPAIRS_HUB_API_URL: dotenv.REPAIRS_HUB_API_URL || "",
+        PROCESS_API_URL_V1: dotenv.PROCESS_API_URL_V1 || "",
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",

@@ -1,0 +1,29 @@
+export interface CreateProcess {
+  targetID: string;
+  relatedEntities: string[];
+  formData: object;
+  documents: string[];
+}
+
+export interface Process {
+  id: string;
+  targetID: string;
+  relatedEntities: string[];
+  formData: object;
+  documents: string[];
+  processName: string;
+  currentState: ProcessState;
+  previousStates: ProcessState[];
+}
+
+export interface ProcessState {
+  stateName: string;
+  permittedTriggers: string[];
+  assignment: string;
+  processData: {
+    formData: object;
+    documents: string[];
+  };
+  createdAt: string;
+  updatedAt: string;
+}
