@@ -12,7 +12,7 @@ export interface UpdateProcess {
 
 export interface Process {
   id: string;
-  targetID: string;
+  targetId: string;
   relatedEntities: string[];
   formData: object;
   documents: string[];
