@@ -5,6 +5,11 @@ export interface CreateProcess {
   documents: string[];
 }
 
+export interface UpdateProcess {
+  formData: object;
+  documents: string[];
+}
+
 export interface Process {
   id: string;
   targetID: string;
@@ -14,6 +19,7 @@ export interface Process {
   processName: string;
   currentState: ProcessState;
   previousStates: ProcessState[];
+  etag?: string;
 }
 
 export interface ProcessState {
