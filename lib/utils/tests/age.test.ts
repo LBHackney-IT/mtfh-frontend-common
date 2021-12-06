@@ -19,4 +19,7 @@ describe("isUnderEighteen", () => {
   it("returns false as person is over 18", () => {
     expect(isUnderEighteen("2003-12-24T00:00:00")).toBeFalsy();
   });
+  it("returns true as dob is invalid", () => {
+    expect(isUnderEighteen("invalid-date")).toBeTruthy();
+  });
 });
