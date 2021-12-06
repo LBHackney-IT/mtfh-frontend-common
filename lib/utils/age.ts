@@ -1,12 +1,13 @@
-import { differenceInYears, format, isValid, parseISO } from "date-fns";
+import { differenceInYears, isValid } from "date-fns";
 
-export const isUnderEighteen = (dob: string) => {
-  const isValidDate = parseISO(dob);
+import { parseDate } from "./date-format";
+
+export const isUnderAge = (dob: string, age: number) => {
+  const isValidDate = parseDate(dob);
   if (!isValid(isValidDate)) {
     return true;
   }
 
-  const dobDate = format(new Date(dob), "yyyy-MM-dd");
-  const ageInYears = differenceInYears(new Date(), new Date(dobDate));
-  return ageInYears < 18;
+  const ageInYears = differenceInYears(new Date(), isValidDate);
+  return ageInYears < age;
 };
