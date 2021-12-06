@@ -1,10 +1,10 @@
-import { differenceInYears, isValid } from "date-fns";
+import { differenceInYears } from "date-fns";
 
 import { parseDate } from "./date-format";
 
 export const isUnderAge = (dob: string, age: number) => {
   const isValidDate = parseDate(dob);
-  if (!isValid(isValidDate)) {
+  if (!isValidDate) {
     return true;
   }
 
