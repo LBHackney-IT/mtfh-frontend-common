@@ -41,7 +41,7 @@ test("ConflictErrorSummary can transform the field output", () => {
       id="conflict"
       fieldLocale={{ test: "Test" }}
       updatedFields={{ test: "This is a test" }}
-      fieldTransforms={{ test: (value: string) => (value as string).toUpperCase() }}
+      fieldTransforms={{ test: (value: string) => value.toUpperCase() }}
     />,
   );
   expect(screen.getByText("THIS IS A TEST")).toBeInTheDocument();
