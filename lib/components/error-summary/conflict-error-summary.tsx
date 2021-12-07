@@ -6,9 +6,11 @@ import { ErrorSummary, ErrorSummaryProps } from "./error-summary";
 
 interface ConflictErrorSummaryProps extends Partial<ErrorSummaryProps> {
   id: string;
-  updatedFields?: Record<string, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  updatedFields?: Record<string, any>;
   fieldLocale: Record<string, string>;
-  fieldTransforms?: Record<string, (value: unknown) => string>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  fieldTransforms?: Record<string, (value: any) => string>;
   footNote?: string;
 }
 
