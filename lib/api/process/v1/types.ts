@@ -23,7 +23,7 @@ export interface Process {
 }
 
 export interface ProcessState {
-  stateName: string;
+  state: string;
   permittedTriggers: string[];
   assignment: string;
   processData: {
