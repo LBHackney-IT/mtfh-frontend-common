@@ -131,7 +131,7 @@ jobs:
           export PACT_BROKER_USERNAME=$(aws ssm get-parameter --name /housing-tl/contract-testing/<<parameters.stage>>/pact-broker-username --query Parameter.Value --output text)
           export PACT_BROKER_PASSWORD=$(aws ssm get-parameter --name /housing-tl/contract-testing/<<parameters.stage>>/pact-broker-password --query Parameter.Value --output text)
           export PACT_BROKER_BASE_URL=https://contract-testing-development.hackney.gov.uk
-          
+
           yarn publish:pact
   build-deploy-development:
     executor: node-executor
@@ -341,9 +341,9 @@ workflows:
       - publish-pact:
           requires:
             - assume-role-development
-            filters:
-              branches:
-                only: main
+          filters:
+            branches:
+              only: main
       - terraform-init-and-apply-to-development:
           requires:
             - publish-pact
