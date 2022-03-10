@@ -51,13 +51,6 @@ $top-border: solid 2px govuk-colour("mid-grey");
 
 .mtfh-stepper {
   margin-top: 0;
-  margin-bottom: govuk-spacing(6);
-
-  &.mtfh-stepper--large {
-    @include govuk-media-query($from: tablet) {
-      margin-bottom: govuk-spacing(9);
-    }
-  }
 }
 
 .mtfh-stepper__button {
