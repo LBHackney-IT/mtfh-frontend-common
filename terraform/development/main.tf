@@ -26,7 +26,7 @@ resource "aws_s3_bucket" "frontend-bucket-development" {
     allowed_origins = [
       "https://manage-my-home-development.hackney.gov.uk",
       "https://temporary-accommodation-development.hackney.gov.uk"
-      ]
+    ]
     expose_headers  = ["x-amz-server-side-encryption","x-amz-request-id","x-amz-id-2"]
     max_age_seconds = 3000
   }
