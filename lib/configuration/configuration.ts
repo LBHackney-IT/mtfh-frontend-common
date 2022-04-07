@@ -21,6 +21,17 @@ const initialConfiguration: ConfigCollection = {
       EqualityDetails: false,
     },
   },
+  RH: {
+    configuration: {},
+    featureToggles: {
+      WorkOrderPrinting: false,
+      OperativeSplitting: false,
+      OperativeManagementMobile: false,
+      UpdatingMultiTrades: false,
+      LegalDisrepairDisplay: false,
+      BudgetCodeSelection: false,
+    },
+  },
 };
 
 export const hydrateConfiguration = () => {
