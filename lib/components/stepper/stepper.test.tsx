@@ -22,6 +22,24 @@ test("it renders correctly", async () => {
   await testA11y(container);
 });
 
+test("it renders correctly with a startIndex", async () => {
+  const { container } = render(
+    <Stepper title={stepperTitle} activeStep={0} startIndex={3}>
+      <Step>{stepTenureDetails}</Step>
+      <Step>{stepSelectResidents}</Step>
+    </Stepper>,
+  );
+  expect(container).toMatchSnapshot();
+  expect(screen.queryAllByRole("listitem").length).toBe(2);
+  expect(screen.queryAllByRole("listitem")[0].className).toContain("active");
+  expect(screen.queryByText("0")).not.toBeInTheDocument();
+  expect(screen.queryByText("3")).not.toBeInTheDocument();
+  screen.getByText("4");
+  screen.getByText("5");
+  expect(screen.queryByText("6")).not.toBeInTheDocument();
+  await testA11y(container);
+});
+
 test("it prints a title", () => {
   render(
     <Stepper title={stepperTitle} activeStep={0}>

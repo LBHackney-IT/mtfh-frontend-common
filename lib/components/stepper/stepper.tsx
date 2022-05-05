@@ -12,6 +12,7 @@ interface StepperProps {
   title?: string;
   activeStep?: number;
   children: StepChild;
+  startIndex?: number;
   [x: string]: any;
 }
 
@@ -19,6 +20,7 @@ export const Stepper = ({
   activeStep = 0,
   title,
   children,
+  startIndex,
   ...props
 }: StepperProps): JSX.Element => {
   return (
@@ -42,7 +44,10 @@ export const Stepper = ({
                 >
                   {cloneElement(child, {
                     ...child.props,
-                    stepIndex: stepIndex + 1,
+                    stepIndex:
+                      startIndex && startIndex > 0
+                        ? startIndex + stepIndex + 1
+                        : stepIndex + 1,
                   })}
                 </li>
               ),
