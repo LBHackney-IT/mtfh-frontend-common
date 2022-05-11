@@ -5,6 +5,7 @@ import cn from "classnames";
 import { Accordion as AccordionJs } from "lbh-frontend";
 
 import { widthOverrides } from "../../utils";
+import { Alert } from "../alert";
 import { Heading } from "../heading";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
@@ -32,6 +33,7 @@ export const AccordionItem: AccordionItemComponent = forwardRef(function Accordi
             className="govuk-accordion__section-button"
             id={`accordion-heading-${id}`}
           >
+            {title === "Discretion alert" && <Alert viewBox="0 0" size="26" />}
             {title}
           </span>
         </Heading>
