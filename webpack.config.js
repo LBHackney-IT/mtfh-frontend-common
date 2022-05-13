@@ -70,6 +70,7 @@ module.exports = (webpackConfigEnv, argv) => {
         CONFIGURATION_API_URL_V1: dotenv.CONFIGURATION_API_URL_V1 || "",
         CONTACT_DETAILS_API_URL_V1: dotenv.CONTACT_DETAILS_API_URL_V1 || "",
         CONTACT_DETAILS_API_URL_V2: dotenv.CONTACT_DETAILS_API_URL_V2 || "",
+        DISCRETIONARY_API_URL_V1: dotenv.DISCRETIONARY_API_URL_V1 || "",
         PERSON_API_URL_V1: dotenv.PERSON_API_URL_V1 || "",
         PERSON_API_URL_V2: dotenv.PERSON_API_URL_V2 || "",
         NOTES_API_URL_V1: dotenv.NOTES_API_URL_V1 || "",
