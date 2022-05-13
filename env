@@ -1,0 +1,16 @@
+AUTH_ALLOWED_GROUPS=saml-aws-mtfh-developer
+CONFIGURATION_API_URL_V1=https://a9nuohv61k.execute-api.eu-west-2.amazonaws.com/development
+CONTACT_DETAILS_API_URL_V1=https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v1
+CONTACT_DETAILS_API_URL_V2=https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v2
+DISCRETIONARY_API_URL_V1=https://wv694tecog.execute-api.eu-west-2.amazonaws.com/development/api/v1
+REFERENCE_DATA_API_URL_V1=https://wu66106de1.execute-api.eu-west-2.amazonaws.com/development/api/v1
+TENURE_API_URL_V1=https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development/api/v1
+NOTES_API_URL_V1=https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v1
+NOTES_API_URL_V2=https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v2
+PERSON_API_URL_V1=https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v1
+PERSON_API_URL_V2=https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v2
+PROPERTY_API_URL_V1=https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development/api/v1
+REPAIRS_HUB_APP_URL=https://repairs-hub-development.hackney.gov.uk
+REPAIRS_HUB_API_URL=https://1oxvkycnmc.execute-api.eu-west-2.amazonaws.com/development/api/v2
+EQUALITY_INFORMATION_API_URL_V1=https://rgq79ov75i.execute-api.eu-west-2.amazonaws.com/development/api/v1
+PROCESS_API_URL_V1=https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v1
