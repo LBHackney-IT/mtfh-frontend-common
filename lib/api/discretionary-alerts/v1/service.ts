@@ -11,7 +11,10 @@ export const useDiscretionaryAlert = (
   id: string | null,
   options?: AxiosSWRConfiguration<any>,
 ): AxiosSWRResponse<DiscretionaryAlert> => {
-  return useAxiosSWR(id && `${config.discretionaryApiUrlV1}/persons/${id}`, options);
+  return useAxiosSWR(
+    id && `${config.discretionaryApiUrlV1}/cautionary-alerts/persons/${id}`,
+    options,
+  );
 };
 
 export const useTenureDiscretionaryAlert = (
@@ -19,7 +22,8 @@ export const useTenureDiscretionaryAlert = (
   options?: AxiosSWRConfiguration<any>,
 ): AxiosSWRResponse<DiscretionaryAlert> => {
   return useAxiosSWR(
-    propertyRef && `${config.discretionaryApiUrlV1}/properties-new/${propertyRef}`,
+    propertyRef &&
+      `${config.discretionaryApiUrlV1}/cautionary-alerts/properties-new/${propertyRef}`,
     options,
   );
 };
