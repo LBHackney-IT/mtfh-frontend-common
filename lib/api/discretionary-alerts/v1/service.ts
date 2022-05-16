@@ -17,7 +17,7 @@ export const useDiscretionaryAlert = (
   );
 };
 
-export const useTenureDiscretionaryAlert = (
+export const usePropertyDiscretionaryAlert = (
   propertyRef: string | null,
   options?: AxiosSWRConfiguration<any>,
 ): AxiosSWRResponse<DiscretionaryAlert> => {
