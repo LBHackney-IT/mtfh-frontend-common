@@ -13,3 +13,13 @@ export const useDiscretionaryAlert = (
 ): AxiosSWRResponse<DiscretionaryAlert> => {
   return useAxiosSWR(id && `${config.discretionaryApiUrlV1}/persons/${id}`, options);
 };
+
+export const useTenureDiscretionaryAlert = (
+  propertyRef: string | null,
+  options?: AxiosSWRConfiguration<any>,
+): AxiosSWRResponse<DiscretionaryAlert> => {
+  return useAxiosSWR(
+    propertyRef && `${config.discretionaryApiUrlV1}/properties-new/${propertyRef}`,
+    options,
+  );
+};
