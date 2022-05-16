@@ -1,3 +1,4 @@
 export type DiscretionaryAlert = {
-  id: string;
+  personId: string;
+  alert: any[];
 };
