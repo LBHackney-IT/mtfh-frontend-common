@@ -1,4 +1,10 @@
-import { formatDate, formatTime, isFutureDate } from "./date-format";
+import {
+  dateToString,
+  formatDate,
+  formatTime,
+  isFutureDate,
+  stringToDate,
+} from "./date-format";
 
 test("formats the date correctly", () => {
   expect(formatDate("2021-01-01")).toBe("01/01/2021");
@@ -32,4 +38,12 @@ test("formatted time will not break with a malformed date string", () => {
 
 test("formatted time will not break with a null date value", () => {
   expect(formatTime(null)).toBe("");
+});
+
+test("dateToString will convert date to string correctly", () => {
+  let date = stringToDate("2023-10-03 10:38 AM", "yyyy-MM-dd hh:mm a");
+  expect(dateToString(date, "yyyy-MM-dd'T'HH:mm:ss")).toBe("2023-10-03T10:38:00");
+
+  date = stringToDate("2023-10-03 10:38 PM", "yyyy-MM-dd hh:mm a");
+  expect(dateToString(date, "yyyy-MM-dd'T'HH:mm:ss")).toBe("2023-10-03T22:38:00");
 });
