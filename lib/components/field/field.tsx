@@ -4,7 +4,9 @@ import { useField } from "formik";
 
 import { DateInput } from "../date-input";
 import { FormGroup } from "../form-group";
+import { InputProps } from "../input";
 import { NumberInputProps } from "../number-input";
+import { TimeInput } from "../time-input";
 
 export interface FieldProps {
   name: string;
@@ -57,6 +59,9 @@ export interface DateFieldProps extends ComponentPropsWithoutRef<"fieldset"> {
   dayProps: DateInputFieldProps;
   monthProps: DateInputFieldProps;
   yearProps: DateInputFieldProps;
+  dayLabel?: string;
+  monthLabel?: string;
+  yearLabel?: string;
   required?: boolean;
 }
 
@@ -64,6 +69,9 @@ export const DateField = ({
   dayProps: { name: dayName, ...dayProps },
   monthProps: { name: monthName, ...monthProps },
   yearProps: { name: yearName, ...yearProps },
+  dayLabel = "Day",
+  monthLabel = "Month",
+  yearLabel = "Year",
   ...props
 }: DateFieldProps): JSX.Element => {
   const [dayField, dayMeta] = useField(dayName);
@@ -76,12 +84,67 @@ export const DateField = ({
     <FormGroup as="fieldset" error={error} {...props}>
       <DateInput
         dayProps={{ ...dayField, ...dayProps, error: !!dayMeta.error }}
+        dayLabel={dayLabel}
         monthProps={{
           ...monthField,
           ...monthProps,
           error: !!monthMeta.error,
         }}
+        monthLabel={monthLabel}
         yearProps={{ ...yearField, ...yearProps, error: !!yearMeta.error }}
+        yearLabel={yearLabel}
+      />
+    </FormGroup>
+  );
+};
+
+type TimeInputFieldProps = Omit<NumberInputProps, "name"> & { name: string };
+type InputFieldProps = Omit<InputProps, "name"> & { name: string };
+
+export interface TimeFieldProps extends ComponentPropsWithoutRef<"fieldset"> {
+  id: string;
+  label: string;
+  hourProps: TimeInputFieldProps;
+  minuteProps: TimeInputFieldProps;
+  amPmProps: InputFieldProps;
+  hourLabel?: string;
+  minuteLabel?: string;
+  amPmLabel?: string;
+  required?: boolean;
+}
+
+export const TimeField = ({
+  hourProps: { name: hourName, ...hourProps },
+  minuteProps: { name: minuteName, ...minuteProps },
+  amPmProps: { name: amPmName, ...amPmProps },
+  hourLabel = "Hour",
+  minuteLabel = "Minute",
+  amPmLabel = "am/pm",
+  ...props
+}: TimeFieldProps): JSX.Element => {
+  const [hourField, hourMeta] = useField(hourName);
+  const [minuteField, minuteMeta] = useField(minuteName);
+  const [amPmField, amPmMeta] = useField(amPmName);
+
+  const error = hourMeta.error || minuteMeta.error || amPmMeta.error;
+
+  return (
+    <FormGroup as="fieldset" error={error} {...props}>
+      <TimeInput
+        hourProps={{ ...hourField, ...hourProps, error: !!hourMeta.error }}
+        hourLabel={hourLabel}
+        minuteProps={{
+          ...minuteField,
+          ...minuteProps,
+          error: !!minuteMeta.error,
+        }}
+        minuteLabel={minuteLabel}
+        amPmProps={{
+          ...amPmField,
+          ...amPmProps,
+          error: !!amPmMeta.error,
+        }}
+        amPmLabel={amPmLabel}
       />
     </FormGroup>
   );

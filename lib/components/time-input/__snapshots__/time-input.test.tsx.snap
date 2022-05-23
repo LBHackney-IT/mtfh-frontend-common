@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it passes a11y 1`] = `
+<div>
+  <div
+    class="govuk-form-group lbh-form-group"
+    id="test"
+  >
+    <label
+      class="govuk-label lbh-label"
+      for="test-field"
+    >
+      TimeInput Test
+      
+    </label>
+    <div
+      class="govuk-date-input lbh-date-input"
+      name="test"
+    >
+      <div
+        class="govuk-date-input__item"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="test-field-hour"
+        >
+          Hour
+        </label>
+        <input
+          aria-label="Hour"
+          aria-valuemax="12"
+          aria-valuemin="0"
+          class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+          name="hour"
+          role="spinbutton"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-date-input__item"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="test-field-minute"
+        >
+          Minute
+        </label>
+        <input
+          aria-label="Minute"
+          aria-valuemax="59"
+          aria-valuemin="0"
+          class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+          name="minute"
+          role="spinbutton"
+          value=""
+        />
+      </div>
+      <div
+        class="govuk-date-input__item"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="test-field-amPm"
+        >
+          AM/PM
+        </label>
+        <input
+          aria-label="AM/PM"
+          class="govuk-input lbh-input"
+          name="amPm"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`it renders correctly 1`] = `
+<div>
+  <div
+    class="govuk-date-input lbh-date-input"
+  >
+    <div
+      class="govuk-date-input__item"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="time-input-hour"
+      >
+        Hour
+      </label>
+      <input
+        aria-label="Hour"
+        aria-valuemax="12"
+        aria-valuemin="0"
+        class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+        name="hour"
+        role="spinbutton"
+        value=""
+      />
+    </div>
+    <div
+      class="govuk-date-input__item"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="time-input-minute"
+      >
+        Minute
+      </label>
+      <input
+        aria-label="Minute"
+        aria-valuemax="59"
+        aria-valuemin="0"
+        class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+        name="minute"
+        role="spinbutton"
+        value=""
+      />
+    </div>
+    <div
+      class="govuk-date-input__item"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="time-input-amPm"
+      >
+        AM/PM
+      </label>
+      <input
+        aria-label="AM/PM"
+        class="govuk-input lbh-input"
+        name="amPm"
+      />
+    </div>
+  </div>
+</div>
+`;
