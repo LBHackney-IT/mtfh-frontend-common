@@ -9,6 +9,7 @@ export * from "./checklist";
 export * from "./comment-list";
 export * from "./confirmation-router";
 export * from "./date-input";
+export * from "./time-input";
 export * from "./dialog";
 export * from "./dialog-prompt";
 export * from "./details";
