@@ -74,11 +74,16 @@ export const TimeInput = forwardRef<HTMLDivElement, TimeInputProps>(function Tim
           {...minuteProps}
         />
       </div>
-      <div className="govuk-date-input__item" style={{ width: "min-content" }}>
+      <div className="govuk-date-input__item">
         <label className="govuk-label lbh-label" htmlFor={`${id}-amPm`}>
           {amPmLabel}
         </label>
-        <Input name="amPm" aria-label="AM/PM" {...amPmProps} />
+        <Input
+          className="govuk-input--width-2"
+          name="amPm"
+          aria-label="AM/PM"
+          {...amPmProps}
+        />
       </div>
     </div>
   );
