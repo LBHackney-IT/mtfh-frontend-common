@@ -162,6 +162,9 @@ $top-border: solid 2px govuk-colour("mid-grey");
     border-color: govuk-colour("black");
     background: govuk-colour("black");
   }
+  .mtfh-stepper__circle-background {
+    color: govuk-colour("white");
+  }
 }
 
 .mtfh-stepper__circle {
@@ -222,10 +225,6 @@ $top-border: solid 2px govuk-colour("mid-grey");
 .mtfh-stepper__circle-inner {
   float: right;
   min-width: 100%;
-}
-
-.mtfh-stepper__circle-background {
-  color: govuk-colour("white");
 }
 
 .mtfh-stepper__circle-step-label,
