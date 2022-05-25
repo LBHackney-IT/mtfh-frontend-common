@@ -160,6 +160,7 @@ $top-border: solid 2px govuk-colour("mid-grey");
   &:after,
   .mtfh-stepper__help:after {
     border-color: govuk-colour("black");
+    background: govuk-colour("black");
   }
 }
 
@@ -224,11 +225,7 @@ $top-border: solid 2px govuk-colour("mid-grey");
 }
 
 .mtfh-stepper__circle-background {
-  $shadow-offset: 0.1em;
-  $shadow-colour: govuk-colour("white");
-
-  text-shadow: 0 -#{$shadow-offset} 0 $shadow-colour, $shadow-offset 0 0 $shadow-colour,
-    0 $shadow-offset 0 $shadow-colour, -#{$shadow-offset} 0 0 $shadow-colour;
+  color: govuk-colour("white");
 }
 
 .mtfh-stepper__circle-step-label,
