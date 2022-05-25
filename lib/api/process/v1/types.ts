@@ -27,7 +27,7 @@ export interface ProcessState {
   permittedTriggers: string[];
   assignment: string;
   processData: {
-    formData: object;
+    formData: Record<string, string>;
     documents: string[];
   };
   createdAt: string;
