@@ -37,7 +37,9 @@ export const useProcess = (
 };
 
 export type PatchProcessRequestData = Partial<UpdateProcess> &
-  Pick<Process, "id" | "processName" | "etag"> & { processTrigger: string };
+  Pick<Process, "id" | "processName" | "etag"> & { processTrigger: string } & {
+    processData?: UpdateProcess;
+  };
 
 export const editProcess = async ({
   id,
