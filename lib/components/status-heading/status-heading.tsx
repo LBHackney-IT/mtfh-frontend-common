@@ -78,9 +78,10 @@ const DefaultIcon = () => {
   );
 };
 
+export type StatusHeadingVariant = "base" | "success" | "warning" | undefined;
 interface StatusHeadingProps {
   title: string;
-  variant?: "base" | "success" | "warning";
+  variant?: StatusHeadingVariant;
 }
 
 export const StatusHeading = ({ title, variant = "base" }: StatusHeadingProps) => {
