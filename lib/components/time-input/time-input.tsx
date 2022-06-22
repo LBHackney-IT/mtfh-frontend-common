@@ -2,8 +2,9 @@ import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 
 import cn from "classnames";
 
-import { Input, InputProps } from "../input";
 import { NumberInput, NumberInputProps } from "../number-input";
+import { Select, SelectProps } from "../select";
+
 import "./styles.scss";
 
 export type AmPm = "AM" | "PM";
@@ -14,7 +15,7 @@ export interface TimeInputProps extends ComponentPropsWithoutRef<"div"> {
   required?: boolean;
   hourProps?: NumberInputProps;
   minuteProps?: NumberInputProps;
-  amPmProps?: InputProps;
+  amPmProps?: SelectProps;
   hourLabel?: string;
   minuteLabel?: string;
   amPmLabel?: string;
@@ -78,12 +79,11 @@ export const TimeInput = forwardRef<HTMLDivElement, TimeInputProps>(function Tim
         <label className="govuk-label lbh-label" htmlFor={`${id}-amPm`}>
           {amPmLabel}
         </label>
-        <Input
-          className="govuk-input--width-2"
-          name="amPm"
-          aria-label="AM/PM"
-          {...amPmProps}
-        />
+        <Select id="amPm" name="amPm" aria-label="AM/PM" {...amPmProps}>
+          <option value="">{amPmProps?.placeholder || "AM/PM"}</option>
+          <option value="am">AM</option>
+          <option value="pm">PM</option>
+        </Select>
       </div>
     </div>
   );

@@ -64,11 +64,28 @@ exports[`it passes a11y 1`] = `
         >
           AM/PM
         </label>
-        <input
+        <select
           aria-label="AM/PM"
-          class="govuk-input lbh-input govuk-input--width-2"
+          class="govuk-select lbh-select"
+          id="amPm"
           name="amPm"
-        />
+        >
+          <option
+            value=""
+          >
+            AM/PM
+          </option>
+          <option
+            value="am"
+          >
+            AM
+          </option>
+          <option
+            value="pm"
+          >
+            PM
+          </option>
+        </select>
       </div>
     </div>
   </div>
@@ -127,11 +144,28 @@ exports[`it renders correctly 1`] = `
       >
         AM/PM
       </label>
-      <input
+      <select
         aria-label="AM/PM"
-        class="govuk-input lbh-input govuk-input--width-2"
+        class="govuk-select lbh-select"
+        id="amPm"
         name="amPm"
-      />
+      >
+        <option
+          value=""
+        >
+          AM/PM
+        </option>
+        <option
+          value="am"
+        >
+          AM
+        </option>
+        <option
+          value="pm"
+        >
+          PM
+        </option>
+      </select>
     </div>
   </div>
 </div>
