@@ -4,8 +4,8 @@ import { useField } from "formik";
 
 import { DateInput } from "../date-input";
 import { FormGroup } from "../form-group";
-import { InputProps } from "../input";
 import { NumberInputProps } from "../number-input";
+import { SelectProps } from "../select";
 import { TimeInput } from "../time-input";
 
 export interface FieldProps {
@@ -99,14 +99,14 @@ export const DateField = ({
 };
 
 type TimeInputFieldProps = Omit<NumberInputProps, "name"> & { name: string };
-type InputFieldProps = Omit<InputProps, "name"> & { name: string };
+type SelectFieldProps = Omit<SelectProps, "name"> & { name: string };
 
 export interface TimeFieldProps extends ComponentPropsWithoutRef<"fieldset"> {
   id: string;
   label: string;
   hourProps: TimeInputFieldProps;
   minuteProps: TimeInputFieldProps;
-  amPmProps: InputFieldProps;
+  amPmProps: SelectFieldProps;
   hourLabel?: string;
   minuteLabel?: string;
   amPmLabel?: string;
