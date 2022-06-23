@@ -25,7 +25,8 @@ resource "aws_s3_bucket" "frontend-bucket-staging" {
     allowed_methods = ["GET"]
     allowed_origins = [
       "https://manage-my-home-staging.hackney.gov.uk",
-      "https://temporary-accommodation-staging.hackney.gov.uk"
+      "https://temporary-accommodation-staging.hackney.gov.uk",
+      "https://hfs-staging.hackney.gov.uk"
     ]
     expose_headers  = ["x-amz-server-side-encryption","x-amz-request-id","x-amz-id-2"]
     max_age_seconds = 3000
