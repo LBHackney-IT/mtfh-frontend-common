@@ -1,6 +1,6 @@
 import type { CommentAuthor, CommentCategorisation } from "../v1/types";
 
-export type CommentType = "person" | "asset" | "tenure" | "repair";
+export type CommentType = "person" | "asset" | "tenure" | "repair" | "process";
 
 export interface Comment {
   id: string;
