@@ -13,7 +13,7 @@ export interface UpdateProcess {
 export interface Process {
   id: string;
   targetId: string;
-  relatedEntities: string[];
+  relatedEntities: string[] | RelatedEntity[];
   formData: object;
   documents: string[];
   processName: string;
@@ -32,4 +32,11 @@ export interface ProcessState {
   };
   createdAt: string;
   updatedAt: string;
+}
+
+export interface RelatedEntity {
+  targetType: string;
+  subType: string;
+  id: string;
+  description: string;
 }
