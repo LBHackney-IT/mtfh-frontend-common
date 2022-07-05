@@ -100,6 +100,9 @@ const locale = {
       W48: "Person created but could not be added to tenure",
       W49: "You must enter details when Other is selected",
       W50: "You must enter a reason for closing this case",
+      W51: "You must select all options to proceed",
+      W52: "The date and time must be in the future",
+      W53: "You must enter manager's name.",
     },
   },
 };
