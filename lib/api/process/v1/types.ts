@@ -14,6 +14,7 @@ export interface UpdateProcess {
 export interface Process {
   id: string;
   targetId: string;
+  targetType: string;
   relatedEntities: string[] | RelatedEntity[];
   formData: object;
   documents: string[];
