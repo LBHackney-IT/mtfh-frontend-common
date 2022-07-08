@@ -1,5 +1,6 @@
 export interface CreateProcess {
   targetID: string;
+  targetType?: string;
   relatedEntities: string[];
   formData: object;
   documents: string[];
