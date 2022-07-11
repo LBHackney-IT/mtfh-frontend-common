@@ -103,6 +103,8 @@ const locale = {
       W51: "You must select all options to proceed",
       W52: "The date and time must be in the future",
       W53: "You must enter manager's name.",
+      W54: "You must enter a valid hour to proceed e.g. 01-12",
+      W55: "You must enter a valid minute to proceed e.g. 00-59",
     },
   },
 };
