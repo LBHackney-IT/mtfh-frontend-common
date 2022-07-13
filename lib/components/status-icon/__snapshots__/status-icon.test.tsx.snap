@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders base variant title and icon correctly 1`] = `
+exports[`it renders base icon correctly 1`] = `
 <div>
   <svg
     fill="none"
@@ -25,7 +25,7 @@ exports[`it renders base variant title and icon correctly 1`] = `
 </div>
 `;
 
-exports[`it renders success variant title and icon correctly 1`] = `
+exports[`it renders success icon correctly 1`] = `
 <div>
   <svg
     fill="none"
@@ -52,7 +52,7 @@ exports[`it renders success variant title and icon correctly 1`] = `
 </div>
 `;
 
-exports[`it renders warning variant title and icon correctly 1`] = `
+exports[`it renders warning icon correctly 1`] = `
 <div>
   <svg
     fill="none"

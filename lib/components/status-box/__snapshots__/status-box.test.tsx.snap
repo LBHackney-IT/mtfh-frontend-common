@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it renders base variant title and icon correctly 1`] = `
+exports[`it renders base variant title, children and icon correctly 1`] = `
 <div>
   <div
     class="mtfh-status-box"
@@ -45,7 +45,7 @@ exports[`it renders base variant title and icon correctly 1`] = `
 </div>
 `;
 
-exports[`it renders success variant title and icon correctly 1`] = `
+exports[`it renders success variant title, children and icon correctly 1`] = `
 <div>
   <div
     class="mtfh-status-box"
@@ -92,7 +92,7 @@ exports[`it renders success variant title and icon correctly 1`] = `
 </div>
 `;
 
-exports[`it renders warning variant title and icon correctly 1`] = `
+exports[`it renders warning variant title, children and icon correctly 1`] = `
 <div>
   <div
     class="mtfh-status-box"

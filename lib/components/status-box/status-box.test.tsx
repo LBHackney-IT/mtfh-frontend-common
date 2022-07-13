@@ -6,7 +6,7 @@ import { screen } from "@testing-library/react";
 import { Text } from "../text";
 import { StatusBox } from "./status-box";
 
-test("it renders base variant title and icon correctly", () => {
+test("it renders base variant title, children and icon correctly", () => {
   const { container } = render(
     <StatusBox title="base status title">
       <Text>base status children</Text>
@@ -18,7 +18,7 @@ test("it renders base variant title and icon correctly", () => {
   expect(container).toMatchSnapshot();
 });
 
-test("it renders success variant title and icon correctly", () => {
+test("it renders success variant title, children and icon correctly", () => {
   const { container } = render(
     <StatusBox variant="success" title="success status title">
       <Text>success status children</Text>
@@ -30,7 +30,7 @@ test("it renders success variant title and icon correctly", () => {
   expect(container).toMatchSnapshot();
 });
 
-test("it renders warning variant title and icon correctly", () => {
+test("it renders warning variant title, children and icon correctly", () => {
   const { container } = render(
     <StatusBox variant="warning" title="warning status title">
       <Text>warning status children</Text>
