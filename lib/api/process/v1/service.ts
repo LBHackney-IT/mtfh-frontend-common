@@ -8,10 +8,7 @@ import {
 
 import type { CreateProcess, Process, UpdateProcess } from "./types";
 
-export type PostProcessRequestData = Omit<
-  CreateProcess,
-  "relatedEntities" | "formData" | "documents"
->;
+export type PostProcessRequestData = Omit<CreateProcess, "formData" | "documents">;
 
 export const addProcess = async (
   data: PostProcessRequestData,
