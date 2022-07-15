@@ -19,6 +19,7 @@ const initialConfiguration: ConfigCollection = {
     featureToggles: {
       Test: false,
       EqualityDetails: false,
+      ReassignCase: false,
     },
   },
   RH: {
