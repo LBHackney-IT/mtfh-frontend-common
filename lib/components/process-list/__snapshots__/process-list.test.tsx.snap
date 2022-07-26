@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProcessList ProcessList renders correctly 1`] = `
+<div>
+  <div>
+    <div
+      class="process"
+    >
+      <div
+        class="process__item"
+      >
+        <div>
+          <a
+            class="govuk-link lbh-link lbh-link--no-visited-state lbh-heading-h4"
+            href="/person/103f3080-16d6-40fb-9273-f741ec73f7e40"
+            target="_blank"
+          >
+            Mr Ersan Kuneri
+          </a>
+        </div>
+        <div
+          style="margin-top: 0px;"
+        >
+          <a
+            class="govuk-link lbh-link lbh-link--no-visited-state"
+            href="/person/103f3080-16d6-40fb-9273-f741ec73f7e40"
+            target="_blank"
+          >
+            72251 Champlin Trafficway, 99647
+          </a>
+        </div>
+      </div>
+      <div
+        class="process__item --processName"
+      >
+        <a
+          class="govuk-link lbh-link lbh-link--no-visited-state lbh-heading-h4"
+          href="/processes/soletojoint/103f3080-16d6-40fb-9273-f741ec73f7e4"
+          target="_blank"
+        >
+          Sole to Joint
+        </a>
+      </div>
+      <div
+        class="process__item --createdAt"
+      >
+        <div
+          class="process__title"
+        >
+          Initiated
+        </div>
+        <div
+          class="process__createdAt"
+        >
+          24/06/2022
+        </div>
+      </div>
+      <div
+        class="process__item --status"
+      >
+        <span
+          class="govuk-tag lbh-tag"
+        >
+          Process Closed
+        </span>
+      </div>
+    </div>
+    <div
+      class="process"
+    >
+      <div
+        class="process__item"
+      >
+        <div>
+          <a
+            class="govuk-link lbh-link lbh-link--no-visited-state lbh-heading-h4"
+            href="/person/39273cf3-6a78-45e1-32d4-b9637e310527"
+            target="_blank"
+          >
+            Miss Perihan Abla
+          </a>
+        </div>
+        <div
+          style="margin-top: 0px;"
+        >
+          <a
+            class="govuk-link lbh-link lbh-link--no-visited-state"
+            href="/person/39273cf3-6a78-45e1-32d4-b9637e310527"
+            target="_blank"
+          >
+            72251 Champlin Trafficway, 99647
+          </a>
+        </div>
+      </div>
+      <div
+        class="process__item --processName"
+      >
+        <a
+          class="govuk-link lbh-link lbh-link--no-visited-state lbh-heading-h4"
+          href="/processes/soletojoint/39273cf3-6a78-45e1-32d4-b9637e310527"
+          target="_blank"
+        >
+          Sole to Joint
+        </a>
+      </div>
+      <div
+        class="process__item --createdAt"
+      >
+        <div
+          class="process__title"
+        >
+          Initiated
+        </div>
+        <div
+          class="process__createdAt"
+        >
+          10/05/2022
+        </div>
+      </div>
+      <div
+        class="process__item --status"
+      >
+        <span
+          class="govuk-tag lbh-tag"
+        >
+          Process Closed
+        </span>
+      </div>
+    </div>
+    <nav
+      class="lbh-simple-pagination"
+    >
+      <a
+        class="lbh-simple-pagination__link lbh-simple-pagination__link--next"
+        rel="next"
+      >
+        Next
+        <svg
+          fill="none"
+          height="19"
+          viewBox="0 0 11 19"
+          width="11"
+        >
+          <path
+            d="M1 18L9 9.5L1 1"
+            stroke-width="2"
+          />
+        </svg>
+      </a>
+    </nav>
+  </div>
+</div>
+`;
