@@ -1,0 +1,36 @@
+@import "~lbh-frontend/lbh/base";
+@import "~lbh-frontend/lbh/settings/colour-palette";
+
+.process {
+  display: flex;
+
+  &__title {
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  &__createdAt {
+    margin-top: 0;
+  }
+
+  &__item {
+    width: 200px;
+    margin-top: 0;
+    &.--processName {
+      flex-grow: 1;
+    }
+    .lbh-tag {
+      text-align: center;
+      border-radius: 5px;
+      width: 100%;
+    }
+  }
+
+  &__item + &__item {
+    margin-left: 2%;
+  }
+}
+
+.container {
+  display: flex;
+}
