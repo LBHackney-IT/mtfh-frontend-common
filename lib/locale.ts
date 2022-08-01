@@ -15,6 +15,7 @@ const locale = {
         unableToFetchReferenceDataDescription:
           "Please try again. If the issue persists, please contact support.",
       },
+      noCommentsAdded: "No comments added",
     },
     workOrderList: {
       raisedAt: "Raised at",
