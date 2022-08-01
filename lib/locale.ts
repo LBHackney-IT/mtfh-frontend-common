@@ -105,6 +105,8 @@ const locale = {
       W53: "You must enter manager's name.",
       W54: "You must enter a valid hour to proceed e.g. 01-12",
       W55: "You must enter a valid minute to proceed e.g. 00-59",
+      W56: "You must enter the tenant's first name",
+      W57: "You must enter the tenant's last name",
     },
   },
 };
