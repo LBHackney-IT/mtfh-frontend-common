@@ -31,7 +31,7 @@ test("it renders no comments with no results", async () => {
   render(<CommentList targetId="123" />);
   await waitForElementToBeRemoved(screen.queryByText(/Loading/));
 
-  await screen.findByText(/No comments/);
+  await screen.findByText(locale.components.commentList.noCommentsAdded);
 });
 
 test("it pages the results", async () => {

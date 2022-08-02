@@ -11,7 +11,7 @@ import { Spinner } from "../spinner";
 import { CommentListItem } from "./comment-list-item";
 
 const NoComments = () => {
-  return <p>No comments</p>;
+  return <p>{locale.components.commentList.noCommentsAdded}</p>;
 };
 
 export interface CommentListProps {
