@@ -8,10 +8,11 @@ import { Center } from "../center";
 import { ErrorSummary } from "../error-summary";
 import { SimplePagination, SimplePaginationButton } from "../simple-pagination";
 import { Spinner } from "../spinner";
+import { Text } from "../text";
 import { CommentListItem } from "./comment-list-item";
 
 const NoComments = () => {
-  return <p>{locale.components.commentList.noCommentsAdded}</p>;
+  return <Text size="sm">{locale.components.commentList.noCommentsAdded}</Text>;
 };
 
 export interface CommentListProps {
