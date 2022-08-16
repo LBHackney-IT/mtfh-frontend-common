@@ -18,7 +18,28 @@ describe("ProcessListItem", () => {
       processId: "39273cf3-6a78-45e1-32d4-b9637e310527",
       processType: "soletojoint",
       tenureId: "39273cf3-6a78-45e1-32d4-b9637e310527",
-      tenantId: "39273cf3-6a78-45e1-32d4-b9637e310527",
+      personId: "39273cf3-6a78-45e1-32d4-b9637e310527",
+      fullName: "Mr Ersan Kuneri",
+      createdAt: "2022-06-24T07:47:21.580066Z",
+      processName: "Sole to Joint",
+      status: "Process Closed",
+    };
+
+    const { container } = render(<ProcessListItem {...processListItemParams} />);
+
+    expect(container).toMatchSnapshot();
+  });
+  test("ProcessListItem renders correctly if there isn't any tenure returning", () => {
+    jest.spyOn(tenureV1, "useTenure").mockReturnValue({
+      data: mockActiveTenureV1,
+      error: new Error("test error"),
+    } as AxiosSWRResponse<Tenure>);
+
+    const processListItemParams: ProcessListItemParameters = {
+      processId: "39273cf3-6a78-45e1-32d4-b9637e310527",
+      processType: "soletojoint",
+      tenureId: "39273cf3-6a78-45e1-32d4-b9637e310527",
+      personId: "39273cf3-6a78-45e1-32d4-b9637e310527",
       fullName: "Mr Ersan Kuneri",
       createdAt: "2022-06-24T07:47:21.580066Z",
       processName: "Sole to Joint",
