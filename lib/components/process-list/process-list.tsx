@@ -14,6 +14,10 @@ export interface ProcessListProps {
   targetId: string;
   getProcessName: (process: Process) => string;
   getStatus: (process: Process) => string;
+  person?: {
+    id: string;
+    fullName: string;
+  };
 }
 
 const NoProcesses = () => {
@@ -21,7 +25,7 @@ const NoProcesses = () => {
 };
 
 export const ProcessList = (props: ProcessListProps): JSX.Element => {
-  const { targetId, getProcessName, getStatus } = props;
+  const { targetId, getProcessName, getStatus, person } = props;
   const { data, size, setSize, error } = useProcesses(targetId);
 
   const response = useMemo<ProcessesResponse | null>(() => {
@@ -48,8 +52,8 @@ export const ProcessList = (props: ProcessListProps): JSX.Element => {
           processId: process.id,
           processType: process.processName,
           tenureId: process.targetId,
-          tenantId: relatedEntity?.id,
-          fullName: relatedEntity?.description,
+          personId: person?.id || relatedEntity?.id,
+          fullName: person?.fullName || relatedEntity?.description,
           createdAt: process.currentState.createdAt,
           processName: getProcessName(process),
           status: getStatus(process),
