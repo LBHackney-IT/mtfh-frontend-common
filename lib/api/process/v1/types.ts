@@ -1,7 +1,7 @@
 export interface CreateProcess {
   targetID: string;
   targetType?: string;
-  relatedEntities: string[];
+  relatedEntities: RelatedEntity[];
   formData: object;
   documents: string[];
 }
@@ -38,7 +38,7 @@ export interface ProcessState {
 
 export interface RelatedEntity {
   targetType: string;
-  subType: string;
+  subType?: string;
   id: string;
-  description: string;
+  description?: string;
 }
