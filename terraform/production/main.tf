@@ -27,7 +27,7 @@ resource "aws_s3_bucket" "frontend-bucket-production" {
       "https://manage-my-home.hackney.gov.uk",
       "https://hfs.hackney.gov.uk",
       "https://finance-services.hackney.gov.uk/",
-      "https://temporary-accomodation.hackney.gov.uk/"
+      "https://temporary-accommodation.hackney.gov.uk/"
       ]
     expose_headers  = ["x-amz-server-side-encryption","x-amz-request-id","x-amz-id-2"]
     max_age_seconds = 3000
