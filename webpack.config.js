@@ -88,6 +88,7 @@ module.exports = (webpackConfigEnv, argv) => {
         REPAIRS_HUB_APP_URL: dotenv.REPAIRS_HUB_APP_URL || "",
         REPAIRS_HUB_API_URL: dotenv.REPAIRS_HUB_API_URL || "",
         PROCESS_API_URL_V1: dotenv.PROCESS_API_URL_V1 || "",
+        PROCESS_API_URL_V2: dotenv.PROCESS_API_URL_V2 || "",
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
