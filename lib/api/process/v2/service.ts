@@ -3,7 +3,7 @@ import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
 export type PostProcessRequestDataV2 = PostProcessRequestData & {
-  patchAssignment?: {
+  patchAssignment: {
     patchId: string;
     patchName: string;
     responsibleEntityId: string;

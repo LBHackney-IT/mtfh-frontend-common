@@ -42,6 +42,7 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/api/reference-data/v1": path.join(apiPath, "reference-data", "v1"),
       "common/lib/api/address/v1": path.join(apiPath, "address", "v1"),
       "common/lib/api/process/v1": path.join(apiPath, "process", "v1"),
+      "common/lib/api/process/v2": path.join(apiPath, "process", "v2"),
       "common/lib/api/equality-information/v1": path.join(
         apiPath,
         "equality-information",
