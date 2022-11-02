@@ -1,3 +1,5 @@
+import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export interface Asset {
@@ -11,6 +13,7 @@ export interface Asset {
   tenure: AssetTenure | null;
   rootAsset: string;
   parentAssetIds: string;
+  patches?: Patch[];
 }
 
 interface AssetLocation {
