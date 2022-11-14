@@ -108,6 +108,7 @@ const locale = {
       W55: "You must enter a valid minute to proceed e.g. 00-59",
       W56: "You must enter the tenant's first name",
       W57: "You must enter the tenant's last name",
+      W58: "You must remove numbers and special characters to proceed e.g. 0-9 and #@%$",
     },
   },
 };
