@@ -1,4 +1,4 @@
-export type DiscretionaryAlert = {
+export type CautionaryAlert = {
   personId: string;
   alerts: Alert[];
 };
