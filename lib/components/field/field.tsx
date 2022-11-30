@@ -63,6 +63,7 @@ export interface DateFieldProps extends ComponentPropsWithoutRef<"fieldset"> {
   monthLabel?: string;
   yearLabel?: string;
   required?: boolean;
+  fieldError?: string;
 }
 
 export const DateField = ({
@@ -72,13 +73,14 @@ export const DateField = ({
   dayLabel = "Day",
   monthLabel = "Month",
   yearLabel = "Year",
+  fieldError,
   ...props
 }: DateFieldProps): JSX.Element => {
   const [dayField, dayMeta] = useField(dayName);
   const [monthField, monthMeta] = useField(monthName);
   const [yearField, yearMeta] = useField(yearName);
 
-  const error = dayMeta.error || monthMeta.error || yearMeta.error;
+  const error = fieldError || dayMeta.error || monthMeta.error || yearMeta.error;
 
   return (
     <FormGroup as="fieldset" error={error} {...props}>
