@@ -15,14 +15,14 @@ export const useCautionaryAlertCodes = () => {
     defaultCautionaryAlerts,
   );
 
-  const { data, error } = useReferenceData<"mmh">({
+  const { data, error } = useReferenceData<"alert-type">({
     category: "cautionary-alert",
     subCategory: "alert-type",
   });
 
   useEffect(() => {
-    if (data?.mmh) {
-      const fromErr = data?.mmh.reduce((acc, obj) => {
+    if (data?.["alert-type"]) {
+      const fromErr = data?.["alert-type"].reduce((acc, obj) => {
         acc[obj.code] = obj.value;
         return acc;
       }, {} as Record<string, string>);
