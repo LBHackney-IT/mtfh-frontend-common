@@ -7,7 +7,7 @@ const config = {
   configurationApiUrlV1: process.env.CONFIGURATION_API_URL_V1 || "",
   contactDetailsApiUrlV1: process.env.CONTACT_DETAILS_API_URL_V1 || "/api/v1",
   contactDetailsApiUrlV2: process.env.CONTACT_DETAILS_API_URL_V2 || "/api/v2",
-  discretionaryApiUrlV1: process.env.DISCRETIONARY_API_URL_V1 || "/api/v1",
+  cautionaryApiUrlV1: process.env.CAUTIONARY_API_URL_V1 || "/api/v1",
   personApiUrlV1: process.env.PERSON_API_URL_V1 || "/api/v1",
   personApiUrlV2: process.env.PERSON_API_URL_V2 || "/api/v2",
   notesApiUrlV1: process.env.NOTES_API_URL_V1 || "/api/v1",
