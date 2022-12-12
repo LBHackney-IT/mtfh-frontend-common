@@ -111,7 +111,7 @@ const locale = {
       W58: "You must remove numbers and special characters to proceed e.g. 0-9 and #@%$",
     },
     defaultCautionaryAlerts: {
-      VA: "Verbal Abuse",
+      "10‑10": "Verbal abuse",
     },
   },
 };
