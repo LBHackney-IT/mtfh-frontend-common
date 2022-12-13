@@ -37,7 +37,7 @@ export type PostCautionaryAlertRequestData = Pick<Alert, "assureReference"> & {
     code: string;
     description: string;
   };
-  assetDetails: Pick<TenureSummary, "propertyReference" | "uprn"> & {
+  assetDetails?: Pick<TenureSummary, "propertyReference" | "uprn"> & {
     id: string;
     fullAddress: string;
   };
