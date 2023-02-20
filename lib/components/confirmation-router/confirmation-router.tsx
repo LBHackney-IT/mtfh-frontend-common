@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, useCallback, useState } from "react";
+import React, { Dispatch, FC, useCallback, useState, PropsWithChildren } from "react";
 import { BrowserRouter, BrowserRouterProps, matchPath } from "react-router-dom";
 
 import { Button } from "../button";
@@ -14,7 +14,7 @@ interface ConfirmationMessage {
   body?: string;
 }
 
-export const ConfirmationRouter: FC<BrowserRouterProps> = ({
+export const ConfirmationRouter: FC<PropsWithChildren<BrowserRouterProps>> = ({
   children,
   ...props
 }): JSX.Element => {
