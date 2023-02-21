@@ -14,7 +14,7 @@ interface SearchAddressResponse {
 
 export const getAddressViaUprn = (UPRN: string): Promise<SearchAddressResponse> =>
   axiosInstance
-    .get<AddressAPIv2Response>(`${config.addressApiUrlV2}/addresses?uprn=${UPRN}`, {
+    .get<AddressAPIv2Response>(`${config.addressApiUrlV2}/addresses/${UPRN}`, {
       headers: {
         "skip-x-correlation-id": true,
       },
@@ -32,7 +32,7 @@ export const useAddressLookupUprn = (
   options: AxiosSWRConfiguration<AddressAPIv2Response> = {},
 ) => {
   return useAxiosSWR<AddressAPIv2Response>(
-    uprn ? `${config.addressApiUrlV2}/addresses?uprn=${uprn}` : null,
+    uprn ? `${config.addressApiUrlV2}/addresses/${uprn}` : null,
     {
       ...options,
       timeout: 5000,
