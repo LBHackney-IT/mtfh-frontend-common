@@ -148,16 +148,17 @@ vars. Like:
 ```AUTH_ALLOWED_GROUPS=saml-aws-mtfh-developer
 CONFIGURATION_API_URL_V1=https://api-url.com/api/v1
 CONTACT_DETAILS_API_URL_V1=https://api-url.com/api/v1
-CONTACT_DETAILS_API_URL_V2=https://api-url.com/api/v1
+CONTACT_DETAILS_API_URL_V2=https://api-url.com/api/v2
 REFERENCE_DATA_API_URL_V1=https://api-url.com/api/v1
 TENURE_API_URL_V1=https://api-url.com/api/v1
 NOTES_API_URL_V1=https://api-url.com/api/v1
-NOTES_API_URL_V2=https://api-url.com/api/v1
+NOTES_API_URL_V2=https://api-url.com/api/v2
 PERSON_API_URL_V1=https://api-url.com/api/v1
-PERSON_API_URL_V2=https://api-url.com/api/v1
+PERSON_API_URL_V2=https://api-url.com/api/v2
 PROPERTY_API_URL_V1=https://api-url.com/api/v1
 LOGGING_API_URL_V1=https://api-url.com/api/v1
 ADDRESS_API_URL_V1=https://api-url.com/api/v1
+ADDRESS_API_URL_V2=https://api-url.com/api/v2
 EQUALITY_INFORMATION_API_URL_V1=https://api-url.com/api/v1
 ```
 
