@@ -3,7 +3,7 @@ import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/
 
 import type { Address } from "./types";
 
-interface AddressAPIResponse {
+export interface AddressAPIResponse {
   data: { address: Address[] };
 }
 
@@ -12,8 +12,8 @@ interface SearchAddressResponse {
   error?: { code: number };
 }
 
-export const searchAddress = (postCode: string): Promise<SearchAddressResponse> =>
-  axiosInstance
+export const searchAddress = async (postCode: string): Promise<SearchAddressResponse> =>
+  await axiosInstance
     .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?postcode=${postCode}`, {
       headers: {
         "skip-x-correlation-id": true,
@@ -27,8 +27,8 @@ export const searchAddress = (postCode: string): Promise<SearchAddressResponse> 
       return res;
     });
 
-export const getAddressViaUprn = (UPRN: string): Promise<SearchAddressResponse> =>
-  axiosInstance
+export const getAddressViaUprn = async (UPRN: string): Promise<SearchAddressResponse> =>
+  await axiosInstance
     .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${UPRN}`, {
       headers: {
         "skip-x-correlation-id": true,
