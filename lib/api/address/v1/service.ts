@@ -13,7 +13,7 @@ interface SearchAddressResponse {
 }
 
 export const searchAddress = async (postCode: string): Promise<SearchAddressResponse> =>
-  await axiosInstance
+  axiosInstance
     .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?postcode=${postCode}`, {
       headers: {
         "skip-x-correlation-id": true,
@@ -28,7 +28,7 @@ export const searchAddress = async (postCode: string): Promise<SearchAddressResp
     });
 
 export const getAddressViaUprn = async (UPRN: string): Promise<SearchAddressResponse> =>
-  await axiosInstance
+  axiosInstance
     .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${UPRN}`, {
       headers: {
         "skip-x-correlation-id": true,
