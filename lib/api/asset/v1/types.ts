@@ -14,15 +14,16 @@ export interface Asset {
   rootAsset: string;
   parentAssetIds: string;
   patches?: Patch[];
+  versionNumber?: number
 }
 
-interface AssetLocation {
+export interface AssetLocation {
   floorNo: number;
   totalBlockFloors: number;
   parentAssets: Assets[];
 }
 
-interface Assets {
+export interface Assets {
   type: string;
   id: string;
   name: string;
