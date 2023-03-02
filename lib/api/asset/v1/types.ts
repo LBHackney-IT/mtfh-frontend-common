@@ -14,7 +14,7 @@ export interface Asset {
   rootAsset: string;
   parentAssetIds: string;
   patches?: Patch[];
-  versionNumber?: number
+  versionNumber?: number;
 }
 
 export interface AssetLocation {

@@ -1,8 +1,8 @@
 import { config } from "@mtfh/common/lib/config";
 import {
-  axiosInstance,
   AxiosSWRConfiguration,
   AxiosSWRResponse,
+  axiosInstance,
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
@@ -15,13 +15,16 @@ export const useAsset = (
   return useAxiosSWR(id && `${config.assetApiUrlV1}/assets/${id}`, options);
 };
 
-export const patchAsset = async (id: string, assetAddress: AssetAddress, assetVersion: string): Promise<void> => {
-  await axiosInstance.patch(
-    `${config.assetApiUrlV1}/assets/${id}/address`,
-    assetAddress, {
+export const patchAsset = async (
+  id: string,
+  assetAddress: AssetAddress,
+  assetVersion: string,
+): Promise<void> => {
+  await axiosInstance
+    .patch(`${config.assetApiUrlV1}/assets/${id}/address`, assetAddress, {
       headers: {
         "If-Match": assetVersion,
       },
-    }
-  ).catch(error => error);
+    })
+    .catch((error) => error);
 };
