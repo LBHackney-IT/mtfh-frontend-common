@@ -65,3 +65,7 @@ export interface AssetTenure {
   endOfTenureDate: string;
   isActive: boolean;
 }
+
+export interface EditAssetAddressRequest {
+  assetAddress: AssetAddress;
+}
