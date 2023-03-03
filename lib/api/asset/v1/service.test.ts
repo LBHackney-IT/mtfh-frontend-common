@@ -2,7 +2,7 @@ import { config } from "@mtfh/common/lib/config";
 import { axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
 
 import { patchAsset, useAsset } from "./service";
-import { Asset, AssetAddress } from "./types";
+import { Asset, EditAssetAddressRequest } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -14,14 +14,16 @@ jest.mock("@mtfh/common/lib/http", () => ({
 test("patchAsset: the API is called with the right parameters", async () => {
   const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
   const assetVersion = "3";
-  const assetAddress: AssetAddress = {
-    uprn: "100021045676",
-    addressLine1: "FLAT B",
-    addressLine2: "51 GREENWOOD ROAD",
-    addressLine3: "HACKNEY",
-    addressLine4: "LONDON",
-    postCode: "E8 1NT",
-    postPreamble: "",
+  const assetAddress: EditAssetAddressRequest = {
+    assetAddress: {
+      uprn: "100021045676",
+      addressLine1: "FLAT B",
+      addressLine2: "51 GREENWOOD ROAD",
+      addressLine3: "HACKNEY",
+      addressLine4: "LONDON",
+      postCode: "E8 1NT",
+      postPreamble: "",
+    },
   };
 
   patchAsset(assetGuid, assetAddress, assetVersion);
