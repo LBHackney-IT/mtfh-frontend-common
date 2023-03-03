@@ -67,5 +67,5 @@ export interface AssetTenure {
 }
 
 export interface EditAssetAddressRequest {
-  assetAddress: AssetAddress
+  assetAddress: AssetAddress;
 }
