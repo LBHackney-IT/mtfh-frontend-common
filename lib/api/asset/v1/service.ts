@@ -20,7 +20,7 @@ export const patchAsset = async (
   assetAddress: AssetAddress,
   assetVersion: string,
 ): Promise<void> => {
-  new Promise<void>(async (resolve, reject) => {
+  return new Promise<void>(async (resolve, reject) => {
     await axiosInstance
       .patch(`${config.assetApiUrlV1}/assets/${id}/address`, assetAddress, {
         headers: {
