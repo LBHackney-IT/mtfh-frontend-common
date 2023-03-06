@@ -20,13 +20,14 @@ export const patchAsset = async (
   assetAddress: EditAssetAddressRequest,
   assetVersion: string,
 ): Promise<void> => {
-  return new Promise<void>((reject) => {
+  return new Promise<void>((resolve, reject) => {
     axiosInstance
       .patch(`${config.assetApiUrlV1}/assets/${id}/address`, assetAddress, {
         headers: {
           "If-Match": assetVersion,
         },
       })
-      .catch((error) => reject(error));
+      .then(() => resolve())
+      .catch(() => reject());
   });
 };
