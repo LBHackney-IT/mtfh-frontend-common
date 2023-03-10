@@ -1,5 +1,5 @@
 {
-  "name": "@mtfh/common",
+  "name": "mtfh-common",
   "version": "0.0.1",
   "main": "lib/mtfh-common.tsx",
   "scripts": {
