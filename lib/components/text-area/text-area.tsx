@@ -75,10 +75,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
   );
 
   const messageClasses = classNames(
-    { "govuk-hint": exceedingValue !== false && exceedingValue >= 0 },
+    { "govuk-hint": exceedingValue >= 0 },
     "govuk-character-count__message",
     {
-      "govuk-error-message": exceedingValue !== false && exceedingValue < 0,
+      "govuk-error-message": exceedingValue < 0,
     },
     widthOverrides(override),
   );
@@ -91,7 +91,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function 
         onChange={onChangeHandler}
         {...props}
       />
-      {maxLength !== undefined && exceedingValue !== false && (
+      {maxLength !== undefined && (
         <span className={messageClasses} aria-live="polite">
           {exceedingValue >= 0
             ? `You have ${exceedingValue} ${pluralize(

@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject } from "rxjs";
 
-import { config } from "@mtfh/common/lib/config";
+import { config } from "../config";
 
 export interface JWTPayload {
   sub: string;

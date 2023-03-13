@@ -21,7 +21,7 @@ import {
 import type { Tenure } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
-  ...jest.requireActual("@mtfh/common/lib/http"),
+  // ...jest.requireActual("@mtfh/common/lib/http"),
   axiosInstance: { patch: jest.fn(), post: jest.fn(), delete: jest.fn() },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),

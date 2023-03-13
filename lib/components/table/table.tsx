@@ -5,7 +5,7 @@ import cn from "classnames";
 import "./styles.scss";
 
 export type TableProps = ComponentPropsWithoutRef<"table">;
-export const Table = forwardRef<HTMLTableElement, TableProps>(function Thead(
+export const Table: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableElement, TableProps>(function Thead(
   { className, ...props },
   ref,
 ) {
@@ -15,7 +15,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(function Thead(
 });
 
 export type TheadProps = ComponentPropsWithoutRef<"thead">;
-export const Thead = forwardRef<HTMLTableSectionElement, TheadProps>(function Thead(
+export const Thead: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableSectionElement, TheadProps>(function Thead(
   { className, ...props },
   ref,
 ) {
@@ -23,7 +23,7 @@ export const Thead = forwardRef<HTMLTableSectionElement, TheadProps>(function Th
 });
 
 export type TbodyProps = ComponentPropsWithoutRef<"tbody">;
-export const Tbody = forwardRef<HTMLTableSectionElement, TbodyProps>(function Tbody(
+export const Tbody: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableSectionElement, TbodyProps>(function Tbody(
   { className, ...props },
   ref,
 ) {
@@ -31,7 +31,7 @@ export const Tbody = forwardRef<HTMLTableSectionElement, TbodyProps>(function Tb
 });
 
 export type TrProps = ComponentPropsWithoutRef<"tr">;
-export const Tr = forwardRef<HTMLTableRowElement, TrProps>(function Tr(
+export const Tr: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableRowElement, TrProps>(function Tr(
   { className, ...props },
   ref,
 ) {

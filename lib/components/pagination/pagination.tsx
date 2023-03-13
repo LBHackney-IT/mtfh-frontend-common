@@ -27,7 +27,7 @@ export const Pagination = forwardRef<HTMLElement, PaginationProps>(function Pagi
   );
 });
 
-export const PaginationControls = forwardRef<
+export const PaginationControls: (props: any, ref: any) => JSX.Element = forwardRef<
   HTMLUListElement,
   ComponentPropsWithoutRef<"ul">
 >(function PaginationControls({ className, children, ...props }, ref) {
@@ -41,7 +41,7 @@ export const PaginationControls = forwardRef<
   );
 });
 
-export const PaginationSummary = forwardRef<
+export const PaginationSummary: (props: any, ref: any) => JSX.Element = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
 >(function PaginationSummary({ className, ...props }, ref) {

@@ -1,11 +1,11 @@
-import { config } from "@mtfh/common/lib/config";
-import { axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
+import { config } from "../../../config";
+import { axiosInstance, useAxiosSWR } from "../../../http";
 
 import { patchAsset, useAsset } from "./service";
 import { Asset, EditAssetAddressRequest } from "./types";
 
-jest.mock("@mtfh/common/lib/http", () => ({
-  ...jest.requireActual("@mtfh/common/lib/http"),
+jest.mock("../../../http", () => ({
+  // ...jest.requireActual("../../../http"),
   axiosInstance: { patch: jest.fn() },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),

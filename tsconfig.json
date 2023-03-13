@@ -1,14 +1,43 @@
 {
-  "extends": "ts-config-single-spa",
+  // "extends": "ts-config-single-spa",
   "include": ["lib/**/*"],
   "compilerOptions": {
-    "strict": true,
+    "strict": false,
     "jsx": "react",
     "target": "es2016",
+    // "declaration": true,
     "baseUrl": "lib",
     "esModuleInterop": true,
     "paths": {
       "@mtfh/common/lib/*": ["*"]
-    }
+    },
+    // "paths": {
+    //   "@mtfh/common/lib/*": ["*"]
+    // },
+
+    // "outDir": "./dist/",
+    "noImplicitAny": false,
+    // "module": "es6",
+    // "target": "es5",
+    // "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "node",
+
+    // "module": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015",
+      "es2015.promise",
+      "es2016.array.include",
+      "es2018"
+    ],
+    "declaration": true,
+    // "emitDeclarationOnly": true
+
+
   }
 }

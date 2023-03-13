@@ -1,5 +1,5 @@
-import { config } from "@mtfh/common/lib/config";
-import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
+import { config } from "../../../config";
+import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "../../../http";
 
 import {
   AddressAPIResponse,
@@ -10,7 +10,7 @@ import {
 import { Address } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
-  ...jest.requireActual("@mtfh/common/lib/http"),
+  // ...jest.requireActual("@mtfh/common/lib/http"),
   axiosInstance: { get: jest.fn() },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),

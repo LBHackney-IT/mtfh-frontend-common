@@ -50,7 +50,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   );
 });
 
-export const CheckboxConditional = forwardRef<
+
+export const CheckboxConditional: (props: any, ref: any) => JSX.Element = forwardRef<
   HTMLDivElement,
   ComponentPropsWithoutRef<"div">
 >(function CheckboxConditional(props, ref) {
@@ -62,6 +63,19 @@ export const CheckboxConditional = forwardRef<
     />
   );
 });
+
+// (props: any, ref: any) => JSX.Element
+
+// export const CheckboxConditional = function CheckboxConditional(props, ref) {
+  // return (
+  //   <div
+  //     ref={ref}
+  //     className="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+  //     {...props}
+  //   />
+  // )
+  // }
+
 
 export interface CheckboxGroupProps extends ComponentPropsWithoutRef<"div"> {
   variant?: "base" | "small";
