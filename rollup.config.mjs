@@ -8,7 +8,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import json from 'rollup-plugin-json';
 // const packageJson = require("./package.json");
 import typescript from 'rollup-plugin-typescript2'
-
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
@@ -40,6 +40,7 @@ export default [
                 clean: true,
               }),
             terser(),
+            nodePolyfills(),
             json({
                 // All JSON files will be parsed by default,
                 // but you can also specifically include/exclude files
