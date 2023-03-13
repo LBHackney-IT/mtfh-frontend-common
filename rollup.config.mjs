@@ -12,8 +12,9 @@ import nodePolyfills from 'rollup-plugin-node-polyfills';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
-// import packageJson from './package'
+
 
 export default [
     {
@@ -40,7 +41,8 @@ export default [
                 clean: true,
               }),
             terser(),
-            nodePolyfills(),
+            // nodePolyfills(),
+            nodeResolve(),
             json({
                 // All JSON files will be parsed by default,
                 // but you can also specifically include/exclude files
