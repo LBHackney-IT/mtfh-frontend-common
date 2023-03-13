@@ -5,7 +5,7 @@ import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 // rollup.config.js
-import json from 'rollup-plugin-json';
+// import json from 'rollup-plugin-json';
 // const packageJson = require("./package.json");
 import typescript from 'rollup-plugin-typescript2'
 // import nodePolyfills from 'rollup-plugin-node-polyfills';
@@ -13,7 +13,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-
+import json from '@rollup/plugin-json';
 
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 
@@ -41,10 +41,9 @@ export default [
                 rollupCommonJSResolveHack: false,
                 clean: true,
               }),
-            terser(),
+            // terser(),
             // nodePolyfills(),
             // nodeResolve(),
-            nodePolyfills( /* options */ ),
             json({
                 // All JSON files will be parsed by default,
                 // but you can also specifically include/exclude files
@@ -64,7 +63,8 @@ export default [
           
                 // generate a named export for every property of the JSON object
                 namedExports: true // Default: true
-              })
+              }),
+              nodePolyfills( /* options */ )
         ],
         external: ["react", "react-dom", "styled-components"]
     },
