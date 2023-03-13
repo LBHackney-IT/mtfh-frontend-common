@@ -116,6 +116,7 @@
     "query-string": "^7.0.1",
     "react-merge-refs": "^1.1.0",
     "react-router-dom": "5.2.0",
+    "rollup-plugin-polyfill-node": "^0.12.0",
     "rollup-plugin-typescript2": "^0.34.1",
     "rxjs": "^7.0.1",
     "single-spa": "^5.9.3",

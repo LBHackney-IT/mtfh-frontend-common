@@ -8,13 +8,14 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import json from 'rollup-plugin-json';
 // const packageJson = require("./package.json");
 import typescript from 'rollup-plugin-typescript2'
-import nodePolyfills from 'rollup-plugin-node-polyfills';
+// import nodePolyfills from 'rollup-plugin-node-polyfills';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const packageJson = require("./package.json");
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 export default [
     {
@@ -42,7 +43,8 @@ export default [
               }),
             terser(),
             // nodePolyfills(),
-            nodeResolve(),
+            // nodeResolve(),
+            nodePolyfills( /* options */ ),
             json({
                 // All JSON files will be parsed by default,
                 // but you can also specifically include/exclude files
