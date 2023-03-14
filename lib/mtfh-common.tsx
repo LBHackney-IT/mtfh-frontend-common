@@ -10,7 +10,7 @@ export * from "./configuration";
 export * from "./context";
 // export * from "./hooks"
 export * from "./components";
-export { Alert, ErrorSummary, TimeInput } from "./components"
+// export { Alert, ErrorSummary, TimeInput } from "./components"
 
 // export { Alert } from './components/alert/alert'
 // export { ErrorSummary } from './components/error-summary/error-summary'
