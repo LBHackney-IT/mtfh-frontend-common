@@ -1,5 +1,9 @@
 import "./mtfh-common.css";
 import $kr0JH$axios from "axios";
+import {v4 as $kr0JH$v4} from "uuid";
+import $kr0JH$jscookie from "js-cookie";
+import $kr0JH$jwtdecode from "jwt-decode";
+import {BehaviorSubject as $kr0JH$BehaviorSubject} from "rxjs";
 import $kr0JH$swr from "swr";
 import $kr0JH$swrinfinite from "swr/infinite";
 import {jsxs as $kr0JH$jsxs, jsx as $kr0JH$jsx} from "react/jsx-runtime";
@@ -8,44 +12,120 @@ import $kr0JH$classnames from "classnames";
 
 // export { axiosInstance } from './http/http'
 
+
+
+
+
+const $359379e3835f5ff6$var$config = {
+    appEnv: "development",
+    authAllowedGroups: "saml-aws-mtfh-developer,e2e-testing-development,Security_Testing,mmh-project-team,mmh-general-user-access"?.split(",") || [
+        "TEST_GROUP"
+    ],
+    authDomain: "//auth.hackney.gov.uk/auth",
+    cookieDomain: "hackney.gov.uk",
+    authToken: "hackneyToken",
+    configurationApiUrlV1: "https://a9nuohv61k.execute-api.eu-west-2.amazonaws.com/development",
+    contactDetailsApiUrlV1: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    contactDetailsApiUrlV2: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    cautionaryApiUrlV1: "https://wv694tecog.execute-api.eu-west-2.amazonaws.com/staging/api/v1",
+    personApiUrlV1: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    personApiUrlV2: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    notesApiUrlV1: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    notesApiUrlV2: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    tenureApiUrlV1: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    assetApiUrlV1: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    referenceDataApiUrlV1: "https://wu66106de1.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    addressApiUrlV1: "https://6kb2p9kgb0.execute-api.eu-west-2.amazonaws.com/production/api/v1",
+    addressApiUrlV2: "/api/v2",
+    equalityInformationApiUrlV1: "https://rgq79ov75i.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    repairsHubAppUrl: "https://repairs-hub-development.hackney.gov.uk",
+    repairsHubApiUrl: "https://1oxvkycnmc.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    processApiUrlV1: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    processApiUrlV2: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v2"
+};
+var $359379e3835f5ff6$export$2e2bcd8739ae039 = $359379e3835f5ff6$var$config;
+
+
+
+
+const $6f8b946ffabfebb4$var$voidUser = {
+    token: "",
+    sub: "",
+    email: "",
+    iss: "",
+    name: "",
+    groups: [],
+    iat: Number.NaN
+};
+const $6f8b946ffabfebb4$var$parseToken = ()=>{
+    const token = (0, $kr0JH$jscookie).get((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authToken) || null;
+    if (!token) return $6f8b946ffabfebb4$var$voidUser;
+    try {
+        const decodedToken = (0, $kr0JH$jwtdecode)(token);
+        return {
+            ...decodedToken,
+            token: token
+        };
+    } catch  {
+        return $6f8b946ffabfebb4$var$voidUser;
+    }
+};
+const $6f8b946ffabfebb4$export$94f900a053ab5369 = new (0, $kr0JH$BehaviorSubject)($6f8b946ffabfebb4$var$parseToken());
+const $6f8b946ffabfebb4$export$ef9b508a7de1e84d = ()=>{
+    $6f8b946ffabfebb4$export$94f900a053ab5369.next($6f8b946ffabfebb4$var$parseToken());
+};
+const $6f8b946ffabfebb4$export$aa1859fa13b5bc66 = (groups)=>{
+    const auth = $6f8b946ffabfebb4$export$94f900a053ab5369.getValue();
+    return groups.some((group)=>auth.groups.includes(group));
+};
+const $6f8b946ffabfebb4$export$a985eb0635740fe9 = ()=>$6f8b946ffabfebb4$export$aa1859fa13b5bc66((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authAllowedGroups);
+const $6f8b946ffabfebb4$export$a0973bcfe11b05c9 = ()=>{
+    $6f8b946ffabfebb4$export$94f900a053ab5369.next($6f8b946ffabfebb4$var$voidUser);
+    (0, $kr0JH$jscookie).remove((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authToken, {
+        domain: (0, $359379e3835f5ff6$export$2e2bcd8739ae039).cookieDomain
+    });
+    window.location.reload();
+};
+const $6f8b946ffabfebb4$export$596d806903d1f59e = (redirectUrl = `${window.location.origin}/search`)=>{
+    $6f8b946ffabfebb4$export$a0973bcfe11b05c9();
+    window.location.href = `${(0, $359379e3835f5ff6$export$2e2bcd8739ae039).authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`;
+};
+
+
+
+
 const $31c17c4cc7aaa36d$export$155ec85c4e3b5e85 = (0, $kr0JH$axios).create({
     responseType: "json"
-}); // axiosInstance.interceptors.request.use((reqConfig) => {
- //   const req: Config = {
- //     ...reqConfig,
- //     headers: {
- //       ...reqConfig.headers,
- //       Authorization: `Bearer ${$auth.getValue().token}`,
- //       ...(reqConfig.headers["skip-x-correlation-id"]
- //         ? {}
- //         : { "x-correlation-id": uuid() }),
- //     },
- //   };
- //   delete req.headers["skip-x-correlation-id"];
- //   if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
- //     req.headers["If-Match"] = req.data.etag;
- //     delete req.data.etag;
- //   }
- //   return req;
- // });
- // axiosInstance.interceptors.response.use(
- //   (res) => {
- //     if (res.config.method === "get" && res.data?.id) {
- //       res.data.etag = res.headers.etag;
- //     }
- //     return res;
- //   },
- //   (error: AxiosError) => {
- //     if (error.response?.status === 403) {
- //       if (isAuthorised()) {
- //         logout();
- //       }
- //     }
- //     throw error;
- //   },
- // );
- // export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
- // export const isAxiosError = (e: unknown): e is AxiosError => axios.isAxiosError(e);
+});
+$31c17c4cc7aaa36d$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>{
+    const req = {
+        ...reqConfig,
+        headers: {
+            ...reqConfig.headers,
+            Authorization: `Bearer ${(0, $6f8b946ffabfebb4$export$94f900a053ab5369).getValue().token}`,
+            ...reqConfig.headers["skip-x-correlation-id"] ? {} : {
+                "x-correlation-id": (0, $kr0JH$v4)()
+            }
+        }
+    };
+    delete req.headers["skip-x-correlation-id"];
+    if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
+        req.headers["If-Match"] = req.data.etag;
+        delete req.data.etag;
+    }
+    return req;
+});
+$31c17c4cc7aaa36d$export$155ec85c4e3b5e85.interceptors.response.use((res)=>{
+    if (res.config.method === "get" && res.data?.id) res.data.etag = res.headers.etag;
+    return res;
+}, (error)=>{
+    if (error.response?.status === 403) {
+        if ((0, $6f8b946ffabfebb4$export$a985eb0635740fe9)()) (0, $6f8b946ffabfebb4$export$a0973bcfe11b05c9)();
+    }
+    throw error;
+});
+const $31c17c4cc7aaa36d$export$a9a71abd6e0b56fe = ()=>(0, $kr0JH$axios).CancelToken.source();
+const $31c17c4cc7aaa36d$export$fbafdbe06a5b5a9a = (e)=>(0, $kr0JH$axios).isAxiosError(e);
 
 
 
