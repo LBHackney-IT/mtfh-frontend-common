@@ -1,14 +1,14 @@
-import "./mtfh-common.css";
-import $kr0JH$axios from "axios";
-import {v4 as $kr0JH$v4} from "uuid";
-import {forwardRef as $kr0JH$forwardRef} from "react";
-import $kr0JH$jscookie from "js-cookie";
-import $kr0JH$jwtdecode from "jwt-decode";
-import {BehaviorSubject as $kr0JH$BehaviorSubject} from "rxjs";
-import $kr0JH$swr from "swr";
-import $kr0JH$swrinfinite from "swr/infinite";
-import {jsxs as $kr0JH$jsxs, jsx as $kr0JH$jsx} from "react/jsx-runtime";
-import $kr0JH$classnames from "classnames";
+import "./main.css";
+import $2HdCV$axios from "axios";
+import {v4 as $2HdCV$v4} from "uuid";
+import {forwardRef as $2HdCV$forwardRef} from "react";
+import $2HdCV$jscookie from "js-cookie";
+import $2HdCV$jwtdecode from "jwt-decode";
+import {BehaviorSubject as $2HdCV$BehaviorSubject} from "rxjs";
+import $2HdCV$swr from "swr";
+import $2HdCV$swrinfinite from "swr/infinite";
+import {jsxs as $2HdCV$jsxs, jsx as $2HdCV$jsx} from "react/jsx-runtime";
+import $2HdCV$classnames from "classnames";
 
 // export { axiosInstance } from './http/http'
 
@@ -59,10 +59,10 @@ const $6f8b946ffabfebb4$var$voidUser = {
     iat: Number.NaN
 };
 const $6f8b946ffabfebb4$var$parseToken = ()=>{
-    const token = (0, $kr0JH$jscookie).get((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authToken) || null;
+    const token = (0, $2HdCV$jscookie).get((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authToken) || null;
     if (!token) return $6f8b946ffabfebb4$var$voidUser;
     try {
-        const decodedToken = (0, $kr0JH$jwtdecode)(token);
+        const decodedToken = (0, $2HdCV$jwtdecode)(token);
         return {
             ...decodedToken,
             token: token
@@ -71,7 +71,7 @@ const $6f8b946ffabfebb4$var$parseToken = ()=>{
         return $6f8b946ffabfebb4$var$voidUser;
     }
 };
-const $6f8b946ffabfebb4$export$94f900a053ab5369 = new (0, $kr0JH$BehaviorSubject)($6f8b946ffabfebb4$var$parseToken());
+const $6f8b946ffabfebb4$export$94f900a053ab5369 = new (0, $2HdCV$BehaviorSubject)($6f8b946ffabfebb4$var$parseToken());
 const $6f8b946ffabfebb4$export$ef9b508a7de1e84d = ()=>{
     $6f8b946ffabfebb4$export$94f900a053ab5369.next($6f8b946ffabfebb4$var$parseToken());
 };
@@ -82,7 +82,7 @@ const $6f8b946ffabfebb4$export$aa1859fa13b5bc66 = (groups)=>{
 const $6f8b946ffabfebb4$export$a985eb0635740fe9 = ()=>$6f8b946ffabfebb4$export$aa1859fa13b5bc66((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authAllowedGroups);
 const $6f8b946ffabfebb4$export$a0973bcfe11b05c9 = ()=>{
     $6f8b946ffabfebb4$export$94f900a053ab5369.next($6f8b946ffabfebb4$var$voidUser);
-    (0, $kr0JH$jscookie).remove((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authToken, {
+    (0, $2HdCV$jscookie).remove((0, $359379e3835f5ff6$export$2e2bcd8739ae039).authToken, {
         domain: (0, $359379e3835f5ff6$export$2e2bcd8739ae039).cookieDomain
     });
     window.location.reload();
@@ -95,7 +95,7 @@ const $6f8b946ffabfebb4$export$596d806903d1f59e = (redirectUrl = `${window.locat
 
 
 
-const $6c736a18ee080817$export$155ec85c4e3b5e85 = (0, $kr0JH$axios).create({
+const $6c736a18ee080817$export$155ec85c4e3b5e85 = (0, $2HdCV$axios).create({
     responseType: "json"
 });
 $6c736a18ee080817$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>{
@@ -105,7 +105,7 @@ $6c736a18ee080817$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>
             ...reqConfig.headers,
             Authorization: `Bearer ${(0, $6f8b946ffabfebb4$export$94f900a053ab5369).getValue().token}`,
             ...reqConfig.headers["skip-x-correlation-id"] ? {} : {
-                "x-correlation-id": (0, $kr0JH$v4)()
+                "x-correlation-id": (0, $2HdCV$v4)()
             }
         }
     };
@@ -125,19 +125,19 @@ $6c736a18ee080817$export$155ec85c4e3b5e85.interceptors.response.use((res)=>{
     }
     throw error;
 });
-const $6c736a18ee080817$export$a9a71abd6e0b56fe = ()=>(0, $kr0JH$axios).CancelToken.source();
-const $6c736a18ee080817$export$fbafdbe06a5b5a9a = (e)=>(0, $kr0JH$axios).isAxiosError(e);
+const $6c736a18ee080817$export$a9a71abd6e0b56fe = ()=>(0, $2HdCV$axios).CancelToken.source();
+const $6c736a18ee080817$export$fbafdbe06a5b5a9a = (e)=>(0, $2HdCV$axios).isAxiosError(e);
 
 
 
 
 
 const $88fa3d186dcadbc0$export$91375b104025299 = (options = {})=>(url)=>(0, $6c736a18ee080817$export$155ec85c4e3b5e85).get(url, options).then((res)=>res.data);
-const $88fa3d186dcadbc0$export$a84fc53129590f47 = (key, options = {})=>(0, $kr0JH$swr)(key, $88fa3d186dcadbc0$export$91375b104025299(options), {
+const $88fa3d186dcadbc0$export$a84fc53129590f47 = (key, options = {})=>(0, $2HdCV$swr)(key, $88fa3d186dcadbc0$export$91375b104025299(options), {
         shouldRetryOnError: false,
         ...options
     });
-const $88fa3d186dcadbc0$export$18b3a6cf21214f90 = (key, options = {})=>(0, $kr0JH$swrinfinite)(key, $88fa3d186dcadbc0$export$91375b104025299(options), options);
+const $88fa3d186dcadbc0$export$18b3a6cf21214f90 = (key, options = {})=>(0, $2HdCV$swrinfinite)(key, $88fa3d186dcadbc0$export$91375b104025299(options), options);
 
 
 
@@ -150,11 +150,11 @@ const $88fa3d186dcadbc0$export$18b3a6cf21214f90 = (key, options = {})=>(0, $kr0J
 
 
 
-const $c3b0cb676fa5b786$export$f04a61298a47a40f = /*#__PURE__*/ (0, $kr0JH$forwardRef)(function Icon({ width: width , height: height , color: color , className: className , size: size = "1em" , focusable: focusable = false , ...props }, ref) {
-    const iconClasses = (0, $kr0JH$classnames)("mtfh-icon", className);
+const $c3b0cb676fa5b786$export$f04a61298a47a40f = /*#__PURE__*/ (0, $2HdCV$forwardRef)(function Icon({ width: width , height: height , color: color , className: className , size: size = "1em" , focusable: focusable = false , ...props }, ref) {
+    const iconClasses = (0, $2HdCV$classnames)("mtfh-icon", className);
     const style = {};
     if (color && color !== "currentColor") style.color = color;
-    return /*#__PURE__*/ (0, $kr0JH$jsx)("svg", {
+    return /*#__PURE__*/ (0, $2HdCV$jsx)("svg", {
         ref: ref,
         className: iconClasses,
         width: width || size,
@@ -168,21 +168,21 @@ const $c3b0cb676fa5b786$export$f04a61298a47a40f = /*#__PURE__*/ (0, $kr0JH$forwa
 
 
 
-const $5c7455bce6186693$export$caec2af78bcc877f = /*#__PURE__*/ (0, $kr0JH$forwardRef)(function Spinner({ size: size = "24" , ...props }, ref) {
-    return /*#__PURE__*/ (0, $kr0JH$jsxs)((0, $c3b0cb676fa5b786$export$f04a61298a47a40f), {
+const $5c7455bce6186693$export$caec2af78bcc877f = /*#__PURE__*/ (0, $2HdCV$forwardRef)(function Spinner({ size: size = "24" , ...props }, ref) {
+    return /*#__PURE__*/ (0, $2HdCV$jsxs)((0, $c3b0cb676fa5b786$export$f04a61298a47a40f), {
         ref: ref,
         size: size,
         ...props,
         children: [
-            /*#__PURE__*/ (0, $kr0JH$jsx)("path", {
+            /*#__PURE__*/ (0, $2HdCV$jsx)("path", {
                 d: "M16.5 42.6212C18.7688 42.6212 20.625 40.7605 20.625 38.4863H12.375C12.375 40.7605 14.2312 42.6212 16.5 42.6212Z",
                 fill: "#BE3A34"
             }),
-            /*#__PURE__*/ (0, $kr0JH$jsx)("path", {
+            /*#__PURE__*/ (0, $2HdCV$jsx)("path", {
                 d: "M28.875 30.2225V19.8849C28.875 13.5376 25.5131 8.22412 19.5938 6.81821V5.4123C19.5938 3.69627 18.2119 2.31104 16.5 2.31104C14.7881 2.31104 13.4062 3.69627 13.4062 5.4123V6.81821C7.5075 8.22412 4.125 13.517 4.125 19.8849V30.2225L0 34.3575V36.425H33V34.3575L31.1268 32.4797L28.875 30.2225Z",
                 fill: "#BE3A34"
             }),
-            /*#__PURE__*/ (0, $kr0JH$jsx)("path", {
+            /*#__PURE__*/ (0, $2HdCV$jsx)("path", {
                 d: "M17.5808 25.7373H15.4363L14.988 17.1504H18.0291L17.5808 25.7373ZM14.9529 28.7432C14.9529 28.1924 15.1023 27.8057 15.4011 27.583C15.7058 27.3604 16.072 27.249 16.4998 27.249C16.9158 27.249 17.2732 27.3604 17.572 27.583C17.8767 27.8057 18.0291 28.1924 18.0291 28.7432C18.0291 29.2705 17.8767 29.6514 17.572 29.8857C17.2732 30.1201 16.9158 30.2373 16.4998 30.2373C16.072 30.2373 15.7058 30.1201 15.4011 29.8857C15.1023 29.6514 14.9529 29.2705 14.9529 28.7432Z",
                 fill: "white"
             })
@@ -194,34 +194,34 @@ const $5c7455bce6186693$export$caec2af78bcc877f = /*#__PURE__*/ (0, $kr0JH$forwa
 
 
 
-const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $kr0JH$forwardRef)(function Spinner({ size: size = "50" , label: label = "Loading..." , ...props }, ref) {
-    return /*#__PURE__*/ (0, $kr0JH$jsxs)((0, $c3b0cb676fa5b786$export$f04a61298a47a40f), {
+const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $2HdCV$forwardRef)(function Spinner({ size: size = "50" , label: label = "Loading..." , ...props }, ref) {
+    return /*#__PURE__*/ (0, $2HdCV$jsxs)((0, $c3b0cb676fa5b786$export$f04a61298a47a40f), {
         ref: ref,
         viewBox: "0 0 42 42",
         stroke: "#00703c",
         size: size,
         ...props,
         children: [
-            /*#__PURE__*/ (0, $kr0JH$jsx)("title", {
+            /*#__PURE__*/ (0, $2HdCV$jsx)("title", {
                 children: label
             }),
-            /*#__PURE__*/ (0, $kr0JH$jsx)("g", {
+            /*#__PURE__*/ (0, $2HdCV$jsx)("g", {
                 fill: "none",
                 fillRule: "evenodd",
-                children: /*#__PURE__*/ (0, $kr0JH$jsxs)("g", {
+                children: /*#__PURE__*/ (0, $2HdCV$jsxs)("g", {
                     transform: "translate(3 3)",
                     strokeWidth: "5",
                     children: [
-                        /*#__PURE__*/ (0, $kr0JH$jsx)("circle", {
+                        /*#__PURE__*/ (0, $2HdCV$jsx)("circle", {
                             strokeOpacity: ".5",
                             cx: "18",
                             cy: "18",
                             r: "18"
                         }),
-                        /*#__PURE__*/ (0, $kr0JH$jsx)("path", {
+                        /*#__PURE__*/ (0, $2HdCV$jsx)("path", {
                             d: "M36 18c0-9.94-8.06-18-18-18",
                             transform: "rotate(112.708 18 18)",
-                            children: /*#__PURE__*/ (0, $kr0JH$jsx)("animateTransform", {
+                            children: /*#__PURE__*/ (0, $2HdCV$jsx)("animateTransform", {
                                 attributeName: "transform",
                                 type: "rotate",
                                 from: "0 18 18",
@@ -240,7 +240,7 @@ const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $kr0JH$forwar
 
 
 
-const $08398a1b9daf8edd$export$59e116b9e6c36e7f = ()=>/*#__PURE__*/ (0, $kr0JH$jsx)("button", {
+const $08398a1b9daf8edd$export$59e116b9e6c36e7f = ()=>/*#__PURE__*/ (0, $2HdCV$jsx)("button", {
         children: "Test Button"
     });
 
@@ -249,4 +249,4 @@ const $1c15e570107e2424$export$c7bd411105e2dec3 = "Callum";
 
 
 export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $6c736a18ee080817$export$155ec85c4e3b5e85 as axiosInstance, $5c7455bce6186693$export$caec2af78bcc877f as Alert, $146de147e9b0ec0a$export$7f7cbe89f1eacd2 as Spinner, $08398a1b9daf8edd$export$59e116b9e6c36e7f as TestButton};
-//# sourceMappingURL=mtfh-common.js.map
+//# sourceMappingURL=main.js.map

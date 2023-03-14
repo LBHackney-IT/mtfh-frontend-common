@@ -1,0 +1,1 @@
+{"mappings":"AAAA","sources":["lib/components/icon/styles.scss"],"sourcesContent":[".mtfh-icon {\n  display: inline-block;\n  color: currentColor;\n  line-height: 1em;\n  flex-shrink: 0;\n  vertical-align: middle;\n}\n"],"names":[],"version":3,"file":"main.css.map"}
