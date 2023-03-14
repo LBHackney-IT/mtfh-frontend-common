@@ -1,5 +1,5 @@
-@import "~lbh-frontend/lbh/base";
-@import "~lbh-frontend/lbh/components/lbh-fieldset/fieldset";
+@import "lbh-frontend/lbh/base";
+@import "lbh-frontend/lbh/components/lbh-fieldset/fieldset";
 
 .govuk-fieldset > .govuk-visually-hidden + .mtfh-fieldset__content {
   &,
