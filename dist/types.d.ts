@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 import { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { Key, SWRConfiguration, SWRResponse, mutate } from "swr";
 import { SWRInfiniteConfiguration, SWRInfiniteResponse } from "swr/infinite";
-import React, { ComponentPropsWithoutRef, ReactNode } from "react";
+import React, { ReactNode, ComponentPropsWithoutRef } from "react";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
 export function TestButton(): JSX.Element;
 export interface JWTPayload {
@@ -47,6 +47,47 @@ export const $configuration: BehaviorSubject<ConfigCollection>;
 export const getConfiguration: () => Promise<void>;
 export const getConfigItem: (path: string) => string;
 export const getFeatureToggle: (path: string) => boolean;
+export interface Booleans {
+    [key: string]: boolean;
+}
+export interface BooleanContextProviderProps {
+    children: ReactNode;
+    initialValue?: Booleans;
+}
+export const BooleanContext: React.Context<{
+    booleans: Booleans;
+    setBooleans: (booleans: Booleans) => void;
+}>;
+export const BooleanContextProvider: ({ children, initialValue, }: BooleanContextProviderProps) => JSX.Element;
+export const BREAKPOINTS: {
+    base: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+    "2xl": number;
+};
+export const queries: {
+    base: string;
+    sm: string;
+    md: string;
+    lg: string;
+    xl: string;
+    "2xl": string;
+};
+export type BreakpointKey = keyof typeof BREAKPOINTS;
+export const useBreakpoint: (breakpoint: BreakpointKey, defaultBreakpoint?: BreakpointKey) => boolean | undefined;
+export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "sm" | "md" | "lg" | "xl" | "2xl", T>>, defaultBreakpoint?: BreakpointKey) => T;
+interface CautionaryAlerts {
+    [key: string]: string;
+}
+export const useCautionaryAlertCodes: () => CautionaryAlerts;
+export const useConfiguration: (path: string) => string;
+interface ErrorMessages {
+    [key: string]: string;
+}
+export const useErrorCodes: () => ErrorMessages;
+export const useFeatureToggle: (path: string) => boolean;
 interface IconProps extends ComponentPropsWithoutRef<"svg"> {
     viewBox: string;
     size?: string;
@@ -90,47 +131,6 @@ interface TimeInputProps extends ComponentPropsWithoutRef<"div"> {
     amPmLabel?: string;
 }
 export const TimeInput: React.ForwardRefExoticComponent<TimeInputProps & React.RefAttributes<HTMLDivElement>>;
-export const BREAKPOINTS: {
-    base: number;
-    sm: number;
-    md: number;
-    lg: number;
-    xl: number;
-    "2xl": number;
-};
-export const queries: {
-    base: string;
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-    "2xl": string;
-};
-export type BreakpointKey = keyof typeof BREAKPOINTS;
-export const useBreakpoint: (breakpoint: BreakpointKey, defaultBreakpoint?: BreakpointKey) => boolean | undefined;
-export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "sm" | "md" | "lg" | "xl" | "2xl", T>>, defaultBreakpoint?: BreakpointKey) => T;
-interface CautionaryAlerts {
-    [key: string]: string;
-}
-export const useCautionaryAlertCodes: () => CautionaryAlerts;
-export const useConfiguration: (path: string) => string;
-interface ErrorMessages {
-    [key: string]: string;
-}
-export const useErrorCodes: () => ErrorMessages;
-export const useFeatureToggle: (path: string) => boolean;
-export interface Booleans {
-    [key: string]: boolean;
-}
-export interface BooleanContextProviderProps {
-    children: ReactNode;
-    initialValue?: Booleans;
-}
-export const BooleanContext: React.Context<{
-    booleans: Booleans;
-    setBooleans: (booleans: Booleans) => void;
-}>;
-export const BooleanContextProvider: ({ children, initialValue, }: BooleanContextProviderProps) => JSX.Element;
 export const Name = "Callum";
 
 //# sourceMappingURL=types.d.ts.map
