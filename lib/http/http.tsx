@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
+import React from 'react';
 
 import { $auth, isAuthorised, logout } from "../auth";
 
@@ -10,6 +11,10 @@ export interface Config extends AxiosRequestConfig {
 export const axiosInstance = axios.create({
   responseType: "json",
 });
+
+export const TestButton = () => (
+  <button>Test Button</button>
+)
 
 axiosInstance.interceptors.request.use((reqConfig) => {
   const req: Config = {

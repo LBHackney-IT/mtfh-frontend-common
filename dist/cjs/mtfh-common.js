@@ -1,16 +1,18 @@
 import "./mtfh-common.css";
+import {jsx as $kr0JH$jsx, jsxs as $kr0JH$jsxs} from "react/jsx-runtime";
 import $kr0JH$axios from "axios";
 import {v4 as $kr0JH$v4} from "uuid";
+import {forwardRef as $kr0JH$forwardRef} from "react";
 import $kr0JH$jscookie from "js-cookie";
 import $kr0JH$jwtdecode from "jwt-decode";
 import {BehaviorSubject as $kr0JH$BehaviorSubject} from "rxjs";
 import $kr0JH$swr from "swr";
 import $kr0JH$swrinfinite from "swr/infinite";
-import {jsxs as $kr0JH$jsxs, jsx as $kr0JH$jsx} from "react/jsx-runtime";
-import {forwardRef as $kr0JH$forwardRef} from "react";
 import $kr0JH$classnames from "classnames";
 
 // export { axiosInstance } from './http/http'
+
+
 
 
 
@@ -94,10 +96,13 @@ const $6f8b946ffabfebb4$export$596d806903d1f59e = (redirectUrl = `${window.locat
 
 
 
-const $31c17c4cc7aaa36d$export$155ec85c4e3b5e85 = (0, $kr0JH$axios).create({
+const $6c736a18ee080817$export$155ec85c4e3b5e85 = (0, $kr0JH$axios).create({
     responseType: "json"
 });
-$31c17c4cc7aaa36d$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>{
+const $6c736a18ee080817$export$59e116b9e6c36e7f = ()=>/*#__PURE__*/ (0, $kr0JH$jsx)("button", {
+        children: "Test Button"
+    });
+$6c736a18ee080817$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>{
     const req = {
         ...reqConfig,
         headers: {
@@ -115,7 +120,7 @@ $31c17c4cc7aaa36d$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>
     }
     return req;
 });
-$31c17c4cc7aaa36d$export$155ec85c4e3b5e85.interceptors.response.use((res)=>{
+$6c736a18ee080817$export$155ec85c4e3b5e85.interceptors.response.use((res)=>{
     if (res.config.method === "get" && res.data?.id) res.data.etag = res.headers.etag;
     return res;
 }, (error)=>{
@@ -124,14 +129,14 @@ $31c17c4cc7aaa36d$export$155ec85c4e3b5e85.interceptors.response.use((res)=>{
     }
     throw error;
 });
-const $31c17c4cc7aaa36d$export$a9a71abd6e0b56fe = ()=>(0, $kr0JH$axios).CancelToken.source();
-const $31c17c4cc7aaa36d$export$fbafdbe06a5b5a9a = (e)=>(0, $kr0JH$axios).isAxiosError(e);
+const $6c736a18ee080817$export$a9a71abd6e0b56fe = ()=>(0, $kr0JH$axios).CancelToken.source();
+const $6c736a18ee080817$export$fbafdbe06a5b5a9a = (e)=>(0, $kr0JH$axios).isAxiosError(e);
 
 
 
 
 
-const $88fa3d186dcadbc0$export$91375b104025299 = (options = {})=>(url)=>(0, $31c17c4cc7aaa36d$export$155ec85c4e3b5e85).get(url, options).then((res)=>res.data);
+const $88fa3d186dcadbc0$export$91375b104025299 = (options = {})=>(url)=>(0, $6c736a18ee080817$export$155ec85c4e3b5e85).get(url, options).then((res)=>res.data);
 const $88fa3d186dcadbc0$export$a84fc53129590f47 = (key, options = {})=>(0, $kr0JH$swr)(key, $88fa3d186dcadbc0$export$91375b104025299(options), {
         shouldRetryOnError: false,
         ...options
@@ -193,8 +198,6 @@ const $5c7455bce6186693$export$caec2af78bcc877f = /*#__PURE__*/ (0, $kr0JH$forwa
 
 
 
-
-
 const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $kr0JH$forwardRef)(function Spinner({ size: size = "50" , label: label = "Loading..." , ...props }, ref) {
     return /*#__PURE__*/ (0, $kr0JH$jsxs)((0, $c3b0cb676fa5b786$export$f04a61298a47a40f), {
         ref: ref,
@@ -239,10 +242,8 @@ const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $kr0JH$forwar
 });
 
 
-
-
 const $1c15e570107e2424$export$c7bd411105e2dec3 = "Callum";
 
 
-export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $31c17c4cc7aaa36d$export$155ec85c4e3b5e85 as axiosInstance, $5c7455bce6186693$export$caec2af78bcc877f as Alert, $146de147e9b0ec0a$export$7f7cbe89f1eacd2 as Spinner};
+export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $6c736a18ee080817$export$155ec85c4e3b5e85 as axiosInstance, $6c736a18ee080817$export$59e116b9e6c36e7f as TestButton, $5c7455bce6186693$export$caec2af78bcc877f as Alert, $146de147e9b0ec0a$export$7f7cbe89f1eacd2 as Spinner};
 //# sourceMappingURL=mtfh-common.js.map
