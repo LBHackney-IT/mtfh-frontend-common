@@ -1,6 +1,6 @@
 export * from "./accordion";
 export { Alert } from "./alert";
-export * from "./button";
+export { Button } from "./button";
 export * from "./box";
 export * from "./card-list";
 export * from "./center";
@@ -43,3 +43,5 @@ export * from "./table";
 export * from "./text-area";
 export * from "./text";
 export * from "./stepper";
+
+// export const age = 23;
