@@ -49,6 +49,6 @@ export const axiosInstance = axios.create({
 //   },
 // );
 
-export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
+// export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
 
-export const isAxiosError = (e: unknown): e is AxiosError => axios.isAxiosError(e);
+// export const isAxiosError = (e: unknown): e is AxiosError => axios.isAxiosError(e);

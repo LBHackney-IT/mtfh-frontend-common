@@ -4,8 +4,6 @@ var http = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	get axiosFetcher () { return axiosFetcher; },
 	get axiosInstance () { return axiosInstance; },
-	get createCancelToken () { return createCancelToken; },
-	get isAxiosError () { return isAxiosError; },
 	get mutate () { return H; },
 	get useAxiosSWR () { return useAxiosSWR; },
 	get useAxiosSWRInfinite () { return useAxiosSWRInfinite; }
@@ -18033,11 +18031,11 @@ function requireSpread () {
 	return spread;
 }
 
-var isAxiosError$1;
+var isAxiosError;
 var hasRequiredIsAxiosError;
 
 function requireIsAxiosError () {
-	if (hasRequiredIsAxiosError) return isAxiosError$1;
+	if (hasRequiredIsAxiosError) return isAxiosError;
 	hasRequiredIsAxiosError = 1;
 
 	/**
@@ -18046,10 +18044,10 @@ function requireIsAxiosError () {
 	 * @param {*} payload The value to test
 	 * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
 	 */
-	isAxiosError$1 = function isAxiosError(payload) {
+	isAxiosError = function isAxiosError(payload) {
 	  return (typeof payload === 'object') && (payload.isAxiosError === true);
 	};
-	return isAxiosError$1;
+	return isAxiosError;
 }
 
 var utils = utils$9;
@@ -18150,8 +18148,8 @@ const axiosInstance = axios.create({
 //     throw error;
 //   },
 // );
-const createCancelToken = () => axios.CancelToken.source();
-const isAxiosError = (e) => axios.isAxiosError(e);
+// export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
+// export const isAxiosError = (e: unknown): e is AxiosError => axios.isAxiosError(e);
 
 var has = Object.prototype.hasOwnProperty;
 
