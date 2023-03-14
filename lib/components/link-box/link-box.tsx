@@ -6,7 +6,7 @@ import { widthOverrides } from "../../utils";
 import { LinkProps } from "../link";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-import "./styles.scss";
+// import "./styles.scss";
 
 export interface LinkOverlayProps {
   children: ReactElement<LinkProps>;

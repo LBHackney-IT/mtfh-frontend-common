@@ -15,7 +15,7 @@ import { Link } from "../link";
 import { Select } from "../select";
 import { Spinner } from "../spinner";
 import WorkOrderListItem from "./work-order-list-item";
-import "./work-order-list.scss";
+// import "./work-order-list.scss";
 
 const { components } = locale;
 interface ExternalLinkProps {

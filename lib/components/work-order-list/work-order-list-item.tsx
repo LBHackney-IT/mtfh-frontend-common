@@ -11,7 +11,7 @@ import { Card, CardBreak, CardRows } from "../card";
 import { Link } from "../link";
 import { LinkBox, LinkOverlay } from "../link-box";
 
-import "./work-order-list-item.scss";
+// import "./work-order-list-item.scss";
 
 export interface WorkOrderListItemParameters {
   workOrder: WorkOrder;

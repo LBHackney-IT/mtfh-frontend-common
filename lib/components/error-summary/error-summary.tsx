@@ -7,7 +7,7 @@ import { ErrorSummary as ErrorSummaryJs } from "lbh-frontend";
 import { widthOverrides } from "../../utils";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-import "./styles.scss";
+// import "./styles.scss";
 
 export interface ErrorSummaryProps {
   id: string;

@@ -7,7 +7,7 @@ import { formatDate, formatTime } from "@mtfh/common/lib/utils";
 
 import type { ReferenceData } from "../../api/reference-data/v1";
 
-import "./comment-list-item.scss";
+// import "./comment-list-item.scss";
 
 export interface CommentListItemParameters {
   comment: Comment;

@@ -3,7 +3,7 @@ import React, { ComponentPropsWithoutRef, forwardRef, useContext } from "react";
 import cn from "classnames";
 
 import { PageAnnouncementContext, PageAnnouncementState } from "./context";
-import "./styles.scss";
+// import "./styles.scss";
 
 interface PageAnnouncementProps
   extends Partial<PageAnnouncementState>,

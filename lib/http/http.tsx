@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
-import React from 'react';
 
 import { $auth, isAuthorised, logout } from "../auth";
 

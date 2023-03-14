@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef, ReactElement, forwardRef } from "react
 
 import cn from "classnames";
 
-import "./styles.scss";
+// import "./styles.scss";
 
 export interface LayoutProps extends ComponentPropsWithoutRef<"div"> {
   top?: ReactElement;

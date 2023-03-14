@@ -5,7 +5,7 @@ import cn from "classnames";
 import { NumberInput, NumberInputProps } from "../number-input";
 import { Select, SelectProps } from "../select";
 
-import "./styles.scss";
+// import "./styles.scss";
 
 export type AmPm = "AM" | "PM";
 

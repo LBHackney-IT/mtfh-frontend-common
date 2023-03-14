@@ -5,7 +5,7 @@ import cn from "classnames";
 import { Details as DetailsJs } from "lbh-frontend";
 import { ReactElement } from "react-router/node_modules/@types/react";
 
-import "./styles.scss";
+// import "./styles.scss";
 
 export interface DetailsProps extends ComponentPropsWithoutRef<"details"> {
   title: string;

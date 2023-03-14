@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 
 import { DefaultIcon, SuccessIcon, WarningIcon } from "../status-icon";
 
-import "./styles.scss";
+// import "./styles.scss";
 
 export type StatusHeadingVariant = "base" | "success" | "warning" | undefined;
 interface StatusHeadingProps {

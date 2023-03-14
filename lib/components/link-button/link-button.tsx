@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 
 import cn from "classnames";
 
-import "./styles.scss";
+// import "./styles.scss";
 
 export interface LinkButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: "link" | "danger" | "text-colour" | "muted" | "back-link" | "native";
