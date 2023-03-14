@@ -35,7 +35,7 @@ export * from "./alert";
 // export * from "./select";
 // export * from "./side-bar";
 // export * from "./simple-pagination";
-// export * from "./spinner";
+export * from "./spinner";
 // export * from "./status-box";
 // export * from "./status-heading";
 // export * from "./summary-list";

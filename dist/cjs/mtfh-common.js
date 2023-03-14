@@ -193,42 +193,55 @@ const $5c7455bce6186693$export$caec2af78bcc877f = /*#__PURE__*/ (0, $kr0JH$forwa
 
 
 
- // export * from "./button";
- // export * from "./box";
- // export * from "./card-list";
- // export * from "./center";
- // export * from "./checkboxes";
- // export * from "./checklist";
- // export * from "./comment-list";
- // export * from "./confirmation-router";
- // export * from "./date-input";
- // export * from "./time-input";
- // export * from "./dialog";
- // export * from "./dialog-prompt";
- // export * from "./details";
- // export * from "./error-summary";
- // export * from "./field";
- // export * from "./fieldset";
- // export * from "./form-group";
- // export * from "./heading";
- // export * from "./icon";
- // export * from "./input";
- // export * from "./layout";
- // export * from "./link";
- // export * from "./link-box";
- // export * from "./link-button";
- // export * from "./list";
- // export * from "./number-input";
- // export * from "./page-announcement";
- // export * from "./pagination";
- // export * from "./phase-banner";
- // export * from "./radios";
- // export * from "./work-order-list";
- // export * from "./scroll-to-top";
- // export * from "./select";
- // export * from "./side-bar";
- // export * from "./simple-pagination";
- // export * from "./spinner";
+
+
+
+const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $kr0JH$forwardRef)(function Spinner({ size: size = "50" , label: label = "Loading..." , ...props }, ref) {
+    return /*#__PURE__*/ (0, $kr0JH$jsxs)((0, $c3b0cb676fa5b786$export$f04a61298a47a40f), {
+        ref: ref,
+        viewBox: "0 0 42 42",
+        stroke: "#00703c",
+        size: size,
+        ...props,
+        children: [
+            /*#__PURE__*/ (0, $kr0JH$jsx)("title", {
+                children: label
+            }),
+            /*#__PURE__*/ (0, $kr0JH$jsx)("g", {
+                fill: "none",
+                fillRule: "evenodd",
+                children: /*#__PURE__*/ (0, $kr0JH$jsxs)("g", {
+                    transform: "translate(3 3)",
+                    strokeWidth: "5",
+                    children: [
+                        /*#__PURE__*/ (0, $kr0JH$jsx)("circle", {
+                            strokeOpacity: ".5",
+                            cx: "18",
+                            cy: "18",
+                            r: "18"
+                        }),
+                        /*#__PURE__*/ (0, $kr0JH$jsx)("path", {
+                            d: "M36 18c0-9.94-8.06-18-18-18",
+                            transform: "rotate(112.708 18 18)",
+                            children: /*#__PURE__*/ (0, $kr0JH$jsx)("animateTransform", {
+                                attributeName: "transform",
+                                type: "rotate",
+                                from: "0 18 18",
+                                to: "360 18 18",
+                                dur: "1s",
+                                repeatCount: "indefinite"
+                            })
+                        })
+                    ]
+                })
+            })
+        ]
+    });
+});
+
+
+
+
  // export * from "./status-box";
  // export * from "./status-heading";
  // export * from "./summary-list";
@@ -241,5 +254,5 @@ const $5c7455bce6186693$export$caec2af78bcc877f = /*#__PURE__*/ (0, $kr0JH$forwa
 const $1c15e570107e2424$export$c7bd411105e2dec3 = "Callum";
 
 
-export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $31c17c4cc7aaa36d$export$155ec85c4e3b5e85 as axiosInstance, $5c7455bce6186693$export$caec2af78bcc877f as Alert};
+export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $31c17c4cc7aaa36d$export$155ec85c4e3b5e85 as axiosInstance, $5c7455bce6186693$export$caec2af78bcc877f as Alert, $146de147e9b0ec0a$export$7f7cbe89f1eacd2 as Spinner};
 //# sourceMappingURL=mtfh-common.js.map

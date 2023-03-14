@@ -4,4 +4,4 @@ export { axiosInstance  } from './http'
 
 export const Name = "Callum"
 
-export { Alert } from './components'
+export { Alert, Spinner } from './components'
