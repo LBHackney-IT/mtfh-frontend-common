@@ -1,2 +1,2 @@
-export { axiosInstance } from './http/http';
+export { axiosInstance } from './http';
 export declare const Name = "Callum";

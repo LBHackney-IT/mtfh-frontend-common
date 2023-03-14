@@ -1,5 +1,6 @@
-import { config } from "../../../config";
-import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "../../../http";
+import { config } from "@mtfh/common/lib/config";
+import { axiosInstance } from "@mtfh/common/lib/http";
+import { AxiosSWRConfiguration, useAxiosSWR } from "@mtfh/common/lib/http/use-axios-swr";
 
 import {
   AddressAPIResponse,

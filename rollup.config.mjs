@@ -64,7 +64,9 @@ export default [
                 // generate a named export for every property of the JSON object
                 namedExports: true // Default: true
               }),
-              nodePolyfills( /* options */ )
+              nodePolyfills({
+                exclude: ["https", "url", "stream", "assert", "tty", "util", "os", "zlib"]
+              })
         ],
         external: ["react", "react-dom", "styled-components"]
     },

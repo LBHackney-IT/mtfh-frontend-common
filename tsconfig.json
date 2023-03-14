@@ -23,7 +23,7 @@
     "allowJs": true,
     "moduleResolution": "node",
 
-    // "module": "esnext",
+    "module": "es6",
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "lib": [
