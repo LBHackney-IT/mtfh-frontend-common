@@ -1,5 +1,4 @@
 import "./mtfh-common.css";
-import {jsx as $kr0JH$jsx, jsxs as $kr0JH$jsxs} from "react/jsx-runtime";
 import $kr0JH$axios from "axios";
 import {v4 as $kr0JH$v4} from "uuid";
 import {forwardRef as $kr0JH$forwardRef} from "react";
@@ -8,10 +7,10 @@ import $kr0JH$jwtdecode from "jwt-decode";
 import {BehaviorSubject as $kr0JH$BehaviorSubject} from "rxjs";
 import $kr0JH$swr from "swr";
 import $kr0JH$swrinfinite from "swr/infinite";
+import {jsxs as $kr0JH$jsxs, jsx as $kr0JH$jsx} from "react/jsx-runtime";
 import $kr0JH$classnames from "classnames";
 
 // export { axiosInstance } from './http/http'
-
 
 
 
@@ -99,9 +98,6 @@ const $6f8b946ffabfebb4$export$596d806903d1f59e = (redirectUrl = `${window.locat
 const $6c736a18ee080817$export$155ec85c4e3b5e85 = (0, $kr0JH$axios).create({
     responseType: "json"
 });
-const $6c736a18ee080817$export$59e116b9e6c36e7f = ()=>/*#__PURE__*/ (0, $kr0JH$jsx)("button", {
-        children: "Test Button"
-    });
 $6c736a18ee080817$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>{
     const req = {
         ...reqConfig,
@@ -242,8 +238,15 @@ const $146de147e9b0ec0a$export$7f7cbe89f1eacd2 = /*#__PURE__*/ (0, $kr0JH$forwar
 });
 
 
+
+
+const $08398a1b9daf8edd$export$59e116b9e6c36e7f = ()=>/*#__PURE__*/ (0, $kr0JH$jsx)("button", {
+        children: "Test Button"
+    });
+
+
 const $1c15e570107e2424$export$c7bd411105e2dec3 = "Callum";
 
 
-export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $6c736a18ee080817$export$155ec85c4e3b5e85 as axiosInstance, $6c736a18ee080817$export$59e116b9e6c36e7f as TestButton, $5c7455bce6186693$export$caec2af78bcc877f as Alert, $146de147e9b0ec0a$export$7f7cbe89f1eacd2 as Spinner};
+export {$1c15e570107e2424$export$c7bd411105e2dec3 as Name, $6c736a18ee080817$export$155ec85c4e3b5e85 as axiosInstance, $5c7455bce6186693$export$caec2af78bcc877f as Alert, $146de147e9b0ec0a$export$7f7cbe89f1eacd2 as Spinner, $08398a1b9daf8edd$export$59e116b9e6c36e7f as TestButton};
 //# sourceMappingURL=mtfh-common.js.map

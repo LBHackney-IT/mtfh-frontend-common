@@ -12,9 +12,7 @@ export const axiosInstance = axios.create({
   responseType: "json",
 });
 
-export const TestButton = () => (
-  <button>Test Button</button>
-)
+
 
 axiosInstance.interceptors.request.use((reqConfig) => {
   const req: Config = {
