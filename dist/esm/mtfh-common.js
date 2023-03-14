@@ -219,7 +219,7 @@ function isBlob(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Function, otherwise false
  */
-function isFunction$3(val) {
+function isFunction$2(val) {
   return toString$1.call(val) === '[object Function]';
 }
 
@@ -230,7 +230,7 @@ function isFunction$3(val) {
  * @returns {boolean} True if value is a Stream, otherwise false
  */
 function isStream(val) {
-  return isObject$1(val) && isFunction$3(val.pipe);
+  return isObject$1(val) && isFunction$2(val.pipe);
 }
 
 /**
@@ -402,7 +402,7 @@ var utils$9 = {
   isDate: isDate$1,
   isFile: isFile,
   isBlob: isBlob,
-  isFunction: isFunction$3,
+  isFunction: isFunction$2,
   isStream: isStream,
   isURLSearchParams: isURLSearchParams,
   isStandardBrowserEnv: isStandardBrowserEnv,
@@ -680,17 +680,17 @@ var argv = [];
 var version$1 = ''; // empty string to avoid regexp issues
 var versions = {};
 var release$1 = {};
-var config$2 = {};
+var config = {};
 
-function noop$1() {}
+function noop() {}
 
-var on = noop$1;
-var addListener = noop$1;
-var once = noop$1;
-var off = noop$1;
-var removeListener = noop$1;
-var removeAllListeners = noop$1;
-var emit = noop$1;
+var on = noop;
+var addListener = noop;
+var once = noop;
+var off = noop;
+var removeListener = noop;
+var removeAllListeners = noop;
+var emit = noop;
 
 function binding$1(name) {
     throw new Error('process.binding is not supported');
@@ -757,7 +757,7 @@ var browser$1$1 = {
   hrtime: hrtime,
   platform: platform$1,
   release: release$1,
-  config: config$2,
+  config: config,
   uptime: uptime$1
 };
 
@@ -3316,7 +3316,7 @@ function isSlowBuffer (obj) {
 
 var require$$4$1 = /*@__PURE__*/getAugmentedNamespace(http);
 
-var hasFetch = isFunction$2(global$1.fetch) && isFunction$2(global$1.ReadableStream);
+var hasFetch = isFunction$1(global$1.fetch) && isFunction$1(global$1.ReadableStream);
 
 var _blobConstructor;
 function blobConstructor() {
@@ -3352,7 +3352,7 @@ function checkTypeSupport(type) {
 // For some strange reason, Safari 7.0 reports typeof global.ArrayBuffer === 'object'.
 // Safari 7.1 appears to have fixed this bug.
 var haveArrayBuffer = typeof global$1.ArrayBuffer !== 'undefined';
-var haveSlice = haveArrayBuffer && isFunction$2(global$1.ArrayBuffer.prototype.slice);
+var haveSlice = haveArrayBuffer && isFunction$1(global$1.ArrayBuffer.prototype.slice);
 
 var arraybuffer = haveArrayBuffer && checkTypeSupport('arraybuffer');
   // These next two tests unavoidably show warnings in Chrome. Since fetch will always
@@ -3360,10 +3360,10 @@ var arraybuffer = haveArrayBuffer && checkTypeSupport('arraybuffer');
 var msstream = !hasFetch && haveSlice && checkTypeSupport('ms-stream');
 var mozchunkedarraybuffer = !hasFetch && haveArrayBuffer &&
   checkTypeSupport('moz-chunked-arraybuffer');
-var overrideMimeType = isFunction$2(xhr.overrideMimeType);
-var vbArray = isFunction$2(global$1.VBArray);
+var overrideMimeType = isFunction$1(xhr.overrideMimeType);
+var vbArray = isFunction$1(global$1.VBArray);
 
-function isFunction$2(value) {
+function isFunction$1(value) {
   return typeof value === 'function'
 }
 
@@ -3593,7 +3593,7 @@ function formatValue(ctx, value, recurseTimes) {
   // Check that value is an object with an inspect function on it
   if (ctx.customInspect &&
       value &&
-      isFunction$1(value.inspect) &&
+      isFunction(value.inspect) &&
       // Filter out the util module, it's inspect function is special
       value.inspect !== inspect$1 &&
       // Also filter out any prototype objects using the circular check.
@@ -3628,7 +3628,7 @@ function formatValue(ctx, value, recurseTimes) {
 
   // Some type of object without properties can be shortcutted.
   if (keys.length === 0) {
-    if (isFunction$1(value)) {
+    if (isFunction(value)) {
       var name = value.name ? ': ' + value.name : '';
       return ctx.stylize('[Function' + name + ']', 'special');
     }
@@ -3652,7 +3652,7 @@ function formatValue(ctx, value, recurseTimes) {
   }
 
   // Make functions say that they are functions
-  if (isFunction$1(value)) {
+  if (isFunction(value)) {
     var n = value.name ? ': ' + value.name : '';
     base = ' [Function' + n + ']';
   }
@@ -3874,7 +3874,7 @@ function isError(e) {
       (objectToString(e) === '[object Error]' || e instanceof Error);
 }
 
-function isFunction$1(arg) {
+function isFunction(arg) {
   return typeof arg === 'function';
 }
 
@@ -4045,7 +4045,7 @@ var _polyfillNode_util = {
   log: log,
   isBuffer: isBuffer,
   isPrimitive: isPrimitive,
-  isFunction: isFunction$1,
+  isFunction: isFunction,
   isError: isError,
   isDate: isDate,
   isObject: isObject,
@@ -4081,7 +4081,7 @@ var _polyfillNode_util$1 = /*#__PURE__*/Object.freeze({
 	isBuffer: isBuffer,
 	isDate: isDate,
 	isError: isError,
-	isFunction: isFunction$1,
+	isFunction: isFunction,
 	isNull: isNull,
 	isNullOrUndefined: isNullOrUndefined,
 	isNumber: isNumber,
@@ -7284,7 +7284,7 @@ function stringifyPrimitive(v) {
   }
 }
 
-function stringify$1 (obj, sep, eq, name) {
+function stringify (obj, sep, eq, name) {
   sep = sep || '&';
   eq = eq || '=';
   if (obj === null) {
@@ -7794,7 +7794,7 @@ function format(self) {
   if (self.query &&
     isObject(self.query) &&
     Object.keys(self.query).length) {
-    query = stringify$1(self.query);
+    query = stringify(self.query);
   }
 
   var search = self.search || (query && ('?' + query)) || '';
@@ -8379,7 +8379,7 @@ function assert$1(value, message) {
 var regex = /\s*function\s+([^\(\s]*)\s*/;
 // based on https://github.com/ljharb/function.prototype.name/blob/adeeeec8bfcc6068b187d7d9fb3d5bb1d3a30899/implementation.js
 function getName(func) {
-  if (!isFunction$1(func)) {
+  if (!isFunction(func)) {
     return;
   }
   if (functionsHaveNames()) {
@@ -8437,7 +8437,7 @@ function truncate(s, n) {
   }
 }
 function inspect(something) {
-  if (functionsHaveNames() || !isFunction$1(something)) {
+  if (functionsHaveNames() || !isFunction(something)) {
     return inspect$1(something);
   }
   var rawname = getName(something);
@@ -18113,1043 +18113,43 @@ axiosExports.default = axios$1;
 
 var axios = /*@__PURE__*/getDefaultExportFromCjs(axiosExports$1);
 
-// Unique ID creation requires a high quality random # generator. In the browser we therefore
-// require the crypto API and do not support built-in fallback to lower quality random number
-// generators (like Math.random()).
-var getRandomValues;
-var rnds8 = new Uint8Array(16);
-function rng() {
-  // lazy load so that environments that need to polyfill have a chance to do so
-  if (!getRandomValues) {
-    // getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
-    // find the complete implementation of crypto (msCrypto) on IE11.
-    getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
-
-    if (!getRandomValues) {
-      throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
-    }
-  }
-
-  return getRandomValues(rnds8);
-}
-
-var REGEX = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i;
-
-function validate(uuid) {
-  return typeof uuid === 'string' && REGEX.test(uuid);
-}
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-
-var byteToHex = [];
-
-for (var i$1 = 0; i$1 < 256; ++i$1) {
-  byteToHex.push((i$1 + 0x100).toString(16).substr(1));
-}
-
-function stringify(arr) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!validate(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-
-  return uuid;
-}
-
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-
-    for (var i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-
-    return buf;
-  }
-
-  return stringify(rnds);
-}
-
-var js_cookieExports = {};
-var js_cookie = {
-  get exports(){ return js_cookieExports; },
-  set exports(v){ js_cookieExports = v; },
-};
-
-/*!
- * JavaScript Cookie v2.2.1
- * https://github.com/js-cookie/js-cookie
- *
- * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
- * Released under the MIT license
- */
-
-(function (module, exports) {
-(function (factory) {
-		var registeredInModuleLoader;
-		{
-			module.exports = factory();
-			registeredInModuleLoader = true;
-		}
-		if (!registeredInModuleLoader) {
-			var OldCookies = window.Cookies;
-			var api = window.Cookies = factory();
-			api.noConflict = function () {
-				window.Cookies = OldCookies;
-				return api;
-			};
-		}
-	}(function () {
-		function extend () {
-			var i = 0;
-			var result = {};
-			for (; i < arguments.length; i++) {
-				var attributes = arguments[ i ];
-				for (var key in attributes) {
-					result[key] = attributes[key];
-				}
-			}
-			return result;
-		}
-
-		function decode (s) {
-			return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
-		}
-
-		function init (converter) {
-			function api() {}
-
-			function set (key, value, attributes) {
-				if (typeof document === 'undefined') {
-					return;
-				}
-
-				attributes = extend({
-					path: '/'
-				}, api.defaults, attributes);
-
-				if (typeof attributes.expires === 'number') {
-					attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
-				}
-
-				// We're using "expires" because "max-age" is not supported by IE
-				attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
-
-				try {
-					var result = JSON.stringify(value);
-					if (/^[\{\[]/.test(result)) {
-						value = result;
-					}
-				} catch (e) {}
-
-				value = converter.write ?
-					converter.write(value, key) :
-					encodeURIComponent(String(value))
-						.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
-
-				key = encodeURIComponent(String(key))
-					.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
-					.replace(/[\(\)]/g, escape);
-
-				var stringifiedAttributes = '';
-				for (var attributeName in attributes) {
-					if (!attributes[attributeName]) {
-						continue;
-					}
-					stringifiedAttributes += '; ' + attributeName;
-					if (attributes[attributeName] === true) {
-						continue;
-					}
-
-					// Considers RFC 6265 section 5.2:
-					// ...
-					// 3.  If the remaining unparsed-attributes contains a %x3B (";")
-					//     character:
-					// Consume the characters of the unparsed-attributes up to,
-					// not including, the first %x3B (";") character.
-					// ...
-					stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
-				}
-
-				return (document.cookie = key + '=' + value + stringifiedAttributes);
-			}
-
-			function get (key, json) {
-				if (typeof document === 'undefined') {
-					return;
-				}
-
-				var jar = {};
-				// To prevent the for loop in the first place assign an empty array
-				// in case there are no cookies at all.
-				var cookies = document.cookie ? document.cookie.split('; ') : [];
-				var i = 0;
-
-				for (; i < cookies.length; i++) {
-					var parts = cookies[i].split('=');
-					var cookie = parts.slice(1).join('=');
-
-					if (!json && cookie.charAt(0) === '"') {
-						cookie = cookie.slice(1, -1);
-					}
-
-					try {
-						var name = decode(parts[0]);
-						cookie = (converter.read || converter)(cookie, name) ||
-							decode(cookie);
-
-						if (json) {
-							try {
-								cookie = JSON.parse(cookie);
-							} catch (e) {}
-						}
-
-						jar[name] = cookie;
-
-						if (key === name) {
-							break;
-						}
-					} catch (e) {}
-				}
-
-				return key ? jar[key] : jar;
-			}
-
-			api.set = set;
-			api.get = function (key) {
-				return get(key, false /* read as raw */);
-			};
-			api.getJSON = function (key) {
-				return get(key, true /* read as json */);
-			};
-			api.remove = function (key, attributes) {
-				set(key, '', extend(attributes, {
-					expires: -1
-				}));
-			};
-
-			api.defaults = {};
-
-			api.withConverter = init;
-
-			return api;
-		}
-
-		return init(function () {});
-	}));
-} (js_cookie));
-
-var Cookies = js_cookieExports;
-
-function e(e){this.message=e;}e.prototype=new Error,e.prototype.name="InvalidCharacterError";var r="undefined"!=typeof window&&window.atob&&window.atob.bind(window)||function(r){var t=String(r).replace(/=+$/,"");if(t.length%4==1)throw new e("'atob' failed: The string to be decoded is not correctly encoded.");for(var n,o,a=0,i=0,c="";o=t.charAt(i++);~o&&(n=a%4?64*n+o:o,a++%4)?c+=String.fromCharCode(255&n>>(-2*a&6)):0)o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(o);return c};function t(e){var t=e.replace(/-/g,"+").replace(/_/g,"/");switch(t.length%4){case 0:break;case 2:t+="==";break;case 3:t+="=";break;default:throw "Illegal base64url string!"}try{return function(e){return decodeURIComponent(r(e).replace(/(.)/g,(function(e,r){var t=r.charCodeAt(0).toString(16).toUpperCase();return t.length<2&&(t="0"+t),"%"+t})))}(t)}catch(e){return r(t)}}function n(e){this.message=e;}function o$1(e,r){if("string"!=typeof e)throw new n("Invalid token specified");var o=!0===(r=r||{}).header?0:1;try{return JSON.parse(t(e.split(".")[o]))}catch(e){throw new n("Invalid token specified: "+e.message)}}n.prototype=new Error,n.prototype.name="InvalidTokenError";
-
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    if (typeof b !== "function" && b !== null)
-        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-function __values(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-}
-
-function __read(o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-}
-
-function __spreadArray(to, from, pack) {
-    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
-        if (ar || !(i in from)) {
-            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
-            ar[i] = from[i];
-        }
-    }
-    return to.concat(ar || Array.prototype.slice.call(from));
-}
-
-function isFunction(value) {
-    return typeof value === 'function';
-}
-
-function createErrorClass(createImpl) {
-    var _super = function (instance) {
-        Error.call(instance);
-        instance.stack = new Error().stack;
-    };
-    var ctorFunc = createImpl(_super);
-    ctorFunc.prototype = Object.create(Error.prototype);
-    ctorFunc.prototype.constructor = ctorFunc;
-    return ctorFunc;
-}
-
-var UnsubscriptionError = createErrorClass(function (_super) {
-    return function UnsubscriptionErrorImpl(errors) {
-        _super(this);
-        this.message = errors
-            ? errors.length + " errors occurred during unsubscription:\n" + errors.map(function (err, i) { return i + 1 + ") " + err.toString(); }).join('\n  ')
-            : '';
-        this.name = 'UnsubscriptionError';
-        this.errors = errors;
-    };
-});
-
-function arrRemove(arr, item) {
-    if (arr) {
-        var index = arr.indexOf(item);
-        0 <= index && arr.splice(index, 1);
-    }
-}
-
-var Subscription = (function () {
-    function Subscription(initialTeardown) {
-        this.initialTeardown = initialTeardown;
-        this.closed = false;
-        this._parentage = null;
-        this._teardowns = null;
-    }
-    Subscription.prototype.unsubscribe = function () {
-        var e_1, _a, e_2, _b;
-        var errors;
-        if (!this.closed) {
-            this.closed = true;
-            var _parentage = this._parentage;
-            if (_parentage) {
-                this._parentage = null;
-                if (Array.isArray(_parentage)) {
-                    try {
-                        for (var _parentage_1 = __values(_parentage), _parentage_1_1 = _parentage_1.next(); !_parentage_1_1.done; _parentage_1_1 = _parentage_1.next()) {
-                            var parent_1 = _parentage_1_1.value;
-                            parent_1.remove(this);
-                        }
-                    }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                    finally {
-                        try {
-                            if (_parentage_1_1 && !_parentage_1_1.done && (_a = _parentage_1.return)) _a.call(_parentage_1);
-                        }
-                        finally { if (e_1) throw e_1.error; }
-                    }
-                }
-                else {
-                    _parentage.remove(this);
-                }
-            }
-            var initialTeardown = this.initialTeardown;
-            if (isFunction(initialTeardown)) {
-                try {
-                    initialTeardown();
-                }
-                catch (e) {
-                    errors = e instanceof UnsubscriptionError ? e.errors : [e];
-                }
-            }
-            var _teardowns = this._teardowns;
-            if (_teardowns) {
-                this._teardowns = null;
-                try {
-                    for (var _teardowns_1 = __values(_teardowns), _teardowns_1_1 = _teardowns_1.next(); !_teardowns_1_1.done; _teardowns_1_1 = _teardowns_1.next()) {
-                        var teardown_1 = _teardowns_1_1.value;
-                        try {
-                            execTeardown(teardown_1);
-                        }
-                        catch (err) {
-                            errors = errors !== null && errors !== void 0 ? errors : [];
-                            if (err instanceof UnsubscriptionError) {
-                                errors = __spreadArray(__spreadArray([], __read(errors), false), __read(err.errors), false);
-                            }
-                            else {
-                                errors.push(err);
-                            }
-                        }
-                    }
-                }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (_teardowns_1_1 && !_teardowns_1_1.done && (_b = _teardowns_1.return)) _b.call(_teardowns_1);
-                    }
-                    finally { if (e_2) throw e_2.error; }
-                }
-            }
-            if (errors) {
-                throw new UnsubscriptionError(errors);
-            }
-        }
-    };
-    Subscription.prototype.add = function (teardown) {
-        var _a;
-        if (teardown && teardown !== this) {
-            if (this.closed) {
-                execTeardown(teardown);
-            }
-            else {
-                if (teardown instanceof Subscription) {
-                    if (teardown.closed || teardown._hasParent(this)) {
-                        return;
-                    }
-                    teardown._addParent(this);
-                }
-                (this._teardowns = (_a = this._teardowns) !== null && _a !== void 0 ? _a : []).push(teardown);
-            }
-        }
-    };
-    Subscription.prototype._hasParent = function (parent) {
-        var _parentage = this._parentage;
-        return _parentage === parent || (Array.isArray(_parentage) && _parentage.includes(parent));
-    };
-    Subscription.prototype._addParent = function (parent) {
-        var _parentage = this._parentage;
-        this._parentage = Array.isArray(_parentage) ? (_parentage.push(parent), _parentage) : _parentage ? [_parentage, parent] : parent;
-    };
-    Subscription.prototype._removeParent = function (parent) {
-        var _parentage = this._parentage;
-        if (_parentage === parent) {
-            this._parentage = null;
-        }
-        else if (Array.isArray(_parentage)) {
-            arrRemove(_parentage, parent);
-        }
-    };
-    Subscription.prototype.remove = function (teardown) {
-        var _teardowns = this._teardowns;
-        _teardowns && arrRemove(_teardowns, teardown);
-        if (teardown instanceof Subscription) {
-            teardown._removeParent(this);
-        }
-    };
-    Subscription.EMPTY = (function () {
-        var empty = new Subscription();
-        empty.closed = true;
-        return empty;
-    })();
-    return Subscription;
-}());
-var EMPTY_SUBSCRIPTION = Subscription.EMPTY;
-function isSubscription(value) {
-    return (value instanceof Subscription ||
-        (value && 'closed' in value && isFunction(value.remove) && isFunction(value.add) && isFunction(value.unsubscribe)));
-}
-function execTeardown(teardown) {
-    if (isFunction(teardown)) {
-        teardown();
-    }
-    else {
-        teardown.unsubscribe();
-    }
-}
-
-var config$1 = {
-    onUnhandledError: null,
-    onStoppedNotification: null,
-    Promise: undefined,
-    useDeprecatedSynchronousErrorHandling: false,
-    useDeprecatedNextContext: false,
-};
-
-var timeoutProvider = {
-    setTimeout: function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        var delegate = timeoutProvider.delegate;
-        return ((delegate === null || delegate === void 0 ? void 0 : delegate.setTimeout) || setTimeout).apply(void 0, __spreadArray([], __read(args), false));
-    },
-    clearTimeout: function (handle) {
-        var delegate = timeoutProvider.delegate;
-        return ((delegate === null || delegate === void 0 ? void 0 : delegate.clearTimeout) || clearTimeout)(handle);
-    },
-    delegate: undefined,
-};
-
-function reportUnhandledError(err) {
-    timeoutProvider.setTimeout(function () {
-        {
-            throw err;
-        }
-    });
-}
-
-function noop() { }
-
-function errorContext(cb) {
-    {
-        cb();
-    }
-}
-
-var Subscriber = (function (_super) {
-    __extends(Subscriber, _super);
-    function Subscriber(destination) {
-        var _this = _super.call(this) || this;
-        _this.isStopped = false;
-        if (destination) {
-            _this.destination = destination;
-            if (isSubscription(destination)) {
-                destination.add(_this);
-            }
-        }
-        else {
-            _this.destination = EMPTY_OBSERVER;
-        }
-        return _this;
-    }
-    Subscriber.create = function (next, error, complete) {
-        return new SafeSubscriber(next, error, complete);
-    };
-    Subscriber.prototype.next = function (value) {
-        if (this.isStopped) ;
-        else {
-            this._next(value);
-        }
-    };
-    Subscriber.prototype.error = function (err) {
-        if (this.isStopped) ;
-        else {
-            this.isStopped = true;
-            this._error(err);
-        }
-    };
-    Subscriber.prototype.complete = function () {
-        if (this.isStopped) ;
-        else {
-            this.isStopped = true;
-            this._complete();
-        }
-    };
-    Subscriber.prototype.unsubscribe = function () {
-        if (!this.closed) {
-            this.isStopped = true;
-            _super.prototype.unsubscribe.call(this);
-            this.destination = null;
-        }
-    };
-    Subscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    Subscriber.prototype._error = function (err) {
-        try {
-            this.destination.error(err);
-        }
-        finally {
-            this.unsubscribe();
-        }
-    };
-    Subscriber.prototype._complete = function () {
-        try {
-            this.destination.complete();
-        }
-        finally {
-            this.unsubscribe();
-        }
-    };
-    return Subscriber;
-}(Subscription));
-var SafeSubscriber = (function (_super) {
-    __extends(SafeSubscriber, _super);
-    function SafeSubscriber(observerOrNext, error, complete) {
-        var _this = _super.call(this) || this;
-        var next;
-        if (isFunction(observerOrNext)) {
-            next = observerOrNext;
-        }
-        else if (observerOrNext) {
-            (next = observerOrNext.next, error = observerOrNext.error, complete = observerOrNext.complete);
-            var context_1;
-            if (_this && config$1.useDeprecatedNextContext) {
-                context_1 = Object.create(observerOrNext);
-                context_1.unsubscribe = function () { return _this.unsubscribe(); };
-            }
-            else {
-                context_1 = observerOrNext;
-            }
-            next = next === null || next === void 0 ? void 0 : next.bind(context_1);
-            error = error === null || error === void 0 ? void 0 : error.bind(context_1);
-            complete = complete === null || complete === void 0 ? void 0 : complete.bind(context_1);
-        }
-        _this.destination = {
-            next: next ? wrapForErrorHandling(next) : noop,
-            error: wrapForErrorHandling(error !== null && error !== void 0 ? error : defaultErrorHandler),
-            complete: complete ? wrapForErrorHandling(complete) : noop,
-        };
-        return _this;
-    }
-    return SafeSubscriber;
-}(Subscriber));
-function wrapForErrorHandling(handler, instance) {
-    return function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        try {
-            handler.apply(void 0, __spreadArray([], __read(args), false));
-        }
-        catch (err) {
-            {
-                reportUnhandledError(err);
-            }
-        }
-    };
-}
-function defaultErrorHandler(err) {
-    throw err;
-}
-var EMPTY_OBSERVER = {
-    closed: true,
-    next: noop,
-    error: defaultErrorHandler,
-    complete: noop,
-};
-
-var observable = (function () { return (typeof Symbol === 'function' && Symbol.observable) || '@@observable'; })();
-
-function identity(x) {
-    return x;
-}
-
-function pipeFromArray(fns) {
-    if (fns.length === 0) {
-        return identity;
-    }
-    if (fns.length === 1) {
-        return fns[0];
-    }
-    return function piped(input) {
-        return fns.reduce(function (prev, fn) { return fn(prev); }, input);
-    };
-}
-
-var Observable = (function () {
-    function Observable(subscribe) {
-        if (subscribe) {
-            this._subscribe = subscribe;
-        }
-    }
-    Observable.prototype.lift = function (operator) {
-        var observable = new Observable();
-        observable.source = this;
-        observable.operator = operator;
-        return observable;
-    };
-    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
-        var _this = this;
-        var subscriber = isSubscriber(observerOrNext) ? observerOrNext : new SafeSubscriber(observerOrNext, error, complete);
-        errorContext(function () {
-            var _a = _this, operator = _a.operator, source = _a.source;
-            subscriber.add(operator
-                ?
-                    operator.call(subscriber, source)
-                : source
-                    ?
-                        _this._subscribe(subscriber)
-                    :
-                        _this._trySubscribe(subscriber));
-        });
-        return subscriber;
-    };
-    Observable.prototype._trySubscribe = function (sink) {
-        try {
-            return this._subscribe(sink);
-        }
-        catch (err) {
-            sink.error(err);
-        }
-    };
-    Observable.prototype.forEach = function (next, promiseCtor) {
-        var _this = this;
-        promiseCtor = getPromiseCtor(promiseCtor);
-        return new promiseCtor(function (resolve, reject) {
-            var subscription;
-            subscription = _this.subscribe(function (value) {
-                try {
-                    next(value);
-                }
-                catch (err) {
-                    reject(err);
-                    subscription === null || subscription === void 0 ? void 0 : subscription.unsubscribe();
-                }
-            }, reject, resolve);
-        });
-    };
-    Observable.prototype._subscribe = function (subscriber) {
-        var _a;
-        return (_a = this.source) === null || _a === void 0 ? void 0 : _a.subscribe(subscriber);
-    };
-    Observable.prototype[observable] = function () {
-        return this;
-    };
-    Observable.prototype.pipe = function () {
-        var operations = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            operations[_i] = arguments[_i];
-        }
-        return pipeFromArray(operations)(this);
-    };
-    Observable.prototype.toPromise = function (promiseCtor) {
-        var _this = this;
-        promiseCtor = getPromiseCtor(promiseCtor);
-        return new promiseCtor(function (resolve, reject) {
-            var value;
-            _this.subscribe(function (x) { return (value = x); }, function (err) { return reject(err); }, function () { return resolve(value); });
-        });
-    };
-    Observable.create = function (subscribe) {
-        return new Observable(subscribe);
-    };
-    return Observable;
-}());
-function getPromiseCtor(promiseCtor) {
-    var _a;
-    return (_a = promiseCtor !== null && promiseCtor !== void 0 ? promiseCtor : config$1.Promise) !== null && _a !== void 0 ? _a : Promise;
-}
-function isObserver(value) {
-    return value && isFunction(value.next) && isFunction(value.error) && isFunction(value.complete);
-}
-function isSubscriber(value) {
-    return (value && value instanceof Subscriber) || (isObserver(value) && isSubscription(value));
-}
-
-var ObjectUnsubscribedError = createErrorClass(function (_super) {
-    return function ObjectUnsubscribedErrorImpl() {
-        _super(this);
-        this.name = 'ObjectUnsubscribedError';
-        this.message = 'object unsubscribed';
-    };
-});
-
-var Subject = (function (_super) {
-    __extends(Subject, _super);
-    function Subject() {
-        var _this = _super.call(this) || this;
-        _this.closed = false;
-        _this.observers = [];
-        _this.isStopped = false;
-        _this.hasError = false;
-        _this.thrownError = null;
-        return _this;
-    }
-    Subject.prototype.lift = function (operator) {
-        var subject = new AnonymousSubject(this, this);
-        subject.operator = operator;
-        return subject;
-    };
-    Subject.prototype._throwIfClosed = function () {
-        if (this.closed) {
-            throw new ObjectUnsubscribedError();
-        }
-    };
-    Subject.prototype.next = function (value) {
-        var _this = this;
-        errorContext(function () {
-            var e_1, _a;
-            _this._throwIfClosed();
-            if (!_this.isStopped) {
-                var copy = _this.observers.slice();
-                try {
-                    for (var copy_1 = __values(copy), copy_1_1 = copy_1.next(); !copy_1_1.done; copy_1_1 = copy_1.next()) {
-                        var observer = copy_1_1.value;
-                        observer.next(value);
-                    }
-                }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (copy_1_1 && !copy_1_1.done && (_a = copy_1.return)) _a.call(copy_1);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
-            }
-        });
-    };
-    Subject.prototype.error = function (err) {
-        var _this = this;
-        errorContext(function () {
-            _this._throwIfClosed();
-            if (!_this.isStopped) {
-                _this.hasError = _this.isStopped = true;
-                _this.thrownError = err;
-                var observers = _this.observers;
-                while (observers.length) {
-                    observers.shift().error(err);
-                }
-            }
-        });
-    };
-    Subject.prototype.complete = function () {
-        var _this = this;
-        errorContext(function () {
-            _this._throwIfClosed();
-            if (!_this.isStopped) {
-                _this.isStopped = true;
-                var observers = _this.observers;
-                while (observers.length) {
-                    observers.shift().complete();
-                }
-            }
-        });
-    };
-    Subject.prototype.unsubscribe = function () {
-        this.isStopped = this.closed = true;
-        this.observers = null;
-    };
-    Object.defineProperty(Subject.prototype, "observed", {
-        get: function () {
-            var _a;
-            return ((_a = this.observers) === null || _a === void 0 ? void 0 : _a.length) > 0;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    Subject.prototype._trySubscribe = function (subscriber) {
-        this._throwIfClosed();
-        return _super.prototype._trySubscribe.call(this, subscriber);
-    };
-    Subject.prototype._subscribe = function (subscriber) {
-        this._throwIfClosed();
-        this._checkFinalizedStatuses(subscriber);
-        return this._innerSubscribe(subscriber);
-    };
-    Subject.prototype._innerSubscribe = function (subscriber) {
-        var _a = this, hasError = _a.hasError, isStopped = _a.isStopped, observers = _a.observers;
-        return hasError || isStopped
-            ? EMPTY_SUBSCRIPTION
-            : (observers.push(subscriber), new Subscription(function () { return arrRemove(observers, subscriber); }));
-    };
-    Subject.prototype._checkFinalizedStatuses = function (subscriber) {
-        var _a = this, hasError = _a.hasError, thrownError = _a.thrownError, isStopped = _a.isStopped;
-        if (hasError) {
-            subscriber.error(thrownError);
-        }
-        else if (isStopped) {
-            subscriber.complete();
-        }
-    };
-    Subject.prototype.asObservable = function () {
-        var observable = new Observable();
-        observable.source = this;
-        return observable;
-    };
-    Subject.create = function (destination, source) {
-        return new AnonymousSubject(destination, source);
-    };
-    return Subject;
-}(Observable));
-var AnonymousSubject = (function (_super) {
-    __extends(AnonymousSubject, _super);
-    function AnonymousSubject(destination, source) {
-        var _this = _super.call(this) || this;
-        _this.destination = destination;
-        _this.source = source;
-        return _this;
-    }
-    AnonymousSubject.prototype.next = function (value) {
-        var _a, _b;
-        (_b = (_a = this.destination) === null || _a === void 0 ? void 0 : _a.next) === null || _b === void 0 ? void 0 : _b.call(_a, value);
-    };
-    AnonymousSubject.prototype.error = function (err) {
-        var _a, _b;
-        (_b = (_a = this.destination) === null || _a === void 0 ? void 0 : _a.error) === null || _b === void 0 ? void 0 : _b.call(_a, err);
-    };
-    AnonymousSubject.prototype.complete = function () {
-        var _a, _b;
-        (_b = (_a = this.destination) === null || _a === void 0 ? void 0 : _a.complete) === null || _b === void 0 ? void 0 : _b.call(_a);
-    };
-    AnonymousSubject.prototype._subscribe = function (subscriber) {
-        var _a, _b;
-        return (_b = (_a = this.source) === null || _a === void 0 ? void 0 : _a.subscribe(subscriber)) !== null && _b !== void 0 ? _b : EMPTY_SUBSCRIPTION;
-    };
-    return AnonymousSubject;
-}(Subject));
-
-var BehaviorSubject = (function (_super) {
-    __extends(BehaviorSubject, _super);
-    function BehaviorSubject(_value) {
-        var _this = _super.call(this) || this;
-        _this._value = _value;
-        return _this;
-    }
-    Object.defineProperty(BehaviorSubject.prototype, "value", {
-        get: function () {
-            return this.getValue();
-        },
-        enumerable: false,
-        configurable: true
-    });
-    BehaviorSubject.prototype._subscribe = function (subscriber) {
-        var subscription = _super.prototype._subscribe.call(this, subscriber);
-        !subscription.closed && subscriber.next(this._value);
-        return subscription;
-    };
-    BehaviorSubject.prototype.getValue = function () {
-        var _a = this, hasError = _a.hasError, thrownError = _a.thrownError, _value = _a._value;
-        if (hasError) {
-            throw thrownError;
-        }
-        this._throwIfClosed();
-        return _value;
-    };
-    BehaviorSubject.prototype.next = function (value) {
-        _super.prototype.next.call(this, (this._value = value));
-    };
-    return BehaviorSubject;
-}(Subject));
-
-var _a;
-const config = {
-    appEnv: process.env.APP_ENV || "test",
-    authAllowedGroups: ((_a = process.env.AUTH_ALLOWED_GROUPS) === null || _a === void 0 ? void 0 : _a.split(",")) || ["TEST_GROUP"],
-    authDomain: process.env.AUTH_DOMAIN || "//auth.hackney.gov.uk/auth",
-    cookieDomain: process.env.COOKIE_DOMAIN || "hackney.gov.uk",
-    authToken: process.env.AUTH_TOKEN_NAME || "hackneyToken",
-    configurationApiUrlV1: process.env.CONFIGURATION_API_URL_V1 || "",
-    contactDetailsApiUrlV1: process.env.CONTACT_DETAILS_API_URL_V1 || "/api/v1",
-    contactDetailsApiUrlV2: process.env.CONTACT_DETAILS_API_URL_V2 || "/api/v2",
-    cautionaryApiUrlV1: process.env.CAUTIONARY_API_URL_V1 || "/api/v1",
-    personApiUrlV1: process.env.PERSON_API_URL_V1 || "/api/v1",
-    personApiUrlV2: process.env.PERSON_API_URL_V2 || "/api/v2",
-    notesApiUrlV1: process.env.NOTES_API_URL_V1 || "/api/v1",
-    notesApiUrlV2: process.env.NOTES_API_URL_V2 || "/api/v2",
-    tenureApiUrlV1: process.env.TENURE_API_URL_V1 || "/api/v1",
-    assetApiUrlV1: process.env.PROPERTY_API_URL_V1 || "/api/v1",
-    referenceDataApiUrlV1: process.env.REFERENCE_DATA_API_URL_V1 || "/api/v1",
-    addressApiUrlV1: process.env.ADDRESS_API_URL_V1 || "/api/v1",
-    addressApiUrlV2: process.env.ADDRESS_API_URL_V2 || "/api/v2",
-    equalityInformationApiUrlV1: process.env.EQUALITY_INFORMATION_API_URL_V1 || "/api/v1",
-    repairsHubAppUrl: process.env.REPAIRS_HUB_APP_URL || "/api/v1",
-    repairsHubApiUrl: process.env.REPAIRS_HUB_API_URL || "/api/v1",
-    processApiUrlV1: process.env.PROCESS_API_URL_V1 || "/api/v1",
-    processApiUrlV2: process.env.PROCESS_API_URL_V2 || "/api/v2",
-};
-
-const voidUser = {
-    token: "",
-    sub: "",
-    email: "",
-    iss: "",
-    name: "",
-    groups: [],
-    iat: Number.NaN,
-};
-const parseToken = () => {
-    const token = Cookies.get(config.authToken) || null;
-    if (!token) {
-        return voidUser;
-    }
-    try {
-        const decodedToken = o$1(token);
-        return Object.assign(Object.assign({}, decodedToken), { token });
-    }
-    catch (_a) {
-        return voidUser;
-    }
-};
-const $auth = new BehaviorSubject(parseToken());
-const isAuthorisedForGroups = (groups) => {
-    const auth = $auth.getValue();
-    return groups.some((group) => auth.groups.includes(group));
-};
-const isAuthorised = () => isAuthorisedForGroups(config.authAllowedGroups);
-const logout = () => {
-    $auth.next(voidUser);
-    Cookies.remove(config.authToken, {
-        domain: config.cookieDomain,
-    });
-    window.location.reload();
-};
-
 const axiosInstance = axios.create({
     responseType: "json",
 });
-axiosInstance.interceptors.request.use((reqConfig) => {
-    const req = Object.assign(Object.assign({}, reqConfig), { headers: Object.assign(Object.assign(Object.assign({}, reqConfig.headers), { Authorization: `Bearer ${$auth.getValue().token}` }), (reqConfig.headers["skip-x-correlation-id"]
-            ? {}
-            : { "x-correlation-id": v4() })) });
-    delete req.headers["skip-x-correlation-id"];
-    if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
-        req.headers["If-Match"] = req.data.etag;
-        delete req.data.etag;
-    }
-    return req;
-});
-axiosInstance.interceptors.response.use((res) => {
-    var _a;
-    if (res.config.method === "get" && ((_a = res.data) === null || _a === void 0 ? void 0 : _a.id)) {
-        res.data.etag = res.headers.etag;
-    }
-    return res;
-}, (error) => {
-    var _a;
-    if (((_a = error.response) === null || _a === void 0 ? void 0 : _a.status) === 403) {
-        if (isAuthorised()) {
-            logout();
-        }
-    }
-    throw error;
-});
+// axiosInstance.interceptors.request.use((reqConfig) => {
+//   const req: Config = {
+//     ...reqConfig,
+//     headers: {
+//       ...reqConfig.headers,
+//       Authorization: `Bearer ${$auth.getValue().token}`,
+//       ...(reqConfig.headers["skip-x-correlation-id"]
+//         ? {}
+//         : { "x-correlation-id": uuid() }),
+//     },
+//   };
+//   delete req.headers["skip-x-correlation-id"];
+//   if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
+//     req.headers["If-Match"] = req.data.etag;
+//     delete req.data.etag;
+//   }
+//   return req;
+// });
+// axiosInstance.interceptors.response.use(
+//   (res) => {
+//     if (res.config.method === "get" && res.data?.id) {
+//       res.data.etag = res.headers.etag;
+//     }
+//     return res;
+//   },
+//   (error: AxiosError) => {
+//     if (error.response?.status === 403) {
+//       if (isAuthorised()) {
+//         logout();
+//       }
+//     }
+//     throw error;
+//   },
+// );
 const createCancelToken = () => axios.CancelToken.source();
 const isAxiosError = (e) => axios.isAxiosError(e);
 
