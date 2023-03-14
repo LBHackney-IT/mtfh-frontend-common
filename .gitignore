@@ -76,3 +76,6 @@ typings/
 .yalc
 yalc.lock
 
+
+# parcel
+.parcel-cache/
