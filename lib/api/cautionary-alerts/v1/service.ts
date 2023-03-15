@@ -65,6 +65,6 @@ export const addCautionaryAlert = async (
 
 export const endCautionaryAlert = async (personId: string, alertId: string) => {
   await axiosInstance.patch(
-      `${config.cautionaryApiUrlV1}/persons/${personId}/alerts/${alertId}/end-alert`,
+    `${config.cautionaryApiUrlV1}/persons/${personId}/alerts/${alertId}/end-alert`,
   );
 };
