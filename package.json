@@ -4,7 +4,6 @@
   "source": "lib/mtfh-common.tsx",
   "main": "dist/main.js",
   "types": "dist/types.d.ts",
-  "type": "module",
   "alias": {
     "@mtfh/common": "/"
   },
