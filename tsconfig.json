@@ -4,23 +4,8 @@
     "strict": false,
     "jsx": "react",
     "target": "es2016",
-    "baseUrl": "lib",
+    "baseUrl": "src",
     "esModuleInterop": true,
-    "noImplicitAny": false,
-    "allowJs": true,
-    "moduleResolution": "node",
-    "module": "es6",
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "lib": [
-      "dom",
-      "es5",
-      "scripthost",
-      "es2015",
-      "es2015.promise",
-      "es2016.array.include",
-      "es2018"
-    ],
     "declaration": true
   }
 }
