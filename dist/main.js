@@ -1,11 +1,12 @@
 require("./main.css");
 var $6SzZC$axios = require("axios");
 var $6SzZC$uuid = require("uuid");
+var $6SzZC$swr = require("swr");
+var $6SzZC$swrinfinite = require("swr/infinite");
 var $6SzZC$jscookie = require("js-cookie");
 var $6SzZC$jwtdecode = require("jwt-decode");
 var $6SzZC$rxjs = require("rxjs");
-var $6SzZC$swr = require("swr");
-var $6SzZC$swrinfinite = require("swr/infinite");
+var $6SzZC$swchelperslib_define_propertyjs = require("@swc/helpers/lib/_define_property.js");
 var $6SzZC$usebreakpoint = require("use-breakpoint");
 var $6SzZC$react = require("react");
 var $6SzZC$reactjsxruntime = require("react/jsx-runtime");
@@ -43,53 +44,82 @@ function $parcel$export(e, n, v, s) {
   Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
 }
 var $569092d0c967ee8e$exports = {};
-var $85cdf6bf62ef4ee1$exports = {};
+var $681e52e5f1c343a3$exports = {};
 
-$parcel$export($85cdf6bf62ef4ee1$exports, "axiosInstance", function () { return $85cdf6bf62ef4ee1$export$155ec85c4e3b5e85; });
-$parcel$export($85cdf6bf62ef4ee1$exports, "createCancelToken", function () { return $85cdf6bf62ef4ee1$export$a9a71abd6e0b56fe; });
-$parcel$export($85cdf6bf62ef4ee1$exports, "isAxiosError", function () { return $85cdf6bf62ef4ee1$export$fbafdbe06a5b5a9a; });
+$parcel$export($681e52e5f1c343a3$exports, "getAxiosInstance", function () { return $681e52e5f1c343a3$export$b54474b5f400d58a; });
+$parcel$export($681e52e5f1c343a3$exports, "createCancelToken", function () { return $681e52e5f1c343a3$export$a9a71abd6e0b56fe; });
+$parcel$export($681e52e5f1c343a3$exports, "isAxiosError", function () { return $681e52e5f1c343a3$export$fbafdbe06a5b5a9a; });
+
+
+const $681e52e5f1c343a3$export$b54474b5f400d58a = (auth)=>{
+    const axiosInstance = (0, ($parcel$interopDefault($6SzZC$axios))).create({
+        responseType: "json"
+    });
+    axiosInstance.interceptors.request.use((reqConfig)=>{
+        const req = {
+            ...reqConfig,
+            headers: {
+                ...reqConfig.headers,
+                Authorization: `Bearer ${auth.$auth.getValue().token}`,
+                ...reqConfig.headers["skip-x-correlation-id"] ? {} : {
+                    "x-correlation-id": (0, $6SzZC$uuid.v4)()
+                }
+            }
+        };
+        delete req.headers["skip-x-correlation-id"];
+        if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
+            req.headers["If-Match"] = req.data.etag;
+            delete req.data.etag;
+        }
+        return req;
+    });
+    axiosInstance.interceptors.response.use((res)=>{
+        if (res.config.method === "get" && res.data?.id) res.data.etag = res.headers.etag;
+        return res;
+    }, (error)=>{
+        if (error.response?.status === 403) {
+            if (auth.isAuthorised()) auth.logout();
+        }
+        throw error;
+    });
+    return axiosInstance;
+};
+const $681e52e5f1c343a3$export$a9a71abd6e0b56fe = ()=>(0, ($parcel$interopDefault($6SzZC$axios))).CancelToken.source();
+const $681e52e5f1c343a3$export$fbafdbe06a5b5a9a = (e)=>(0, ($parcel$interopDefault($6SzZC$axios))).isAxiosError(e);
+
+
+var $806744a72941830a$exports = {};
+var $08fd481a73641560$exports = {};
+
+$parcel$export($08fd481a73641560$exports, "axiosFetcher", function () { return $08fd481a73641560$export$91375b104025299; });
+$parcel$export($08fd481a73641560$exports, "useAxiosSWR", function () { return $08fd481a73641560$export$a84fc53129590f47; });
+$parcel$export($08fd481a73641560$exports, "useAxiosSWRInfinite", function () { return $08fd481a73641560$export$18b3a6cf21214f90; });
+$parcel$export($08fd481a73641560$exports, "mutate", function () { return $08fd481a73641560$re_export$mutate; });
+
+
+
+const $08fd481a73641560$export$91375b104025299 = (auth, options = {})=>(url)=>{
+        const axiosInstance = (0, $681e52e5f1c343a3$export$b54474b5f400d58a)(auth);
+        return axiosInstance.get(url, options).then((res)=>res.data);
+    };
+const $08fd481a73641560$export$a84fc53129590f47 = (key, auth, options = {})=>(0, ($parcel$interopDefault($6SzZC$swr)))(key, $08fd481a73641560$export$91375b104025299(auth, options), {
+        shouldRetryOnError: false,
+        ...options
+    });
+const $08fd481a73641560$export$18b3a6cf21214f90 = (key, auth, options = {})=>(0, ($parcel$interopDefault($6SzZC$swrinfinite)))(key, $08fd481a73641560$export$91375b104025299(auth, options), options);
+
+
+$parcel$exportWildcard($806744a72941830a$exports, $08fd481a73641560$exports);
+
+
+$parcel$exportWildcard($569092d0c967ee8e$exports, $681e52e5f1c343a3$exports);
+$parcel$exportWildcard($569092d0c967ee8e$exports, $806744a72941830a$exports);
 
 
 var $770ca302370776db$exports = {};
 var $6b4f1832ab8ff3f5$exports = {};
 
-$parcel$export($6b4f1832ab8ff3f5$exports, "$auth", function () { return $6b4f1832ab8ff3f5$export$94f900a053ab5369; });
-$parcel$export($6b4f1832ab8ff3f5$exports, "processToken", function () { return $6b4f1832ab8ff3f5$export$ef9b508a7de1e84d; });
-$parcel$export($6b4f1832ab8ff3f5$exports, "isAuthorisedForGroups", function () { return $6b4f1832ab8ff3f5$export$aa1859fa13b5bc66; });
-$parcel$export($6b4f1832ab8ff3f5$exports, "isAuthorised", function () { return $6b4f1832ab8ff3f5$export$a985eb0635740fe9; });
-$parcel$export($6b4f1832ab8ff3f5$exports, "logout", function () { return $6b4f1832ab8ff3f5$export$a0973bcfe11b05c9; });
-$parcel$export($6b4f1832ab8ff3f5$exports, "login", function () { return $6b4f1832ab8ff3f5$export$596d806903d1f59e; });
-
-
-
-const $c76f4f81e9b49394$var$config = {
-    appEnv: "development",
-    authAllowedGroups: "saml-aws-mtfh-developer,e2e-testing-development,Security_Testing,mmh-project-team,mmh-general-user-access"?.split(",") || [
-        "TEST_GROUP"
-    ],
-    authDomain: "//auth.hackney.gov.uk/auth",
-    cookieDomain: "hackney.gov.uk",
-    authToken: "hackneyToken",
-    configurationApiUrlV1: "https://a9nuohv61k.execute-api.eu-west-2.amazonaws.com/development",
-    contactDetailsApiUrlV1: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    contactDetailsApiUrlV2: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v2",
-    cautionaryApiUrlV1: "https://wv694tecog.execute-api.eu-west-2.amazonaws.com/staging/api/v1",
-    personApiUrlV1: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    personApiUrlV2: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v2",
-    notesApiUrlV1: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    notesApiUrlV2: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v2",
-    tenureApiUrlV1: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    assetApiUrlV1: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    referenceDataApiUrlV1: "https://wu66106de1.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    addressApiUrlV1: "https://6kb2p9kgb0.execute-api.eu-west-2.amazonaws.com/production/api/v1",
-    addressApiUrlV2: "/api/v2",
-    equalityInformationApiUrlV1: "https://rgq79ov75i.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    repairsHubAppUrl: "https://repairs-hub-development.hackney.gov.uk",
-    repairsHubApiUrl: "https://1oxvkycnmc.execute-api.eu-west-2.amazonaws.com/development/api/v2",
-    processApiUrlV1: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v1",
-    processApiUrlV2: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v2"
-};
-var $c76f4f81e9b49394$export$2e2bcd8739ae039 = $c76f4f81e9b49394$var$config;
+$parcel$export($6b4f1832ab8ff3f5$exports, "CommonAuth", function () { return $6b4f1832ab8ff3f5$export$1aef0919781140fb; });
 
 
 
@@ -103,102 +133,54 @@ const $6b4f1832ab8ff3f5$var$voidUser = {
     groups: [],
     iat: Number.NaN
 };
-const $6b4f1832ab8ff3f5$var$parseToken = ()=>{
-    const token = (0, ($parcel$interopDefault($6SzZC$jscookie))).get((0, $c76f4f81e9b49394$export$2e2bcd8739ae039).authToken) || null;
-    if (!token) return $6b4f1832ab8ff3f5$var$voidUser;
-    try {
-        const decodedToken = (0, ($parcel$interopDefault($6SzZC$jwtdecode)))(token);
-        return {
-            ...decodedToken,
-            token: token
-        };
-    } catch  {
-        return $6b4f1832ab8ff3f5$var$voidUser;
+class $6b4f1832ab8ff3f5$export$1aef0919781140fb {
+    parseToken() {
+        const token = (0, ($parcel$interopDefault($6SzZC$jscookie))).get(this.authToken) || null;
+        if (!token) return $6b4f1832ab8ff3f5$var$voidUser;
+        try {
+            const decodedToken = (0, ($parcel$interopDefault($6SzZC$jwtdecode)))(token);
+            return {
+                ...decodedToken,
+                token: token
+            };
+        } catch  {
+            return $6b4f1832ab8ff3f5$var$voidUser;
+        }
     }
-};
-const $6b4f1832ab8ff3f5$export$94f900a053ab5369 = new (0, $6SzZC$rxjs.BehaviorSubject)($6b4f1832ab8ff3f5$var$parseToken());
-const $6b4f1832ab8ff3f5$export$ef9b508a7de1e84d = ()=>{
-    $6b4f1832ab8ff3f5$export$94f900a053ab5369.next($6b4f1832ab8ff3f5$var$parseToken());
-};
-const $6b4f1832ab8ff3f5$export$aa1859fa13b5bc66 = (groups)=>{
-    const auth = $6b4f1832ab8ff3f5$export$94f900a053ab5369.getValue();
-    return groups.some((group)=>auth.groups.includes(group));
-};
-const $6b4f1832ab8ff3f5$export$a985eb0635740fe9 = ()=>$6b4f1832ab8ff3f5$export$aa1859fa13b5bc66((0, $c76f4f81e9b49394$export$2e2bcd8739ae039).authAllowedGroups);
-const $6b4f1832ab8ff3f5$export$a0973bcfe11b05c9 = ()=>{
-    $6b4f1832ab8ff3f5$export$94f900a053ab5369.next($6b4f1832ab8ff3f5$var$voidUser);
-    (0, ($parcel$interopDefault($6SzZC$jscookie))).remove((0, $c76f4f81e9b49394$export$2e2bcd8739ae039).authToken, {
-        domain: (0, $c76f4f81e9b49394$export$2e2bcd8739ae039).cookieDomain
-    });
-    window.location.reload();
-};
-const $6b4f1832ab8ff3f5$export$596d806903d1f59e = (redirectUrl = `${window.location.origin}/search`)=>{
-    $6b4f1832ab8ff3f5$export$a0973bcfe11b05c9();
-    window.location.href = `${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`;
-};
+    processToken() {
+        this.$auth.next(this.parseToken());
+    }
+    isAuthorisedForGroups(groups) {
+        const auth = this.$auth.getValue();
+        return groups.some((group)=>auth.groups.includes(group));
+    }
+    isAuthorised() {
+        return this.isAuthorisedForGroups(this.authAllowedGroups);
+    }
+    logout() {
+        this.$auth.next($6b4f1832ab8ff3f5$var$voidUser);
+        (0, ($parcel$interopDefault($6SzZC$jscookie))).remove(this.authToken, {
+            domain: this.cookieDomain
+        });
+        window.location.reload();
+    }
+    login(redirectUrl = `${window.location.origin}/search`) {
+        this.logout();
+        window.location.href = `${this.authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`;
+    }
+    constructor(authAllowedGroups = [
+        "TEST_GROUP"
+    ], authDomain = "//auth.hackney.gov.uk/auth", cookieDomain = "hackney.gov.uk", authToken = "hackneyToken"){
+        (0, ($parcel$interopDefault($6SzZC$swchelperslib_define_propertyjs)))(this, "$auth", new (0, $6SzZC$rxjs.BehaviorSubject)(this.parseToken()));
+        this.authAllowedGroups = authAllowedGroups;
+        this.authDomain = authDomain;
+        this.cookieDomain = cookieDomain;
+        this.authToken = authToken;
+    }
+}
 
 
 $parcel$exportWildcard($770ca302370776db$exports, $6b4f1832ab8ff3f5$exports);
-
-
-const $85cdf6bf62ef4ee1$export$155ec85c4e3b5e85 = (0, ($parcel$interopDefault($6SzZC$axios))).create({
-    responseType: "json"
-});
-$85cdf6bf62ef4ee1$export$155ec85c4e3b5e85.interceptors.request.use((reqConfig)=>{
-    const req = {
-        ...reqConfig,
-        headers: {
-            ...reqConfig.headers,
-            Authorization: `Bearer ${(0, $6b4f1832ab8ff3f5$export$94f900a053ab5369).getValue().token}`,
-            ...reqConfig.headers["skip-x-correlation-id"] ? {} : {
-                "x-correlation-id": (0, $6SzZC$uuid.v4)()
-            }
-        }
-    };
-    delete req.headers["skip-x-correlation-id"];
-    if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
-        req.headers["If-Match"] = req.data.etag;
-        delete req.data.etag;
-    }
-    return req;
-});
-$85cdf6bf62ef4ee1$export$155ec85c4e3b5e85.interceptors.response.use((res)=>{
-    if (res.config.method === "get" && res.data?.id) res.data.etag = res.headers.etag;
-    return res;
-}, (error)=>{
-    if (error.response?.status === 403) {
-        if ((0, $6b4f1832ab8ff3f5$export$a985eb0635740fe9)()) (0, $6b4f1832ab8ff3f5$export$a0973bcfe11b05c9)();
-    }
-    throw error;
-});
-const $85cdf6bf62ef4ee1$export$a9a71abd6e0b56fe = ()=>(0, ($parcel$interopDefault($6SzZC$axios))).CancelToken.source();
-const $85cdf6bf62ef4ee1$export$fbafdbe06a5b5a9a = (e)=>(0, ($parcel$interopDefault($6SzZC$axios))).isAxiosError(e);
-
-
-var $806744a72941830a$exports = {};
-var $08fd481a73641560$exports = {};
-
-$parcel$export($08fd481a73641560$exports, "axiosFetcher", function () { return $08fd481a73641560$export$91375b104025299; });
-$parcel$export($08fd481a73641560$exports, "useAxiosSWR", function () { return $08fd481a73641560$export$a84fc53129590f47; });
-$parcel$export($08fd481a73641560$exports, "useAxiosSWRInfinite", function () { return $08fd481a73641560$export$18b3a6cf21214f90; });
-$parcel$export($08fd481a73641560$exports, "mutate", function () { return $08fd481a73641560$re_export$mutate; });
-
-
-
-const $08fd481a73641560$export$91375b104025299 = (options = {})=>(url)=>(0, $85cdf6bf62ef4ee1$export$155ec85c4e3b5e85).get(url, options).then((res)=>res.data);
-const $08fd481a73641560$export$a84fc53129590f47 = (key, options = {})=>(0, ($parcel$interopDefault($6SzZC$swr)))(key, $08fd481a73641560$export$91375b104025299(options), {
-        shouldRetryOnError: false,
-        ...options
-    });
-const $08fd481a73641560$export$18b3a6cf21214f90 = (key, options = {})=>(0, ($parcel$interopDefault($6SzZC$swrinfinite)))(key, $08fd481a73641560$export$91375b104025299(options), options);
-
-
-$parcel$exportWildcard($806744a72941830a$exports, $08fd481a73641560$exports);
-
-
-$parcel$exportWildcard($569092d0c967ee8e$exports, $85cdf6bf62ef4ee1$exports);
-$parcel$exportWildcard($569092d0c967ee8e$exports, $806744a72941830a$exports);
-
 
 
 var $3e992cfbf7a8a728$exports = {};
@@ -255,6 +237,35 @@ const $acd2d3fb03fcdf14$export$dc0946e21e709aff = (breakpointRecord, defaultBrea
 var $51552beaa5d26bca$exports = {};
 
 $parcel$export($51552beaa5d26bca$exports, "useCautionaryAlertCodes", function () { return $51552beaa5d26bca$export$c3ce0ce047cd24b3; });
+
+const $c76f4f81e9b49394$var$config = {
+    appEnv: "development",
+    // authAllowedGroups: process.env.AUTH_ALLOWED_GROUPS?.split(",") || ["TEST_GROUP"],
+    // authDomain: process.env.AUTH_DOMAIN || "//auth.hackney.gov.uk/auth",
+    // cookieDomain: process.env.COOKIE_DOMAIN || "hackney.gov.uk",
+    // authToken: process.env.AUTH_TOKEN_NAME || "hackneyToken",
+    configurationApiUrlV1: "https://a9nuohv61k.execute-api.eu-west-2.amazonaws.com/development",
+    contactDetailsApiUrlV1: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    contactDetailsApiUrlV2: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    cautionaryApiUrlV1: "https://wv694tecog.execute-api.eu-west-2.amazonaws.com/staging/api/v1",
+    personApiUrlV1: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    personApiUrlV2: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    notesApiUrlV1: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    notesApiUrlV2: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    tenureApiUrlV1: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    assetApiUrlV1: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    referenceDataApiUrlV1: "https://wu66106de1.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    addressApiUrlV1: "https://6kb2p9kgb0.execute-api.eu-west-2.amazonaws.com/production/api/v1",
+    addressApiUrlV2: "/api/v2",
+    equalityInformationApiUrlV1: "https://rgq79ov75i.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    repairsHubAppUrl: "https://repairs-hub-development.hackney.gov.uk",
+    repairsHubApiUrl: "https://1oxvkycnmc.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    processApiUrlV1: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    processApiUrlV2: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v2"
+};
+var $c76f4f81e9b49394$export$2e2bcd8739ae039 = $c76f4f81e9b49394$var$config;
+
+
 
 
 
@@ -464,9 +475,10 @@ const $4ed1c8ae8173298c$export$99fef60adacea338 = ()=>{
     return {};
 };
 const $4ed1c8ae8173298c$export$c7de631ed348a50 = new (0, $6SzZC$rxjs.BehaviorSubject)($4ed1c8ae8173298c$export$99fef60adacea338());
-const $4ed1c8ae8173298c$export$3de01744a82b21a4 = async ()=>{
+const $4ed1c8ae8173298c$export$3de01744a82b21a4 = async (auth)=>{
+    const axiosInstance = (0, $681e52e5f1c343a3$export$b54474b5f400d58a)(auth);
     try {
-        const res = await (0, $85cdf6bf62ef4ee1$export$155ec85c4e3b5e85).get(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).configurationApiUrlV1}/api/v1/configuration?types=MMH`);
+        const res = await axiosInstance.get(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).configurationApiUrlV1}/api/v1/configuration?types=MMH`);
         res.data.forEach(({ type: type , featureToggles: featureToggles , configuration: configuration  })=>{
             const configs = $4ed1c8ae8173298c$export$c7de631ed348a50.getValue();
             $4ed1c8ae8173298c$export$c7de631ed348a50.next({
@@ -1178,7 +1190,6 @@ $parcel$export($0749ea49dee81dcd$exports, "CommentList", function () { return $0
 
 
 
-
 const $abc8a1166444b126$export$80ad823ea511ef0f = (id, { pageSize: pageSize = 5 , ...options } = {})=>{
     return (0, $08fd481a73641560$export$18b3a6cf21214f90)((page, previous)=>{
         if (!id || previous && !previous?.paginationDetails?.nextToken) return null;
@@ -1190,15 +1201,16 @@ const $abc8a1166444b126$export$80ad823ea511ef0f = (id, { pageSize: pageSize = 5 
         return `${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes?${(0, $6SzZC$querystring.stringify)(params)}`;
     }, options);
 };
-const $abc8a1166444b126$export$1cab2cf04e810197 = async (data)=>{
-    const auth = (0, $6b4f1832ab8ff3f5$export$94f900a053ab5369).getValue();
-    const { data: comment  } = await (0, $85cdf6bf62ef4ee1$export$155ec85c4e3b5e85).post(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes`, {
+const $abc8a1166444b126$export$1cab2cf04e810197 = async (data, auth)=>{
+    const { sub: id , email: email , name: fullName  } = auth.$auth.getValue();
+    const axiosInstance = (0, $681e52e5f1c343a3$export$b54474b5f400d58a)(auth);
+    const { data: comment  } = await axiosInstance.post(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes`, {
         ...data,
         createdAt: new Date().toISOString(),
         author: {
-            id: auth.sub,
-            email: auth.email,
-            fullName: auth.name
+            id: id,
+            email: email,
+            fullName: fullName
         }
     });
     return comment;
@@ -3000,7 +3012,6 @@ $parcel$export($835ac157f4d7f565$exports, "WorkOrderList", function () { return 
 
 
 
-
 let $07c4837419514f09$export$a932fb750d9fd996;
 (function(WorkOrdersFilters) {
     WorkOrdersFilters["CANCELLED"] = "Cancelled";
@@ -3062,7 +3073,7 @@ const $7c5824d5ea617ead$var$repairStatusGroupings = {
         "70"
     ]
 };
-const $7c5824d5ea617ead$export$888eda2be6b7998 = (id, filter, pageNumber = "1", pageSize = "12")=>{
+const $7c5824d5ea617ead$export$888eda2be6b7998 = (id, auth, filter, pageNumber = "1", pageSize = "12")=>{
     const params = new URLSearchParams();
     params.append("propertyReference", id);
     params.append("PageNumber", pageNumber);
@@ -3072,7 +3083,7 @@ const $7c5824d5ea617ead$export$888eda2be6b7998 = (id, filter, pageNumber = "1", 
     });
     return (0, $08fd481a73641560$export$a84fc53129590f47)(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).repairsHubApiUrl}/workOrders?${params}`, {
         headers: {
-            "x-hackney-user": (0, $6b4f1832ab8ff3f5$export$94f900a053ab5369).getValue().token
+            "x-hackney-user": auth.$auth.getValue().token
         }
     });
 };

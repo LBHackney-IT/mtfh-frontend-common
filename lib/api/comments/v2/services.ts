@@ -1,15 +1,16 @@
 import { stringify } from "query-string";
 
-import { $auth } from "../../../auth";
+// import { $auth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRInfiniteConfiguration,
   AxiosSWRInfiniteResponse,
-  axiosInstance,
+  getAxiosInstance,
   useAxiosSWRInfinite,
 } from "../../../http";
 
 import type { Comment } from "./types";
+import { CommonAuth } from "auth";
 
 export interface CommentsResponse {
   results: Comment[];
@@ -56,15 +57,21 @@ export const useComments = (
 
 export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt">;
 
-export const addComment = async (data: PostCommentRequestData): Promise<Comment> => {
-  const auth = $auth.getValue();
+export const addComment = async (
+  data: PostCommentRequestData,
+  auth: CommonAuth,
+): Promise<Comment> => {
+  const { sub: id, email, name: fullName } = auth.$auth.getValue();
+
+  const axiosInstance = getAxiosInstance(auth);
+
   const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV2}/notes`, {
     ...data,
     createdAt: new Date().toISOString(),
     author: {
-      id: auth.sub,
-      email: auth.email,
-      fullName: auth.name,
+      id,
+      email,
+      fullName,
     },
   });
   return comment;

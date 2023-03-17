@@ -1,4 +1,4 @@
-import { $auth } from "../../../auth";
+import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import { AxiosSWRResponse, useAxiosSWR } from "../../../http";
 import { WorkOrdersFilters, WorkOrdersResponse } from "./types";
@@ -32,6 +32,7 @@ const repairStatusGroupings: { [key: string]: string[] } = {
 
 export const useWorkOrders = (
   id: string,
+  auth: CommonAuth,
   filter?: WorkOrdersFilters,
   pageNumber = "1",
   pageSize = "12",
@@ -52,7 +53,7 @@ export const useWorkOrders = (
     `${config.repairsHubApiUrl}/workOrders?${params}`,
     {
       headers: {
-        "x-hackney-user": $auth.getValue().token,
+        "x-hackney-user": auth.$auth.getValue().token,
       },
     },
   );

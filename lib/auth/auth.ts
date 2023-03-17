@@ -2,8 +2,6 @@ import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject } from "rxjs";
 
-import { config } from "../config";
-
 export interface JWTPayload {
   sub: string;
   email: string;
@@ -27,49 +25,72 @@ const voidUser: AuthUser = {
   iat: Number.NaN,
 };
 
-const parseToken = (): AuthUser => {
-  const token = Cookies.get(config.authToken) || null;
+export class CommonAuth {
+  private authAllowedGroups: string[];
+  private authDomain: string;
+  private cookieDomain: string;
+  private authToken: string;
 
-  if (!token) {
-    return voidUser;
+  constructor(
+    authAllowedGroups: string[] = ["TEST_GROUP"],
+    authDomain: string = "//auth.hackney.gov.uk/auth",
+    cookieDomain: string = "hackney.gov.uk",
+    authToken: string = "hackneyToken",
+  ) {
+    this.authAllowedGroups = authAllowedGroups;
+    this.authDomain = authDomain;
+    this.cookieDomain = cookieDomain;
+    this.authToken = authToken;
   }
 
-  try {
-    const decodedToken = jwtDecode<JWTPayload>(token);
-    return {
-      ...decodedToken,
-      token,
-    };
-  } catch {
-    return voidUser;
+  private parseToken(): AuthUser {
+    const token = Cookies.get(this.authToken) || null;
+
+    if (!token) {
+      return voidUser;
+    }
+
+    try {
+      const decodedToken = jwtDecode<JWTPayload>(token);
+      return {
+        ...decodedToken,
+        token,
+      };
+    } catch {
+      return voidUser;
+    }
   }
-};
 
-export const $auth = new BehaviorSubject(parseToken());
+  public readonly $auth = new BehaviorSubject(this.parseToken());
 
-export const processToken = (): void => {
-  $auth.next(parseToken());
-};
+  public processToken(): void {
+    this.$auth.next(this.parseToken());
+  }
 
-export const isAuthorisedForGroups = (groups: string[]): boolean => {
-  const auth = $auth.getValue();
-  return groups.some((group) => auth.groups.includes(group));
-};
+  public isAuthorisedForGroups(groups: string[]): boolean {
+    const auth = this.$auth.getValue();
+    return groups.some((group) => auth.groups.includes(group));
+  }
 
-export const isAuthorised = (): boolean =>
-  isAuthorisedForGroups(config.authAllowedGroups);
+  public isAuthorised(): boolean {
+    return this.isAuthorisedForGroups(this.authAllowedGroups);
+  }
 
-export const logout = (): void => {
-  $auth.next(voidUser);
-  Cookies.remove(config.authToken, {
-    domain: config.cookieDomain,
-  });
-  window.location.reload();
-};
+  public logout(): void {
+    this.$auth.next(voidUser);
 
-export const login = (redirectUrl = `${window.location.origin}/search`): void => {
-  logout();
-  window.location.href = `${config.authDomain}?redirect_uri=${encodeURIComponent(
-    redirectUrl,
-  )}`;
-};
+    Cookies.remove(this.authToken, {
+      domain: this.cookieDomain,
+    });
+
+    window.location.reload();
+  }
+
+  public login(redirectUrl = `${window.location.origin}/search`): void {
+    this.logout();
+
+    window.location.href = `${this.authDomain}?redirect_uri=${encodeURIComponent(
+      redirectUrl,
+    )}`;
+  }
+}

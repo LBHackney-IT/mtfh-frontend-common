@@ -1,7 +1,8 @@
 import { BehaviorSubject } from "rxjs";
 
 import { config } from "../config";
-import { axiosInstance } from "../http";
+import { getAxiosInstance } from "../http";
+import { CommonAuth } from "../auth";
 
 type Configuration = {
   configuration: Record<string, string | undefined>;
@@ -55,7 +56,10 @@ export const hydrateConfiguration = () => {
 
 export const $configuration = new BehaviorSubject(hydrateConfiguration());
 
-export const getConfiguration = async (): Promise<void> => {
+export const getConfiguration = async (auth: CommonAuth): Promise<void> => {
+
+  const axiosInstance = getAxiosInstance(auth)
+
   try {
     const res = await axiosInstance.get<ConfigResponse>(
       `${config.configurationApiUrlV1}/api/v1/configuration?types=MMH`,

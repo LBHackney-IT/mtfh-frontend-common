@@ -17,16 +17,19 @@ export interface JWTPayload {
 export interface AuthUser extends JWTPayload {
     token: string;
 }
-export const $auth: BehaviorSubject<AuthUser>;
-export const processToken: () => void;
-export const isAuthorisedForGroups: (groups: string[]) => boolean;
-export const isAuthorised: () => boolean;
-export const logout: () => void;
-export const login: (redirectUrl?: string) => void;
+export class CommonAuth {
+    constructor(authAllowedGroups?: string[], authDomain?: string, cookieDomain?: string, authToken?: string);
+    readonly $auth: BehaviorSubject<AuthUser>;
+    processToken(): void;
+    isAuthorisedForGroups(groups: string[]): boolean;
+    isAuthorised(): boolean;
+    logout(): void;
+    login(redirectUrl?: string): void;
+}
 export interface Config extends AxiosRequestConfig {
     headers: Record<string, string>;
 }
-export const axiosInstance: import("axios").AxiosInstance;
+export const getAxiosInstance: (auth: CommonAuth) => import("axios").AxiosInstance;
 export const createCancelToken: () => CancelTokenSource;
 export const isAxiosError: (e: unknown) => e is AxiosError<any>;
 export type AxiosSWRError = AxiosError;
@@ -34,9 +37,9 @@ export type AxiosSWRResponse<T> = SWRResponse<T, AxiosSWRError>;
 export type AxiosSWRInfiniteResponse<T> = SWRInfiniteResponse<T, AxiosSWRError>;
 export type AxiosSWRConfiguration<T> = SWRConfiguration<T, AxiosError> & AxiosRequestConfig;
 export type AxiosSWRInfiniteConfiguration<T> = SWRInfiniteConfiguration<T, AxiosSWRError> & AxiosRequestConfig;
-export const axiosFetcher: (options?: AxiosRequestConfig) => <ResponseData>(url: string) => Promise<ResponseData>;
-export const useAxiosSWR: <ResponseData>(key: Key, options?: AxiosSWRConfiguration<ResponseData>) => AxiosSWRResponse<ResponseData>;
-export const useAxiosSWRInfinite: <ResponseData>(key: KeyLoader<ResponseData>, options?: AxiosSWRInfiniteConfiguration<ResponseData>) => AxiosSWRInfiniteResponse<ResponseData>;
+export const axiosFetcher: (auth: CommonAuth, options?: AxiosRequestConfig) => <ResponseData>(url: string) => Promise<ResponseData>;
+export const useAxiosSWR: <ResponseData>(key: Key, auth: CommonAuth, options?: AxiosSWRConfiguration<ResponseData>) => AxiosSWRResponse<ResponseData>;
+export const useAxiosSWRInfinite: <ResponseData>(key: KeyLoader<ResponseData>, auth: CommonAuth, options?: AxiosSWRInfiniteConfiguration<ResponseData>) => AxiosSWRInfiniteResponse<ResponseData>;
 export { mutate };
 export const BREAKPOINTS: {
     base: number;
@@ -68,7 +71,7 @@ type Configuration = {
 type ConfigCollection = Record<string, Configuration>;
 export const hydrateConfiguration: () => ConfigCollection;
 export const $configuration: BehaviorSubject<ConfigCollection>;
-export const getConfiguration: () => Promise<void>;
+export const getConfiguration: (auth: CommonAuth) => Promise<void>;
 export const getConfigItem: (path: string) => string;
 export const getFeatureToggle: (path: string) => boolean;
 export const useConfiguration: (path: string) => string;
