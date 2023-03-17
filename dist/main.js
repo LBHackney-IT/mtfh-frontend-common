@@ -1479,7 +1479,7 @@ const $1bf1b14b45737b3d$export$854bb7e533a6d075 = ({ comment: { categorisation: 
     const createdAtDate = (0, $6SzZC$react.useMemo)(()=>(0, $91989fb0a0d86f92$export$3ae94a2503e890a1)(createdAt), [
         createdAt
     ]);
-    const createdAtTime = (0, $6SzZC$react.useMemo)(()=>formatTime(createdAt), [
+    const createdAtTime = (0, $6SzZC$react.useMemo)(()=>(0, $91989fb0a0d86f92$export$3203edd9e5edd663)(createdAt), [
         createdAt
     ]);
     return /*#__PURE__*/ (0, $6SzZC$reactjsxruntime.jsxs)("div", {

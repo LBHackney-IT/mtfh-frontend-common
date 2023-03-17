@@ -1,6 +1,6 @@
 import { BehaviorSubject } from "rxjs";
 import { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
-import { Key, SWRConfiguration, SWRResponse, mutate } from "swr";
+import { Key, KeyLoader, SWRConfiguration, SWRResponse, mutate } from "swr";
 import { SWRInfiniteConfiguration, SWRInfiniteResponse } from "swr/infinite";
 import React, { ReactNode, ReactElement, ComponentPropsWithoutRef, FC, Dispatch } from "react";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
@@ -36,7 +36,7 @@ export type AxiosSWRConfiguration<T> = SWRConfiguration<T, AxiosError> & AxiosRe
 export type AxiosSWRInfiniteConfiguration<T> = SWRInfiniteConfiguration<T, AxiosSWRError> & AxiosRequestConfig;
 export const axiosFetcher: (options?: AxiosRequestConfig) => <ResponseData>(url: string) => Promise<ResponseData>;
 export const useAxiosSWR: <ResponseData>(key: Key, options?: AxiosSWRConfiguration<ResponseData>) => AxiosSWRResponse<ResponseData>;
-export const useAxiosSWRInfinite: <ResponseData>(key: (index: number, previousPageData: ResponseData) => import("swr/dist/types").ValueKey, options?: AxiosSWRInfiniteConfiguration<ResponseData>) => AxiosSWRInfiniteResponse<ResponseData>;
+export const useAxiosSWRInfinite: <ResponseData>(key: KeyLoader<ResponseData>, options?: AxiosSWRInfiniteConfiguration<ResponseData>) => AxiosSWRInfiniteResponse<ResponseData>;
 export { mutate };
 export const BREAKPOINTS: {
     base: number;
@@ -55,12 +55,12 @@ export const queries: {
     "2xl": string;
 };
 export type BreakpointKey = keyof typeof BREAKPOINTS;
-export const useBreakpoint: (breakpoint: BreakpointKey, defaultBreakpoint?: BreakpointKey) => boolean | undefined;
-export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "sm" | "md" | "lg" | "xl" | "2xl", T>>, defaultBreakpoint?: BreakpointKey) => T;
+export const useBreakpoint: (breakpoint: BreakpointKey, defaultBreakpoint?: "base" | "sm" | "md" | "lg" | "xl" | "2xl" | undefined) => boolean | undefined;
+export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "sm" | "md" | "lg" | "xl" | "2xl", T>>, defaultBreakpoint?: "base" | "sm" | "md" | "lg" | "xl" | "2xl" | undefined) => T | undefined;
 interface CautionaryAlerts {
     [key: string]: string;
 }
-export const useCautionaryAlertCodes: () => CautionaryAlerts;
+export const useCautionaryAlertCodes: () => CautionaryAlerts | null;
 type Configuration = {
     configuration: Record<string, string | undefined>;
     featureToggles: Record<string, boolean | undefined>;
@@ -75,7 +75,7 @@ export const useConfiguration: (path: string) => string;
 interface ErrorMessages {
     [key: string]: string;
 }
-export const useErrorCodes: () => ErrorMessages;
+export const useErrorCodes: () => ErrorMessages | null;
 export const useFeatureToggle: (path: string) => boolean;
 export interface Booleans {
     [key: string]: boolean;
@@ -397,7 +397,7 @@ export interface PageAnnouncementContextState {
     state?: PageAnnouncementState;
     dispatch: Dispatch<PageAnnouncementActions>;
 }
-export const PageAnnouncementContext: React.Context<PageAnnouncementContextState>;
+export const PageAnnouncementContext: React.Context<PageAnnouncementContextState | undefined>;
 interface UsePageAnnouncementValue {
     state?: PageAnnouncementState;
     addAnnouncement: Dispatch<PageAnnouncementState>;

@@ -3,9 +3,10 @@ import React, { useMemo } from "react";
 import cn from "classnames";
 
 import type { ReferenceData } from "../../api/reference-data/v1";
+import type { Comment } from "../../api/comments/v2";
 
 import "./comment-list-item.scss";
-import { formatDate } from "../../utils";
+import { formatDate, formatTime } from "../../utils";
 
 export interface CommentListItemParameters {
   comment: Comment;

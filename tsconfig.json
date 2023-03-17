@@ -32,18 +32,14 @@
 {
   // "extends": "ts-config-single-spa",
   "include": ["lib/**/*"],
-    "paths": {
-    "@root/*": ["./*"],
-    "@mtfh/common/*": ["./*"],
-    "~*": ["./lib/*"]
-},
   "compilerOptions": {
-    "strict": false,
+    "strict": true,
     "jsx": "react",
     "target": "es2016",
     "baseUrl": "src",
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "declaration": true
   }
 }
 
