@@ -1,5 +1,11 @@
 import { config } from "../../../config";
-import { AxiosSWRConfiguration, AxiosSWRResponse, axiosInstance, useAxiosSWR } from "../../../http";
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRResponse,
+  axiosInstance,
+  useAxiosSWR,
+} from "../../../http";
+
 import type { EqualityData } from "./types";
 
 export const useEqualityInformation = (

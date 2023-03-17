@@ -36,10 +36,12 @@
     "strict": true,
     "jsx": "react",
     "target": "es2016",
-    "baseUrl": "src",
+    "baseUrl": "lib",
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false
   }
 }
 

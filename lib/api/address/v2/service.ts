@@ -1,4 +1,5 @@
 import { config } from "../../../config";
+
 import type { Address } from "./types";
 
 interface AddressAPIv2Response {

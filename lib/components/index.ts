@@ -1,6 +1,6 @@
 export * from "./accordion";
-export { Alert } from "./alert";
-export { Button } from "./button";
+export * from "./alert";
+export * from "./button";
 export * from "./box";
 export * from "./card-list";
 export * from "./center";
@@ -9,11 +9,11 @@ export * from "./checklist";
 export * from "./comment-list";
 export * from "./confirmation-router";
 export * from "./date-input";
-export {TimeInput} from "./time-input";
+export * from "./time-input";
 export * from "./dialog";
 export * from "./dialog-prompt";
 export * from "./details";
-export { ErrorSummary } from "./error-summary";
+export * from "./error-summary";
 export * from "./field";
 export * from "./fieldset";
 export * from "./form-group";
@@ -43,5 +43,3 @@ export * from "./table";
 export * from "./text-area";
 export * from "./text";
 export * from "./stepper";
-
-// export const age = 23;

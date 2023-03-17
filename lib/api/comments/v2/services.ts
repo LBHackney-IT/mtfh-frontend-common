@@ -1,8 +1,15 @@
 import { stringify } from "query-string";
-import type { Comment } from "./types";
-import { AxiosSWRInfiniteConfiguration, AxiosSWRInfiniteResponse, axiosInstance, useAxiosSWRInfinite } from "../../../http";
-import { config } from "../../../config";
+
 import { $auth } from "../../../auth";
+import { config } from "../../../config";
+import {
+  AxiosSWRInfiniteConfiguration,
+  AxiosSWRInfiniteResponse,
+  axiosInstance,
+  useAxiosSWRInfinite,
+} from "../../../http";
+
+import type { Comment } from "./types";
 
 export interface CommentsResponse {
   results: Comment[];

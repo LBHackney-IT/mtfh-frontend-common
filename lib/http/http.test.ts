@@ -2,7 +2,6 @@ import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
 
 import { $auth } from "../auth";
-
 import { axiosInstance, createCancelToken } from "./http";
 
 const defaultRequest = { path: "/api", code: 200 };

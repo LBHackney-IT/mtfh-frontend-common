@@ -1,9 +1,9 @@
-@import "../../../node_modules/lbh-frontend/lbh/base";
-@import "../../../node_modules/govuk-frontend/govuk/objects/form-group";
-@import "../../../node_modules/lbh-frontend/lbh/objects/form-group";
-@import "../../../node_modules/lbh-frontend/lbh/components/lbh-label/label";
-@import "../../../node_modules/lbh-frontend/lbh/components/lbh-hint/hint";
-@import "../../../node_modules/lbh-frontend/lbh/components/lbh-error-message/error-message";
+@import "node_modules/lbh-frontend/lbh/base";
+@import "node_modules/govuk-frontend/govuk/objects/form-group";
+@import "node_modules/lbh-frontend/lbh/objects/form-group";
+@import "node_modules/lbh-frontend/lbh/components/lbh-label/label";
+@import "node_modules/lbh-frontend/lbh/components/lbh-hint/hint";
+@import "node_modules/lbh-frontend/lbh/components/lbh-error-message/error-message";
 
 .lbh-form-group {
   label,

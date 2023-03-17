@@ -1,5 +1,11 @@
 import { config } from "../../../config";
-import { AxiosSWRConfiguration, AxiosSWRResponse, axiosInstance, mutate, useAxiosSWR } from "../../../http";
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRResponse,
+  axiosInstance,
+  mutate,
+  useAxiosSWR,
+} from "../../../http";
 import { HouseholdMember, Tenure, TenureAsset, TenureType } from "./types";
 
 export const useTenure = (

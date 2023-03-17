@@ -1,6 +1,5 @@
 import { config } from "../../../config";
 import { axiosInstance, useAxiosSWR } from "../../../http";
-
 import { patchAsset, useAsset } from "./service";
 import { Asset, EditAssetAddressRequest } from "./types";
 

@@ -148,7 +148,7 @@ export interface CheckboxProps extends ComponentPropsWithoutRef<"input"> {
     error?: string;
 }
 export const Checkbox: React.ForwardRefExoticComponent<CheckboxProps & React.RefAttributes<HTMLInputElement>>;
-export const CheckboxConditional: (props: any, ref: any) => JSX.Element;
+export const CheckboxConditional: React.ForwardRefExoticComponent<Pick<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React.HTMLAttributes<HTMLDivElement>> & React.RefAttributes<HTMLDivElement>>;
 export interface CheckboxGroupProps extends ComponentPropsWithoutRef<"div"> {
     variant?: "base" | "small";
     error?: string;

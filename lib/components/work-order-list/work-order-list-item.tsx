@@ -5,10 +5,10 @@ import cn from "classnames";
 import { WorkOrder } from "../../api/work-order/v2";
 import { config } from "../../config";
 import locale from "../../locale";
+import { formatDate } from "../../utils";
 import { Card, CardBreak, CardRows } from "../card";
 import { Link } from "../link";
 import { LinkBox, LinkOverlay } from "../link-box";
-import { formatDate } from "../../utils";
 
 import "./work-order-list-item.scss";
 

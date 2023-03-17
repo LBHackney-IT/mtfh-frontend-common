@@ -11,8 +11,6 @@ export const axiosInstance = axios.create({
   responseType: "json",
 });
 
-
-
 axiosInstance.interceptors.request.use((reqConfig) => {
   const req: Config = {
     ...reqConfig,

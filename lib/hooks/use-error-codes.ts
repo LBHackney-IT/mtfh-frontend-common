@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import { useReferenceData } from "../api/reference-data/v1";
-
 import locale from "../locale";
 
 const { hooks } = locale;

@@ -5,13 +5,12 @@ import cn from "classnames";
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import "./styles.scss";
 
-export const SimplePagination: (props: any, ref: any) => JSX.Element = forwardRef<HTMLElement, ComponentPropsWithoutRef<"nav">>(
-  function SimplePagination({ className, ...props }, ref) {
-    return (
-      <nav ref={ref} className={cn("lbh-simple-pagination", className)} {...props} />
-    );
-  },
-);
+export const SimplePagination: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLElement,
+  ComponentPropsWithoutRef<"nav">
+>(function SimplePagination({ className, ...props }, ref) {
+  return <nav ref={ref} className={cn("lbh-simple-pagination", className)} {...props} />;
+});
 
 export interface SimplePaginationButtonProps {
   title?: string;

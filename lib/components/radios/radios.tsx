@@ -51,11 +51,12 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
   );
 });
 
-export const RadioDivider: (props: any, ref: any) => JSX.Element = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
-  function RadioDivider(props, ref) {
-    return <div ref={ref} className="govuk-radios__divider" {...props} />;
-  },
-);
+export const RadioDivider: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(function RadioDivider(props, ref) {
+  return <div ref={ref} className="govuk-radios__divider" {...props} />;
+});
 
 export const RadioConditional: (props: any, ref: any) => JSX.Element = forwardRef<
   HTMLDivElement,

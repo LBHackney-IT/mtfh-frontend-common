@@ -1,6 +1,5 @@
 import { config } from "../../../config";
-import { axiosInstance, AxiosSWRConfiguration, useAxiosSWR } from "../../../http";
-
+import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "../../../http";
 import {
   AddressAPIResponse,
   getAddressViaUprn,

@@ -1,5 +1,12 @@
+import { TenureSummary } from "api/person/v1";
+
 import { config } from "../../../config";
-import { AxiosSWRConfiguration, AxiosSWRResponse, useAxiosSWR } from "../../../http";
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRResponse,
+  axiosInstance,
+  useAxiosSWR,
+} from "../../../http";
 import { Alert, CautionaryAlert } from "./types";
 
 export const useCautionaryAlert = (

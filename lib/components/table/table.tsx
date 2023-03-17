@@ -5,36 +5,36 @@ import cn from "classnames";
 import "./styles.scss";
 
 export type TableProps = ComponentPropsWithoutRef<"table">;
-export const Table: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableElement, TableProps>(function Thead(
-  { className, ...props },
-  ref,
-) {
+export const Table: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLTableElement,
+  TableProps
+>(function Thead({ className, ...props }, ref) {
   return (
     <table ref={ref} className={cn("govuk-table", "lbh-table", className)} {...props} />
   );
 });
 
 export type TheadProps = ComponentPropsWithoutRef<"thead">;
-export const Thead: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableSectionElement, TheadProps>(function Thead(
-  { className, ...props },
-  ref,
-) {
+export const Thead: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLTableSectionElement,
+  TheadProps
+>(function Thead({ className, ...props }, ref) {
   return <thead ref={ref} className={cn("govuk-table__head", className)} {...props} />;
 });
 
 export type TbodyProps = ComponentPropsWithoutRef<"tbody">;
-export const Tbody: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableSectionElement, TbodyProps>(function Tbody(
-  { className, ...props },
-  ref,
-) {
+export const Tbody: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLTableSectionElement,
+  TbodyProps
+>(function Tbody({ className, ...props }, ref) {
   return <tbody ref={ref} className={cn("govuk-table__body", className)} {...props} />;
 });
 
 export type TrProps = ComponentPropsWithoutRef<"tr">;
-export const Tr: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableRowElement, TrProps>(function Tr(
-  { className, ...props },
-  ref,
-) {
+export const Tr: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLTableRowElement,
+  TrProps
+>(function Tr({ className, ...props }, ref) {
   return <tr ref={ref} className={cn("govuk-table__row", className)} {...props} />;
 });
 

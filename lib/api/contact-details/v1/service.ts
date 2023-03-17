@@ -1,3 +1,6 @@
+import { config } from "../../../config";
+import { axiosInstance } from "../../../http";
+
 export const deleteContactDetail = async (
   id: string,
   targetId: string,

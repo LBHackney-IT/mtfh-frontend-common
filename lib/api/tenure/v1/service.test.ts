@@ -1,6 +1,5 @@
-
 import { config } from "../../../config";
-import { axiosInstance } from "../../../http";
+import { AxiosSWRConfiguration, axiosInstance, mutate, useAxiosSWR } from "../../../http";
 import {
   AddPersonToTenureParams,
   AddTenureParams,

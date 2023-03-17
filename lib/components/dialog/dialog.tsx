@@ -48,8 +48,9 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
   );
 });
 
-export const DialogActions: (props: any, ref: any) => JSX.Element = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
-  function DialogActions({ className, ...props }, ref) {
-    return <div ref={ref} className={cn("lbh-dialog__actions", className)} {...props} />;
-  },
-);
+export const DialogActions: (props: any, ref: any) => JSX.Element = forwardRef<
+  HTMLDivElement,
+  ComponentPropsWithoutRef<"div">
+>(function DialogActions({ className, ...props }, ref) {
+  return <div ref={ref} className={cn("lbh-dialog__actions", className)} {...props} />;
+});

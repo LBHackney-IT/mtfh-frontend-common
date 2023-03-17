@@ -1,5 +1,6 @@
 import { config } from "../../../config";
-import { axiosInstance, AxiosSWRConfiguration, useAxiosSWR } from "../../../http";
+import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "../../../http";
+
 import type { Address } from "./types";
 
 export interface AddressAPIResponse {

@@ -5,7 +5,6 @@ import {
   axiosInstance,
   useAxiosSWR,
 } from "../../../http";
-
 import { Asset, EditAssetAddressRequest } from "./types";
 
 export const useAsset = (

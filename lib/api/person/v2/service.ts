@@ -1,5 +1,6 @@
 import { config } from "../../../config";
 import { axiosInstance, mutate } from "../../../http";
+
 import type { Person } from "./types";
 
 export interface PostPersonRequestData extends Omit<Person, "id" | "tenures"> {

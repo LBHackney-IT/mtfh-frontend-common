@@ -15,6 +15,7 @@
     "build": "parcel build",
     "analyze": "webpack --mode=production --env analyze",
     "lint": "eslint lib --ext js,ts,tsx --quiet",
+    "lintfix": "eslint lib --ext js,ts,tsx --fix",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "test": "cross-env BABEL_ENV=test TZ=utc jest --passWithNoTests --coverage",

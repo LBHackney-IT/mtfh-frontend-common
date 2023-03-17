@@ -1,8 +1,17 @@
 import { stringify } from "query-string";
 
-import type { CreateProcess, Process, UpdateProcess } from "./types";
-import { AxiosSWRConfiguration, AxiosSWRInfiniteConfiguration, AxiosSWRInfiniteResponse, AxiosSWRResponse, axiosInstance, useAxiosSWR, useAxiosSWRInfinite } from "../../../http";
 import { config } from "../../../config";
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRInfiniteConfiguration,
+  AxiosSWRInfiniteResponse,
+  AxiosSWRResponse,
+  axiosInstance,
+  useAxiosSWR,
+  useAxiosSWRInfinite,
+} from "../../../http";
+
+import type { CreateProcess, Process, UpdateProcess } from "./types";
 
 export type PostProcessRequestData = Omit<CreateProcess, "formData" | "documents">;
 
