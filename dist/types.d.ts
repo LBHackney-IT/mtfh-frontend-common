@@ -89,6 +89,20 @@ export const BooleanContext: React.Context<{
     setBooleans: (booleans: Booleans) => void;
 }>;
 export const BooleanContextProvider: ({ children, initialValue, }: BooleanContextProviderProps) => JSX.Element;
+export function parseDate(date: null): null;
+export function parseDate(date: string): Date;
+export function parseDate(date: string | null): Date | null;
+export const formatDate: (date: string | null) => string;
+export const formatTime: (date: string | null) => string;
+export const isFutureDate: (date: string | null) => boolean;
+export const stringToDate: (dateStr: string, formatStr: string) => Date;
+export const dateToString: (date: Date, formatStr: string) => string;
+export const isUnderAge: (dob: string, age: number) => boolean;
+export const removeWhitespace: (value?: string | null | undefined) => string | null;
+export const removeWhitespaceAndCapitalise: (value?: string | null | undefined) => string | null;
+export const pluralize: (word: string, value: number) => string;
+export const widthOverrides: (width?: number | undefined) => string;
+export const entityDiff: <T extends Record<string, any>>(lhs: T, rhs: T) => Partial<T>;
 export interface HeadingProps {
     variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
