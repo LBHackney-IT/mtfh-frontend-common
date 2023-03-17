@@ -558,6 +558,5 @@ interface StepperProps {
     [x: string]: any;
 }
 export const Stepper: ({ activeStep, title, children, startIndex, ...props }: StepperProps) => JSX.Element;
-export const Name = "Callum";
 
 //# sourceMappingURL=types.d.ts.map

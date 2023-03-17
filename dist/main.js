@@ -14,6 +14,7 @@ var $6SzZC$classnames = require("classnames");
 var $6SzZC$lbhfrontend = require("lbh-frontend");
 var $6SzZC$datefns = require("date-fns");
 var $6SzZC$deepdiff = require("deep-diff");
+var $6SzZC$querystring = require("query-string");
 var $6SzZC$reactrouterdom = require("react-router-dom");
 var $6SzZC$reachdialog = require("@reach/dialog");
 require("@reach/dialog/styles.css");
@@ -35,14 +36,12 @@ function $parcel$exportWildcard(dest, source) {
 
   return dest;
 }
-function $parcel$export(e, n, v, s) {
-  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
-}
 function $parcel$interopDefault(a) {
   return a && a.__esModule ? a.default : a;
 }
-
-$parcel$export(module.exports, "Name", function () { return $0e03b04b35bd8157$export$c7bd411105e2dec3; });
+function $parcel$export(e, n, v, s) {
+  Object.defineProperty(e, n, {get: v, set: s, enumerable: true, configurable: true});
+}
 var $569092d0c967ee8e$exports = {};
 var $85cdf6bf62ef4ee1$exports = {};
 
@@ -1178,6 +1177,41 @@ $parcel$export($0749ea49dee81dcd$exports, "CommentList", function () { return $0
 
 
 
+
+
+const $abc8a1166444b126$export$80ad823ea511ef0f = (id, { pageSize: pageSize = 5 , ...options } = {})=>{
+    return (0, $08fd481a73641560$export$18b3a6cf21214f90)((page, previous)=>{
+        if (!id || previous && !previous?.paginationDetails?.nextToken) return null;
+        const params = {
+            targetId: id,
+            pageSize: pageSize
+        };
+        if (page !== 0 && previous?.paginationDetails.nextToken) params.paginationToken = previous.paginationDetails.nextToken;
+        return `${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes?${(0, $6SzZC$querystring.stringify)(params)}`;
+    }, options);
+};
+const $abc8a1166444b126$export$1cab2cf04e810197 = async (data)=>{
+    const auth = (0, $6b4f1832ab8ff3f5$export$94f900a053ab5369).getValue();
+    const { data: comment  } = await (0, $85cdf6bf62ef4ee1$export$155ec85c4e3b5e85).post(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes`, {
+        ...data,
+        createdAt: new Date().toISOString(),
+        author: {
+            id: auth.sub,
+            email: auth.email,
+            fullName: auth.name
+        }
+    });
+    return comment;
+};
+
+
+
+
+
+
+
+
+
 var $570eaa952d8e00b9$exports = {};
 var $c409b756a3ce249f$exports = {};
 
@@ -1582,9 +1616,9 @@ const $0749ea49dee81dcd$var$NoComments = ()=>{
     });
 };
 const $0749ea49dee81dcd$export$c77c63b4dd2cbdbc = ({ targetId: targetId  })=>{
-    const { data: data , size: size , setSize: setSize , error: error  } = useComments(targetId);
+    const { data: data , size: size , setSize: setSize , error: error  } = (0, $abc8a1166444b126$export$80ad823ea511ef0f)(targetId);
     const { components: components  } = (0, $99138c4371ee1491$export$2e2bcd8739ae039);
-    const { data: referenceData , error: referenceError  } = useReferenceData({
+    const { data: referenceData , error: referenceError  } = (0, $84a1308d155a914a$export$caa1c15223f8c264)({
         category: "comment",
         subCategory: "category"
     });
@@ -3672,7 +3706,6 @@ $parcel$exportWildcard($ba3b58505e93ee14$exports, $d5fa2c2c976e06f4$exports);
 
 
 
-const $0e03b04b35bd8157$export$c7bd411105e2dec3 = "Callum";
 $parcel$exportWildcard(module.exports, $569092d0c967ee8e$exports);
 $parcel$exportWildcard(module.exports, $770ca302370776db$exports);
 $parcel$exportWildcard(module.exports, $f1498986601cb3ee$exports);

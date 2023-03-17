@@ -63,7 +63,6 @@ export const CheckboxConditional = forwardRef<
   );
 });
 
-
 export interface CheckboxGroupProps extends ComponentPropsWithoutRef<"div"> {
   variant?: "base" | "small";
   error?: string;

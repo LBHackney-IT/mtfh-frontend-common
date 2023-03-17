@@ -1,5 +1,8 @@
 import React, { useMemo } from "react";
 
+import { useComments } from "../../api/comments/v2";
+import { useReferenceData } from "../../api/reference-data/v1";
+
 import locale from "../../locale";
 import { Center } from "../center";
 import { ErrorSummary } from "../error-summary";
@@ -7,8 +10,6 @@ import { SimplePagination, SimplePaginationButton } from "../simple-pagination";
 import { Spinner } from "../spinner";
 import { Text } from "../text";
 import { CommentListItem } from "./comment-list-item";
-import { useComments } from "api/comments/v2";
-import { useReferenceData } from "api/reference-data/v1";
 
 const NoComments = () => {
   return <Text size="sm">{locale.components.commentList.noCommentsAdded}</Text>;
@@ -19,7 +20,7 @@ export interface CommentListProps {
 }
 
 export const CommentList = ({ targetId }: CommentListProps): JSX.Element => {
-  const { data, size, setSize, error } = useCommentsnts(targetId);
+  const { data, size, setSize, error } = useComments(targetId);
   const { components } = locale;
 
   const { data: referenceData, error: referenceError } = useReferenceData<"category">({
