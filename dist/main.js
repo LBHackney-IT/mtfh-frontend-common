@@ -64,31 +64,31 @@ $parcel$export($6b4f1832ab8ff3f5$exports, "login", function () { return $6b4f183
 
 
 const $c76f4f81e9b49394$var$config = {
-    appEnv: "test",
-    authAllowedGroups: undefined?.split(",") || [
+    appEnv: "development",
+    authAllowedGroups: "saml-aws-mtfh-developer,e2e-testing-development,Security_Testing,mmh-project-team,mmh-general-user-access"?.split(",") || [
         "TEST_GROUP"
     ],
     authDomain: "//auth.hackney.gov.uk/auth",
     cookieDomain: "hackney.gov.uk",
     authToken: "hackneyToken",
-    configurationApiUrlV1: "",
-    contactDetailsApiUrlV1: "/api/v1",
-    contactDetailsApiUrlV2: "/api/v2",
-    cautionaryApiUrlV1: "/api/v1",
-    personApiUrlV1: "/api/v1",
-    personApiUrlV2: "/api/v2",
-    notesApiUrlV1: "/api/v1",
-    notesApiUrlV2: "/api/v2",
-    tenureApiUrlV1: "/api/v1",
-    assetApiUrlV1: "/api/v1",
-    referenceDataApiUrlV1: "/api/v1",
-    addressApiUrlV1: "/api/v1",
+    configurationApiUrlV1: "https://a9nuohv61k.execute-api.eu-west-2.amazonaws.com/development",
+    contactDetailsApiUrlV1: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    contactDetailsApiUrlV2: "https://gos4l9my1a.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    cautionaryApiUrlV1: "https://wv694tecog.execute-api.eu-west-2.amazonaws.com/staging/api/v1",
+    personApiUrlV1: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    personApiUrlV2: "https://sr1g61wye9.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    notesApiUrlV1: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    notesApiUrlV2: "https://gvhd4fbr63.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    tenureApiUrlV1: "https://2524go3mdg.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    assetApiUrlV1: "https://xw8x2e7q06.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    referenceDataApiUrlV1: "https://wu66106de1.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    addressApiUrlV1: "https://6kb2p9kgb0.execute-api.eu-west-2.amazonaws.com/production/api/v1",
     addressApiUrlV2: "/api/v2",
-    equalityInformationApiUrlV1: "/api/v1",
-    repairsHubAppUrl: "/api/v1",
-    repairsHubApiUrl: "/api/v1",
-    processApiUrlV1: "/api/v1",
-    processApiUrlV2: "/api/v2"
+    equalityInformationApiUrlV1: "https://rgq79ov75i.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    repairsHubAppUrl: "https://repairs-hub-development.hackney.gov.uk",
+    repairsHubApiUrl: "https://1oxvkycnmc.execute-api.eu-west-2.amazonaws.com/development/api/v2",
+    processApiUrlV1: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v1",
+    processApiUrlV2: "https://bj7sld6363.execute-api.eu-west-2.amazonaws.com/development/api/v2"
 };
 var $c76f4f81e9b49394$export$2e2bcd8739ae039 = $c76f4f81e9b49394$var$config;
 
