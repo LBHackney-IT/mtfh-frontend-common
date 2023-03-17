@@ -18,7 +18,7 @@ export const useAsset = (
 export const patchAsset = async (
   id: string,
   assetAddress: EditAssetAddressRequest,
-  assetVersion: string,
+  assetVersion: string | null,
 ): Promise<void> => {
   return new Promise<void>((resolve, reject) => {
     axiosInstance
