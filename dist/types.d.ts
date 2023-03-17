@@ -117,14 +117,14 @@ export interface IconProps extends ComponentPropsWithoutRef<"svg"> {
 }
 export const Icon: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>;
 export const Alert: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>;
-interface ButtonProps {
+export interface ButtonProps {
     variant?: "primary" | "secondary" | "chevron" | "add";
     isLoading?: boolean;
     isDisabled?: boolean;
     loadingText?: string;
     override?: number;
 }
-type ButtonComponent = Polymorphic.ForwardRefComponent<"button", ButtonProps>;
+export type ButtonComponent = Polymorphic.ForwardRefComponent<"button", ButtonProps>;
 export const Button: ButtonComponent;
 export type BoxVariant = "success" | "warning" | undefined;
 interface BoxProps {
@@ -161,14 +161,14 @@ interface ChecklistProps {
     }[];
 }
 export const Checklist: ({ items }: ChecklistProps) => JSX.Element;
-interface ErrorSummaryProps {
+export interface ErrorSummaryProps {
     id: string;
     title: string;
     description?: string;
     reFocus?: number;
     override?: number;
 }
-type ErrorSummaryComponent = Polymorphic.ForwardRefComponent<"div", ErrorSummaryProps>;
+export type ErrorSummaryComponent = Polymorphic.ForwardRefComponent<"div", ErrorSummaryProps>;
 export const ErrorSummary: ErrorSummaryComponent;
 export interface SummaryListItemProps extends ComponentPropsWithoutRef<"div"> {
     title: string;
@@ -185,6 +185,25 @@ export interface SummaryListProps extends ComponentPropsWithoutRef<"dl"> {
     children: SummaryListChild | SummaryListChild[];
 }
 export const SummaryList: React.ForwardRefExoticComponent<SummaryListProps & React.RefAttributes<HTMLDListElement>>;
+interface ConflictErrorSummaryProps extends Partial<ErrorSummaryProps> {
+    id: string;
+    updatedFields?: Record<string, any>;
+    fieldLocale: Record<string, string>;
+    fieldTransforms?: Record<string, (value: any) => string>;
+    footNote?: string;
+}
+export const ConflictErrorSummary: ({ updatedFields, fieldLocale, fieldTransforms, title, description, footNote, ...props }: ConflictErrorSummaryProps) => JSX.Element;
+interface FormErrorSummaryProps extends Partial<Omit<ErrorSummaryProps, "description">> {
+    id: string;
+    prefix: string;
+    errors: Record<string, string>;
+}
+export const FormErrorSummary: ({ id, prefix, errors, title, ...props }: FormErrorSummaryProps) => JSX.Element;
+interface StautsErrorSummaryProps extends Partial<ErrorSummaryProps> {
+    id: string;
+    code: number;
+}
+export const StatusErrorSummary: ({ id, code, title, description, ...props }: StautsErrorSummaryProps) => JSX.Element;
 export const SimplePagination: (props: any, ref: any) => JSX.Element;
 export interface SimplePaginationButtonProps {
     title?: string;
@@ -253,7 +272,8 @@ export interface SelectProps extends ComponentPropsWithoutRef<"select"> {
     override?: number;
 }
 export const Select: React.ForwardRefExoticComponent<SelectProps & React.RefAttributes<HTMLSelectElement>>;
-interface TimeInputProps extends ComponentPropsWithoutRef<"div"> {
+export type AmPm = "AM" | "PM";
+export interface TimeInputProps extends ComponentPropsWithoutRef<"div"> {
     id?: string;
     error?: string;
     required?: boolean;
