@@ -1,5 +1,5 @@
-import { config } from "@mtfh/common/lib/config";
-import { axiosInstance, AxiosSWRConfiguration, useAxiosSWR } from "@mtfh/common/lib/http";
+import { config } from "../../../config";
+import { axiosInstance, AxiosSWRConfiguration, useAxiosSWR } from "../../../http";
 import type { Address } from "./types";
 
 export interface AddressAPIResponse {

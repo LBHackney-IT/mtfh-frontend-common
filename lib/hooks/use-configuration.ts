@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-import { $configuration, getConfigItem } from "@mtfh/common/lib/configuration";
+import { $configuration, getConfigItem } from "../configuration";
 
 export const useConfiguration = (path: string): string => {
   const [config, setConfig] = useState(getConfigItem(path));

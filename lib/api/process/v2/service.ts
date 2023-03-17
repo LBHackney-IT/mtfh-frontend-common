@@ -1,6 +1,6 @@
-import { PostProcessRequestData, Process } from "@mtfh/common/lib/api/process/v1";
-import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
+import { config } from "../../../config";
+import { axiosInstance } from "../../../http";
+import { PostProcessRequestData, Process } from "../v1";
 
 export type PostProcessRequestDataV2 = PostProcessRequestData & {
   patchAssignment: {

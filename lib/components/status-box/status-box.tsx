@@ -6,7 +6,7 @@ import { DefaultIcon, SuccessIcon, WarningIcon } from "../status-icon";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
 
-// import "./styles.scss";
+import "./styles.scss";
 
 export type StatusBoxVariant = "success" | "warning" | undefined;
 interface StatusBoxProps {

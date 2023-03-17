@@ -61,11 +61,6 @@ interface CautionaryAlerts {
     [key: string]: string;
 }
 export const useCautionaryAlertCodes: () => CautionaryAlerts;
-export const useConfiguration: (path: string) => string;
-interface ErrorMessages {
-    [key: string]: string;
-}
-export const useErrorCodes: () => ErrorMessages;
 type Configuration = {
     configuration: Record<string, string | undefined>;
     featureToggles: Record<string, boolean | undefined>;
@@ -76,6 +71,11 @@ export const $configuration: BehaviorSubject<ConfigCollection>;
 export const getConfiguration: () => Promise<void>;
 export const getConfigItem: (path: string) => string;
 export const getFeatureToggle: (path: string) => boolean;
+export const useConfiguration: (path: string) => string;
+interface ErrorMessages {
+    [key: string]: string;
+}
+export const useErrorCodes: () => ErrorMessages;
 export const useFeatureToggle: (path: string) => boolean;
 export interface Booleans {
     [key: string]: boolean;

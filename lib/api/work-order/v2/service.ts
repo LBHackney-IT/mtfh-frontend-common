@@ -1,8 +1,7 @@
-import { $auth } from "@mtfh/common/lib/auth";
-import { config } from "@mtfh/common/lib/config";
-import { AxiosSWRResponse, useAxiosSWR } from "@mtfh/common/lib/http";
-
+import { AxiosSWRResponse, useAxiosSWR } from "../../../http";
 import { WorkOrdersFilters, WorkOrdersResponse } from "./types";
+import { $auth } from "../../../auth";
+import { config } from "../../../config";
 
 export interface RepairsRequestParams {
   propertyReference: string;

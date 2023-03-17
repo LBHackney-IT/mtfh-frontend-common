@@ -2,12 +2,10 @@ import React, { useMemo } from "react";
 
 import cn from "classnames";
 
-import type { Comment } from "@mtfh/common/lib/api/comments/v2";
-import { formatDate, formatTime } from "@mtfh/common/lib/utils";
-
 import type { ReferenceData } from "../../api/reference-data/v1";
 
-// import "./comment-list-item.scss";
+import "./comment-list-item.scss";
+import { formatDate } from "../../utils";
 
 export interface CommentListItemParameters {
   comment: Comment;

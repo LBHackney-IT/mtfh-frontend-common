@@ -1,9 +1,8 @@
 import { deleteContactDetailV1, server } from "@hackney/mtfh-test-utils";
 import { RestRequest } from "msw";
 
-import { config } from "@mtfh/common/lib/config";
-
 import { deleteContactDetail } from "./service";
+import { config } from "../../../config";
 
 test("deleteContactDetail: it should send the right thing to the API and return the response", async () => {
   const id = "uuid";

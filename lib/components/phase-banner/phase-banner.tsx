@@ -1,7 +1,7 @@
 import React, { FC, ReactElement } from "react";
 
 import cn from "classnames";
-// import "./phase-banner.styles.scss";
+import "./phase-banner.styles.scss";
 
 type TagColorVariants = "grey" | "blue" | "yellow" | "red" | "green";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { SummaryList, SummaryListItem } from "../summary-list";
-// import "./styles.scss";
+import "./styles.scss";
 
 export type CardRow = {
   label: string;

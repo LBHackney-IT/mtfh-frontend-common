@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
 
-// import "./styles.scss";
+import "./styles.scss";
 
 export type CardComponent = Polymorphic.ForwardRefComponent<
   "div",

@@ -3,7 +3,7 @@ import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import cn from "classnames";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-// import "./styles.scss";
+import "./styles.scss";
 
 export const SimplePagination: (props: any, ref: any) => JSX.Element = forwardRef<HTMLElement, ComponentPropsWithoutRef<"nav">>(
   function SimplePagination({ className, ...props }, ref) {

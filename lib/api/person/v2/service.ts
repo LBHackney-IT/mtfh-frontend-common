@@ -1,6 +1,5 @@
-import { config } from "@mtfh/common/lib/config";
-import { axiosInstance, mutate } from "@mtfh/common/lib/http";
-
+import { config } from "../../../config";
+import { axiosInstance, mutate } from "../../../http";
 import type { Person } from "./types";
 
 export interface PostPersonRequestData extends Omit<Person, "id" | "tenures"> {

@@ -1,10 +1,10 @@
-import { config } from "@mtfh/common/lib/config";
+import { config } from "../../../config";
 import {
   AxiosSWRConfiguration,
   AxiosSWRResponse,
   axiosInstance,
   useAxiosSWR,
-} from "@mtfh/common/lib/http";
+} from "../../../http";
 
 import { Asset, EditAssetAddressRequest } from "./types";
 

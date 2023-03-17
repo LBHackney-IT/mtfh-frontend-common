@@ -1,8 +1,8 @@
-// @import "lbh-frontend/lbh/base";
-@import "~govuk-frontend/govuk/helpers/media-queries";
-@import "~govuk-frontend/govuk/helpers/focused";
-@import "~govuk-frontend/govuk/helpers/visually-hidden";
-@import "~govuk-frontend/govuk/helpers/links";
+@import "../../../node_modules/lbh-frontend/lbh/base";
+@import "node_modules/govuk-frontend/govuk/helpers/media-queries";
+@import "node_modules/govuk-frontend/govuk/helpers/focused";
+@import "node_modules/govuk-frontend/govuk/helpers/visually-hidden";
+@import "node_modules/govuk-frontend/govuk/helpers/links";
 
 $stroke-width: 2px;
 $stroke-width-large: 3px;

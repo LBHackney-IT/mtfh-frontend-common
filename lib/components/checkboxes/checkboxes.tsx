@@ -13,7 +13,7 @@ import mergeRefs from "react-merge-refs";
 import cn from "classnames";
 import { Checkboxes } from "lbh-frontend";
 
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface CheckboxProps extends ComponentPropsWithoutRef<"input"> {
   id: string;

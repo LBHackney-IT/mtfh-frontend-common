@@ -1,6 +1,3 @@
-import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
-
 export const deleteContactDetail = async (
   id: string,
   targetId: string,

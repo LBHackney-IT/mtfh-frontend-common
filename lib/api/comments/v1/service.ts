@@ -1,14 +1,8 @@
 import { stringify } from "query-string";
-
-import { $auth } from "@mtfh/common/lib/auth";
-import { config } from "@mtfh/common/lib/config";
-import {
-  AxiosSWRInfiniteResponse,
-  axiosInstance,
-  useAxiosSWRInfinite,
-} from "@mtfh/common/lib/http";
-
 import type { Comment } from "./types";
+import { AxiosSWRInfiniteResponse, axiosInstance, useAxiosSWRInfinite } from "../../../http";
+import { $auth } from "../../../auth";
+import { config } from "../../../config";
 
 export interface GetCommentsByTargetIdResponse {
   results: Comment[];

@@ -1,12 +1,5 @@
-import { TenureSummary } from "@mtfh/common/lib/api/person/v1";
-import { config } from "@mtfh/common/lib/config";
-import {
-  AxiosSWRConfiguration,
-  AxiosSWRResponse,
-  axiosInstance,
-  useAxiosSWR,
-} from "@mtfh/common/lib/http";
-
+import { config } from "../../../config";
+import { AxiosSWRConfiguration, AxiosSWRResponse, useAxiosSWR } from "../../../http";
 import { Alert, CautionaryAlert } from "./types";
 
 export const useCautionaryAlert = (

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-
-import { useReferenceData } from "@mtfh/common/lib/api/reference-data/v1";
-
 import locale from "../locale";
+import { useReferenceData } from "../api/reference-data/v1";
 
 const { hooks } = locale;
 const { defaultCautionaryAlerts } = hooks;

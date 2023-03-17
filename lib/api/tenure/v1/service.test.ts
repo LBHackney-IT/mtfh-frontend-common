@@ -1,11 +1,6 @@
-import { config } from "@mtfh/common/lib/config";
-import {
-  AxiosSWRConfiguration,
-  axiosInstance,
-  mutate,
-  useAxiosSWR,
-} from "@mtfh/common/lib/http";
 
+import { config } from "../../../config";
+import { axiosInstance } from "../../../http";
 import {
   AddPersonToTenureParams,
   AddTenureParams,

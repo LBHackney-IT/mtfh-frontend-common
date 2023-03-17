@@ -1,4 +1,4 @@
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
+import { Patch } from "../../patch/v1";
 
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 

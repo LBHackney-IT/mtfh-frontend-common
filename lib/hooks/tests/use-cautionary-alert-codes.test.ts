@@ -4,8 +4,8 @@ import {
   server,
 } from "@hackney/mtfh-test-utils";
 import { renderHook } from "@testing-library/react-hooks";
+import { useCautionaryAlertCodes } from "../use-cautionary-alert-codes";
 
-import { useCautionaryAlertCodes } from "@mtfh/common/lib/hooks";
 
 describe("useCautionaryAlertCodes", () => {
   test("it makes a call to the referenceData API for cautionary alerts and returns them correctly", async () => {

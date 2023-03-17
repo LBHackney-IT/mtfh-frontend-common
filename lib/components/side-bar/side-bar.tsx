@@ -13,7 +13,7 @@ import { Accordion, AccordionItem, AccordionItemProps } from "../accordion";
 import { Heading } from "../heading";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface SideBarSectionProps extends AccordionItemProps {
   isCollapsed?: boolean;

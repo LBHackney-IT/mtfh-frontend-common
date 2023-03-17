@@ -1,17 +1,8 @@
 import { stringify } from "query-string";
 
-import { config } from "@mtfh/common/lib/config";
-import {
-  AxiosSWRConfiguration,
-  AxiosSWRInfiniteConfiguration,
-  AxiosSWRInfiniteResponse,
-  AxiosSWRResponse,
-  axiosInstance,
-  useAxiosSWR,
-  useAxiosSWRInfinite,
-} from "@mtfh/common/lib/http";
-
 import type { CreateProcess, Process, UpdateProcess } from "./types";
+import { AxiosSWRConfiguration, AxiosSWRInfiniteConfiguration, AxiosSWRInfiniteResponse, AxiosSWRResponse, axiosInstance, useAxiosSWR, useAxiosSWRInfinite } from "../../../http";
+import { config } from "../../../config";
 
 export type PostProcessRequestData = Omit<CreateProcess, "formData" | "documents">;
 

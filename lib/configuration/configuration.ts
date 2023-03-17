@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 
-import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
+import { config } from "../config";
+import { axiosInstance } from "../http";
 
 type Configuration = {
   configuration: Record<string, string | undefined>;

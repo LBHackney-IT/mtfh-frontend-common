@@ -5,7 +5,7 @@ import cn from "classnames";
 import "@reach/dialog/styles.css";
 
 import { Heading } from "../heading";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface DialogProps extends ComponentPropsWithoutRef<"div"> {
   isOpen: boolean;

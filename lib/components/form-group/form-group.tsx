@@ -13,7 +13,7 @@ import { widthOverrides } from "../../utils";
 import { TextArea } from "../text-area";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface FormGroupProps {
   id: string;

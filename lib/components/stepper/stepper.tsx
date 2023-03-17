@@ -1,6 +1,6 @@
 import React, { Children, ReactElement, cloneElement, isValidElement } from "react";
 
-// import "./styles.scss";
+import "./styles.scss";
 import cn from "classnames";
 
 import { Heading } from "../heading";

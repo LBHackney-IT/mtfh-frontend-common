@@ -9,7 +9,7 @@ import React, {
 import cn from "classnames";
 
 import { widthOverrides } from "../../utils";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface FieldsetProps extends ComponentPropsWithoutRef<"fieldset"> {
   heading: string | ReactElement<ComponentPropsWithoutRef<"h1">>;

@@ -3,7 +3,7 @@ import React, { forwardRef, isValidElement } from "react";
 import cn from "classnames";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface ListProps {
   variant?: "base" | "bullets" | "numbers";

@@ -1,5 +1,5 @@
-// @import "lbh-frontend/lbh/base";
-@import "lbh-frontend/lbh/components/lbh-dialog/_dialog.scss";
+@import "node_modules/lbh-frontend/lbh/base";
+@import "node_modules/lbh-frontend/lbh/components/lbh-dialog/dialog";
 
 [data-reach-dialog-overlay] {
   z-index: 100;

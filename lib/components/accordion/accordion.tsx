@@ -8,7 +8,7 @@ import { widthOverrides } from "../../utils";
 import { Heading } from "../heading";
 
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface AccordionItemProps {
   id: string;

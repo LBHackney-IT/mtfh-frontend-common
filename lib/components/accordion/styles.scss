@@ -1,7 +1,7 @@
-// @import "lbh-frontend/lbh/base";
-// @import "lbh-frontend/lbh/components/lbh-accordion/accordion";
-// @import "govuk-frontend/govuk/helpers/visually-hidden";
+@import "../../../node_modules/lbh-frontend/lbh/base";
+@import "node_modules/lbh-frontend/lbh/components/lbh-accordion/_accordion";
+@import "node_modules/govuk-frontend/govuk/helpers/visually-hidden";
 
-// .lbh-accordion--hide-controls .govuk-accordion__controls {
-//   @include govuk-visually-hidden;
-// }
+.lbh-accordion--hide-controls .govuk-accordion__controls {
+  @include govuk-visually-hidden;
+}

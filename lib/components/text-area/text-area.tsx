@@ -11,7 +11,7 @@ import classNames from "classnames";
 
 import { pluralize, widthOverrides } from "../../utils";
 
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface TextAreaProps extends ComponentPropsWithoutRef<"textarea"> {
   maxLength?: number;

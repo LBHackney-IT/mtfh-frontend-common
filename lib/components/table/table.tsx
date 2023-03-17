@@ -2,7 +2,7 @@ import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 
 import cn from "classnames";
 
-// import "./styles.scss";
+import "./styles.scss";
 
 export type TableProps = ComponentPropsWithoutRef<"table">;
 export const Table: (props: any, ref: any) => JSX.Element = forwardRef<HTMLTableElement, TableProps>(function Thead(

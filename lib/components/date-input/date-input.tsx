@@ -3,7 +3,7 @@ import React, { ComponentPropsWithoutRef, forwardRef } from "react";
 import cn from "classnames";
 
 import { NumberInput, NumberInputProps } from "../number-input";
-// import "./styles.scss";
+import "./styles.scss";
 
 export interface DateInputProps extends ComponentPropsWithoutRef<"div"> {
   id?: string;

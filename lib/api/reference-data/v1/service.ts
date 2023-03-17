@@ -1,10 +1,5 @@
-import { config } from "@mtfh/common/lib/config";
-import {
-  AxiosSWRConfiguration,
-  AxiosSWRResponse,
-  useAxiosSWR,
-} from "@mtfh/common/lib/http";
-
+import { config } from "../../../config";
+import { AxiosSWRConfiguration, AxiosSWRResponse, useAxiosSWR } from "../../../http";
 import type { ReferenceData } from "./types";
 
 type ReferenceDataResponse<T extends string> = { [key in T]: ReferenceData[] };
