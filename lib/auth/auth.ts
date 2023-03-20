@@ -26,8 +26,11 @@ const voidUser: AuthUser = {
 
 export class CommonAuth {
   private readonly _authAllowedGroups: string[];
+
   private readonly _authDomain: string;
+
   private readonly _cookieDomain: string;
+
   private readonly _authToken: string;
 
   private _user: AuthUser;
@@ -43,7 +46,7 @@ export class CommonAuth {
     this._cookieDomain = cookieDomain;
     this._authToken = authToken;
 
-    this._user = this.parseToken()
+    this._user = this.parseToken();
   }
 
   public get user(): AuthUser {
@@ -67,7 +70,6 @@ export class CommonAuth {
       return voidUser;
     }
   }
-
 
   public processToken(): void {
     this._user = this.parseToken();

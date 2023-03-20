@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useReferenceData } from "../api/reference-data/v1";
-import locale from "../locale";
 import { CommonAuth } from "../auth";
+import locale from "../locale";
 
 const { hooks } = locale;
 const { defaultCautionaryAlerts } = hooks;
@@ -15,10 +15,13 @@ export const useCautionaryAlertCodes = (auth: CommonAuth) => {
     defaultCautionaryAlerts,
   );
 
-  const { data, error } = useReferenceData<"alert-type">({
-    category: "cautionary-alert",
-    subCategory: "alert-type",
-  }, auth);
+  const { data, error } = useReferenceData<"alert-type">(
+    {
+      category: "cautionary-alert",
+      subCategory: "alert-type",
+    },
+    auth,
+  );
 
   useEffect(() => {
     if (data?.["alert-type"]) {

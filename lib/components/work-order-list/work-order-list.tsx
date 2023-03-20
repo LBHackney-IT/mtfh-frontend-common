@@ -5,6 +5,7 @@ import {
   WorkOrdersFilters,
   useWorkOrders,
 } from "../../api/work-order/v2";
+import { CommonAuth } from "../../auth";
 import { config } from "../../config";
 import locale from "../../locale";
 import { CardList } from "../card-list";
@@ -16,7 +17,6 @@ import { Select } from "../select";
 import { Spinner } from "../spinner";
 import WorkOrderListItem from "./work-order-list-item";
 import "./work-order-list.scss";
-import { CommonAuth } from "../../auth";
 
 const { components } = locale;
 interface ExternalLinkProps {
@@ -38,7 +38,10 @@ interface WorkOrdersProps {
   statusCode: WorkOrdersFilters;
 }
 
-export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps, auth: CommonAuth) => {
+export const WorkOrders = (
+  { assetId, statusCode }: WorkOrdersProps,
+  auth: CommonAuth,
+) => {
   const { data: workOrders, error } = useWorkOrders(assetId, auth, statusCode);
 
   if (error) {

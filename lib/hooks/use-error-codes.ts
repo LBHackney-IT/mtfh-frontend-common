@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useReferenceData } from "../api/reference-data/v1";
-import locale from "../locale";
 import { CommonAuth } from "../auth";
+import locale from "../locale";
 
 const { hooks } = locale;
 const { defaultErrorMessages } = hooks;
@@ -13,10 +13,13 @@ interface ErrorMessages {
 export const useErrorCodes = (auth: CommonAuth) => {
   const [errorMessages, setErrorMessages] = useState<ErrorMessages>(defaultErrorMessages);
 
-  const { data, error } = useReferenceData<"mmh">({
-    category: "error-code",
-    subCategory: "mmh",
-  }, auth);
+  const { data, error } = useReferenceData<"mmh">(
+    {
+      category: "error-code",
+      subCategory: "mmh",
+    },
+    auth,
+  );
 
   useEffect(() => {
     if (data?.mmh) {
