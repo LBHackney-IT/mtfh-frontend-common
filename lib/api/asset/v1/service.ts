@@ -10,9 +10,10 @@ import { Asset, EditAssetAddressRequest } from "./types";
 
 export const useAsset = (
   id: string | null,
+  auth: CommonAuth,
   options?: AxiosSWRConfiguration<Asset>,
 ): AxiosSWRResponse<Asset> => {
-  return useAxiosSWR(id && `${config.assetApiUrlV1}/assets/${id}`, options);
+  return useAxiosSWR(id && `${config.assetApiUrlV1}/assets/${id}`, auth, options);
 };
 
 export const patchAsset = async (
