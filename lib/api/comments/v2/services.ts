@@ -1,5 +1,6 @@
 import { stringify } from "query-string";
 
+import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRInfiniteConfiguration,
@@ -9,7 +10,6 @@ import {
 } from "../../../http";
 
 import type { Comment } from "./types";
-import { CommonAuth } from "../../../auth";
 
 export interface CommentsResponse {
   results: Comment[];
@@ -37,22 +37,26 @@ export const useComments = (
   auth: CommonAuth,
   { pageSize = 5, ...options }: CommentsConfiguration = {},
 ): AxiosSWRInfiniteResponse<CommentsResponse> => {
-  return useAxiosSWRInfinite<CommentsResponse>((page, previous) => {
-    if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
-      return null;
-    }
+  return useAxiosSWRInfinite<CommentsResponse>(
+    (page, previous) => {
+      if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
+        return null;
+      }
 
-    const params: CommentsRequestParams = {
-      targetId: id,
-      pageSize,
-    };
+      const params: CommentsRequestParams = {
+        targetId: id,
+        pageSize,
+      };
 
-    if (page !== 0 && previous?.paginationDetails.nextToken) {
-      params.paginationToken = previous.paginationDetails.nextToken;
-    }
+      if (page !== 0 && previous?.paginationDetails.nextToken) {
+        params.paginationToken = previous.paginationDetails.nextToken;
+      }
 
-    return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
-  }, auth, options);
+      return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
+    },
+    auth,
+    options,
+  );
 };
 
 export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt">;

@@ -1,31 +1,36 @@
 import { TenureSummary } from "api/person/v1";
+import { CommonAuth } from "auth";
 
 import { config } from "../../../config";
 import {
   AxiosSWRConfiguration,
   AxiosSWRResponse,
-  axiosInstance,
+  getAxiosInstance,
   useAxiosSWR,
 } from "../../../http";
 import { Alert, CautionaryAlert } from "./types";
 
 export const useCautionaryAlert = (
   id: string | null,
+  auth: CommonAuth,
   options?: AxiosSWRConfiguration<any>,
 ): AxiosSWRResponse<CautionaryAlert> => {
   return useAxiosSWR(
     id && `${config.cautionaryApiUrlV1}/cautionary-alerts/persons/${id}`,
+    auth,
     options,
   );
 };
 
 export const usePropertyCautionaryAlert = (
   propertyRef: string | null,
+  auth: CommonAuth,
   options?: AxiosSWRConfiguration<any>,
 ): AxiosSWRResponse<CautionaryAlert> => {
   return useAxiosSWR(
     propertyRef &&
       `${config.cautionaryApiUrlV1}/cautionary-alerts/properties-new/${propertyRef}`,
+    auth,
     options,
   );
 };
@@ -49,7 +54,10 @@ export type PostCautionaryAlertRequestData = Pick<Alert, "assureReference"> & {
 
 export const addCautionaryAlert = async (
   data: PostCautionaryAlertRequestData,
+  auth: CommonAuth,
 ): Promise<Alert> => {
+  const axiosInstance = getAxiosInstance(auth);
+
   const { data: alert } = await axiosInstance.post(
     `${config.cautionaryApiUrlV1}/cautionary-alerts/`,
     data,

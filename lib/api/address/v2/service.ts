@@ -1,4 +1,6 @@
+import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
+import { AxiosSWRConfiguration, getAxiosInstance, useAxiosSWR } from "../../../http";
 
 import type { Address } from "./types";
 
@@ -11,9 +13,14 @@ interface SearchAddressResponse {
   error?: { code: number };
 }
 
-export const getAddressViaUprn = (UPRN: string): Promise<SearchAddressResponse> =>
-  axiosInstance
-    .get<AddressAPIv2Response>(`${config.addressApiUrlV2}/addresses/${UPRN}`, {
+export const getAddressViaUprn = (
+  uprn: string,
+  auth: CommonAuth,
+): Promise<SearchAddressResponse> => {
+  const axiosInstance = getAxiosInstance(auth);
+
+  return axiosInstance
+    .get<AddressAPIv2Response>(`${config.addressApiUrlV2}/addresses/${uprn}`, {
       headers: {
         "skip-x-correlation-id": true,
       },
@@ -25,13 +32,16 @@ export const getAddressViaUprn = (UPRN: string): Promise<SearchAddressResponse> 
       }
       return res;
     });
+};
 
 export const useAddressLookupUprn = (
+  auth: CommonAuth,
   uprn?: string | null,
   options: AxiosSWRConfiguration<AddressAPIv2Response> = {},
 ) => {
   return useAxiosSWR<AddressAPIv2Response>(
     uprn ? `${config.addressApiUrlV2}/addresses/${uprn}` : null,
+    auth,
     {
       ...options,
       timeout: 5000,

@@ -1,6 +1,7 @@
-import { CommonAuth } from "../auth";
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
+
+import { CommonAuth } from "../auth";
 
 // import { $auth, isAuthorised, logout } from "../auth";
 
@@ -25,15 +26,15 @@ export const getAxiosInstance = (auth: CommonAuth) => {
       },
     };
     delete req.headers["skip-x-correlation-id"];
-  
+
     if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
       req.headers["If-Match"] = req.data.etag;
       delete req.data.etag;
     }
-  
+
     return req;
   });
-  
+
   axiosInstance.interceptors.response.use(
     (res) => {
       if (res.config.method === "get" && res.data?.id) {
@@ -51,15 +52,12 @@ export const getAxiosInstance = (auth: CommonAuth) => {
     },
   );
 
-
   return axiosInstance;
-}
+};
 
 // export const axiosInstance = axios.create({
 //   responseType: "json",
 // });
-
-
 
 export const createCancelToken = (): CancelTokenSource => axios.CancelToken.source();
 

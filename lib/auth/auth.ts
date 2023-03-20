@@ -27,15 +27,18 @@ const voidUser: AuthUser = {
 
 export class CommonAuth {
   private authAllowedGroups: string[];
+
   private authDomain: string;
+
   private cookieDomain: string;
+
   private authToken: string;
 
   constructor(
     authAllowedGroups: string[] = ["TEST_GROUP"],
-    authDomain: string = "//auth.hackney.gov.uk/auth",
-    cookieDomain: string = "hackney.gov.uk",
-    authToken: string = "hackneyToken",
+    authDomain = "//auth.hackney.gov.uk/auth",
+    cookieDomain = "hackney.gov.uk",
+    authToken = "hackneyToken",
   ) {
     this.authAllowedGroups = authAllowedGroups;
     this.authDomain = authDomain;

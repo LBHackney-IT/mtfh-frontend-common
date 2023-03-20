@@ -15,9 +15,9 @@ export type PostProcessRequestDataV2 = PostProcessRequestData & {
 export const addProcess = async (
   data: PostProcessRequestDataV2,
   processName: string,
-  auth: CommonAuth
+  auth: CommonAuth,
 ): Promise<Process> => {
-  const axiosInstance = getAxiosInstance(auth)
+  const axiosInstance = getAxiosInstance(auth);
 
   const { data: process } = await axiosInstance.post(
     `${config.processApiUrlV2}/process/${processName}`,

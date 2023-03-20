@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 
 import { useComments } from "../../api/comments/v2";
 import { useReferenceData } from "../../api/reference-data/v1";
-
 import locale from "../../locale";
 import { Center } from "../center";
 import { ErrorSummary } from "../error-summary";
