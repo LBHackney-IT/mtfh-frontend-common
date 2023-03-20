@@ -63,7 +63,7 @@ export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "
 interface CautionaryAlerts {
     [key: string]: string;
 }
-export const useCautionaryAlertCodes: () => CautionaryAlerts | null;
+export const useCautionaryAlertCodes: (auth: CommonAuth) => CautionaryAlerts | null;
 type Configuration = {
     configuration: Record<string, string | undefined>;
     featureToggles: Record<string, boolean | undefined>;
@@ -78,7 +78,7 @@ export const useConfiguration: (path: string) => string;
 interface ErrorMessages {
     [key: string]: string;
 }
-export const useErrorCodes: () => ErrorMessages | null;
+export const useErrorCodes: (auth: CommonAuth) => ErrorMessages | null;
 export const useFeatureToggle: (path: string) => boolean;
 export interface Booleans {
     [key: string]: boolean;
@@ -241,7 +241,7 @@ export const Text: TextComponent;
 export interface CommentListProps {
     targetId: string;
 }
-export const CommentList: ({ targetId }: CommentListProps) => JSX.Element;
+export const CommentList: ({ targetId }: CommentListProps, auth: CommonAuth) => JSX.Element;
 export interface DialogProps extends ComponentPropsWithoutRef<"div"> {
     isOpen: boolean;
     onDismiss: () => void;
@@ -496,7 +496,7 @@ interface WorkOrdersProps {
     assetId: string;
     statusCode: WorkOrdersFilters;
 }
-export const WorkOrders: ({ assetId, statusCode }: WorkOrdersProps) => JSX.Element;
+export const WorkOrders: ({ assetId, statusCode }: WorkOrdersProps, auth: CommonAuth) => JSX.Element;
 interface WorkOrderListProps {
     assetId: string;
 }

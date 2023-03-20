@@ -57,7 +57,7 @@ export const addComment = async (
 ): Promise<Comment> => {
   const axiosInstance = getAxiosInstance(auth);
 
-  const { sub: id, email, name: fullName } = auth.$auth.getValue();
+  const { sub: id, email, name: fullName } = auth.user;
 
   const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV1}/notes`, {
     ...data,

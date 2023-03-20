@@ -51,9 +51,10 @@ export const useWorkOrders = (
 
   return useAxiosSWR<WorkOrdersResponse>(
     `${config.repairsHubApiUrl}/workOrders?${params}`,
+    auth,
     {
       headers: {
-        "x-hackney-user": auth.$auth.getValue().token,
+        "x-hackney-user": auth.user.token,
       },
     },
   );

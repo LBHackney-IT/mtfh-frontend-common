@@ -16,6 +16,7 @@ import { Select } from "../select";
 import { Spinner } from "../spinner";
 import WorkOrderListItem from "./work-order-list-item";
 import "./work-order-list.scss";
+import { CommonAuth } from "../../auth";
 
 const { components } = locale;
 interface ExternalLinkProps {
@@ -37,8 +38,8 @@ interface WorkOrdersProps {
   statusCode: WorkOrdersFilters;
 }
 
-export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps) => {
-  const { data: workOrders, error } = useWorkOrders(assetId, statusCode);
+export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps, auth: CommonAuth) => {
+  const { data: workOrders, error } = useWorkOrders(assetId, auth, statusCode);
 
   if (error) {
     return (

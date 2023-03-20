@@ -9,6 +9,7 @@ import { SimplePagination, SimplePaginationButton } from "../simple-pagination";
 import { Spinner } from "../spinner";
 import { Text } from "../text";
 import { CommentListItem } from "./comment-list-item";
+import { CommonAuth } from "../../auth";
 
 const NoComments = () => {
   return <Text size="sm">{locale.components.commentList.noCommentsAdded}</Text>;
@@ -18,14 +19,14 @@ export interface CommentListProps {
   targetId: string;
 }
 
-export const CommentList = ({ targetId }: CommentListProps): JSX.Element => {
-  const { data, size, setSize, error } = useComments(targetId);
+export const CommentList = ({ targetId }: CommentListProps, auth: CommonAuth): JSX.Element => {
+  const { data, size, setSize, error } = useComments(targetId, auth);
   const { components } = locale;
 
   const { data: referenceData, error: referenceError } = useReferenceData<"category">({
     category: "comment",
     subCategory: "category",
-  });
+  }, auth);
 
   const response = useMemo(() => {
     if (!data) {

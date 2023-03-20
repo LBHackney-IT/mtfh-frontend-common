@@ -268,10 +268,10 @@ var $c76f4f81e9b49394$export$2e2bcd8739ae039 = $c76f4f81e9b49394$var$config;
 
 
 
-const $84a1308d155a914a$export$caa1c15223f8c264 = ({ category: category , subCategory: subCategory  }, options)=>{
+const $84a1308d155a914a$export$caa1c15223f8c264 = ({ category: category , subCategory: subCategory  }, auth, options)=>{
     let params = `category=${category}`;
     /* istanbul ignore else */ if (subCategory) params += `&subCategory=${subCategory}`;
-    return (0, $08fd481a73641560$export$a84fc53129590f47)(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).referenceDataApiUrlV1}/reference-data?${params}`, options);
+    return (0, $08fd481a73641560$export$a84fc53129590f47)(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).referenceDataApiUrlV1}/reference-data?${params}`, auth, options);
 };
 
 
@@ -399,12 +399,12 @@ var $99138c4371ee1491$export$2e2bcd8739ae039 = $99138c4371ee1491$var$locale;
 
 const { hooks: $51552beaa5d26bca$var$hooks  } = (0, $99138c4371ee1491$export$2e2bcd8739ae039);
 const { defaultCautionaryAlerts: $51552beaa5d26bca$var$defaultCautionaryAlerts  } = $51552beaa5d26bca$var$hooks;
-const $51552beaa5d26bca$export$c3ce0ce047cd24b3 = ()=>{
+const $51552beaa5d26bca$export$c3ce0ce047cd24b3 = (auth)=>{
     const [cautionaryAlerts, setCautionaryAlerts] = (0, $6SzZC$react.useState)($51552beaa5d26bca$var$defaultCautionaryAlerts);
     const { data: data , error: error  } = (0, $84a1308d155a914a$export$caa1c15223f8c264)({
         category: "cautionary-alert",
         subCategory: "alert-type"
-    });
+    }, auth);
     (0, $6SzZC$react.useEffect)(()=>{
         if (data?.["alert-type"]) {
             const fromErr = data?.["alert-type"].reduce((acc, obj)=>{
@@ -538,12 +538,12 @@ $parcel$export($b14faf8215ffc715$exports, "useErrorCodes", function () { return 
 
 const { hooks: $b14faf8215ffc715$var$hooks  } = (0, $99138c4371ee1491$export$2e2bcd8739ae039);
 const { defaultErrorMessages: $b14faf8215ffc715$var$defaultErrorMessages  } = $b14faf8215ffc715$var$hooks;
-const $b14faf8215ffc715$export$cbb653210e90d2a9 = ()=>{
+const $b14faf8215ffc715$export$cbb653210e90d2a9 = (auth)=>{
     const [errorMessages, setErrorMessages] = (0, $6SzZC$react.useState)($b14faf8215ffc715$var$defaultErrorMessages);
     const { data: data , error: error  } = (0, $84a1308d155a914a$export$caa1c15223f8c264)({
         category: "error-code",
         subCategory: "mmh"
-    });
+    }, auth);
     (0, $6SzZC$react.useEffect)(()=>{
         if (data?.mmh) {
             const fromErr = data?.mmh.reduce((acc, obj)=>{
@@ -1626,13 +1626,13 @@ const $0749ea49dee81dcd$var$NoComments = ()=>{
         children: (0, $99138c4371ee1491$export$2e2bcd8739ae039).components.commentList.noCommentsAdded
     });
 };
-const $0749ea49dee81dcd$export$c77c63b4dd2cbdbc = ({ targetId: targetId  })=>{
-    const { data: data , size: size , setSize: setSize , error: error  } = (0, $abc8a1166444b126$export$80ad823ea511ef0f)(targetId);
+const $0749ea49dee81dcd$export$c77c63b4dd2cbdbc = ({ targetId: targetId  }, auth)=>{
+    const { data: data , size: size , setSize: setSize , error: error  } = (0, $abc8a1166444b126$export$80ad823ea511ef0f)(targetId, auth);
     const { components: components  } = (0, $99138c4371ee1491$export$2e2bcd8739ae039);
     const { data: referenceData , error: referenceError  } = (0, $84a1308d155a914a$export$caa1c15223f8c264)({
         category: "comment",
         subCategory: "category"
-    });
+    }, auth);
     const response = (0, $6SzZC$react.useMemo)(()=>{
         if (!data) return null;
         return data[size - 1];
@@ -3080,9 +3080,9 @@ const $7c5824d5ea617ead$export$888eda2be6b7998 = (id, auth, filter, pageNumber =
     if (filter && $7c5824d5ea617ead$var$repairStatusGroupings[filter]) $7c5824d5ea617ead$var$repairStatusGroupings[filter].forEach((status)=>{
         params.append("StatusCode", status);
     });
-    return (0, $08fd481a73641560$export$a84fc53129590f47)(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).repairsHubApiUrl}/workOrders?${params}`, {
+    return (0, $08fd481a73641560$export$a84fc53129590f47)(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).repairsHubApiUrl}/workOrders?${params}`, auth, {
         headers: {
-            "x-hackney-user": auth.$auth.getValue().token
+            "x-hackney-user": auth.user.token
         }
     });
 };
@@ -3210,8 +3210,8 @@ const $835ac157f4d7f565$var$ExternalLink = ({ assetId: assetId  })=>/*#__PURE__*
         className: "repair-list__link",
         children: $835ac157f4d7f565$var$components.workOrderList.seeAllWorkOrders
     });
-const $835ac157f4d7f565$export$2ebe11bf466082a5 = ({ assetId: assetId , statusCode: statusCode  })=>{
-    const { data: workOrders , error: error  } = (0, $7c5824d5ea617ead$export$888eda2be6b7998)(assetId, statusCode);
+const $835ac157f4d7f565$export$2ebe11bf466082a5 = ({ assetId: assetId , statusCode: statusCode  }, auth)=>{
+    const { data: workOrders , error: error  } = (0, $7c5824d5ea617ead$export$888eda2be6b7998)(assetId, auth, statusCode);
     if (error) return /*#__PURE__*/ (0, $6SzZC$reactjsxruntime.jsx)((0, $c409b756a3ce249f$export$d0acb541148b73bf), {
         id: "work-order-list-error",
         title: $835ac157f4d7f565$var$components.workOrderList.errors.unableToFetchWorkOrder,
