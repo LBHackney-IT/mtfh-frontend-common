@@ -1,7 +1,7 @@
-import { BehaviorSubject } from "rxjs";
 import { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { Key, KeyLoader, SWRConfiguration, SWRResponse, mutate } from "swr";
 import { SWRInfiniteConfiguration, SWRInfiniteResponse } from "swr/infinite";
+import { BehaviorSubject } from "rxjs";
 import React, { ReactNode, ReactElement, ComponentPropsWithoutRef, FC, Dispatch } from "react";
 import * as Polymorphic from "@radix-ui/react-polymorphic";
 import { BrowserRouterProps, PromptProps } from "react-router-dom";
@@ -19,7 +19,7 @@ export interface AuthUser extends JWTPayload {
 }
 export class CommonAuth {
     constructor(authAllowedGroups?: string[], authDomain?: string, cookieDomain?: string, authToken?: string);
-    readonly $auth: BehaviorSubject<AuthUser>;
+    get user(): AuthUser;
     processToken(): void;
     isAuthorisedForGroups(groups: string[]): boolean;
     isAuthorised(): boolean;

@@ -1,6 +1,5 @@
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import { BehaviorSubject } from "rxjs";
 
 export interface JWTPayload {
   sub: string;
@@ -26,13 +25,12 @@ const voidUser: AuthUser = {
 };
 
 export class CommonAuth {
-  private authAllowedGroups: string[];
+  private readonly _authAllowedGroups: string[];
+  private readonly _authDomain: string;
+  private readonly _cookieDomain: string;
+  private readonly _authToken: string;
 
-  private authDomain: string;
-
-  private cookieDomain: string;
-
-  private authToken: string;
+  private _user: AuthUser;
 
   constructor(
     authAllowedGroups: string[] = ["TEST_GROUP"],
@@ -40,14 +38,20 @@ export class CommonAuth {
     cookieDomain = "hackney.gov.uk",
     authToken = "hackneyToken",
   ) {
-    this.authAllowedGroups = authAllowedGroups;
-    this.authDomain = authDomain;
-    this.cookieDomain = cookieDomain;
-    this.authToken = authToken;
+    this._authAllowedGroups = authAllowedGroups;
+    this._authDomain = authDomain;
+    this._cookieDomain = cookieDomain;
+    this._authToken = authToken;
+
+    this._user = this.parseToken()
+  }
+
+  public get user(): AuthUser {
+    return this._user;
   }
 
   private parseToken(): AuthUser {
-    const token = Cookies.get(this.authToken) || null;
+    const token = Cookies.get(this._authToken) || null;
 
     if (!token) {
       return voidUser;
@@ -64,26 +68,24 @@ export class CommonAuth {
     }
   }
 
-  public readonly $auth = new BehaviorSubject(this.parseToken());
 
   public processToken(): void {
-    this.$auth.next(this.parseToken());
+    this._user = this.parseToken();
   }
 
   public isAuthorisedForGroups(groups: string[]): boolean {
-    const auth = this.$auth.getValue();
-    return groups.some((group) => auth.groups.includes(group));
+    return groups.some((group) => this._user.groups.includes(group));
   }
 
   public isAuthorised(): boolean {
-    return this.isAuthorisedForGroups(this.authAllowedGroups);
+    return this.isAuthorisedForGroups(this._authAllowedGroups);
   }
 
   public logout(): void {
-    this.$auth.next(voidUser);
+    this._user = voidUser;
 
-    Cookies.remove(this.authToken, {
-      domain: this.cookieDomain,
+    Cookies.remove(this._authToken, {
+      domain: this._cookieDomain,
     });
 
     window.location.reload();
@@ -92,7 +94,7 @@ export class CommonAuth {
   public login(redirectUrl = `${window.location.origin}/search`): void {
     this.logout();
 
-    window.location.href = `${this.authDomain}?redirect_uri=${encodeURIComponent(
+    window.location.href = `${this._authDomain}?redirect_uri=${encodeURIComponent(
       redirectUrl,
     )}`;
   }

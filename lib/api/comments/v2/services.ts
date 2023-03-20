@@ -65,7 +65,7 @@ export const addComment = async (
   data: PostCommentRequestData,
   auth: CommonAuth,
 ): Promise<Comment> => {
-  const { sub: id, email, name: fullName } = auth.$auth.getValue();
+  const { sub: id, email, name: fullName } = auth.user;
 
   const axiosInstance = getAxiosInstance(auth);
 

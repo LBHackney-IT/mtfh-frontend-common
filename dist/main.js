@@ -5,10 +5,9 @@ var $6SzZC$swr = require("swr");
 var $6SzZC$swrinfinite = require("swr/infinite");
 var $6SzZC$jscookie = require("js-cookie");
 var $6SzZC$jwtdecode = require("jwt-decode");
-var $6SzZC$rxjs = require("rxjs");
-var $6SzZC$swchelperslib_define_propertyjs = require("@swc/helpers/lib/_define_property.js");
 var $6SzZC$usebreakpoint = require("use-breakpoint");
 var $6SzZC$react = require("react");
+var $6SzZC$rxjs = require("rxjs");
 var $6SzZC$reactjsxruntime = require("react/jsx-runtime");
 var $6SzZC$reactmergerefs = require("react-merge-refs");
 var $6SzZC$classnames = require("classnames");
@@ -60,7 +59,7 @@ const $681e52e5f1c343a3$export$b54474b5f400d58a = (auth)=>{
             ...reqConfig,
             headers: {
                 ...reqConfig.headers,
-                Authorization: `Bearer ${auth.$auth.getValue().token}`,
+                Authorization: `Bearer ${auth.user.token}`,
                 ...reqConfig.headers["skip-x-correlation-id"] ? {} : {
                     "x-correlation-id": (0, $6SzZC$uuid.v4)()
                 }
@@ -122,8 +121,6 @@ var $6b4f1832ab8ff3f5$exports = {};
 $parcel$export($6b4f1832ab8ff3f5$exports, "CommonAuth", function () { return $6b4f1832ab8ff3f5$export$1aef0919781140fb; });
 
 
-
-
 const $6b4f1832ab8ff3f5$var$voidUser = {
     token: "",
     sub: "",
@@ -134,8 +131,11 @@ const $6b4f1832ab8ff3f5$var$voidUser = {
     iat: Number.NaN
 };
 class $6b4f1832ab8ff3f5$export$1aef0919781140fb {
+    get user() {
+        return this._user;
+    }
     parseToken() {
-        const token = (0, ($parcel$interopDefault($6SzZC$jscookie))).get(this.authToken) || null;
+        const token = (0, ($parcel$interopDefault($6SzZC$jscookie))).get(this._authToken) || null;
         if (!token) return $6b4f1832ab8ff3f5$var$voidUser;
         try {
             const decodedToken = (0, ($parcel$interopDefault($6SzZC$jwtdecode)))(token);
@@ -148,34 +148,33 @@ class $6b4f1832ab8ff3f5$export$1aef0919781140fb {
         }
     }
     processToken() {
-        this.$auth.next(this.parseToken());
+        this._user = this.parseToken();
     }
     isAuthorisedForGroups(groups) {
-        const auth = this.$auth.getValue();
-        return groups.some((group)=>auth.groups.includes(group));
+        return groups.some((group)=>this._user.groups.includes(group));
     }
     isAuthorised() {
-        return this.isAuthorisedForGroups(this.authAllowedGroups);
+        return this.isAuthorisedForGroups(this._authAllowedGroups);
     }
     logout() {
-        this.$auth.next($6b4f1832ab8ff3f5$var$voidUser);
-        (0, ($parcel$interopDefault($6SzZC$jscookie))).remove(this.authToken, {
-            domain: this.cookieDomain
+        this._user = $6b4f1832ab8ff3f5$var$voidUser;
+        (0, ($parcel$interopDefault($6SzZC$jscookie))).remove(this._authToken, {
+            domain: this._cookieDomain
         });
         window.location.reload();
     }
     login(redirectUrl = `${window.location.origin}/search`) {
         this.logout();
-        window.location.href = `${this.authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`;
+        window.location.href = `${this._authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`;
     }
     constructor(authAllowedGroups = [
         "TEST_GROUP"
     ], authDomain = "//auth.hackney.gov.uk/auth", cookieDomain = "hackney.gov.uk", authToken = "hackneyToken"){
-        (0, ($parcel$interopDefault($6SzZC$swchelperslib_define_propertyjs)))(this, "$auth", new (0, $6SzZC$rxjs.BehaviorSubject)(this.parseToken()));
-        this.authAllowedGroups = authAllowedGroups;
-        this.authDomain = authDomain;
-        this.cookieDomain = cookieDomain;
-        this.authToken = authToken;
+        this._authAllowedGroups = authAllowedGroups;
+        this._authDomain = authDomain;
+        this._cookieDomain = cookieDomain;
+        this._authToken = authToken;
+        this._user = this.parseToken();
     }
 }
 
@@ -1202,7 +1201,7 @@ const $abc8a1166444b126$export$80ad823ea511ef0f = (id, auth, { pageSize: pageSiz
     }, auth, options);
 };
 const $abc8a1166444b126$export$1cab2cf04e810197 = async (data, auth)=>{
-    const { sub: id , email: email , name: fullName  } = auth.$auth.getValue();
+    const { sub: id , email: email , name: fullName  } = auth.user;
     const axiosInstance = (0, $681e52e5f1c343a3$export$b54474b5f400d58a)(auth);
     const { data: comment  } = await axiosInstance.post(`${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes`, {
         ...data,
