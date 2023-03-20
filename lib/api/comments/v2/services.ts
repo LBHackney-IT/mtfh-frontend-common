@@ -1,6 +1,5 @@
 import { stringify } from "query-string";
 
-// import { $auth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRInfiniteConfiguration,
@@ -10,7 +9,7 @@ import {
 } from "../../../http";
 
 import type { Comment } from "./types";
-import { CommonAuth } from "auth";
+import { CommonAuth } from "../../../auth";
 
 export interface CommentsResponse {
   results: Comment[];
@@ -35,6 +34,7 @@ export interface CommentsConfiguration
 
 export const useComments = (
   id: string | null,
+  auth: CommonAuth,
   { pageSize = 5, ...options }: CommentsConfiguration = {},
 ): AxiosSWRInfiniteResponse<CommentsResponse> => {
   return useAxiosSWRInfinite<CommentsResponse>((page, previous) => {
@@ -52,7 +52,7 @@ export const useComments = (
     }
 
     return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
-  }, options);
+  }, auth, options);
 };
 
 export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt">;

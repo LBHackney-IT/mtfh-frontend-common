@@ -1190,7 +1190,7 @@ $parcel$export($0749ea49dee81dcd$exports, "CommentList", function () { return $0
 
 
 
-const $abc8a1166444b126$export$80ad823ea511ef0f = (id, { pageSize: pageSize = 5 , ...options } = {})=>{
+const $abc8a1166444b126$export$80ad823ea511ef0f = (id, auth, { pageSize: pageSize = 5 , ...options } = {})=>{
     return (0, $08fd481a73641560$export$18b3a6cf21214f90)((page, previous)=>{
         if (!id || previous && !previous?.paginationDetails?.nextToken) return null;
         const params = {
@@ -1199,7 +1199,7 @@ const $abc8a1166444b126$export$80ad823ea511ef0f = (id, { pageSize: pageSize = 5 
         };
         if (page !== 0 && previous?.paginationDetails.nextToken) params.paginationToken = previous.paginationDetails.nextToken;
         return `${(0, $c76f4f81e9b49394$export$2e2bcd8739ae039).notesApiUrlV2}/notes?${(0, $6SzZC$querystring.stringify)(params)}`;
-    }, options);
+    }, auth, options);
 };
 const $abc8a1166444b126$export$1cab2cf04e810197 = async (data, auth)=>{
     const { sub: id , email: email , name: fullName  } = auth.$auth.getValue();
