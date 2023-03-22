@@ -4,6 +4,9 @@
   "source": "lib/mtfh-common.ts",
   "main": "dist/main.js",
   "types": "dist/types.d.ts",
+  "engines": {
+    "node": "14.20.0"
+  },
   "alias": {
     "@mtfh/common": "./",
     "@root": "./",
