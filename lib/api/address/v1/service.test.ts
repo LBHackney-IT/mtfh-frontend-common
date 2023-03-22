@@ -20,7 +20,7 @@ jest.mock("../../../http", () => ({
   mutate: jest.fn(),
 }));
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 test("searchAddress: the API is called with the right parameters", async () => {
   const postcode = "FK81FH";

@@ -9,7 +9,7 @@ import { CommonAuth, setAuth } from "../../../auth";
 import { useWorkOrders } from "./service";
 import { WorkOrdersFilters } from "./types";
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 describe("useWorkOrders", () => {
   const id = "00075623";

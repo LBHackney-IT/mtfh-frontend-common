@@ -17,7 +17,7 @@ import {
 } from "./service";
 import { ContactDetailsPhoneTypes, ContactInformationContactTypes } from "./types";
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 test("useContactDetails: it should send the right thing to the API and return the response", async () => {
   const id = "uuid";
@@ -36,9 +36,7 @@ test("useContactDetails: it should send the right thing to the API and return th
     }),
   );
 
-  const { result, waitForNextUpdate } = renderHook(() =>
-    useContactDetails(id, options),
-  );
+  const { result, waitForNextUpdate } = renderHook(() => useContactDetails(id, options));
   expect(result.current.data).toBe(undefined);
   await waitForNextUpdate();
 

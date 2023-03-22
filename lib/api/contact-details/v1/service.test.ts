@@ -5,7 +5,7 @@ import { CommonAuth, setAuth } from "../../../auth";
 import { config } from "../../../config";
 import { deleteContactDetail } from "./service";
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 test("deleteContactDetail: it should send the right thing to the API and return the response", async () => {
   const id = "uuid";

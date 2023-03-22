@@ -24,7 +24,7 @@ jest.mock("../../../http", () => ({
   mutate: jest.fn(),
 }));
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 test("addPersonToTenure: it should send the right thing to the API", async () => {
   const addPersonToTenureParams: AddPersonToTenureParams = {
@@ -56,10 +56,7 @@ test("useTenure: it should send the right body to the API", async () => {
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
   const response = await useTenure(id, options);
-  expect(useAxiosSWR).toBeCalledWith(
-    `${config.tenureApiUrlV1}/tenures/${id}`,
-    options,
-  );
+  expect(useAxiosSWR).toBeCalledWith(`${config.tenureApiUrlV1}/tenures/${id}`, options);
   expect(response).toBe(returnedValue);
 });
 

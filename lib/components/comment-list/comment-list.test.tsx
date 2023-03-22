@@ -10,13 +10,13 @@ import {
 import { screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { CommonAuth, setAuth } from "../../auth";
 import locale from "../../locale";
 import { mockCategoryReferenceDataV1, mockCommentsV2 } from "../../test-utils";
 import { formatDate, formatTime } from "../../utils";
 import { CommentList } from "./comment-list";
-import { CommonAuth, setAuth } from "../../auth";
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 test("it renders correctly", async () => {
   render(<CommentList targetId="123" />);

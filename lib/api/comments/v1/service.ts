@@ -1,12 +1,12 @@
 import { stringify } from "query-string";
 
+import { getAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRInfiniteResponse,
   getAxiosInstance,
   useAxiosSWRInfinite,
 } from "../../../http";
-import { getAuth } from "../../../auth";
 
 import type { Comment } from "./types";
 

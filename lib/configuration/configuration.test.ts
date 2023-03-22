@@ -8,7 +8,7 @@ import {
   hydrateConfiguration,
 } from "./configuration";
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 beforeEach(() => {
   $configuration.next({});

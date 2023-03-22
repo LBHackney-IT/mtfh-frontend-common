@@ -1,15 +1,13 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
 
-import { getAuth } from "../auth";
+import { CommonAuth } from "../auth";
 
 export interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
 }
 
-export const getAxiosInstance = () => {
-  const auth = getAuth();
-
+export const getAxiosInstance = (auth: CommonAuth) => {
   const axiosInstance = axios.create({
     responseType: "json",
   });

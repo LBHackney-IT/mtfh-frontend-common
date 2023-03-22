@@ -5,10 +5,10 @@ import {
 } from "@hackney/mtfh-test-utils";
 import { renderHook } from "@testing-library/react-hooks";
 
-import { useErrorCodes } from "../use-error-codes";
 import { CommonAuth, setAuth } from "../../auth";
+import { useErrorCodes } from "../use-error-codes";
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 describe("useErrorCodes", () => {
   test("it makes a call to the referenceData API for error codes and returns them correctly", async () => {

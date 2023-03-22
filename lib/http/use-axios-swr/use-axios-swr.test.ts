@@ -1,7 +1,7 @@
 import { request } from "@hackney/mtfh-test-utils";
 import { act, renderHook } from "@testing-library/react-hooks";
 
-import { CommonAuth, getAuth, setAuth } from "../../auth";
+import { CommonAuth, setAuth } from "../../auth";
 import { useAxiosSWR, useAxiosSWRInfinite } from "./use-axios-swr";
 
 setAuth(new CommonAuth());

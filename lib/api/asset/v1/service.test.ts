@@ -13,7 +13,7 @@ jest.mock("../../../http", () => ({
   mutate: jest.fn(),
 }));
 
-setAuth(new CommonAuth())
+setAuth(new CommonAuth());
 
 test("patchAsset: the API is called with the right parameters", async () => {
   const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
