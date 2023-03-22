@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
 
-import { CommonAuth, getAuth } from "../auth";
+import { getAuth } from "../auth";
 
 export interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
