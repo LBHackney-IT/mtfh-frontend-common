@@ -93,7 +93,7 @@ test("useAsset: the API is called with the right parameters", async () => {
 
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
-  const response = await useAsset(assetGuid, undefined);
+  const response = await useAsset(assetGuid);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.assetApiUrlV1}/assets/${assetGuid}`,
     undefined,

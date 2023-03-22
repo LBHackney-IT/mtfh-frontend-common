@@ -13,7 +13,7 @@ describe("useConfiguration", () => {
     expect(result.current).toBe("");
   });
 
-  test("it returns the correct configuratio value", () => {
+  test("it returns the correct configuration value", () => {
     $configuration.next({
       MMH: {
         configuration: {

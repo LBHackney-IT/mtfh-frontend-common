@@ -1,13 +1,15 @@
 import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
 import { v4 as uuid } from "uuid";
 
-import { CommonAuth } from "../auth";
+import { CommonAuth, getAuth } from "../auth";
 
 export interface Config extends AxiosRequestConfig {
   headers: Record<string, string>;
 }
 
-export const getAxiosInstance = (auth: CommonAuth) => {
+export const getAxiosInstance = () => {
+  const auth = getAuth();
+
   const axiosInstance = axios.create({
     responseType: "json",
   });
@@ -17,7 +19,7 @@ export const getAxiosInstance = (auth: CommonAuth) => {
       ...reqConfig,
       headers: {
         ...reqConfig.headers,
-        Authorization: `Bearer ${auth.user.token}`,
+        Authorization: `Bearer ${auth.user?.token}`,
         ...(reqConfig.headers["skip-x-correlation-id"]
           ? {}
           : { "x-correlation-id": uuid() }),

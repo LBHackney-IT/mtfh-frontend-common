@@ -5,7 +5,10 @@ import {
 } from "@hackney/mtfh-test-utils";
 import { renderHook } from "@testing-library/react-hooks";
 
+import { CommonAuth, setAuth } from "../../auth";
 import { useCautionaryAlertCodes } from "../use-cautionary-alert-codes";
+
+setAuth(new CommonAuth());
 
 describe("useCautionaryAlertCodes", () => {
   test("it makes a call to the referenceData API for cautionary alerts and returns them correctly", async () => {
