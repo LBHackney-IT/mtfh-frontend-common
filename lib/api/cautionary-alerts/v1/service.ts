@@ -1,6 +1,4 @@
-import { TenureSummary } from "../../../api/person/v1";
 import { CommonAuth } from "../../../auth";
-
 import { config } from "../../../config";
 import {
   AxiosSWRConfiguration,
@@ -8,6 +6,7 @@ import {
   getAxiosInstance,
   useAxiosSWR,
 } from "../../../http";
+import { TenureSummary } from "../../person/v1";
 import { Alert, CautionaryAlert } from "./types";
 
 export const useCautionaryAlert = (
