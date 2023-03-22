@@ -1,4 +1,4 @@
-import { CommonAuth } from "../../../auth";
+import { getAuth } from "../../../auth";
 import { config } from "../../../config";
 import { AxiosSWRResponse, useAxiosSWR } from "../../../http";
 import { WorkOrdersFilters, WorkOrdersResponse } from "./types";
@@ -32,11 +32,12 @@ const repairStatusGroupings: { [key: string]: string[] } = {
 
 export const useWorkOrders = (
   id: string,
-  auth: CommonAuth,
   filter?: WorkOrdersFilters,
   pageNumber = "1",
   pageSize = "12",
 ): AxiosSWRResponse<WorkOrdersResponse> => {
+  const user = getAuth().user;
+
   const params = new URLSearchParams();
 
   params.append("propertyReference", id);
@@ -51,10 +52,9 @@ export const useWorkOrders = (
 
   return useAxiosSWR<WorkOrdersResponse>(
     `${config.repairsHubApiUrl}/workOrders?${params}`,
-    auth,
     {
       headers: {
-        "x-hackney-user": auth?.user?.token,
+        "x-hackney-user": user?.token,
       },
     },
   );

@@ -1,19 +1,18 @@
 import { request } from "@hackney/mtfh-test-utils";
 import { act, renderHook } from "@testing-library/react-hooks";
 
-import { CommonAuth } from "../../auth";
+import { CommonAuth, getAuth, setAuth } from "../../auth";
 import { useAxiosSWR, useAxiosSWRInfinite } from "./use-axios-swr";
+
+setAuth(new CommonAuth());
 
 describe("useAxiosSWR", () => {
   test("it configures useSWR correctly", async () => {
     // Arrange
     request({ method: "get", data: "request", path: "/api" });
-    const auth = new CommonAuth();
 
     // Act
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useAxiosSWR<string>("/api", auth),
-    );
+    const { result, waitForNextUpdate } = renderHook(() => useAxiosSWR<string>("/api"));
 
     // Assert
     expect(result.current.data).toBe(undefined);
@@ -27,11 +26,10 @@ describe("useAxiosSWRInfinite", () => {
     // Arrange
     request({ method: "get", data: "request 1", path: "/api/1" });
     request({ method: "get", data: "request 2", path: "/api/2" });
-    const auth = new CommonAuth();
 
     // Act
     const { result, waitForNextUpdate } = renderHook(() =>
-      useAxiosSWRInfinite<string>((index) => `/api/${index + 1}`, auth),
+      useAxiosSWRInfinite<string>((index) => `/api/${index + 1}`),
     );
 
     // Assert

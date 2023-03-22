@@ -1,4 +1,4 @@
-import { CommonAuth } from ".";
+import { CommonAuth, getAuth, setAuth } from ".";
 /*
  {
      "sub": "112895652611500752170",
@@ -25,7 +25,8 @@ Object.defineProperty(window, "location", {
   writable: true,
 });
 
-const auth = new CommonAuth();
+setAuth(new CommonAuth());
+const auth = getAuth();
 
 describe("auth", () => {
   beforeEach(() => {

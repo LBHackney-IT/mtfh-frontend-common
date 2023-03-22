@@ -1,12 +1,12 @@
 import { stringify } from "query-string";
 
-import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRInfiniteResponse,
   getAxiosInstance,
   useAxiosSWRInfinite,
 } from "../../../http";
+import { getAuth } from "../../../auth";
 
 import type { Comment } from "./types";
 
@@ -25,7 +25,6 @@ export interface GetCommentsByIdRequestData {
 
 export const useComments = (
   id: string,
-  auth: CommonAuth,
   pageSize = 5,
 ): AxiosSWRInfiniteResponse<GetCommentsByTargetIdResponse> => {
   return useAxiosSWRInfinite<GetCommentsByTargetIdResponse>((page, previous) => {
@@ -43,7 +42,7 @@ export const useComments = (
     }
 
     return `${config.notesApiUrlV1}/notes?${stringify(params)}`;
-  }, auth);
+  });
 };
 
 export type PostCommentRequestData = Omit<
@@ -51,13 +50,10 @@ export type PostCommentRequestData = Omit<
   "id" | "categorisation" | "author" | "createdAt"
 >;
 
-export const addComment = async (
-  data: PostCommentRequestData,
-  auth: CommonAuth,
-): Promise<Comment> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const addComment = async (data: PostCommentRequestData): Promise<Comment> => {
+  const axiosInstance = getAxiosInstance();
 
-  const { sub: id, email, name: fullName } = auth.user;
+  const { sub: id, email, name: fullName } = getAuth().user;
 
   const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV1}/notes`, {
     ...data,

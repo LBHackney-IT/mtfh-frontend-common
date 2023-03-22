@@ -1,4 +1,3 @@
-import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRConfiguration,
@@ -11,10 +10,9 @@ import { HouseholdMember, Tenure, TenureAsset, TenureType } from "./types";
 
 export const useTenure = (
   id: string | null,
-  auth: CommonAuth,
   options?: AxiosSWRConfiguration<Tenure>,
 ): AxiosSWRResponse<Tenure> => {
-  return useAxiosSWR(id && `${config.tenureApiUrlV1}/tenures/${id}`, auth, options);
+  return useAxiosSWR(id && `${config.tenureApiUrlV1}/tenures/${id}`, options);
 };
 
 export interface TenureParams {
@@ -27,11 +25,8 @@ export interface AddTenureParams extends TenureParams {
   tenuredAsset: TenureAsset;
 }
 
-export const addTenure = async (
-  params: AddTenureParams,
-  auth: CommonAuth,
-): Promise<Tenure> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const addTenure = async (params: AddTenureParams): Promise<Tenure> => {
+  const axiosInstance = getAxiosInstance();
   const { data: tenure } = await axiosInstance.post<Tenure>(
     `${config.tenureApiUrlV1}/tenures`,
     params,
@@ -47,11 +42,12 @@ export interface AddPersonToTenureParams {
   householdMember: HouseholdMember;
 }
 
-export const addPersonToTenure = async (
-  { tenureId, householdMember, etag }: AddPersonToTenureParams,
-  auth: CommonAuth,
-): Promise<void> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const addPersonToTenure = async ({
+  tenureId,
+  householdMember,
+  etag,
+}: AddPersonToTenureParams): Promise<void> => {
+  const axiosInstance = getAxiosInstance();
 
   await axiosInstance.patch(
     `${config.tenureApiUrlV1}/tenures/${tenureId}/person/${householdMember.id}`,
@@ -67,9 +63,8 @@ export interface RemovePersonFromTenureParams {
 
 export const removePersonFromTenure = async (
   params: RemovePersonFromTenureParams,
-  auth: CommonAuth,
 ): Promise<void> => {
-  const axiosInstance = getAxiosInstance(auth);
+  const axiosInstance = getAxiosInstance();
 
   await axiosInstance.delete(
     `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
@@ -80,11 +75,8 @@ export interface EditTenureParams extends Partial<TenureParams> {
   etag: string;
 }
 
-export const editTenure = async (
-  { id, ...data }: EditTenureParams,
-  auth: CommonAuth,
-): Promise<void> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<void> => {
+  const axiosInstance = getAxiosInstance();
 
   const response = await axiosInstance.patch(
     `${config.tenureApiUrlV1}/tenures/${id}`,

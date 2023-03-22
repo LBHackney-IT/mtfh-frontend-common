@@ -1,11 +1,11 @@
 import { deleteContactDetailV1, server } from "@hackney/mtfh-test-utils";
 import { RestRequest } from "msw";
 
-import { CommonAuth } from "../../../auth";
+import { CommonAuth, setAuth } from "../../../auth";
 import { config } from "../../../config";
 import { deleteContactDetail } from "./service";
 
-const auth = new CommonAuth();
+setAuth(new CommonAuth())
 
 test("deleteContactDetail: it should send the right thing to the API and return the response", async () => {
   const id = "uuid";
@@ -24,7 +24,7 @@ test("deleteContactDetail: it should send the right thing to the API and return 
     }),
   );
 
-  const res = await deleteContactDetail(id, targetId, auth);
+  const res = await deleteContactDetail(id, targetId);
 
   expect(res).toMatchObject(response);
   expect(url).toContain(expectedUrl);

@@ -5,7 +5,6 @@ import useSWRInfinite, {
   SWRInfiniteResponse,
 } from "swr/infinite";
 
-import { CommonAuth } from "../../auth";
 import { getAxiosInstance } from "../http";
 
 export type AxiosSWRError = AxiosError;
@@ -20,28 +19,26 @@ export type AxiosSWRInfiniteConfiguration<T> = SWRInfiniteConfiguration<
   AxiosRequestConfig;
 
 export const axiosFetcher =
-  (auth: CommonAuth, options: AxiosRequestConfig = {}) =>
+  (options: AxiosRequestConfig = {}) =>
   <ResponseData>(url: string): Promise<ResponseData> => {
-    const axiosInstance = getAxiosInstance(auth);
+    const axiosInstance = getAxiosInstance();
 
     return axiosInstance.get<ResponseData>(url, options).then((res) => res.data);
   };
 
 export const useAxiosSWR = <ResponseData>(
   key: Key,
-  auth: CommonAuth,
   options: AxiosSWRConfiguration<ResponseData> = {},
 ): AxiosSWRResponse<ResponseData> =>
-  useSwr<ResponseData, AxiosSWRError>(key, axiosFetcher(auth, options), {
+  useSwr<ResponseData, AxiosSWRError>(key, axiosFetcher(options), {
     shouldRetryOnError: false,
     ...options,
   });
 
 export const useAxiosSWRInfinite = <ResponseData>(
   key: KeyLoader<ResponseData>,
-  auth: CommonAuth,
   options: AxiosSWRInfiniteConfiguration<ResponseData> = {},
 ): AxiosSWRInfiniteResponse<ResponseData> =>
-  useSWRInfinite<ResponseData, AxiosSWRError>(key, axiosFetcher(auth, options), options);
+  useSWRInfinite<ResponseData, AxiosSWRError>(key, axiosFetcher(options), options);
 
 export { mutate };

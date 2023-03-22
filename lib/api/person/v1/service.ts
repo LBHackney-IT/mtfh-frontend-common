@@ -1,4 +1,3 @@
-import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRConfiguration,
@@ -12,14 +11,9 @@ import type { Person, TenureSummary } from "./types";
 
 export const usePerson = (
   id: string | null,
-  auth: CommonAuth,
   options?: AxiosSWRConfiguration<Person>,
 ): AxiosSWRResponse<Person> => {
-  return useAxiosSWR<Person>(
-    id && `${config.personApiUrlV1}/persons/${id}`,
-    auth,
-    options,
-  );
+  return useAxiosSWR<Person>(id && `${config.personApiUrlV1}/persons/${id}`, options);
 };
 
 export interface PostPersonRequestData extends Omit<Person, "id" | "tenures"> {
@@ -27,11 +21,8 @@ export interface PostPersonRequestData extends Omit<Person, "id" | "tenures"> {
   tenures: Omit<TenureSummary, "isActive">[];
 }
 
-export const addPerson = async (
-  data: PostPersonRequestData,
-  auth: CommonAuth,
-): Promise<Person> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const addPerson = async (data: PostPersonRequestData): Promise<Person> => {
+  const axiosInstance = getAxiosInstance();
 
   const { data: person } = await axiosInstance.post(
     `${config.personApiUrlV1}/persons`,
@@ -43,11 +34,11 @@ export const addPerson = async (
 
 export type PatchPersonRequestData = Partial<Omit<Person, "id">> & Pick<Person, "id">;
 
-export const editPerson = async (
-  { id, ...data }: PatchPersonRequestData,
-  auth: CommonAuth,
-): Promise<Person> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const editPerson = async ({
+  id,
+  ...data
+}: PatchPersonRequestData): Promise<Person> => {
+  const axiosInstance = getAxiosInstance();
 
   const response = await axiosInstance.patch(
     `${config.personApiUrlV1}/persons/${id}`,

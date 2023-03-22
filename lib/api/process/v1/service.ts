@@ -40,9 +40,8 @@ export interface ProcessesConfiguration
 export const addProcess = async (
   data: PostProcessRequestData,
   processName: string,
-  auth: CommonAuth,
 ): Promise<Process> => {
-  const axiosInstance = getAxiosInstance(auth);
+  const axiosInstance = getAxiosInstance();
 
   const { data: process } = await axiosInstance.post(
     `${config.processApiUrlV1}/process/${processName}`,
@@ -55,12 +54,10 @@ export type GetProcessRequestData = Pick<Process, "id" | "processName">;
 
 export const useProcess = (
   { id, processName }: GetProcessRequestData,
-  auth: CommonAuth,
   options?: AxiosSWRConfiguration<Process>,
 ): AxiosSWRResponse<Process> => {
   return useAxiosSWR<Process>(
     `${config.processApiUrlV1}/process/${processName}/${id}`,
-    auth,
     options,
   );
 };
@@ -70,26 +67,22 @@ export const useProcesses = (
   auth: CommonAuth,
   { pageSize = 5, ...options }: ProcessesConfiguration = {},
 ): AxiosSWRInfiniteResponse<ProcessesResponse> => {
-  return useAxiosSWRInfinite<ProcessesResponse>(
-    (page, previous) => {
-      if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
-        return null;
-      }
+  return useAxiosSWRInfinite<ProcessesResponse>((page, previous) => {
+    if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
+      return null;
+    }
 
-      const params: ProcessesRequestParams = {
-        targetId: id,
-        pageSize,
-      };
+    const params: ProcessesRequestParams = {
+      targetId: id,
+      pageSize,
+    };
 
-      if (page !== 0 && previous?.paginationDetails.nextToken) {
-        params.paginationToken = previous.paginationDetails.nextToken;
-      }
+    if (page !== 0 && previous?.paginationDetails.nextToken) {
+      params.paginationToken = previous.paginationDetails.nextToken;
+    }
 
-      return `${config.processApiUrlV1}/process?${stringify(params)}`;
-    },
-    auth,
-    options,
-  );
+    return `${config.processApiUrlV1}/process?${stringify(params)}`;
+  }, options);
 };
 
 export type PatchProcessRequestData = Partial<UpdateProcess> &
@@ -97,11 +90,13 @@ export type PatchProcessRequestData = Partial<UpdateProcess> &
     processData?: UpdateProcess;
   };
 
-export const editProcess = async (
-  { id, processName, processTrigger, ...data }: PatchProcessRequestData,
-  auth: CommonAuth,
-): Promise<Process> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const editProcess = async ({
+  id,
+  processName,
+  processTrigger,
+  ...data
+}: PatchProcessRequestData): Promise<Process> => {
+  const axiosInstance = getAxiosInstance();
 
   const response = await axiosInstance.patch(
     `${config.processApiUrlV1}/process/${processName}/${id}/${processTrigger}`,

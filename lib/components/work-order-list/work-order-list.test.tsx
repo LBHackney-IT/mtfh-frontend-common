@@ -12,6 +12,9 @@ import userEvent from "@testing-library/user-event";
 import locale from "../../locale";
 import { formatDate } from "../../utils";
 import { WorkOrderList } from "./work-order-list";
+import { CommonAuth, setAuth } from "../../auth";
+
+setAuth(new CommonAuth())
 
 test("WorkOrderList renders", async () => {
   render(<WorkOrderList assetId="00023400" />);

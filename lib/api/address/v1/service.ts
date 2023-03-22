@@ -1,4 +1,3 @@
-import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import { AxiosSWRConfiguration, getAxiosInstance, useAxiosSWR } from "../../../http";
 
@@ -13,11 +12,8 @@ interface SearchAddressResponse {
   error?: { code: number };
 }
 
-export const searchAddress = async (
-  postCode: string,
-  auth: CommonAuth,
-): Promise<SearchAddressResponse> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const searchAddress = async (postCode: string): Promise<SearchAddressResponse> => {
+  const axiosInstance = getAxiosInstance();
 
   return axiosInstance
     .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?postcode=${postCode}`, {
@@ -34,11 +30,8 @@ export const searchAddress = async (
     });
 };
 
-export const getAddressViaUprn = async (
-  uprn: string,
-  auth: CommonAuth,
-): Promise<SearchAddressResponse> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const getAddressViaUprn = async (uprn: string): Promise<SearchAddressResponse> => {
+  const axiosInstance = getAxiosInstance();
 
   return axiosInstance
     .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${uprn}`, {
@@ -56,13 +49,11 @@ export const getAddressViaUprn = async (
 };
 
 export const useAddressLookup = (
-  auth: CommonAuth,
   postCode?: string | null,
   options: AxiosSWRConfiguration<AddressAPIResponse> = {},
 ) => {
   return useAxiosSWR<AddressAPIResponse>(
     postCode ? `${config.addressApiUrlV1}/addresses?postcode=${postCode}` : null,
-    auth,
     {
       ...options,
       timeout: 5000,

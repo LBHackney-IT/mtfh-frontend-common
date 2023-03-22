@@ -5,11 +5,11 @@ import {
 } from "@hackney/mtfh-test-utils";
 import { renderHook } from "@testing-library/react-hooks";
 
-import { CommonAuth } from "../../../auth";
+import { CommonAuth, setAuth } from "../../../auth";
 import { useWorkOrders } from "./service";
 import { WorkOrdersFilters } from "./types";
 
-const auth = new CommonAuth();
+setAuth(new CommonAuth())
 
 describe("useWorkOrders", () => {
   const id = "00075623";
@@ -20,7 +20,7 @@ describe("useWorkOrders", () => {
     );
     server.use(getWorkOrdersV2(genericWorkOrdersMock, 200));
 
-    const { result, waitForNextUpdate } = renderHook(() => useWorkOrders(id, auth));
+    const { result, waitForNextUpdate } = renderHook(() => useWorkOrders(id));
 
     expect(result.current.data).toBe(undefined);
     await waitForNextUpdate();
@@ -37,7 +37,7 @@ describe("useWorkOrders", () => {
     server.use(getWorkOrdersV2(lockedWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useWorkOrders(id, auth, WorkOrdersFilters.LOCKED),
+      useWorkOrders(id, WorkOrdersFilters.LOCKED),
     );
 
     expect(result.current.data).toBe(undefined);
@@ -55,7 +55,7 @@ describe("useWorkOrders", () => {
     server.use(getWorkOrdersV2(inProgressWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useWorkOrders(id, auth, WorkOrdersFilters.IN_PROGRESS),
+      useWorkOrders(id, WorkOrdersFilters.IN_PROGRESS),
     );
 
     expect(result.current.data).toBe(undefined);
@@ -73,7 +73,7 @@ describe("useWorkOrders", () => {
     server.use(getWorkOrdersV2(cancelledWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useWorkOrders(id, auth, WorkOrdersFilters.CANCELLED),
+      useWorkOrders(id, WorkOrdersFilters.CANCELLED),
     );
 
     expect(result.current.data).toBe(undefined);
@@ -92,7 +92,7 @@ describe("useWorkOrders", () => {
     server.use(getWorkOrdersV2(completedWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useWorkOrders(id, auth, WorkOrdersFilters.COMPLETED),
+      useWorkOrders(id, WorkOrdersFilters.COMPLETED),
     );
 
     expect(result.current.data).toBe(undefined);
@@ -111,7 +111,7 @@ describe("useWorkOrders", () => {
     server.use(getWorkOrdersV2(onHoldWorkOrdersMock, 200));
 
     const { result, waitForNextUpdate } = renderHook(() =>
-      useWorkOrders(id, auth, WorkOrdersFilters.ON_HOLD),
+      useWorkOrders(id, WorkOrdersFilters.ON_HOLD),
     );
 
     expect(result.current.data).toBe(undefined);

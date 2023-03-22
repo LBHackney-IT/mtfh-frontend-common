@@ -24,6 +24,20 @@ const voidUser: AuthUser = {
   iat: Number.NaN,
 };
 
+let $auth: CommonAuth | null = null;
+
+export const getAuth = () => {
+  if ($auth === null) {
+    throw new Error("You must initialise auth. setAuth(auth: CommonAuth)");
+  }
+
+  return $auth;
+};
+
+export const setAuth = (auth: CommonAuth) => {
+  $auth = auth;
+};
+
 export class CommonAuth {
   private readonly _authAllowedGroups: string[];
 

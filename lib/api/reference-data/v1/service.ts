@@ -1,4 +1,3 @@
-import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import { AxiosSWRConfiguration, AxiosSWRResponse, useAxiosSWR } from "../../../http";
 
@@ -13,7 +12,6 @@ interface ReferenceDataRequestParams {
 
 export const useReferenceData = <T extends string>(
   { category, subCategory }: ReferenceDataRequestParams,
-  auth: CommonAuth,
   options?: AxiosSWRConfiguration<ReferenceDataResponse<T>>,
 ): AxiosSWRResponse<ReferenceDataResponse<T>> => {
   let params = `category=${category}`;
@@ -23,7 +21,6 @@ export const useReferenceData = <T extends string>(
   }
   return useAxiosSWR<ReferenceDataResponse<T>>(
     `${config.referenceDataApiUrlV1}/reference-data?${params}`,
-    auth,
     options,
   );
 };

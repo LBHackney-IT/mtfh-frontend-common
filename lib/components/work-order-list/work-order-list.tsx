@@ -5,7 +5,6 @@ import {
   WorkOrdersFilters,
   useWorkOrders,
 } from "../../api/work-order/v2";
-import { CommonAuth } from "../../auth";
 import { config } from "../../config";
 import locale from "../../locale";
 import { CardList } from "../card-list";
@@ -38,11 +37,8 @@ interface WorkOrdersProps {
   statusCode: WorkOrdersFilters;
 }
 
-export const WorkOrders = (
-  { assetId, statusCode }: WorkOrdersProps,
-  auth: CommonAuth,
-) => {
-  const { data: workOrders, error } = useWorkOrders(assetId, auth, statusCode);
+export const WorkOrders = ({ assetId, statusCode }: WorkOrdersProps) => {
+  const { data: workOrders, error } = useWorkOrders(assetId, statusCode);
 
   if (error) {
     return (

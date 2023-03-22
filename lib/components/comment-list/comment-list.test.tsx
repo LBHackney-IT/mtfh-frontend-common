@@ -14,6 +14,9 @@ import locale from "../../locale";
 import { mockCategoryReferenceDataV1, mockCommentsV2 } from "../../test-utils";
 import { formatDate, formatTime } from "../../utils";
 import { CommentList } from "./comment-list";
+import { CommonAuth, setAuth } from "../../auth";
+
+setAuth(new CommonAuth())
 
 test("it renders correctly", async () => {
   render(<CommentList targetId="123" />);

@@ -1,4 +1,3 @@
-import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRConfiguration,
@@ -11,12 +10,10 @@ import type { EqualityData } from "./types";
 
 export const useEqualityInformation = (
   targetId: string,
-  auth: CommonAuth,
   options?: AxiosSWRConfiguration<EqualityData>,
 ) =>
   useAxiosSWR<EqualityData>(
     `${config.equalityInformationApiUrlV1}/equality-information?targetId=${targetId}`,
-    auth,
     {
       ...options,
     },
@@ -25,20 +22,15 @@ export const useEqualityInformation = (
 export const useEqualityInformationById = (
   id: string,
   targetId: string,
-  auth: CommonAuth,
   options?: AxiosSWRConfiguration<EqualityData>,
 ): AxiosSWRResponse<EqualityData> =>
   useAxiosSWR(
     `${config.equalityInformationApiUrlV1}/equality-information/${id}?targetId=${targetId}`,
-    auth,
     options,
   );
 
-export const addEqualityInformation = async (
-  data: Omit<EqualityData, "id">,
-  auth: CommonAuth,
-) => {
-  const axiosInstance = getAxiosInstance(auth);
+export const addEqualityInformation = async (data: Omit<EqualityData, "id">) => {
+  const axiosInstance = getAxiosInstance();
 
   return axiosInstance.post(
     `${config.equalityInformationApiUrlV1}/equality-information`,
@@ -49,9 +41,8 @@ export const addEqualityInformation = async (
 export const updateEqualityInformation = async (
   id: string,
   data: Omit<EqualityData, "id">,
-  auth: CommonAuth,
 ) => {
-  const axiosInstance = getAxiosInstance(auth);
+  const axiosInstance = getAxiosInstance();
 
   return axiosInstance.patch(
     `${config.equalityInformationApiUrlV1}/equality-information/${id}`,

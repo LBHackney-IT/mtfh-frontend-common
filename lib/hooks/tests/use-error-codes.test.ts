@@ -6,6 +6,9 @@ import {
 import { renderHook } from "@testing-library/react-hooks";
 
 import { useErrorCodes } from "../use-error-codes";
+import { CommonAuth, setAuth } from "../../auth";
+
+setAuth(new CommonAuth())
 
 describe("useErrorCodes", () => {
   test("it makes a call to the referenceData API for error codes and returns them correctly", async () => {

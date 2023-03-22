@@ -1,4 +1,4 @@
-import { CommonAuth } from "../../../auth";
+import { CommonAuth, setAuth } from "../../../auth";
 import { config } from "../../../config";
 import { useAxiosSWR } from "../../../http";
 import { patchAsset, useAsset } from "./service";
@@ -13,7 +13,7 @@ jest.mock("../../../http", () => ({
   mutate: jest.fn(),
 }));
 
-const auth = new CommonAuth();
+setAuth(new CommonAuth())
 
 test("patchAsset: the API is called with the right parameters", async () => {
   const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
@@ -30,7 +30,7 @@ test("patchAsset: the API is called with the right parameters", async () => {
     },
   };
 
-  patchAsset(assetGuid, assetAddress, assetVersion, auth);
+  patchAsset(assetGuid, assetAddress, assetVersion);
 
   expect(mockAxiosInstance.patch).toBeCalledWith(
     `${config.assetApiUrlV1}/assets/${assetGuid}/address`,
@@ -93,10 +93,9 @@ test("useAsset: the API is called with the right parameters", async () => {
 
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
-  const response = await useAsset(assetGuid, auth, undefined);
+  const response = await useAsset(assetGuid, undefined);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.assetApiUrlV1}/assets/${assetGuid}`,
-    auth,
     undefined,
   );
   expect(response).toBe(returnedValue);

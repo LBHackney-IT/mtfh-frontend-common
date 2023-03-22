@@ -1,6 +1,5 @@
 import { BehaviorSubject } from "rxjs";
 
-import { CommonAuth } from "../auth";
 import { config } from "../config";
 import { getAxiosInstance } from "../http";
 
@@ -56,8 +55,8 @@ export const hydrateConfiguration = () => {
 
 export const $configuration = new BehaviorSubject(hydrateConfiguration());
 
-export const getConfiguration = async (auth: CommonAuth): Promise<void> => {
-  const axiosInstance = getAxiosInstance(auth);
+export const getConfiguration = async (): Promise<void> => {
+  const axiosInstance = getAxiosInstance();
 
   try {
     const res = await axiosInstance.get<ConfigResponse>(

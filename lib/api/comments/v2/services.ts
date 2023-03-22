@@ -1,6 +1,6 @@
 import { stringify } from "query-string";
 
-import { CommonAuth } from "../../../auth";
+import { getAuth } from "../../../auth";
 import { config } from "../../../config";
 import {
   AxiosSWRInfiniteConfiguration,
@@ -34,40 +34,32 @@ export interface CommentsConfiguration
 
 export const useComments = (
   id: string | null,
-  auth: CommonAuth,
   { pageSize = 5, ...options }: CommentsConfiguration = {},
 ): AxiosSWRInfiniteResponse<CommentsResponse> => {
-  return useAxiosSWRInfinite<CommentsResponse>(
-    (page, previous) => {
-      if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
-        return null;
-      }
+  return useAxiosSWRInfinite<CommentsResponse>((page, previous) => {
+    if (!id || (previous && !previous?.paginationDetails?.nextToken)) {
+      return null;
+    }
 
-      const params: CommentsRequestParams = {
-        targetId: id,
-        pageSize,
-      };
+    const params: CommentsRequestParams = {
+      targetId: id,
+      pageSize,
+    };
 
-      if (page !== 0 && previous?.paginationDetails.nextToken) {
-        params.paginationToken = previous.paginationDetails.nextToken;
-      }
+    if (page !== 0 && previous?.paginationDetails.nextToken) {
+      params.paginationToken = previous.paginationDetails.nextToken;
+    }
 
-      return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
-    },
-    auth,
-    options,
-  );
+    return `${config.notesApiUrlV2}/notes?${stringify(params)}`;
+  }, options);
 };
 
 export type PostCommentRequestData = Omit<Comment, "id" | "author" | "createdAt">;
 
-export const addComment = async (
-  data: PostCommentRequestData,
-  auth: CommonAuth,
-): Promise<Comment> => {
-  const { sub: id, email, name: fullName } = auth.user;
+export const addComment = async (data: PostCommentRequestData): Promise<Comment> => {
+  const { sub: id, email, name: fullName } = getAuth().user;
 
-  const axiosInstance = getAxiosInstance(auth);
+  const axiosInstance = getAxiosInstance();
 
   const { data: comment } = await axiosInstance.post(`${config.notesApiUrlV2}/notes`, {
     ...data,

@@ -17,6 +17,8 @@ export interface JWTPayload {
 export interface AuthUser extends JWTPayload {
     token: string;
 }
+export const getAuth: () => CommonAuth;
+export const setAuth: (auth: CommonAuth) => void;
 export class CommonAuth {
     constructor(authAllowedGroups?: string[], authDomain?: string, cookieDomain?: string, authToken?: string);
     get user(): AuthUser;
@@ -29,7 +31,7 @@ export class CommonAuth {
 export interface Config extends AxiosRequestConfig {
     headers: Record<string, string>;
 }
-export const getAxiosInstance: (auth: CommonAuth) => import("axios").AxiosInstance;
+export const getAxiosInstance: () => import("axios").AxiosInstance;
 export const createCancelToken: () => CancelTokenSource;
 export const isAxiosError: (e: unknown) => e is AxiosError<any>;
 export type AxiosSWRError = AxiosError;
@@ -37,9 +39,9 @@ export type AxiosSWRResponse<T> = SWRResponse<T, AxiosSWRError>;
 export type AxiosSWRInfiniteResponse<T> = SWRInfiniteResponse<T, AxiosSWRError>;
 export type AxiosSWRConfiguration<T> = SWRConfiguration<T, AxiosError> & AxiosRequestConfig;
 export type AxiosSWRInfiniteConfiguration<T> = SWRInfiniteConfiguration<T, AxiosSWRError> & AxiosRequestConfig;
-export const axiosFetcher: (auth: CommonAuth, options?: AxiosRequestConfig) => <ResponseData>(url: string) => Promise<ResponseData>;
-export const useAxiosSWR: <ResponseData>(key: Key, auth: CommonAuth, options?: AxiosSWRConfiguration<ResponseData>) => AxiosSWRResponse<ResponseData>;
-export const useAxiosSWRInfinite: <ResponseData>(key: KeyLoader<ResponseData>, auth: CommonAuth, options?: AxiosSWRInfiniteConfiguration<ResponseData>) => AxiosSWRInfiniteResponse<ResponseData>;
+export const axiosFetcher: (options?: AxiosRequestConfig) => <ResponseData>(url: string) => Promise<ResponseData>;
+export const useAxiosSWR: <ResponseData>(key: Key, options?: AxiosSWRConfiguration<ResponseData>) => AxiosSWRResponse<ResponseData>;
+export const useAxiosSWRInfinite: <ResponseData>(key: KeyLoader<ResponseData>, options?: AxiosSWRInfiniteConfiguration<ResponseData>) => AxiosSWRInfiniteResponse<ResponseData>;
 export { mutate };
 export const BREAKPOINTS: {
     base: number;
@@ -58,12 +60,12 @@ export const queries: {
     "2xl": string;
 };
 export type BreakpointKey = keyof typeof BREAKPOINTS;
-export const useBreakpoint: (breakpoint: BreakpointKey, defaultBreakpoint?: "base" | "sm" | "md" | "lg" | "xl" | "2xl" | undefined) => boolean | undefined;
-export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "sm" | "md" | "lg" | "xl" | "2xl", T>>, defaultBreakpoint?: "base" | "sm" | "md" | "lg" | "xl" | "2xl" | undefined) => T | undefined;
+export const useBreakpoint: (breakpoint: BreakpointKey, defaultBreakpoint?: BreakpointKey) => boolean | undefined;
+export const useBreakpointValue: <T>(breakpointRecord: Partial<Record<"base" | "sm" | "md" | "lg" | "xl" | "2xl", T>>, defaultBreakpoint?: BreakpointKey) => T | undefined;
 interface CautionaryAlerts {
     [key: string]: string;
 }
-export const useCautionaryAlertCodes: (auth: CommonAuth) => CautionaryAlerts | null;
+export const useCautionaryAlertCodes: () => CautionaryAlerts | null;
 type Configuration = {
     configuration: Record<string, string | undefined>;
     featureToggles: Record<string, boolean | undefined>;
@@ -71,14 +73,14 @@ type Configuration = {
 type ConfigCollection = Record<string, Configuration>;
 export const hydrateConfiguration: () => ConfigCollection;
 export const $configuration: BehaviorSubject<ConfigCollection>;
-export const getConfiguration: (auth: CommonAuth) => Promise<void>;
+export const getConfiguration: () => Promise<void>;
 export const getConfigItem: (path: string) => string;
 export const getFeatureToggle: (path: string) => boolean;
 export const useConfiguration: (path: string) => string;
 interface ErrorMessages {
     [key: string]: string;
 }
-export const useErrorCodes: (auth: CommonAuth) => ErrorMessages | null;
+export const useErrorCodes: () => ErrorMessages | null;
 export const useFeatureToggle: (path: string) => boolean;
 export interface Booleans {
     [key: string]: boolean;
@@ -101,10 +103,10 @@ export const isFutureDate: (date: string | null) => boolean;
 export const stringToDate: (dateStr: string, formatStr: string) => Date;
 export const dateToString: (date: Date, formatStr: string) => string;
 export const isUnderAge: (dob: string, age: number) => boolean;
-export const removeWhitespace: (value?: string | null | undefined) => string | null;
-export const removeWhitespaceAndCapitalise: (value?: string | null | undefined) => string | null;
+export const removeWhitespace: (value?: string | null) => string | null;
+export const removeWhitespaceAndCapitalise: (value?: string | null) => string | null;
 export const pluralize: (word: string, value: number) => string;
-export const widthOverrides: (width?: number | undefined) => string;
+export const widthOverrides: (width?: number) => string;
 export const entityDiff: <T extends Record<string, any>>(lhs: T, rhs: T) => Partial<T>;
 export interface HeadingProps {
     variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -241,7 +243,7 @@ export const Text: TextComponent;
 export interface CommentListProps {
     targetId: string;
 }
-export const CommentList: ({ targetId }: CommentListProps, auth: CommonAuth) => JSX.Element;
+export const CommentList: ({ targetId }: CommentListProps) => JSX.Element;
 export interface DialogProps extends ComponentPropsWithoutRef<"div"> {
     isOpen: boolean;
     onDismiss: () => void;
@@ -496,7 +498,7 @@ interface WorkOrdersProps {
     assetId: string;
     statusCode: WorkOrdersFilters;
 }
-export const WorkOrders: ({ assetId, statusCode }: WorkOrdersProps, auth: CommonAuth) => JSX.Element;
+export const WorkOrders: ({ assetId, statusCode }: WorkOrdersProps) => JSX.Element;
 interface WorkOrderListProps {
     assetId: string;
 }

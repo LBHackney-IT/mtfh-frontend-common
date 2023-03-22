@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 
 import { useComments } from "../../api/comments/v2";
 import { useReferenceData } from "../../api/reference-data/v1";
-import { CommonAuth } from "../../auth";
 import locale from "../../locale";
 import { Center } from "../center";
 import { ErrorSummary } from "../error-summary";
@@ -19,20 +18,14 @@ export interface CommentListProps {
   targetId: string;
 }
 
-export const CommentList = (
-  { targetId }: CommentListProps,
-  auth: CommonAuth,
-): JSX.Element => {
-  const { data, size, setSize, error } = useComments(targetId, auth);
+export const CommentList = ({ targetId }: CommentListProps): JSX.Element => {
+  const { data, size, setSize, error } = useComments(targetId);
   const { components } = locale;
 
-  const { data: referenceData, error: referenceError } = useReferenceData<"category">(
-    {
-      category: "comment",
-      subCategory: "category",
-    },
-    auth,
-  );
+  const { data: referenceData, error: referenceError } = useReferenceData<"category">({
+    category: "comment",
+    subCategory: "category",
+  });
 
   const response = useMemo(() => {
     if (!data) {
