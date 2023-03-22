@@ -1,5 +1,6 @@
+import { CommonAuth } from "../../../auth";
 import { config } from "../../../config";
-import { AxiosSWRConfiguration, axiosInstance, mutate, useAxiosSWR } from "../../../http";
+import { AxiosSWRConfiguration, mutate, useAxiosSWR } from "../../../http";
 import {
   AddPersonToTenureParams,
   AddTenureParams,
@@ -14,9 +15,12 @@ import {
 
 import type { Tenure } from "./types";
 
-jest.mock("@mtfh/common/lib/http", () => ({
-  // ...jest.requireActual("@mtfh/common/lib/http"),
-  axiosInstance: { patch: jest.fn(), post: jest.fn(), delete: jest.fn() },
+const auth = new CommonAuth();
+const axiosInstance = { patch: jest.fn(), post: jest.fn(), delete: jest.fn() };
+
+jest.mock("../../../http", () => ({
+  ...jest.requireActual("../../../http"),
+  getAxiosInstance: () => axiosInstance,
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
 }));
@@ -34,7 +38,7 @@ test("addPersonToTenure: it should send the right thing to the API", async () =>
       personTenureType: "HouseholdMember",
     },
   };
-  addPersonToTenure(addPersonToTenureParams);
+  addPersonToTenure(addPersonToTenureParams, auth);
   expect(axiosInstance.patch).toBeCalledWith(
     `${config.tenureApiUrlV1}/tenures/${addPersonToTenureParams.tenureId}/person/${addPersonToTenureParams.householdMember.id}`,
     {
@@ -50,7 +54,7 @@ test("useTenure: it should send the right body to the API", async () => {
   const options: AxiosSWRConfiguration<Tenure> = { dedupingInterval: 10 };
   (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
-  const response = await useTenure(id, options);
+  const response = await useTenure(id, auth, options);
   expect(useAxiosSWR).toBeCalledWith(`${config.tenureApiUrlV1}/tenures/${id}`, options);
   expect(response).toBe(returnedValue);
 });
@@ -73,7 +77,7 @@ test("addTenure: it should send the right body to the API", async () => {
   const tenureReturned = { id: "tenureId" };
   (axiosInstance.post as jest.Mock).mockResolvedValueOnce({ data: tenureReturned });
 
-  const response = await addTenure(params);
+  const response = await addTenure(params, auth);
 
   expect(axiosInstance.post).toBeCalledWith(`${config.tenureApiUrlV1}/tenures`, params);
   expect(mutate).toBeCalledWith(
@@ -91,7 +95,7 @@ test("removePersonFromTenure: it should send the right body to the API", async (
     householdMemberId: "hhmid",
   };
 
-  removePersonFromTenure(params);
+  removePersonFromTenure(params, auth);
 
   expect(axiosInstance.delete).toBeCalledWith(
     `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
@@ -107,7 +111,7 @@ test("editTenure: it should send the right body to the API", async () => {
     data: {},
   };
   (axiosInstance.patch as jest.Mock).mockResolvedValueOnce(response);
-  const editTenureResponse = await editTenure(params);
+  const editTenureResponse = await editTenure(params, auth);
 
   expect(axiosInstance.patch).toBeCalledWith(
     `${config.tenureApiUrlV1}/tenures/${params.id}`,

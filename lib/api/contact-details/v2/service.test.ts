@@ -6,6 +6,8 @@ import {
 import { renderHook } from "@testing-library/react-hooks";
 import { RestRequest } from "msw";
 
+import { CommonAuth } from "../../../auth";
+import { config } from "../../../config";
 import {
   addContactDetail,
   addCorrespondenceAddress,
@@ -13,6 +15,9 @@ import {
   addPhoneContact,
   useContactDetails,
 } from "./service";
+import { ContactDetailsPhoneTypes, ContactInformationContactTypes } from "./types";
+
+const auth = new CommonAuth();
 
 test("useContactDetails: it should send the right thing to the API and return the response", async () => {
   const id = "uuid";
@@ -31,7 +36,9 @@ test("useContactDetails: it should send the right thing to the API and return th
     }),
   );
 
-  const { result, waitForNextUpdate } = renderHook(() => useContactDetails(id, options));
+  const { result, waitForNextUpdate } = renderHook(() =>
+    useContactDetails(id, auth, options),
+  );
   expect(result.current.data).toBe(undefined);
   await waitForNextUpdate();
 
@@ -63,7 +70,7 @@ test("addContactDetail: it should send the right thing to the API and return the
     }),
   );
 
-  const res = await addContactDetail(id, data);
+  const res = await addContactDetail(id, data, auth);
 
   expect(res).toMatchObject({
     contactInformation: {
@@ -107,7 +114,7 @@ test("addEmailContact: it should send the right thing to the API and return the 
     }),
   );
 
-  const res = await addEmailContact(id, email, description);
+  const res = await addEmailContact(auth, id, email, description);
 
   expect(res).toMatchObject({
     contactInformation: {
@@ -150,7 +157,7 @@ test("addPhoneContact: it should send the right thing to the API and return the 
     }),
   );
 
-  const res = await addPhoneContact(id, phone, type, description);
+  const res = await addPhoneContact(auth, id, phone, type, description);
 
   expect(res).toMatchObject({
     contactInformation: {
@@ -195,7 +202,7 @@ test("addCorrespondenceAddress: it should send the right thing to the API and re
     }),
   );
 
-  const res = await addCorrespondenceAddress(data);
+  const res = await addCorrespondenceAddress(data, auth);
 
   expect(res).toMatchObject(response);
   expect(url).toContain(expectedUrl);

@@ -1,7 +1,7 @@
 {
   "name": "@mtfh/common",
   "version": "0.0.1",
-  "source": "lib/mtfh-common.tsx",
+  "source": "lib/mtfh-common.ts",
   "main": "dist/main.js",
   "types": "dist/types.d.ts",
   "alias": {

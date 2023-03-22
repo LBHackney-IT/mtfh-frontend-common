@@ -8699,7 +8699,17 @@ button.lbh-pagination__link.lbh-pagination__link--current {
   margin: 10px 0;
 }
 
+.work-order-list-item a.repair-list__link:link {
+  color: #00664f;
+}
 
+.work-order-list-item__status {
+  font-weight: 600;
+}
+
+.work-order-list-item__trim:after {
+  content: "...";
+}
 
 .work-order-list .lbh-form-group {
   align-items: center;
