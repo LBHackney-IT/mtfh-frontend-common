@@ -1,4 +1,5 @@
 import { request, server } from "@hackney/mtfh-test-utils";
+import Cookies from "js-cookie";
 import { rest } from "msw";
 
 import { CommonAuth } from "../auth";
@@ -8,6 +9,8 @@ const defaultRequest = { path: "/api", code: 200 };
 
 const auth = new CommonAuth();
 const axiosInstance = getAxiosInstance(auth);
+const mockToken =
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMTI4OTU2NTI2MTE1MDA3NTIxNzAiLCJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpc3MiOiJIYWNrbmV5IiwibmFtZSI6IlRvbSBTbWl0aCIsImdyb3VwcyI6WyJURVNUX0dST1VQIl0sImp0aSI6IjRlZmUyMDA4LTc4NmMtNDE1Ni05MGJhLTJjM2UxMzk4ZDhmNSIsImlhdCI6MTYxODgyOTA5NSwiZXhwIjoxNjE4ODMyNjk1fQ.uXfOvdv5JiUUfRNMHWpdYDfqdyf8bWmzD3G4ns3lJPQ";
 
 describe("axiosInstance", () => {
   Object.defineProperty(window, "location", {
@@ -45,6 +48,11 @@ describe("axiosInstance", () => {
     //   iat: Number.NaN,
     //   groups: ["TEST_GROUP"],
     // });
+
+    Cookies.set("hackneyToken", mockToken);
+    // window.document.cookie = mockToken;
+    auth.processToken();
+
     request({ method: "get", ...defaultRequest, data: "failure", code: 403 });
     await expect(axiosInstance.get("/api")).rejects.toThrow(
       "Request failed with status code 403",

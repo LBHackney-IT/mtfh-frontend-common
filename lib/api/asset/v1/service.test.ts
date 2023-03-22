@@ -4,15 +4,16 @@ import { useAxiosSWR } from "../../../http";
 import { patchAsset, useAsset } from "./service";
 import { Asset, EditAssetAddressRequest } from "./types";
 
-const auth = new CommonAuth();
-const axiosInstance = { patch: jest.fn() };
+const mockAxiosInstance = { patch: jest.fn() };
 
 jest.mock("../../../http", () => ({
   ...jest.requireActual("../../../http"),
-  getAxiosInstance: () => axiosInstance,
+  getAxiosInstance: jest.fn(() => mockAxiosInstance),
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
 }));
+
+const auth = new CommonAuth();
 
 test("patchAsset: the API is called with the right parameters", async () => {
   const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
@@ -31,7 +32,7 @@ test("patchAsset: the API is called with the right parameters", async () => {
 
   patchAsset(assetGuid, assetAddress, assetVersion, auth);
 
-  expect(axiosInstance.patch).toBeCalledWith(
+  expect(mockAxiosInstance.patch).toBeCalledWith(
     `${config.assetApiUrlV1}/assets/${assetGuid}/address`,
     assetAddress,
     { headers: { "If-Match": assetVersion } },
@@ -95,6 +96,7 @@ test("useAsset: the API is called with the right parameters", async () => {
   const response = await useAsset(assetGuid, auth, undefined);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.assetApiUrlV1}/assets/${assetGuid}`,
+    auth,
     undefined,
   );
   expect(response).toBe(returnedValue);

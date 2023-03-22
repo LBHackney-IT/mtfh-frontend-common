@@ -9,24 +9,25 @@ import {
 } from "./service";
 import { Address } from "./types";
 
-const auth = new CommonAuth();
-const axiosInstance = {
+const mockAxiosInstance = {
   get: jest.fn(),
 };
 
 jest.mock("../../../http", () => ({
   ...jest.requireActual("../../../http"),
-  getAxiosInstance: () => axiosInstance,
+  getAxiosInstance: jest.fn(() => mockAxiosInstance),
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
 }));
+
+const auth = new CommonAuth();
 
 test("searchAddress: the API is called with the right parameters", async () => {
   const postcode = "FK81FH";
 
   searchAddress(postcode, auth);
 
-  expect(axiosInstance.get).toBeCalledWith(
+  expect(mockAxiosInstance.get).toBeCalledWith(
     `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
     { headers: { "skip-x-correlation-id": true } },
   );
@@ -37,7 +38,7 @@ test("getAddressViaUprn: the API is called with the right parameters", async () 
 
   getAddressViaUprn(uprn, auth);
 
-  expect(axiosInstance.get).toBeCalledWith(
+  expect(mockAxiosInstance.get).toBeCalledWith(
     `${config.addressApiUrlV1}/addresses?uprn=${uprn}`,
     { headers: { "skip-x-correlation-id": true } },
   );
@@ -66,6 +67,7 @@ test("useAddressLookup: the API is called with the right parameters", async () =
   const response = await useAddressLookup(auth, postcode, options);
   expect(useAxiosSWR).toBeCalledWith(
     `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
+    auth,
     options,
   );
   expect(response).toBe(returnedValue);

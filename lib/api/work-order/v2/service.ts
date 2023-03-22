@@ -54,7 +54,7 @@ export const useWorkOrders = (
     auth,
     {
       headers: {
-        "x-hackney-user": auth.user.token,
+        "x-hackney-user": auth?.user?.token,
       },
     },
   );

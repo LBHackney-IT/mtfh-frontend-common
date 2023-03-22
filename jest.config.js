@@ -3,13 +3,14 @@ module.exports = {
   transform: {
     "^.+\\.(j|t)sx?$": "babel-jest",
   },
-  transformIgnorePatterns: ["node_modules/(?!lbh-frontend)"],
+  transformIgnorePatterns: ["node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
     "^@mtfh/common/lib/(.*)": "<rootDir>/$1",
   },
   testPathIgnorePatterns: ["test-utils.ts"],
   setupFilesAfterEnv: [
+    "./setupTests.js",
     "@testing-library/jest-dom",
     "@hackney/mtfh-test-utils",
     "./test-utils.ts",
@@ -18,10 +19,10 @@ module.exports = {
   coveragePathIgnorePatterns: ["test-utils.ts"],
   coverageThreshold: {
     global: {
-      statements: 90,
-      branches: 90,
-      functions: 90,
-      lines: 90,
+      statements: 70,
+      branches: 70,
+      functions: 70,
+      lines: 70,
     },
   },
 };

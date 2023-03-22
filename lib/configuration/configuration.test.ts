@@ -1,11 +1,14 @@
 import { request } from "@hackney/mtfh-test-utils";
 
+import { CommonAuth } from "../auth";
 import {
   $configuration,
   getConfiguration,
   getFeatureToggle,
   hydrateConfiguration,
 } from "./configuration";
+
+const auth = new CommonAuth();
 
 beforeEach(() => {
   $configuration.next({});
@@ -47,7 +50,7 @@ test("configuration is hydrated from api", async () => {
     ],
     path: "/api/v1/configuration",
   });
-  await getConfiguration();
+  await getConfiguration(auth);
   const configs = $configuration.getValue();
   expect(configs).toStrictEqual({
     MMH: { configuration: { TestConfig: "TestConfig" }, featureToggles: { Test: true } },
@@ -66,7 +69,7 @@ test("configuration is persisted to localStorage on success", async () => {
     ],
     path: "/api/v1/configuration",
   });
-  await getConfiguration();
+  await getConfiguration(auth);
   expect(window.localStorage.getItem("features")).toContain('"Test":true');
   expect(window.localStorage.getItem("features")).toContain('"TestConfig":"TestConfig"');
 });
