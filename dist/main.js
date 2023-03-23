@@ -1160,7 +1160,7 @@ const $681e52e5f1c343a3$var$getAxiosInstance = ()=>{
             ...reqConfig,
             headers: {
                 ...reqConfig.headers,
-                Authorization: `Bearer ${auth.user.token}`,
+                Authorization: `Bearer ${auth.user?.token}`,
                 ...reqConfig.headers["skip-x-correlation-id"] ? {} : {
                     "x-correlation-id": (0, $i684g$uuid.v4)()
                 }
