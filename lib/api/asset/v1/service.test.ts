@@ -1,7 +1,7 @@
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
 
-import { patchAsset, useAsset } from "./service";
+import { createAsset, patchAsset, useAsset } from "./service";
 import { Asset, EditAssetAddressRequest } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
@@ -95,4 +95,47 @@ test("useAsset: the API is called with the right parameters", async () => {
     undefined,
   );
   expect(response).toBe(returnedValue);
+});
+
+test("createAsset: the API is called with the right parameters", async () => {
+
+  const body: Asset = {
+    "id": "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
+    "assetId": "1234",
+    "parentAssetIds": "",
+    "assetLocation": {
+      "floorNo": 0,
+      "totalBlockFloors": 0,
+    },
+    "assetAddress": {
+      "uprn": "100023022032",
+      "addressLine1": "20000 Butfield House Stevens Avenue",
+      "addressLine2": "London",
+      "addressLine3": "",
+      "addressLine4": "",
+      "postCode": "E9 6RS",
+    },
+    "assetManagement": {
+      "agent": "Sanctuary Housing Association",
+      "areaOfficeName": "",
+      "isCouncilProperty": false,
+      "managingOrganisation": "London Borough of Hackney",
+      "isTMOManaged": false,
+    },
+    "assetCharacteristics": {
+      "numberOfBedrooms": 1,
+      "numberOfLifts": 0,
+      "numberOfLivingRooms": 0,
+      "windowType": "DBL",
+      "yearConstructed": "0"
+    },
+ 
+
+  };
+
+  createAsset(body);
+
+  expect(axiosInstance.post).toBeCalledWith(
+    `${config.assetApiUrlV1}/assets/`,
+    body);
 });

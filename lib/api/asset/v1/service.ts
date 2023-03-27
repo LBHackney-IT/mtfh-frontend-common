@@ -31,3 +31,15 @@ export const patchAsset = async (
       .catch(() => reject());
   });
 };
+
+export const createAsset = async (
+  asset: Asset,
+) => {
+  return new Promise<void>((resolve, reject) => {
+    axiosInstance
+      .post(`${config.assetApiUrlV1}/assets/`, asset)
+      .then(() => resolve())
+      .catch(() => reject());
+  });
+};
+
