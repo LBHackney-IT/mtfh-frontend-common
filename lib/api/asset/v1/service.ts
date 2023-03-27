@@ -32,9 +32,7 @@ export const patchAsset = async (
   });
 };
 
-export const createAsset = async (
-  asset: Asset,
-) => {
+export const createAsset = async (asset: Asset) => {
   return new Promise<void>((resolve, reject) => {
     axiosInstance
       .post(`${config.assetApiUrlV1}/assets/`, asset)
@@ -42,4 +40,3 @@ export const createAsset = async (
       .catch(() => reject());
   });
 };
-
