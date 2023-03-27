@@ -1,12 +1,9 @@
 import React, { Dispatch, FC, useCallback, useState } from "react";
 import { BrowserRouter, BrowserRouterProps, matchPath } from "react-router-dom";
 
-import { Button } from "../button";
-import { Dialog, DialogActions } from "../dialog";
-import { Link } from "../link";
+import { ConfirmationRouterMessage } from "../confirmation-router-message/confirmation-router-message";
 import { ScrollToTop } from "../scroll-to-top";
 import { ConfirmationMessage } from "./types";
-import ConfirmationRouterMessage from "../confirmation-router-message/confirmation-router-message";
 
 export const ConfirmationRouter: FC<BrowserRouterProps> = ({
   children,
@@ -30,9 +27,9 @@ export const ConfirmationRouter: FC<BrowserRouterProps> = ({
     [confirmation, setIsConfirm, message],
   );
 
-  const getUserConfirmation = (message: string, callback: (ok: boolean) => any) => {
+  const getUserConfirmation = (payload: string, callback: (ok: boolean) => any) => {
     try {
-      const incomingMessage = JSON.parse(message) as ConfirmationMessage;
+      const incomingMessage = JSON.parse(payload) as ConfirmationMessage;
       if (
         incomingMessage &&
         !matchPath(incomingMessage.pathname, {
@@ -53,7 +50,7 @@ export const ConfirmationRouter: FC<BrowserRouterProps> = ({
   };
 
   return (
-    <BrowserRouter getUserConfirmation={getUserConfirmation}>
+    <BrowserRouter getUserConfirmation={getUserConfirmation} {...props}>
       <ScrollToTop />
       {children}
 

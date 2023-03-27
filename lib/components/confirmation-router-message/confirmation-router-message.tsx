@@ -1,7 +1,8 @@
 import React from "react";
+
+import { Button } from "../button";
 import { ConfirmationMessage } from "../confirmation-router/types";
 import { Dialog, DialogActions } from "../dialog";
-import { Button } from "../button";
 import { Link } from "../link";
 
 interface Props {
@@ -10,8 +11,14 @@ interface Props {
   isConfirm: boolean;
 }
 
-const ConfirmationRouterMessage = ({ message, onConfirmation, isConfirm }: Props) => {
-  if (!message) return null;
+export const ConfirmationRouterMessage = ({
+  message,
+  onConfirmation,
+  isConfirm,
+}: Props) => {
+  if (!message) {
+    return null;
+  }
 
   return (
     <Dialog
@@ -29,5 +36,3 @@ const ConfirmationRouterMessage = ({ message, onConfirmation, isConfirm }: Props
     </Dialog>
   );
 };
-
-export default ConfirmationRouterMessage;
