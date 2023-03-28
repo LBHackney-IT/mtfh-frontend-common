@@ -6,24 +6,26 @@ export interface Asset {
   id?: string;
   assetId?: string;
   assetType?: AssetType;
+  rootAsset?: string;
+  parentAssetIds?: string;
+  isActive?: boolean;
+
   assetLocation?: AssetLocation;
   assetAddress?: AssetAddress;
   assetManagement?: AssetManagement;
   assetCharacteristics?: AssetCharacteristics;
   tenure?: AssetTenure | null;
-  rootAsset?: string;
-  parentAssetIds?: string;
-  patches?: Patch[];
   versionNumber?: number;
+  patches?: Patch[];
 }
 
 export interface AssetLocation {
-  floorNo?: number;
+  floorNo?: string;
   totalBlockFloors?: number;
-  parentAssets?: Assets[];
+  parentAssets?: ParentAsset[];
 }
 
-export interface Assets {
+export interface ParentAsset {
   type?: string;
   id?: string;
   name?: string;
@@ -39,7 +41,7 @@ export interface AssetAddress {
   postPreamble?: string;
 }
 
-interface AssetManagement {
+export interface AssetManagement {
   agent?: string;
   areaOfficeName?: string;
   isCouncilProperty?: boolean;
@@ -47,25 +49,63 @@ interface AssetManagement {
   managingOrganisationId?: string;
   owner?: string;
   isTMOManaged?: boolean;
+  propertyOccupiedStatus?: string;
+  propertyOccupiedStatusReason?: string;
+  isNoRepairsMaintenance?: boolean;
+  councilTaxType?: string;
+  councilTaxLiability?: string;
+  isTemporaryAccomodation?: boolean;
+  readyToLetDate?: boolean;
 }
 
-interface AssetCharacteristics {
+export interface AssetCharacteristics {
   numberOfBedrooms?: number;
   numberOfLifts?: number;
   numberOfLivingRooms?: number;
-  windowType?: "DBL";
+  windowType?: string;
   yearConstructed?: string;
+  assetPropertyFolderLink?: string;
+  epcExpiryDate?: Date;
+  fireSafetyCertificateExpiryDate?: Date;
+  gasSafetyCertificateExpiryDate?: Date;
+  elecCertificateExpiryDate?: Date;
+  hasStairs?: boolean;
+  numberOfStairs?: number;
+  hasRampAccess?: boolean;
+  hasCommunalAreas?: boolean;
+  hasPrivateBathroom?: boolean;
+  numberOfBathrooms?: number;
+  BathroomFloor?: string;
+  hasPrivateKitchen?: boolean;
+  numberOfKitchens?: number;
+  kitchenfloor?: string;
+  alertSystemExpiryDate?: Date;
+  epcScore?: string;
+  numberOfFloors?: number;
+  accessibilityComments?: string;
+  numberOfBedSpaces?: number;
+  numberOfCots?: number;
+  sleepingArrangementNotes?: string;
+  numberOfShowers?: number;
+  kitchenNotes?: string;
+  isStepFree?: boolean;
+  bathroomNotes?: string;
+  livingRoomNotes?: string;
 }
 
 export interface AssetTenure {
   id?: string;
   paymentReference?: string;
   type?: string;
-  startOfTenureDate?: string;
-  endOfTenureDate?: string;
+  startOfTenureDate?: Date;
+  endOfTenureDate?: Date;
   isActive?: boolean;
 }
 
 export interface EditAssetAddressRequest {
+  assetAddress: AssetAddress;
+}
+
+export interface CreateAssetAddressRequest {
   assetAddress: AssetAddress;
 }
