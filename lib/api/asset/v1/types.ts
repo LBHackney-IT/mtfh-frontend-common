@@ -15,13 +15,13 @@ export interface Asset {
   assetManagement: AssetManagement;
   assetCharacteristics: AssetCharacteristics;
   tenure: AssetTenure | null;
-  versionNumber: number;
+  versionNumber: number | null;
   patches: Patch[];
 }
 
 export interface AssetLocation {
   floorNo: string;
-  totalBlockFloors: number;
+  totalBlockFloors: number | null;
   parentAssets: ParentAsset[];
 }
 
@@ -59,9 +59,9 @@ export interface AssetManagement {
 }
 
 export interface AssetCharacteristics {
-  numberOfBedrooms: number;
-  numberOfLifts: number;
-  numberOfLivingRooms: number;
+  numberOfBedrooms: number | null;
+  numberOfLifts: number | null;
+  numberOfLivingRooms: number | null;
   windowType: string;
   yearConstructed: string;
   assetPropertyFolderLink: string;
@@ -70,23 +70,23 @@ export interface AssetCharacteristics {
   gasSafetyCertificateExpiryDate: string;
   elecCertificateExpiryDate: string;
   hasStairs: boolean;
-  numberOfStairs: number;
+  numberOfStairs: number | null;
   hasRampAccess: boolean;
   hasCommunalAreas: boolean;
   hasPrivateBathroom: boolean;
-  numberOfBathrooms: number;
+  numberOfBathrooms: number | null;
   BathroomFloor: string;
   hasPrivateKitchen: boolean;
-  numberOfKitchens: number;
+  numberOfKitchens: number | null;
   kitchenfloor: string;
   alertSystemExpiryDate: string;
   epcScore: string;
-  numberOfFloors: number;
+  numberOfFloors: number | null;
   accessibilityComments: string;
-  numberOfBedSpaces: number;
-  numberOfCots: number;
+  numberOfBedSpaces: number | null;
+  numberOfCots: number | null;
   sleepingArrangementNotes: string;
-  numberOfShowers: number;
+  numberOfShowers: number | null;
   kitchenNotes: string;
   isStepFree: boolean;
   bathroomNotes: string;
