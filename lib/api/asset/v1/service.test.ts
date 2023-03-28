@@ -43,7 +43,7 @@ test("useAsset: the API is called with the right parameters", async () => {
     rootAsset: "",
     parentAssetIds: "",
     assetLocation: {
-      floorNo: 4,
+      floorNo: "4",
       totalBlockFloors: 6,
       parentAssets: [{ id: "123", name: "asset", type: "asset-type" }],
     },
@@ -104,7 +104,7 @@ test("createAsset: the API is called with the right parameters", async () => {
     parentAssetIds: "",
     assetType: "Dwelling",
     assetLocation: {
-      floorNo: 0,
+      floorNo: "",
       totalBlockFloors: 0,
       parentAssets: [],
     },
