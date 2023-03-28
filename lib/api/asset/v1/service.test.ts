@@ -133,7 +133,7 @@ test("useAsset: the API is called with the right parameters", async () => {
 });
 
 test("createAsset: the API is called with the right parameters", async () => {
-  const asset: Asset = {
+  const body: CreateAssetAddressRequest = {
     id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
     assetId: "1234",
     parentAssetIds: "",
@@ -207,10 +207,6 @@ test("createAsset: the API is called with the right parameters", async () => {
     tenure: null,
     versionNumber: null,
     patches: [],
-  };
-
-  const body: CreateAssetAddressRequest = {
-    asset,
   };
 
   createAsset(body);

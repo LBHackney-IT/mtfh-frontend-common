@@ -106,6 +106,4 @@ export interface EditAssetAddressRequest {
   assetAddress: AssetAddress;
 }
 
-export interface CreateAssetAddressRequest {
-  asset: Asset;
-}
+export type CreateAssetAddressRequest = Asset;
