@@ -103,6 +103,7 @@ test("createAsset: the API is called with the right parameters", async () => {
       id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
       assetId: "1234",
       parentAssetIds: "",
+      assetType: "Dwelling",
       assetLocation: {
         floorNo: "0",
         totalBlockFloors: 0,

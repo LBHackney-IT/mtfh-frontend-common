@@ -3,15 +3,15 @@ import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export interface Asset {
-  id?: string;
-  assetId?: string;
-  assetType?: AssetType;
+  id: string;
+  assetId: string;
+  assetType: AssetType;
   rootAsset?: string;
   parentAssetIds?: string;
   isActive?: boolean;
 
   assetLocation?: AssetLocation;
-  assetAddress?: AssetAddress;
+  assetAddress: AssetAddress;
   assetManagement?: AssetManagement;
   assetCharacteristics?: AssetCharacteristics;
   tenure?: AssetTenure | null;
@@ -32,12 +32,12 @@ export interface ParentAsset {
 }
 
 export interface AssetAddress {
-  uprn?: string;
-  addressLine1?: string;
+  uprn: string;
+  addressLine1: string;
   addressLine2?: string;
   addressLine3?: string;
   addressLine4?: string;
-  postCode?: string;
+  postCode: string;
   postPreamble?: string;
 }
 
@@ -94,7 +94,7 @@ export interface AssetCharacteristics {
 }
 
 export interface AssetTenure {
-  id?: string;
+  id: string;
   paymentReference?: string;
   type?: string;
   startOfTenureDate?: Date;
