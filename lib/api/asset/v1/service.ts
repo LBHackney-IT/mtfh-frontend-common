@@ -6,7 +6,7 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { Asset, EditAssetAddressRequest } from "./types";
+import { Asset, CreateAssetAddressRequest, EditAssetAddressRequest } from "./types";
 
 export const useAsset = (
   id: string | null,
@@ -19,7 +19,7 @@ export const patchAsset = async (
   id: string,
   assetAddress: EditAssetAddressRequest,
   assetVersion: string | null,
-): Promise<void> => {
+) => {
   return new Promise<void>((resolve, reject) => {
     axiosInstance
       .patch(`${config.assetApiUrlV1}/assets/${id}/address`, assetAddress, {
@@ -32,10 +32,10 @@ export const patchAsset = async (
   });
 };
 
-export const createAsset = async (asset: Asset) => {
+export const createAsset = async (request: CreateAssetAddressRequest) => {
   return new Promise<void>((resolve, reject) => {
     axiosInstance
-      .post(`${config.assetApiUrlV1}/assets/`, asset)
+      .post(`${config.assetApiUrlV1}/assets/`, request)
       .then(() => resolve())
       .catch(() => reject());
   });

@@ -107,5 +107,5 @@ export interface EditAssetAddressRequest {
 }
 
 export interface CreateAssetAddressRequest {
-  assetAddress: AssetAddress;
+  asset: Asset;
 }
