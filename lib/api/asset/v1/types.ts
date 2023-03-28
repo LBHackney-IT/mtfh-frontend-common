@@ -6,26 +6,24 @@ export interface Asset {
   id: string;
   assetId: string;
   assetType: AssetType;
-  rootAsset: string;
-  parentAssetIds: string;
-  isActive: boolean;
-
   assetLocation: AssetLocation;
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
   assetCharacteristics: AssetCharacteristics;
   tenure: AssetTenure | null;
-  versionNumber: number | null;
-  patches: Patch[];
+  rootAsset: string;
+  parentAssetIds: string;
+  patches?: Patch[];
+  versionNumber?: number;
 }
 
 export interface AssetLocation {
-  floorNo: string;
-  totalBlockFloors: number | null;
-  parentAssets: ParentAsset[];
+  floorNo: number;
+  totalBlockFloors: number;
+  parentAssets: Assets[];
 }
 
-export interface ParentAsset {
+export interface Assets {
   type: string;
   id: string;
   name: string;
@@ -41,7 +39,7 @@ export interface AssetAddress {
   postPreamble: string;
 }
 
-export interface AssetManagement {
+interface AssetManagement {
   agent: string;
   areaOfficeName: string;
   isCouncilProperty: boolean;
@@ -49,48 +47,14 @@ export interface AssetManagement {
   managingOrganisationId: string;
   owner: string;
   isTMOManaged: boolean;
-  propertyOccupiedStatus: string;
-  propertyOccupiedStatusReason: string;
-  isNoRepairsMaintenance: boolean;
-  councilTaxType: string;
-  councilTaxLiability: string;
-  isTemporaryAccomodation: boolean;
-  readyToLetDate: boolean;
 }
 
-export interface AssetCharacteristics {
-  numberOfBedrooms: number | null;
-  numberOfLifts: number | null;
-  numberOfLivingRooms: number | null;
-  windowType: string;
+interface AssetCharacteristics {
+  numberOfBedrooms: number;
+  numberOfLifts: number;
+  numberOfLivingRooms: number;
+  windowType: "DBL";
   yearConstructed: string;
-  assetPropertyFolderLink: string;
-  epcExpiryDate: string;
-  fireSafetyCertificateExpiryDate: string;
-  gasSafetyCertificateExpiryDate: string;
-  elecCertificateExpiryDate: string;
-  hasStairs: boolean;
-  numberOfStairs: number | null;
-  hasRampAccess: boolean;
-  hasCommunalAreas: boolean;
-  hasPrivateBathroom: boolean;
-  numberOfBathrooms: number | null;
-  BathroomFloor: string;
-  hasPrivateKitchen: boolean;
-  numberOfKitchens: number | null;
-  kitchenfloor: string;
-  alertSystemExpiryDate: string;
-  epcScore: string;
-  numberOfFloors: number | null;
-  accessibilityComments: string;
-  numberOfBedSpaces: number | null;
-  numberOfCots: number | null;
-  sleepingArrangementNotes: string;
-  numberOfShowers: number | null;
-  kitchenNotes: string;
-  isStepFree: boolean;
-  bathroomNotes: string;
-  livingRoomNotes: string;
 }
 
 export interface AssetTenure {
