@@ -65,10 +65,10 @@ export interface AssetCharacteristics {
   windowType?: string;
   yearConstructed?: string;
   assetPropertyFolderLink?: string;
-  epcExpiryDate?: Date;
-  fireSafetyCertificateExpiryDate?: Date;
-  gasSafetyCertificateExpiryDate?: Date;
-  elecCertificateExpiryDate?: Date;
+  epcExpiryDate?: string;
+  fireSafetyCertificateExpiryDate?: string;
+  gasSafetyCertificateExpiryDate?: string;
+  elecCertificateExpiryDate?: string;
   hasStairs?: boolean;
   numberOfStairs?: number;
   hasRampAccess?: boolean;
@@ -79,7 +79,7 @@ export interface AssetCharacteristics {
   hasPrivateKitchen?: boolean;
   numberOfKitchens?: number;
   kitchenfloor?: string;
-  alertSystemExpiryDate?: Date;
+  alertSystemExpiryDate?: string;
   epcScore?: string;
   numberOfFloors?: number;
   accessibilityComments?: string;
@@ -97,8 +97,8 @@ export interface AssetTenure {
   id: string;
   paymentReference?: string;
   type?: string;
-  startOfTenureDate?: Date;
-  endOfTenureDate?: Date;
+  startOfTenureDate?: string;
+  endOfTenureDate?: string;
   isActive?: boolean;
 }
 
