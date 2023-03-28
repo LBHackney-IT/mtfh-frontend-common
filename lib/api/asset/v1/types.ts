@@ -10,11 +10,11 @@ export interface Asset {
   parentAssetIds?: string;
   isActive?: boolean;
 
-  assetLocation?: AssetLocation;
+  assetLocation: AssetLocation;
   assetAddress: AssetAddress;
-  assetManagement?: AssetManagement;
-  assetCharacteristics?: AssetCharacteristics;
-  tenure?: AssetTenure | null;
+  assetManagement: AssetManagement;
+  assetCharacteristics: AssetCharacteristics;
+  tenure: AssetTenure | null;
   versionNumber?: number;
   patches?: Patch[];
 }
