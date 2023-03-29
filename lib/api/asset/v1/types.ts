@@ -18,12 +18,12 @@ export interface Asset {
 }
 
 export interface AssetLocation {
-  floorNo: number;
+  floorNo: string;
   totalBlockFloors: number;
-  parentAssets: Assets[];
+  parentAssets: ParentAsset[];
 }
 
-export interface Assets {
+export interface ParentAsset {
   type: string;
   id: string;
   name: string;
@@ -39,7 +39,7 @@ export interface AssetAddress {
   postPreamble: string;
 }
 
-interface AssetManagement {
+export interface AssetManagement {
   agent: string;
   areaOfficeName: string;
   isCouncilProperty: boolean;
@@ -49,11 +49,11 @@ interface AssetManagement {
   isTMOManaged: boolean;
 }
 
-interface AssetCharacteristics {
+export interface AssetCharacteristics {
   numberOfBedrooms: number;
   numberOfLifts: number;
   numberOfLivingRooms: number;
-  windowType: "DBL";
+  windowType: string;
   yearConstructed: string;
 }
 
@@ -69,3 +69,5 @@ export interface AssetTenure {
 export interface EditAssetAddressRequest {
   assetAddress: AssetAddress;
 }
+
+export type CreateAssetAddressRequest = Asset;
