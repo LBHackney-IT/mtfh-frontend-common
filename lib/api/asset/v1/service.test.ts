@@ -123,7 +123,7 @@ test("createAsset: the API is called with the right parameters", async () => {
       isCouncilProperty: false,
       managingOrganisation: "London Borough of Hackney",
       isTMOManaged: false,
-      managingOrganisationId: "",
+      managingOrganisationId: "c01e3146-e630-c2cd-e709-18ef57bf3724",
       owner: "",
     },
     assetCharacteristics: {
