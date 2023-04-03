@@ -19,6 +19,16 @@ export const useCautionaryAlert = (
   );
 };
 
+export const useCautionaryAlertByAlertId = (
+  alertId: string,
+  options?: AxiosSWRConfiguration<any>,
+): AxiosSWRResponse<CautionaryAlert> => {
+  return useAxiosSWR(
+    alertId && `${config.cautionaryApiUrlV1}/cautionary-alerts/alert/${alertId}`,
+    options,
+  );
+};
+
 export const usePropertyCautionaryAlert = (
   propertyRef: string | null,
   options?: AxiosSWRConfiguration<any>,
@@ -63,8 +73,8 @@ export const addCautionaryAlert = async (
   };
 };
 
-export const endCautionaryAlert = async (personId: string, alertId: string) => {
+export const endCautionaryAlert = async (alertId: string) => {
   await axiosInstance.patch(
-    `${config.cautionaryApiUrlV1}/persons/${personId}/alerts/${alertId}/end-alert`,
+    `${config.cautionaryApiUrlV1}/cautionary-alerts/alerts/${alertId}/end-alert`,
   );
 };
