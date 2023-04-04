@@ -16,52 +16,58 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-test("searchAddress: the API is called with the right parameters", async () => {
-  const postcode = "FK81FH";
+describe("searchAddress", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const postcode = "FK81FH";
 
-  searchAddress(postcode);
+    searchAddress(postcode);
 
-  expect(axiosInstance.get).toBeCalledWith(
-    `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
-    { headers: { "skip-x-correlation-id": true } },
-  );
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
 });
 
-test("getAddressViaUprn: the API is called with the right parameters", async () => {
-  const uprn = "0123456789";
+describe("getAddressViaUprn", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const uprn = "0123456789";
 
-  getAddressViaUprn(uprn);
+    getAddressViaUprn(uprn);
 
-  expect(axiosInstance.get).toBeCalledWith(
-    `${config.addressApiUrlV1}/addresses?uprn=${uprn}`,
-    { headers: { "skip-x-correlation-id": true } },
-  );
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?uprn=${uprn}`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
 });
 
-test("useAddressLookup: the API is called with the right parameters", async () => {
-  const returnedValue: Address = {
-    line1: "35 Weir Street",
-    line2: "",
-    line3: "",
-    line4: "",
-    town: "Stirling",
-    postcode: "FK81FH",
-    UPRN: 1234,
-  };
-  const postcode = "FK81FH";
-  const options: AxiosSWRConfiguration<AddressAPIResponse> = {
-    timeout: 5000,
-    headers: {
-      "skip-x-correlation-id": true,
-    },
-  };
+describe("useAddressLookup", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const returnedValue: Address = {
+      line1: "35 Weir Street",
+      line2: "",
+      line3: "",
+      line4: "",
+      town: "Stirling",
+      postcode: "FK81FH",
+      UPRN: 1234,
+    };
+    const postcode = "FK81FH";
+    const options: AxiosSWRConfiguration<AddressAPIResponse> = {
+      timeout: 5000,
+      headers: {
+        "skip-x-correlation-id": true,
+      },
+    };
 
-  (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
+    (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
-  const response = await useAddressLookup(postcode, options);
-  expect(useAxiosSWR).toBeCalledWith(
-    `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
-    options,
-  );
-  expect(response).toBe(returnedValue);
+    const response = await useAddressLookup(postcode, options);
+    expect(useAxiosSWR).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
+      options,
+    );
+    expect(response).toBe(returnedValue);
+  });
 });
