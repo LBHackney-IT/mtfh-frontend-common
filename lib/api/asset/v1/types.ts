@@ -92,9 +92,9 @@ export interface CreateNewAsset {
   assetManagement: {
     agent: string,
     areaOfficeName: string,
-    isCouncilProperty: string,
+    isCouncilProperty: boolean,
     managingOrganisation: string,
-    isTMOManaged: string,
+    isTMOManaged: boolean,
     managingOrganisationId: string,
   },
   assetCharacteristics: {
