@@ -6,7 +6,7 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { Asset, CreateNewAsset, EditAssetAddressRequest } from "./types";
+import { Asset, NewAsset, EditAssetAddressRequest } from "./types";
 
 export const useAsset = (
   id: string | null,
@@ -32,7 +32,7 @@ export const patchAsset = async (
   });
 };
 
-export const createAsset = async (request: CreateNewAsset) => {
+export const createAsset = async (request: NewAsset) => {
   return new Promise<void>((resolve, reject) => {
     axiosInstance
       .post(`${config.assetApiUrlV1}/assets/`, request)

@@ -70,11 +70,11 @@ export interface EditAssetAddressRequest {
   assetAddress: AssetAddress;
 }
 
-export interface CreateNewAsset {
+export interface NewAsset {
   id: string
   assetId: string
   assetType: string
-  parentAssetIds: string[]
+  parentAssetIds: string
   assetLocation: {
     floorNo: string,
     totalBlockFloors: number,

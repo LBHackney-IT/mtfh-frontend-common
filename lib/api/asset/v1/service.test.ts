@@ -2,7 +2,7 @@ import { config } from "@mtfh/common/lib/config";
 import { axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
 
 import { createAsset, patchAsset, useAsset } from "./service";
-import { Asset, CreateNewAsset, EditAssetAddressRequest } from "./types";
+import { Asset, NewAsset, EditAssetAddressRequest } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -98,10 +98,10 @@ test("useAsset: the API is called with the right parameters", async () => {
 });
 
 test("createAsset: the API is called with the right parameters", async () => {
-  const body: CreateNewAsset = {
+  const body: NewAsset = {
     id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
     assetId: "1234",
-    parentAssetIds: [],
+    parentAssetIds: "",
     assetType: "Dwelling",
     assetLocation: {
       floorNo: "",
