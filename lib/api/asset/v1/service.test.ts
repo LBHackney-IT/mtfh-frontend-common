@@ -12,7 +12,7 @@ jest.mock("@mtfh/common/lib/http", () => ({
 }));
 
 describe("patchAsset", () => {
-test("it calls the api endpoint with the correct url and parameters", async () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
     const assetAddress: EditAssetAddressRequest = {
@@ -38,7 +38,7 @@ test("it calls the api endpoint with the correct url and parameters", async () =
 });
 
 describe("useAsset", () => {
-test("it calls the api endpoint with the correct url and parameters", async () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
     const returnedValue: Asset = {
       id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
       assetId: "100021045676",
@@ -102,7 +102,7 @@ test("it calls the api endpoint with the correct url and parameters", async () =
 });
 
 describe("createAsset", () => {
-test("it calls the api endpoint with the correct url and parameters", async () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
     const body: CreateAssetAddressRequest = {
       id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
       assetId: "1234",

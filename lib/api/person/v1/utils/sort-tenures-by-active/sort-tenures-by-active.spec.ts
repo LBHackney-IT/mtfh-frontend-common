@@ -30,9 +30,7 @@ describe("sortTenuresByActive", () => {
       tenure1,
     ]);
   });
-});
 
-describe("sortTenuresByActive", () => {
   test("it sorts tenures by active and Secure", () => {
     const tenure1 = generateTenure({
       assetId: "tenure1",
@@ -50,9 +48,7 @@ describe("sortTenuresByActive", () => {
       sortTenuresByActive([tenure1, tenure2, tenure3, tenure4, tenure5]),
     ).toStrictEqual([tenure3, tenure5, tenure1, tenure2, tenure4]);
   });
-});
 
-describe("sortTenuresByActive", () => {
   test("it sorts tenures by startDate with multiple inactive", () => {
     const tenure1 = generateTenure({
       assetId: "tenure1",
