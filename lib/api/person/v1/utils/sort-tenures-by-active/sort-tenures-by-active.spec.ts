@@ -15,63 +15,65 @@ const generateTenure = (props: Partial<TenureSummary>) => ({
   ...props,
 });
 
-test("it sorts tenures by active", () => {
-  const tenure1 = generateTenure({ isActive: false, assetId: "tenure1" });
-  const tenure2 = generateTenure({ assetId: "tenure2" });
-  const tenure3 = generateTenure({
-    assetId: "tenure3",
-    startDate: "2021-01-01",
+describe("sortTenuresByActive", () => {
+  test("it sorts tenures by active", () => {
+    const tenure1 = generateTenure({ isActive: false, assetId: "tenure1" });
+    const tenure2 = generateTenure({ assetId: "tenure2" });
+    const tenure3 = generateTenure({
+      assetId: "tenure3",
+      startDate: "2021-01-01",
+    });
+
+    expect(sortTenuresByActive([tenure1, tenure2, tenure3])).toStrictEqual([
+      tenure3,
+      tenure2,
+      tenure1,
+    ]);
   });
 
-  expect(sortTenuresByActive([tenure1, tenure2, tenure3])).toStrictEqual([
-    tenure3,
-    tenure2,
-    tenure1,
-  ]);
-});
+  test("it sorts tenures by active and Secure", () => {
+    const tenure1 = generateTenure({
+      assetId: "tenure1",
+      startDate: "2019-01-01",
+    });
+    const tenure2 = generateTenure({ assetId: "tenure2", type: "Freehold" });
+    const tenure3 = generateTenure({ assetId: "tenure3" });
+    const tenure4 = generateTenure({
+      assetId: "tenure4",
+      isActive: false,
+    });
+    const tenure5 = generateTenure({ assetId: "tenure5" });
 
-test("it sorts tenures by active and Secure", () => {
-  const tenure1 = generateTenure({
-    assetId: "tenure1",
-    startDate: "2019-01-01",
+    expect(
+      sortTenuresByActive([tenure1, tenure2, tenure3, tenure4, tenure5]),
+    ).toStrictEqual([tenure3, tenure5, tenure1, tenure2, tenure4]);
   });
-  const tenure2 = generateTenure({ assetId: "tenure2", type: "Freehold" });
-  const tenure3 = generateTenure({ assetId: "tenure3" });
-  const tenure4 = generateTenure({
-    assetId: "tenure4",
-    isActive: false,
-  });
-  const tenure5 = generateTenure({ assetId: "tenure5" });
 
-  expect(
-    sortTenuresByActive([tenure1, tenure2, tenure3, tenure4, tenure5]),
-  ).toStrictEqual([tenure3, tenure5, tenure1, tenure2, tenure4]);
-});
+  test("it sorts tenures by startDate with multiple inactive", () => {
+    const tenure1 = generateTenure({
+      assetId: "tenure1",
+      startDate: "2019-01-01",
+      isActive: false,
+    });
+    const tenure2 = generateTenure({
+      assetId: "tenure2",
+      isActive: false,
+      startDate: "1980-01-01",
+    });
+    const tenure3 = generateTenure({
+      assetId: "tenure3",
+      isActive: false,
+      startDate: "1990-01-01",
+    });
+    const tenure4 = generateTenure({
+      assetId: "tenure4",
+      isActive: false,
+      startDate: "2000-01-01",
+    });
+    const tenure5 = generateTenure({ assetId: "tenure5" });
 
-test("it sorts tenures by startDate with multiple inactive", () => {
-  const tenure1 = generateTenure({
-    assetId: "tenure1",
-    startDate: "2019-01-01",
-    isActive: false,
+    expect(
+      sortTenuresByActive([tenure1, tenure2, tenure3, tenure4, tenure5]),
+    ).toStrictEqual([tenure5, tenure1, tenure4, tenure3, tenure2]);
   });
-  const tenure2 = generateTenure({
-    assetId: "tenure2",
-    isActive: false,
-    startDate: "1980-01-01",
-  });
-  const tenure3 = generateTenure({
-    assetId: "tenure3",
-    isActive: false,
-    startDate: "1990-01-01",
-  });
-  const tenure4 = generateTenure({
-    assetId: "tenure4",
-    isActive: false,
-    startDate: "2000-01-01",
-  });
-  const tenure5 = generateTenure({ assetId: "tenure5" });
-
-  expect(
-    sortTenuresByActive([tenure1, tenure2, tenure3, tenure4, tenure5]),
-  ).toStrictEqual([tenure5, tenure1, tenure4, tenure3, tenure2]);
 });

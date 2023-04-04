@@ -4,6 +4,7 @@ export type CautionaryAlert = {
 };
 
 export type Alert = {
+  alertId: string;
   alertCode: string;
   assureReference: string;
   dateModified: string;
@@ -14,4 +15,5 @@ export type Alert = {
   personId?: string;
   reason: string;
   startDate: string;
+  isActive: boolean;
 };
