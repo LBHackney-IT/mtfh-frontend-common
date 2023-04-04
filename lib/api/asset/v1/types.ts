@@ -70,7 +70,7 @@ export interface EditAssetAddressRequest {
   assetAddress: AssetAddress;
 }
 
-export interface CreateNewAsset {
+export interface CreateNewAssetRequest {
   id: string
   assetId: string
   assetType: string
