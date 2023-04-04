@@ -71,37 +71,37 @@ export interface EditAssetAddressRequest {
 }
 
 export interface CreateNewAssetRequest {
-  id: string
-  assetId: string
-  assetType: string
-  parentAssetIds: string[]
+  id: string;
+  assetId: string;
+  assetType: string;
+  parentAssetIds: string;
   assetLocation: {
-    floorNo: string,
-    totalBlockFloors: number,
-    parentAssets: any[],
-  },
+    floorNo: string;
+    totalBlockFloors: number;
+    parentAssets: any[];
+  };
   assetAddress: {
-    uprn: string,
-    addressLine1: string,
-    addressLine2: string,
-    addressLine3: string,
-    addressLine4: string,
-    postCode: string,
-    postPreamble: string,
-  },
+    uprn: string;
+    addressLine1: string;
+    addressLine2: string;
+    addressLine3: string;
+    addressLine4: string;
+    postCode: string;
+    postPreamble: string;
+  };
   assetManagement: {
-    agent: string,
-    areaOfficeName: string,
-    isCouncilProperty: boolean,
-    managingOrganisation: string,
-    isTMOManaged: boolean,
-    managingOrganisationId: string,
-  },
+    agent: string;
+    areaOfficeName: string;
+    isCouncilProperty: boolean;
+    managingOrganisation: string;
+    isTMOManaged: boolean;
+    managingOrganisationId: string;
+  };
   assetCharacteristics: {
-    numberOfBedrooms: number,
-    numberOfLivingRooms: number,
-    yearConstructed: string,
-    windowType: string,
-    numberOfLifts: number,
-  },
+    numberOfBedrooms: number;
+    numberOfLivingRooms: number;
+    yearConstructed: string;
+    windowType: string;
+    numberOfLifts: number;
+  };
 }
