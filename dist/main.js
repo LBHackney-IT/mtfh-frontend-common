@@ -1079,6 +1079,19 @@ const $6b4f1832ab8ff3f5$var$setAuth = (auth)=>{
 };
 $6b4f1832ab8ff3f5$exports.setAuth = $6b4f1832ab8ff3f5$var$setAuth;
 class $6b4f1832ab8ff3f5$var$CommonAuth {
+    constructor(){
+        let authAllowedGroups = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [
+            "TEST_GROUP"
+        ];
+        let authDomain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "//auth.hackney.gov.uk/auth";
+        let cookieDomain = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "hackney.gov.uk";
+        let authToken = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "hackneyToken";
+        this._authAllowedGroups = authAllowedGroups;
+        this._authDomain = authDomain;
+        this._cookieDomain = cookieDomain;
+        this._authToken = authToken;
+        this._user = this.parseToken();
+    }
     get user() {
         return this._user;
     }
@@ -1115,19 +1128,6 @@ class $6b4f1832ab8ff3f5$var$CommonAuth {
         let redirectUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : `${window.location.origin}/search`;
         this.logout();
         window.location.href = `${this._authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`;
-    }
-    constructor(){
-        let authAllowedGroups = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [
-            "TEST_GROUP"
-        ];
-        let authDomain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "//auth.hackney.gov.uk/auth";
-        let cookieDomain = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "hackney.gov.uk";
-        let authToken = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "hackneyToken";
-        this._authAllowedGroups = authAllowedGroups;
-        this._authDomain = authDomain;
-        this._cookieDomain = cookieDomain;
-        this._authToken = authToken;
-        this._user = this.parseToken();
     }
 }
 $6b4f1832ab8ff3f5$exports.CommonAuth = $6b4f1832ab8ff3f5$var$CommonAuth;
@@ -3670,6 +3670,14 @@ $89401ee2a53a5d08$exports.ConfirmationRouter = void 0;
 
 var $89401ee2a53a5d08$var$_react = $89401ee2a53a5d08$var$_interopRequireWildcard($i684g$react);
 
+var $6ca15bf97b85abda$exports = {};
+"use strict";
+Object.defineProperty($6ca15bf97b85abda$exports, "__esModule", {
+    value: true
+});
+$6ca15bf97b85abda$exports.ConfirmationRouterMessage = void 0;
+
+var $6ca15bf97b85abda$var$_react = $6ca15bf97b85abda$var$_interopRequireDefault($i684g$react);
 
 var $1cb230a5acd30dbe$exports = {};
 "use strict";
@@ -3787,6 +3795,28 @@ Object.keys($ab12b53074fbb201$exports).forEach(function(key) {
 
 
 var $3f5PC = parcelRequire("3f5PC");
+function $6ca15bf97b85abda$var$_interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+const $6ca15bf97b85abda$var$ConfirmationRouterMessage = (_ref)=>{
+    let { message: message , onConfirmation: onConfirmation , isConfirm: isConfirm  } = _ref;
+    if (!message) return null;
+    return /*#__PURE__*/ $6ca15bf97b85abda$var$_react.default.createElement($1cb230a5acd30dbe$exports.Dialog, {
+        isOpen: isConfirm,
+        title: message.title,
+        onDismiss: ()=>onConfirmation(false)
+    }, message?.body && /*#__PURE__*/ $6ca15bf97b85abda$var$_react.default.createElement("p", null, message.body), /*#__PURE__*/ $6ca15bf97b85abda$var$_react.default.createElement($1cb230a5acd30dbe$exports.DialogActions, null, /*#__PURE__*/ $6ca15bf97b85abda$var$_react.default.createElement($51daab27a361364a$exports.Button, {
+        onClick: ()=>onConfirmation(true)
+    }, "Yes"), /*#__PURE__*/ $6ca15bf97b85abda$var$_react.default.createElement($3f5PC.Link, {
+        as: "button",
+        onClick: ()=>onConfirmation(false)
+    }, "Cancel")));
+};
+$6ca15bf97b85abda$exports.ConfirmationRouterMessage = $6ca15bf97b85abda$var$ConfirmationRouterMessage;
+
+
 var $6c59dee70ac360b9$exports = {};
 "use strict";
 Object.defineProperty($6c59dee70ac360b9$exports, "__esModule", {
@@ -3867,46 +3897,42 @@ function $89401ee2a53a5d08$var$_extends() {
 const $89401ee2a53a5d08$var$ConfirmationRouter = (_ref)=>{
     let { children: children , ...props } = _ref;
     const [message, setMessage] = (0, $89401ee2a53a5d08$var$_react.useState)();
-    const [isConfirm, setIsConfim] = (0, $89401ee2a53a5d08$var$_react.useState)(false);
+    const [isConfirm, setIsConfirm] = (0, $89401ee2a53a5d08$var$_react.useState)(false);
     const [confirmation, setConfirmation] = (0, $89401ee2a53a5d08$var$_react.useState)();
     const onConfirmation = (0, $89401ee2a53a5d08$var$_react.useCallback)((ok)=>{
         /* istanbul ignore else: this should be set by the time we call it */ if (confirmation) confirmation(ok);
         if (!ok && message?.action === "POP") window.history.forward();
-        setIsConfim(false);
+        setIsConfirm(false);
     }, [
         confirmation,
-        setIsConfim,
+        setIsConfirm,
         message
     ]);
-    return /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($i684g$reactrouterdom.BrowserRouter, $89401ee2a53a5d08$var$_extends({
-        getUserConfirmation: (payload, callback)=>{
-            try {
-                const incomingMessage = JSON.parse(payload);
-                if (incomingMessage && !(0, $i684g$reactrouterdom.matchPath)(incomingMessage.pathname, {
-                    path: incomingMessage.path,
-                    exact: true,
-                    strict: true
-                })) {
-                    setIsConfim(true);
-                    setConfirmation(()=>callback);
-                    setMessage(incomingMessage);
-                }
-            } catch (e) {
-                setIsConfim(false);
-                setMessage(undefined);
-                callback(true);
+    const getUserConfirmation = (payload, callback)=>{
+        try {
+            const incomingMessage = JSON.parse(payload);
+            if (incomingMessage && !(0, $i684g$reactrouterdom.matchPath)(incomingMessage.pathname, {
+                path: incomingMessage.path,
+                exact: true,
+                strict: true
+            })) {
+                setIsConfirm(true);
+                setConfirmation(()=>callback);
+                setMessage(incomingMessage);
             }
+        } catch (e) {
+            setIsConfirm(false);
+            setMessage(undefined);
+            callback(true);
         }
-    }, props), /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($6c59dee70ac360b9$exports.ScrollToTop, null), children, message && /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($1cb230a5acd30dbe$exports.Dialog, {
-        isOpen: isConfirm,
-        title: message.title,
-        onDismiss: ()=>onConfirmation(false)
-    }, message?.body && /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement("p", null, message.body), /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($1cb230a5acd30dbe$exports.DialogActions, null, /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($51daab27a361364a$exports.Button, {
-        onClick: ()=>onConfirmation(true)
-    }, "Yes"), /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($3f5PC.Link, {
-        as: "button",
-        onClick: ()=>onConfirmation(false)
-    }, "Cancel"))));
+    };
+    return /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($i684g$reactrouterdom.BrowserRouter, $89401ee2a53a5d08$var$_extends({
+        getUserConfirmation: getUserConfirmation
+    }, props), /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($6c59dee70ac360b9$exports.ScrollToTop, null), children, /*#__PURE__*/ $89401ee2a53a5d08$var$_react.default.createElement($6ca15bf97b85abda$exports.ConfirmationRouterMessage, {
+        message: message,
+        onConfirmation: onConfirmation,
+        isConfirm: isConfirm
+    }));
 };
 $89401ee2a53a5d08$exports.ConfirmationRouter = $89401ee2a53a5d08$var$ConfirmationRouter;
 
