@@ -5,7 +5,7 @@ import {
   getAxiosInstance,
   useAxiosSWR,
 } from "../../../http";
-import { Asset, EditAssetAddressRequest } from "./types";
+import { Asset, CreateNewAssetRequest, EditAssetAddressRequest } from "./types";
 
 export const useAsset = (
   id: string | null,
@@ -17,8 +17,8 @@ export const useAsset = (
 export const patchAsset = async (
   id: string,
   assetAddress: EditAssetAddressRequest,
-  assetVersion: string,
-): Promise<void> => {
+  assetVersion: string | null,
+) => {
   return new Promise<void>((resolve, reject) => {
     const axiosInstance = getAxiosInstance();
 
@@ -28,6 +28,17 @@ export const patchAsset = async (
           "If-Match": assetVersion,
         },
       })
+      .then(() => resolve())
+      .catch(() => reject());
+  });
+};
+
+export const createAsset = async (request: CreateNewAssetRequest) => {
+  return new Promise<void>((resolve, reject) => {
+    const axiosInstance = getAxiosInstance();
+
+    axiosInstance
+      .post(`${config.assetApiUrlV1}/assets/`, request)
       .then(() => resolve())
       .catch(() => reject());
   });

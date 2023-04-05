@@ -26,102 +26,112 @@ jest.mock("../../../http", () => ({
 
 setAuth(new CommonAuth());
 
-test("addPersonToTenure: it should send the right thing to the API", async () => {
-  const addPersonToTenureParams: AddPersonToTenureParams = {
-    tenureId: "id",
-    etag: "etag",
-    householdMember: {
-      id: "hhmid",
-      dateOfBirth: "",
-      fullName: "Paco el flaco",
-      isResponsible: true,
-      type: "Person",
-      personTenureType: "HouseholdMember",
-    },
-  };
-  addPersonToTenure(addPersonToTenureParams);
-  expect(mockAxiosInstance.patch).toBeCalledWith(
-    `${config.tenureApiUrlV1}/tenures/${addPersonToTenureParams.tenureId}/person/${addPersonToTenureParams.householdMember.id}`,
-    {
-      etag: addPersonToTenureParams.etag,
-      ...addPersonToTenureParams.householdMember,
-    },
-  );
+describe("addPersonToTenure", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const addPersonToTenureParams: AddPersonToTenureParams = {
+      tenureId: "id",
+      etag: "etag",
+      householdMember: {
+        id: "hhmid",
+        dateOfBirth: "",
+        fullName: "Paco el flaco",
+        isResponsible: true,
+        type: "Person",
+        personTenureType: "HouseholdMember",
+      },
+    };
+    addPersonToTenure(addPersonToTenureParams);
+    expect(mockAxiosInstance.patch).toBeCalledWith(
+      `${config.tenureApiUrlV1}/tenures/${addPersonToTenureParams.tenureId}/person/${addPersonToTenureParams.householdMember.id}`,
+      {
+        etag: addPersonToTenureParams.etag,
+        ...addPersonToTenureParams.householdMember,
+      },
+    );
+  });
 });
 
-test("useTenure: it should send the right body to the API", async () => {
-  const returnedValue = { tenureId: "" };
-  const id = "id";
-  const options: AxiosSWRConfiguration<Tenure> = { dedupingInterval: 10 };
-  (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
+describe("useTenure", () => {
+  test("useTenure: it should send the right body to the API", async () => {
+    const returnedValue = { tenureId: "" };
+    const id = "id";
+    const options: AxiosSWRConfiguration<Tenure> = { dedupingInterval: 10 };
+    (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
-  const response = await useTenure(id, options);
-  expect(useAxiosSWR).toBeCalledWith(`${config.tenureApiUrlV1}/tenures/${id}`, options);
-  expect(response).toBe(returnedValue);
+    const response = await useTenure(id, options);
+    expect(useAxiosSWR).toBeCalledWith(`${config.tenureApiUrlV1}/tenures/${id}`, options);
+    expect(response).toBe(returnedValue);
+  });
 });
 
-test("addTenure: it should send the right body to the API", async () => {
-  const params: AddTenureParams = {
-    startOfTenureDate: "",
-    tenureType: {
-      code: "",
-      description: "",
-    },
-    tenuredAsset: {
-      id: "",
-      type: "type",
-      fullAddress: "",
-      uprn: "",
-      propertyReference: "",
-    },
-  };
-  const tenureReturned = { id: "tenureId" };
-  (mockAxiosInstance.post as jest.Mock).mockResolvedValueOnce({ data: tenureReturned });
+describe("addTenure", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const params: AddTenureParams = {
+      startOfTenureDate: "",
+      tenureType: {
+        code: "",
+        description: "",
+      },
+      tenuredAsset: {
+        id: "",
+        type: "type",
+        fullAddress: "",
+        uprn: "",
+        propertyReference: "",
+      },
+    };
+    const tenureReturned = { id: "tenureId" };
+    (mockAxiosInstance.post as jest.Mock).mockResolvedValueOnce({ data: tenureReturned });
 
-  const response = await addTenure(params);
+    const response = await addTenure(params);
 
-  expect(mockAxiosInstance.post).toBeCalledWith(
-    `${config.tenureApiUrlV1}/tenures`,
-    params,
-  );
-  expect(mutate).toBeCalledWith(
-    `${config.tenureApiUrlV1}/tenures/${tenureReturned.id}`,
-    tenureReturned,
-    false,
-  );
-  expect(response).toBe(tenureReturned);
+    expect(mockAxiosInstance.post).toBeCalledWith(
+      `${config.tenureApiUrlV1}/tenures`,
+      params,
+    );
+    expect(mutate).toBeCalledWith(
+      `${config.tenureApiUrlV1}/tenures/${tenureReturned.id}`,
+      tenureReturned,
+      false,
+    );
+    expect(response).toBe(tenureReturned);
+  });
 });
 
-test("removePersonFromTenure: it should send the right body to the API", async () => {
-  const params: RemovePersonFromTenureParams = {
-    etag: "",
-    tenureId: "id",
-    householdMemberId: "hhmid",
-  };
+describe("removePersonFromTenure", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const params: RemovePersonFromTenureParams = {
+      etag: "",
+      tenureId: "id",
+      householdMemberId: "hhmid",
+    };
 
-  removePersonFromTenure(params);
+    removePersonFromTenure(params);
 
-  expect(mockAxiosInstance.delete).toBeCalledWith(
-    `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
-  );
+    expect(mockAxiosInstance.delete).toBeCalledWith(
+      `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
+    );
+  });
 });
 
-test("editTenure: it should send the right body to the API", async () => {
-  const params: EditTenureParams = {
-    id: "id",
-    etag: "",
-  };
-  const response = {
-    data: {},
-  };
-  (mockAxiosInstance.patch as jest.Mock).mockResolvedValueOnce(response);
-  const editTenureResponse = await editTenure(params);
+describe("editTenure", () => {
+  test("it calls the api endpoint with the correct url and parameters", async () => {
+    const params: EditTenureParams = {
+      id: "id",
+      etag: "",
+    };
+    const response = {
+      data: {},
+    };
+    (mockAxiosInstance.patch as jest.Mock).mockResolvedValueOnce(response);
+    const editTenureResponse = await editTenure(params);
 
-  expect(mockAxiosInstance.patch).toBeCalledWith(
-    `${config.tenureApiUrlV1}/tenures/${params.id}`,
-    {
-      etag: params.etag,
-    },
-  );
-  expect(editTenureResponse).toBe(response.data);
+    expect(mockAxiosInstance.patch).toBeCalledWith(
+      `${config.tenureApiUrlV1}/tenures/${params.id}`,
+      {
+        etag: params.etag,
+      },
+    );
+    expect(editTenureResponse).toBe(response.data);
+  });
 });

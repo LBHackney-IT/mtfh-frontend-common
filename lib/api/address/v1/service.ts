@@ -30,22 +30,19 @@ export const searchAddress = async (postCode: string): Promise<SearchAddressResp
     });
 };
 
-export const getAddressViaUprn = async (uprn: string): Promise<SearchAddressResponse> => {
-  const axiosInstance = getAxiosInstance();
+export const getAddressViaUprn = async (UPRN: string): Promise<SearchAddressResponse> => {
+  return new Promise<SearchAddressResponse>((resolve, reject) => {
+    const axiosInstance = getAxiosInstance();
 
-  return axiosInstance
-    .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${uprn}`, {
-      headers: {
-        "skip-x-correlation-id": true,
-      },
-    })
-    .then((res) => ({ addresses: res.data.data.address }))
-    .catch((res) => {
-      if (res.message.toLowerCase().indexOf("network") !== -1) {
-        return { error: { code: 500 } };
-      }
-      return res;
-    });
+    axiosInstance
+      .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${UPRN}`, {
+        headers: {
+          "skip-x-correlation-id": true,
+        },
+      })
+      .then((res) => resolve({ addresses: res.data.data.address }))
+      .catch((error) => reject(error));
+  });
 };
 
 export const useAddressLookup = (
