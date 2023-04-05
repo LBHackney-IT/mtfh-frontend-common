@@ -3,7 +3,7 @@ module.exports = {
   transform: {
     "^.+\\.(j|t)sx?$": "babel-jest",
   },
-  transformIgnorePatterns: ["node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"],
+  transformIgnorePatterns: ["node_modules/(?!lbh-frontend)"],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
     "^@mtfh/common/lib/(.*)": "<rootDir>/$1",
@@ -19,10 +19,10 @@ module.exports = {
   coveragePathIgnorePatterns: ["test-utils.ts"],
   coverageThreshold: {
     global: {
-      statements: 70,
-      branches: 70,
-      functions: 70,
-      lines: 70,
+      statements: 90,
+      branches: 90,
+      functions: 90,
+      lines: 90,
     },
   },
 };
