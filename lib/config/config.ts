@@ -1,5 +1,4 @@
 const config = {
-  appEnv: process.env.APP_ENV || "test",
   configurationApiUrlV1: process.env.CONFIGURATION_API_URL_V1 || "",
   contactDetailsApiUrlV1: process.env.CONTACT_DETAILS_API_URL_V1 || "/api/v1",
   contactDetailsApiUrlV2: process.env.CONTACT_DETAILS_API_URL_V2 || "/api/v2",
