@@ -2,7 +2,7 @@ import { config } from "@mtfh/common/lib/config";
 import { axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
 
 import { createAsset, patchAsset, useAsset } from "./service";
-import { Asset, CreateAssetAddressRequest, EditAssetAddressRequest } from "./types";
+import { Asset, CreateNewAssetRequest, EditAssetAddressRequest } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -103,7 +103,7 @@ describe("useAsset", () => {
 
 describe("createAsset", () => {
   test("it calls the api endpoint with the correct url and parameters", async () => {
-    const body: CreateAssetAddressRequest = {
+    const body: CreateNewAssetRequest = {
       id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
       assetId: "1234",
       parentAssetIds: "",
@@ -125,11 +125,10 @@ describe("createAsset", () => {
       assetManagement: {
         agent: "Sanctuary Housing Association",
         areaOfficeName: "",
-        isCouncilProperty: false,
+        isCouncilProperty: true,
         managingOrganisation: "London Borough of Hackney",
         isTMOManaged: false,
         managingOrganisationId: "c01e3146-e630-c2cd-e709-18ef57bf3724",
-        owner: "",
       },
       assetCharacteristics: {
         numberOfBedrooms: 1,
@@ -138,10 +137,6 @@ describe("createAsset", () => {
         windowType: "DBL",
         yearConstructed: "0",
       },
-      rootAsset: "",
-      tenure: null,
-      versionNumber: 2,
-      patches: [],
     };
 
     createAsset(body);
