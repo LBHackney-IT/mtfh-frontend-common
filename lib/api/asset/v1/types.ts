@@ -87,7 +87,6 @@ export interface CreateNewAssetRequest {
     addressLine3: string;
     addressLine4: string;
     postCode: string;
-    postPreamble: string;
   };
   assetManagement: {
     agent: string;
