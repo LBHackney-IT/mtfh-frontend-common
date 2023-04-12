@@ -120,7 +120,6 @@ describe("createAsset", () => {
         addressLine3: "",
         addressLine4: "",
         postCode: "E9 6RS",
-        postPreamble: "",
       },
       assetManagement: {
         agent: "Sanctuary Housing Association",
