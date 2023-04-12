@@ -77,7 +77,7 @@ export interface CreateNewAssetRequest {
   parentAssetIds: string;
   assetLocation: {
     floorNo: string;
-    totalBlockFloors: number;
+    totalBlockFloors: number | null;
     parentAssets: any[];
   };
   assetAddress: {
@@ -87,7 +87,6 @@ export interface CreateNewAssetRequest {
     addressLine3: string;
     addressLine4: string;
     postCode: string;
-    postPreamble: string;
   };
   assetManagement: {
     agent: string;
@@ -98,10 +97,10 @@ export interface CreateNewAssetRequest {
     managingOrganisationId: string;
   };
   assetCharacteristics: {
-    numberOfBedrooms: number;
-    numberOfLivingRooms: number;
+    numberOfBedrooms: number | null;
+    numberOfLivingRooms: number | null;
     yearConstructed: string;
     windowType: string;
-    numberOfLifts: number;
+    numberOfLifts: number | null;
   };
 }
