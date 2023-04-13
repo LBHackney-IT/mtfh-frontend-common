@@ -74,6 +74,7 @@ export interface CreateNewAssetRequest {
   id: string;
   assetId: string;
   assetType: string;
+  isActive: boolean;
   parentAssetIds: string;
   assetLocation: {
     floorNo: string;

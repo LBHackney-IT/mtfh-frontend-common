@@ -108,6 +108,7 @@ describe("createAsset", () => {
       assetId: "1234",
       parentAssetIds: "",
       assetType: "Dwelling",
+      isActive: true,
       assetLocation: {
         floorNo: "",
         totalBlockFloors: 0,
