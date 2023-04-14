@@ -226,7 +226,7 @@ jobs:
         type: string
     steps:
       - *attach_workspace
-      - aws-cli/install
+      - checkout
       - run:
           name: build
           command: |
