@@ -219,6 +219,8 @@ jobs:
 
   build-production:
     executor: node-executor
+    environment:
+      aws-region: eu-west-2
     parameters:
       stage:
         type: string
