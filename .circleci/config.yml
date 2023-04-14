@@ -219,7 +219,6 @@ jobs:
 
   build-production:
     executor: node-executor
-    
     parameters:
       stage:
         type: string
@@ -361,7 +360,7 @@ workflows:
   version: 2
   publish:
     jobs:
-    - build-production:
+      - build-production:
           stage: "production"
           filters:
             branches:
