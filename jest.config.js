@@ -1,8 +1,8 @@
 module.exports = {
   rootDir: "lib",
-  transform: {
-    "^.+\\.(j|t)sx?$": "babel-jest",
-  },
+  // transform: {
+  //   "^.+\\.(j|t)sx?$": "babel-jest",
+  // },
   transformIgnorePatterns: ["node_modules/(?!lbh-frontend)"],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",

@@ -24,12 +24,6 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "7.14.4",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
-    "@babel/preset-typescript": "^7.12.7",
-    "@babel/runtime": "^7.21.0",
     "@hackney/eslint-config": "^1.4.0",
     "@hackney/mtfh-test-utils": "^1.8.5",
     "@hackney/prettier-config": "^1.0.1",
@@ -54,7 +48,6 @@
     "@types/webpack-env": "^1.16.0",
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "analyze-es6-modules": "^0.6.2",
-    "babel-jest": "^26.6.3",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
     "css-loader": "^5.2.4",
@@ -97,13 +90,10 @@
     "webpack-merge": "^5.4.0"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.13.13",
     "@radix-ui/react-polymorphic": "^0.0.12",
     "@reach/dialog": "^0.15.0",
-    "@stavalfi/babel-plugin-module-resolver-loader": "^1.4.0",
     "@swc/helpers": "^0.4.14",
     "axios": "^0.21.3",
-    "babel-loader": "^9.1.2",
     "classnames": "^2.3.1",
     "date-fns": "^2.23.0",
     "deep-diff": "^1.0.2",
