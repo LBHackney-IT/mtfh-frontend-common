@@ -82,6 +82,17 @@ commands:
             cd ./terraform/<<parameters.environment>>/
             terraform apply -auto-approve
 jobs:
+  publish-npm:
+    description: "Deploy the package to NPM"
+    steps:
+      - *attach_workspace:
+      - checkout
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
   install-dependencies:
     executor: node-executor
     steps:
@@ -309,6 +320,12 @@ jobs:
           exit 1
 workflows:
   version: 2
+  publish:
+    jobs:
+      - publish-npm:
+        filters:
+          branches:
+            only: callum/test-changes
   continuous-delivery-development:
     when: << pipeline.parameters.run_development_workflow >>
     jobs:
