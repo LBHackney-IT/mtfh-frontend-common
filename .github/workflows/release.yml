@@ -9,7 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install modules
-        run: npm ci
+        run: rm -rf node_modules && yarn install --frozen-lockfile
+      - name: Build 🔧
+        run: yarn build
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
         with:
