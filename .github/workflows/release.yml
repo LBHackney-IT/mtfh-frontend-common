@@ -17,7 +17,7 @@ jobs:
         run: rm -rf node_modules && yarn install --frozen-lockfile
       - name: Build 🔧
         run: yarn build
-      - run: yarn npm publish
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       # - name: Semantic Release
