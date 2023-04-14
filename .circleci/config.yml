@@ -338,8 +338,14 @@ workflows:
   version: 2
   publish:
     jobs:
+      - install-dependencies:
+          filters:
+            branches:
+              only: callum/test-changes
       - build-production:
           stage: "production"
+          requires:
+            - install-dependencies
           filters:
             branches:
               only: callum/test-changes
