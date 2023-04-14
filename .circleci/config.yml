@@ -85,7 +85,7 @@ jobs:
   publish-npm:
     description: "Deploy the package to NPM"
     steps:
-      - *attach_workspace:
+      - *attach_workspace
       - checkout
       - run:
           name: Authenticate with registry
@@ -323,9 +323,9 @@ workflows:
   publish:
     jobs:
       - publish-npm:
-        filters:
-          branches:
-            only: callum/test-changes
+          filters:
+            branches:
+              only: callum/test-changes
   continuous-delivery-development:
     when: << pipeline.parameters.run_development_workflow >>
     jobs:
