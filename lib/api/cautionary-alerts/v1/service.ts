@@ -73,8 +73,16 @@ export const addCautionaryAlert = async (
   };
 };
 
-export const endCautionaryAlert = async (alertId: string) => {
+export interface EndCautionaryAlertRequestData {
+  endDate: Date;
+}
+
+export const endCautionaryAlert = async (
+  alertId: string,
+  data: EndCautionaryAlertRequestData,
+) => {
   await axiosInstance.patch(
     `${config.cautionaryApiUrlV1}/cautionary-alerts/alerts/${alertId}/end-alert`,
+    data,
   );
 };
