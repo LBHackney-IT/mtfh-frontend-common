@@ -76,11 +76,6 @@ export interface CreateNewAssetRequest {
   assetType: string;
   isActive: boolean;
   parentAssetIds: string;
-  assetLocation: {
-    floorNo: string;
-    totalBlockFloors: number | null;
-    parentAssets: any[];
-  };
   assetAddress: {
     uprn: string;
     addressLine1: string;
@@ -97,11 +92,19 @@ export interface CreateNewAssetRequest {
     isTMOManaged: boolean;
     managingOrganisationId: string;
   };
+}
+
+export interface CreateNewDwellingAssetRequest extends CreateNewAssetRequest {
   assetCharacteristics: {
     numberOfBedrooms: number | null;
     numberOfLivingRooms: number | null;
     yearConstructed: string;
     windowType: string;
     numberOfLifts: number | null;
+  };
+  assetLocation: {
+    floorNo: string;
+    totalBlockFloors: number | null;
+    parentAssets: any[];
   };
 }
