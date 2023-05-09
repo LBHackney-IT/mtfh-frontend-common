@@ -83,7 +83,10 @@ export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<voi
   return response.data;
 };
 
-export const editTenuredAsset = async ({ id, ...data }: EditTenuredAssetParams): Promise<void> => {
+export const editTenuredAsset = async ({
+  id,
+  ...data
+}: EditTenuredAssetParams): Promise<void> => {
   const response = await axiosInstance.patch(
     `${config.tenureApiUrlV1}/tenures/${id}`,
     data,
