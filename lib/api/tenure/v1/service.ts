@@ -69,9 +69,6 @@ export const removePersonFromTenure = async (
 export interface EditTenureParams extends Partial<TenureParams> {
   id: string;
   etag: string;
-}
-
-export interface EditTenuredAssetParams extends EditTenureParams {
   tenuredAsset?: TenureAsset | null;
 }
 
@@ -81,16 +78,4 @@ export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<voi
     data,
   );
   return response.data;
-};
-
-export const editTenuredAsset = async (
-  id: string,
-  tenuredAssetUpdate: EditTenuredAssetParams,
-) => {
-  return new Promise<void>((resolve, reject) => {
-    axiosInstance
-      .patch(`${config.tenureApiUrlV1}/tenures/${id}`, tenuredAssetUpdate, {})
-      .then(() => resolve())
-      .catch(() => reject());
-  });
 };
