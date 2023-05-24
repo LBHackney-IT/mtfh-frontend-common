@@ -83,6 +83,7 @@ export interface CreateNewAssetRequest {
   };
   assetAddress: {
     uprn: string;
+    postPreamble: string;
     addressLine1: string;
     addressLine2: string;
     addressLine3: string;
@@ -104,4 +105,5 @@ export interface CreateNewAssetRequest {
     windowType: string;
     numberOfLifts: number | null;
   };
+  patches?: Patch[];
 }
