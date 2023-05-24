@@ -116,6 +116,7 @@ describe("createAsset", () => {
       },
       assetAddress: {
         uprn: "100023022032",
+        postPreamble: "",
         addressLine1: "20000 Butfield House Stevens Avenue",
         addressLine2: "London",
         addressLine3: "",
@@ -137,6 +138,7 @@ describe("createAsset", () => {
         windowType: "DBL",
         yearConstructed: "0",
       },
+      patches: undefined,
     };
 
     createAsset(body);
