@@ -138,7 +138,7 @@ describe("createAsset", () => {
         windowType: "DBL",
         yearConstructed: "0",
       },
-      patches: undefined
+      patches: undefined,
     };
 
     createAsset(body);
