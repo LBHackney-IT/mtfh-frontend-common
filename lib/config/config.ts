@@ -23,7 +23,7 @@ const config = {
   processApiUrlV1: process.env.PROCESS_API_URL_V1 || "/api/v1",
   processApiUrlV2: process.env.PROCESS_API_URL_V2 || "/api/v2",
   housingFinanceInterimApiUrlV1:
-    process.env.HOUSING_FINANCE_INTERIM_API_URL_V2 || "/api/v1",
+    process.env.HOUSING_FINANCE_INTERIM_API_URL_V1 || "/api/v1",
 };
 
 export default config;
