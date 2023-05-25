@@ -88,6 +88,7 @@ module.exports = (webpackConfigEnv, argv) => {
         ADDRESS_API_URL_V1: dotenv.ADDRESS_API_URL_V1 || "",
         ADDRESS_API_URL_V2: dotenv.ADDRESS_API_URL_V2 || "",
         EQUALITY_INFORMATION_API_URL_V1: dotenv.EQUALITY_INFORMATION_API_URL_V1 || "",
+        HOUSING_FINANCE_INTERIM_API_URL_V1: dotenv.HOUSING_FINANCE_INTERIM_API_URL_V1 || "",
         REPAIRS_HUB_APP_URL: dotenv.REPAIRS_HUB_APP_URL || "",
         REPAIRS_HUB_API_URL: dotenv.REPAIRS_HUB_API_URL || "",
         PROCESS_API_URL_V1: dotenv.PROCESS_API_URL_V1 || "",
