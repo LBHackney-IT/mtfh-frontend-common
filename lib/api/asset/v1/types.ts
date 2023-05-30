@@ -107,3 +107,7 @@ export interface CreateNewAssetRequest {
   };
   patches?: Patch[];
 }
+
+export interface GetAssetRelationshipsResponse {
+  childAssets: Asset[];
+}

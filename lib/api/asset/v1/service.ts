@@ -6,13 +6,20 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { Asset, CreateNewAssetRequest, EditAssetAddressRequest } from "./types";
+import { Asset, CreateNewAssetRequest, EditAssetAddressRequest, GetAssetRelationshipsResponse } from "./types";
 
 export const useAsset = (
   id: string | null,
   options?: AxiosSWRConfiguration<Asset>,
 ): AxiosSWRResponse<Asset> => {
   return useAxiosSWR(id && `${config.assetApiUrlV1}/assets/${id}`, options);
+};
+
+export const useChildAssets = (
+  id: string | null,
+  options?: AxiosSWRConfiguration<GetAssetRelationshipsResponse>,
+): AxiosSWRResponse<GetAssetRelationshipsResponse> => {
+  return useAxiosSWR(id && `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}`, options);
 };
 
 export const patchAsset = async (
