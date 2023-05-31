@@ -155,6 +155,7 @@ jobs:
             export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v1 --query Parameter.Value --output text)
             export PROCESS_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v2 --query Parameter.Value --output text)
             export HOUSING_FINANCE_INTERIM_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/housing-finance-interim-api-url --query Parameter.Value --output text)
+            export PATCHES_AND_AREAS_API_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/patches-and-areas-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -200,6 +201,7 @@ jobs:
             export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v1 --query Parameter.Value --output text)
             export PROCESS_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v2 --query Parameter.Value --output text)
             export HOUSING_FINANCE_INTERIM_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/housing-finance-interim-api-url --query Parameter.Value --output text)
+            export PATCHES_AND_AREAS_API_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/patches-and-areas-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
@@ -245,6 +247,7 @@ jobs:
             export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v1 --query Parameter.Value --output text)           
             export PROCESS_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v2 --query Parameter.Value --output text)           
             export HOUSING_FINANCE_INTERIM_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/housing-finance-interim-api-url --query Parameter.Value --output text)
+            export PATCHES_AND_AREAS_API_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/patches-and-areas-api-url --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3
