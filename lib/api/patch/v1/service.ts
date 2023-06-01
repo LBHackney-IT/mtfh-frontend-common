@@ -1,7 +1,7 @@
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
-import { Patch } from ".";
+import { Patch } from "./types";
 
 export const getAllPatchesAndAreas = async (): Promise<Array<Patch>> => {
   return new Promise<Array<Patch>>((resolve, reject) => {
