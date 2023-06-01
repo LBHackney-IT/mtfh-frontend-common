@@ -1,7 +1,7 @@
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
-import { getAllPatchesAndAreas } from "../service";
+import { getAllPatchesAndAreas } from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
