@@ -111,3 +111,7 @@ export interface CreateNewAssetRequest {
 export interface GetAssetRelationshipsResponse {
   childAssets: Asset[];
 }
+
+export interface GetAssetParentsResponse {
+  parentAssets: Asset[];
+}
