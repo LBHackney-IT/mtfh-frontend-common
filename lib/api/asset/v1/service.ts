@@ -31,7 +31,7 @@ export const useChildAssets = (
   );
 };
 
-export const useParentAssets = (
+export const getParentAssets = (
   parentAssetIds: string | null,
   options?: AxiosSWRConfiguration<Asset>,
 ): GetAssetParentsResponse => {
