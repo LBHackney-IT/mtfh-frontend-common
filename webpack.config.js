@@ -94,6 +94,7 @@ module.exports = (webpackConfigEnv, argv) => {
         PROCESS_API_URL_V1: dotenv.PROCESS_API_URL_V1 || "",
         PROCESS_API_URL_V2: dotenv.PROCESS_API_URL_V2 || "",
         HOUSINGSEARCH_API_URL_V1: dotenv.HOUSINGSEARCH_API_URL_V1 || "",
+        PATCHES_AND_AREAS_API_V1: dotenv.PATCHES_AND_AREAS_API_V1 || ""
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
