@@ -14,7 +14,7 @@ export const updateAddressDetails = async (
   propertyReference: string,
   request: UpdateAddressDetailsRequest,
 ): Promise<void> => {
-  await axiosInstance.patch(
+  return axiosInstance.patch(
     `${config.housingFinanceInterimApiUrlV1}/assets/${propertyReference}`,
     request,
   );
