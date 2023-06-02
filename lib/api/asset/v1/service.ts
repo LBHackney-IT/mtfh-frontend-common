@@ -6,13 +6,54 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { Asset, CreateNewAssetRequest, EditAssetAddressRequest } from "./types";
+import {
+  Asset,
+  CreateNewAssetRequest,
+  EditAssetAddressRequest,
+  GetAssetParentsResponse,
+  GetAssetRelationshipsResponse,
+} from "./types";
 
 export const useAsset = (
   id: string | null,
   options?: AxiosSWRConfiguration<Asset>,
 ): AxiosSWRResponse<Asset> => {
   return useAxiosSWR(id && `${config.assetApiUrlV1}/assets/${id}`, options);
+};
+
+export const useChildAssets = (
+  id: string | null,
+  options?: AxiosSWRConfiguration<GetAssetRelationshipsResponse>,
+): AxiosSWRResponse<GetAssetRelationshipsResponse> => {
+  return useAxiosSWR(
+    id && `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}`,
+    options,
+  );
+};
+
+export const getParentAssets = (
+  parentAssetIds: string | null,
+  options?: AxiosSWRConfiguration<Asset>,
+): GetAssetParentsResponse => {
+  const parentAssets: Array<Asset> = [];
+  if (parentAssetIds) {
+    const parents = parentAssetIds.split("#");
+    parents.forEach((p: string | null) => {
+      console.log(`Getting parent asset ${p}`);
+      const { data: parentAsset } = useAxiosSWR(
+        p && `${config.assetApiUrlV1}/assets/${p}`,
+        options,
+      );
+      console.log(`Pushing parent asset ${p}`);
+
+      if (parentAsset !== undefined) {
+        parentAssets.push(parentAsset);
+      }
+    });
+  }
+
+  const response: GetAssetParentsResponse = { parentAssets };
+  return response;
 };
 
 export const patchAsset = async (
