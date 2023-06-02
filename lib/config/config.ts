@@ -14,6 +14,7 @@ const config = {
   notesApiUrlV2: process.env.NOTES_API_URL_V2 || "/api/v2",
   tenureApiUrlV1: process.env.TENURE_API_URL_V1 || "/api/v1",
   assetApiUrlV1: process.env.PROPERTY_API_URL_V1 || "/api/v1",
+  assetSearchApiUrlV1: process.env.HOUSINGSEARCH_API_URL_V1 || "/api/v1",
   patchesAndAreasApiUrlV1: process.env.PATCHES_AND_AREAS_API_V1 || "/api/v1",
   referenceDataApiUrlV1: process.env.REFERENCE_DATA_API_URL_V1 || "/api/v1",
   addressApiUrlV1: process.env.ADDRESS_API_URL_V1 || "/api/v1",
