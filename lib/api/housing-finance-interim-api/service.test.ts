@@ -27,7 +27,7 @@ describe("updateAddressDetails", () => {
 
     // Assert
     expect(axiosInstance.patch).toBeCalledWith(
-      `${config.housingFinanceInterimApiUrlV1}/assets/${propertyReference}`,
+      `${config.housingFinanceInterimApiUrlV1}/asset/${propertyReference}`,
       request,
     );
   });
