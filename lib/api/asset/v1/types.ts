@@ -50,11 +50,18 @@ export interface AssetManagement {
 }
 
 export interface AssetCharacteristics {
-  numberOfBedrooms: number;
-  numberOfLifts: number;
-  numberOfLivingRooms: number;
-  windowType: string;
-  yearConstructed: string;
+  numberOfBedrooms: number | null;
+  numberOfSingleBeds: number | null;
+  numberOfDoubleBeds: number | null;
+  numberOfLifts: number | null;
+  numberOfLivingRooms: number | null;
+  numberOfFloors: number | null;
+  totalBlockFloors: number | null;
+  heating: string | null;
+  windowType: string | null;
+  propertyFactor: string | null;
+  yearConstructed: string | null;
+  architecturalType: string | null;
 }
 
 export interface AssetTenure {

@@ -6,7 +6,10 @@ import { Asset, CreateNewAssetRequest, EditAssetAddressRequest } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
-  axiosInstance: { patch: jest.fn(), post: jest.fn() },
+  axiosInstance: {
+    patch: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
+    post: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
+  },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
 }));
@@ -27,7 +30,7 @@ describe("patchAsset", () => {
       },
     };
 
-    patchAsset(assetGuid, assetAddress, assetVersion);
+    await patchAsset(assetGuid, assetAddress, assetVersion);
 
     expect(axiosInstance.patch).toBeCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}/address`,
@@ -74,6 +77,13 @@ describe("useAsset", () => {
         numberOfLivingRooms: 1,
         windowType: "DBL",
         yearConstructed: "2077",
+        numberOfSingleBeds: 1,
+        numberOfDoubleBeds: 1,
+        numberOfFloors: 2,
+        totalBlockFloors: 5,
+        heating: "FCB",
+        propertyFactor: "4.5",
+        architecturalType: "PRE45MR-FLT",
       },
       tenure: null,
       versionNumber: 2,

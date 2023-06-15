@@ -5,14 +5,16 @@ import { getAllPatchesAndAreas } from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
-  axiosInstance: { get: jest.fn() },
+  axiosInstance: {
+    get: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
+  },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
 }));
 
 describe("getAllPatchesAndAreas", () => {
   test("it should call the getAllPatchesAndAreas API endpoint with the correct URL and headers", async () => {
-    getAllPatchesAndAreas();
+    await getAllPatchesAndAreas();
 
     expect(axiosInstance.get).toBeCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/all`,

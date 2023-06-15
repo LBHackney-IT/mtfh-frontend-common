@@ -11,7 +11,17 @@ import { Address } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
-  axiosInstance: { get: jest.fn() },
+  axiosInstance: {
+    get: jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        data: {
+          data: {
+            address: "",
+          },
+        },
+      }),
+    ),
+  },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
 }));
@@ -20,7 +30,7 @@ describe("searchAddress", () => {
   test("it calls the api endpoint with the correct url and parameters", async () => {
     const postcode = "FK81FH";
 
-    searchAddress(postcode);
+    await searchAddress(postcode);
 
     expect(axiosInstance.get).toBeCalledWith(
       `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
@@ -33,7 +43,7 @@ describe("getAddressViaUprn", () => {
   test("it calls the api endpoint with the correct url and parameters", async () => {
     const uprn = "0123456789";
 
-    getAddressViaUprn(uprn);
+    await getAddressViaUprn(uprn);
 
     expect(axiosInstance.get).toBeCalledWith(
       `${config.addressApiUrlV1}/addresses?uprn=${uprn}`,
