@@ -83,7 +83,7 @@ describe("useAsset", () => {
         totalBlockFloors: 5,
         heating: "FCB",
         propertyFactor: "4.5",
-        architecturalType: "HIGH RISE FLAT",
+        architecturalType: "PRE45MR-FLT",
       },
       tenure: null,
       versionNumber: 2,
