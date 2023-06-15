@@ -57,11 +57,11 @@ export interface AssetCharacteristics {
   numberOfLivingRooms: number | null;
   numberOfFloors: number | null;
   totalBlockFloors: number | null;
-  heating: string;
-  windowType: string;
-  propertyFactor: string;
-  yearConstructed: string;
-  architecturalType: string;
+  heating: string | null;
+  windowType: string | null;
+  propertyFactor: string | null;
+  yearConstructed: string | null;
+  architecturalType: string | null;
 }
 
 export interface AssetTenure {
