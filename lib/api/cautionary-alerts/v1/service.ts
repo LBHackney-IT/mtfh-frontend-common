@@ -40,6 +40,22 @@ export const usePropertyCautionaryAlert = (
   );
 };
 
+export const getPropertyCautionaryAlerts = async (assetId: string) => {
+  return new Promise<CautionaryAlert>((resolve, reject) => {
+    axiosInstance
+      .get<CautionaryAlert>(
+        `${config.cautionaryApiUrlV1}/cautionary-alerts/properties-new/${assetId}`,
+        {
+          headers: {
+            "skip-x-correlation-id": true,
+          },
+        },
+      )
+      .then((res) => resolve(res.data))
+      .catch((error) => reject(error));
+  });
+};
+
 export type PostCautionaryAlertRequestData = Pick<Alert, "assureReference"> & {
   incidentDate: string;
   incidentDescription: string;
