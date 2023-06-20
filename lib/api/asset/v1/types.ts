@@ -18,7 +18,7 @@ export interface Asset {
   id: string;
   assetId: string;
   assetType: AssetType;
-  rentGroup: RentGroup;
+  rentGroup: RentGroup | null;
   assetLocation: AssetLocation;
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
