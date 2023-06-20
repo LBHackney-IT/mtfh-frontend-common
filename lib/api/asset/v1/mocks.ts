@@ -5,12 +5,13 @@ import {
   AssetCharacteristics,
   AssetLocation,
   AssetManagement,
+  AssetTenure,
   CreateNewAssetRequest,
   EditAssetAddressRequest,
   ParentAsset,
 } from "./types";
 
-export const mockAssetTenure = {
+export const mockAssetTenure: AssetTenure = {
   id: "123",
   paymentReference: "123",
   type: "type",
@@ -87,28 +88,9 @@ export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
   parentAssetIds: "",
   assetType: "Dwelling",
   isActive: true,
-  assetLocation: {
-    floorNo: "",
-    totalBlockFloors: 0,
-    parentAssets: [],
-  },
-  assetAddress: {
-    uprn: "100023022032",
-    postPreamble: "",
-    addressLine1: "20000 Butfield House Stevens Avenue",
-    addressLine2: "London",
-    addressLine3: "",
-    addressLine4: "",
-    postCode: "E9 6RS",
-  },
-  assetManagement: {
-    agent: "Sanctuary Housing Association",
-    areaOfficeName: "",
-    isCouncilProperty: true,
-    managingOrganisation: "London Borough of Hackney",
-    isTMOManaged: false,
-    managingOrganisationId: "c01e3146-e630-c2cd-e709-18ef57bf3724",
-  },
+  assetLocation: mockAssetLocation,
+  assetAddress: mockAssetAddress,
+  assetManagement: mockAssetManagement,
   assetCharacteristics: {
     numberOfBedrooms: 1,
     numberOfLifts: 0,
@@ -116,7 +98,7 @@ export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
     windowType: "DBL",
     yearConstructed: "0",
   },
-  patches: undefined,
+  patches: [mockPatch],
 };
 
 export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
