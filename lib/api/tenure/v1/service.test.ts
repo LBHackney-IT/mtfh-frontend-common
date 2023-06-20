@@ -28,7 +28,6 @@ jest.mock("@mtfh/common/lib/http", () => ({
 }));
 
 describe("when addPersonToTenure is called", () => {
-
   test("the request should be sent to the correct URL with the expected query parameters and payload", async () => {
     const addPersonToTenureParams: AddPersonToTenureParams = {
       tenureId: "id",
@@ -54,7 +53,6 @@ describe("when addPersonToTenure is called", () => {
 });
 
 describe("when useTenure is called", () => {
-
   test("the request should be sent to the correct URL with the expected query parameters, and the expected response should be returned", async () => {
     const returnedValue = { tenureId: "" };
     const id = "id";
@@ -115,7 +113,6 @@ describe("when removePersonFromTenure is called", () => {
 });
 
 describe("when editTenure is called", () => {
-
   test("the request should be sent to the correct URL including the ETag value, and the expected response should be returned", async () => {
     const params: EditTenureParams = {
       id: "id",

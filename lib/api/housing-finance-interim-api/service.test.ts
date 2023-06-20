@@ -9,7 +9,6 @@ jest.mock("@mtfh/common/lib/http", () => ({
 }));
 
 describe("when updateAddressDetails is called", () => {
-
   test("the request should be sent to the correct URL with the correct property reference and payload", async () => {
     // Arrange
     const propertyReference = "propertyReference";

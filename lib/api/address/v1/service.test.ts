@@ -29,7 +29,7 @@ jest.mock("@mtfh/common/lib/http", () => ({
 const postcode = "E8 1EA";
 
 describe("when searchAddress is called", () => {
-  test("the request should be sent to the correct URL, with the correct postcode as a query parameter ", async () => {
+  test("the request should be sent to the correct URL, with the correct postcode as a query parameter", async () => {
     await searchAddress(postcode);
 
     expect(axiosInstance.get).toBeCalledWith(
@@ -60,7 +60,7 @@ describe("when useAddressLookup is called", () => {
       line3: "",
       line4: "",
       town: "London",
-      postcode: postcode,
+      postcode,
       UPRN: 1234,
     };
     const options: AxiosSWRConfiguration<AddressAPIResponse> = {
