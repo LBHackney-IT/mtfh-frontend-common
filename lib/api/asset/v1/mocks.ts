@@ -9,6 +9,7 @@ import {
   CreateNewAssetRequest,
   EditAssetAddressRequest,
   ParentAsset,
+  RentGroup,
 } from "./types";
 
 export const mockAssetTenure: AssetTenure = {
@@ -64,13 +65,16 @@ export const mockParentAsset: ParentAsset = {
 export const mockAssetLocation: AssetLocation = {
   floorNo: "4",
   totalBlockFloors: 6,
-  parentAssets: [{ id: "123", name: "asset", type: "asset-type" }],
+  parentAssets: [
+    { id: "af3b672d-aafd-46ad-81ca-a747ee77b2fd", name: "asset", type: "asset-type" },
+  ],
 };
 
 export const mockAsset: Asset = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
   assetId: "100021045676",
   assetType: "LettableNonDwelling",
+  rentGroup: RentGroup.HRA,
   rootAsset: "",
   parentAssetIds: "",
   assetLocation: mockAssetLocation,

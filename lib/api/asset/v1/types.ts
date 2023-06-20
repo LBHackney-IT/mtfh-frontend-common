@@ -2,10 +2,23 @@ import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
 
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
+export enum RentGroup {
+  GPS,
+  HGF,
+  HRA,
+  LMW,
+  LSC,
+  RSL,
+  TAG,
+  TAH,
+  TRA,
+}
+
 export interface Asset {
   id: string;
   assetId: string;
   assetType: AssetType;
+  rentGroup: RentGroup;
   assetLocation: AssetLocation;
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
