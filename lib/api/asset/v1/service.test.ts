@@ -14,8 +14,8 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("patchAsset", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when patchAsset is called", () => {
+  test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
     const assetAddress: EditAssetAddressRequest = {
@@ -40,10 +40,13 @@ describe("patchAsset", () => {
   });
 });
 
-describe("useAsset", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when useAsset is called", () => {
+  test("the request should be sent to the correct URL, with the correct asset GUID as a query parameter, and it should return an asset", async () => {
+
+    const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
+
     const returnedValue: Asset = {
-      id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+      id: assetGuid,
       assetId: "100021045676",
       assetType: "LettableNonDwelling",
       rootAsset: "",
@@ -98,7 +101,6 @@ describe("useAsset", () => {
         },
       ],
     };
-    const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
 
     (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
@@ -111,9 +113,9 @@ describe("useAsset", () => {
   });
 });
 
-describe("createAsset", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
-    const body: CreateNewAssetRequest = {
+describe("when createAsset is called", () => {
+  test("the request should be sent to the correct URL, with the new asset as payload", async () => {
+    const newAsset: CreateNewAssetRequest = {
       id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
       assetId: "1234",
       parentAssetIds: "",
@@ -151,8 +153,8 @@ describe("createAsset", () => {
       patches: undefined,
     };
 
-    createAsset(body);
+    createAsset(newAsset);
 
-    expect(axiosInstance.post).toBeCalledWith(`${config.assetApiUrlV1}/assets/`, body);
+    expect(axiosInstance.post).toBeCalledWith(`${config.assetApiUrlV1}/assets/`, newAsset);
   });
 });

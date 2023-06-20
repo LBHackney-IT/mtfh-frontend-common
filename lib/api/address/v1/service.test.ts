@@ -26,10 +26,10 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("searchAddress", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
-    const postcode = "FK81FH";
+const postcode = "E8 1EA";
 
+describe("when searchAddress is called", () => {
+  test("the request should be sent to the correct URL, with the correct postcode as a query parameter ", async () => {
     await searchAddress(postcode);
 
     expect(axiosInstance.get).toBeCalledWith(
@@ -39,8 +39,8 @@ describe("searchAddress", () => {
   });
 });
 
-describe("getAddressViaUprn", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when getAddressViaUprn is called", () => {
+  test("the request should be sent to the correct URL, with the correct UPRN as a query parameter", async () => {
     const uprn = "0123456789";
 
     await getAddressViaUprn(uprn);
@@ -52,18 +52,17 @@ describe("getAddressViaUprn", () => {
   });
 });
 
-describe("useAddressLookup", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when useAddressLookup is called", () => {
+  test("the request should be sent to the correct URL, with the correct options and postcode as a query parameter", async () => {
     const returnedValue: Address = {
-      line1: "35 Weir Street",
+      line1: "123 Test Street",
       line2: "",
       line3: "",
       line4: "",
-      town: "Stirling",
-      postcode: "FK81FH",
+      town: "London",
+      postcode: postcode,
       UPRN: 1234,
     };
-    const postcode = "FK81FH";
     const options: AxiosSWRConfiguration<AddressAPIResponse> = {
       timeout: 5000,
       headers: {
