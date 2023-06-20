@@ -8,8 +8,9 @@ jest.mock("@mtfh/common/lib/http", () => ({
   axiosInstance: { patch: jest.fn() },
 }));
 
-describe("updateAddressDetails", () => {
-  test("it calls the api", async () => {
+describe("when updateAddressDetails is called", () => {
+
+  test("the request should be sent to the correct URL with the correct property reference and payload", async () => {
     // Arrange
     const propertyReference = "propertyReference";
 

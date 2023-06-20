@@ -20,8 +20,8 @@ import {
   useContactDetails,
 } from "./service";
 
-describe("useContactDetails", () => {
-  test("it calls the api endpoint with the correct url and parameters and returns the correct response", async () => {
+describe("when useContactDetails is called", () => {
+  test("the request should be sent to the correct URL with the expected HTTP method, and the correct response should be returned", async () => {
     const id = "uuid";
     const options = { errorRetryInterval: 2000 };
     const response = { id, etag: undefined };
@@ -50,8 +50,8 @@ describe("useContactDetails", () => {
   });
 });
 
-describe("addContactDetail", () => {
-  test("it calls the api endpoint with the correct url and parameters and returns the correct response", async () => {
+describe("when addContactDetail is called", () => {
+  test("the request should be sent to the correct URL with the expected HTTP method, and the correct response should be returned", async () => {
     const id = "uuid";
     const data = {
       contactType: ContactInformationContactTypes.PHONE,
@@ -100,8 +100,8 @@ describe("addContactDetail", () => {
   });
 });
 
-describe("addEmailContact", () => {
-  test("it calls the api endpoint with the correct url and parameters and returns the correct response", async () => {
+describe("when addEmailContact is called", () => {
+  test("the request should be sent to the correct URL with the expected HTTP method, and the correct response should be returned", async () => {
     const id = "uuid";
     const email = "email";
     const description = "description";
@@ -144,8 +144,8 @@ describe("addEmailContact", () => {
   });
 });
 
-describe("addPhoneContact", () => {
-  test("it calls the api endpoint with the correct url and parameters and returns the correct response", async () => {
+describe("when addPhoneContact is called", () => {
+  test("the request should be sent to the correct URL with the expected HTTP method, and the correct response should be returned", async () => {
     const id = "uuid";
     const phone = "phone";
     const type = ContactDetailsPhoneTypes.HOME;
@@ -190,8 +190,8 @@ describe("addPhoneContact", () => {
   });
 });
 
-describe("addCorrespondenceAddress", () => {
-  test("it calls the api endpoint with the correct url and parameters and returns the correct response", async () => {
+describe("when addCorrespondenceAddress is called", () => {
+  test("the request should be sent to the correct URL with the expected HTTP method, and the correct response should be returned", async () => {
     const data = {
       id: "id",
       addressLine1: "addressLine1",

@@ -8,10 +8,10 @@ import { renderHook } from "@testing-library/react-hooks";
 import { useWorkOrders } from "./service";
 import { WorkOrdersFilters } from "./types";
 
-describe("useWorkOrders", () => {
+describe("when useWorkOrders is called", () => {
   const id = "00075623";
 
-  test("it should send the correct query params to the API", async () => {
+  test("the request should include the correct query params", async () => {
     const genericWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockWorkOrdersV2(),
     );
@@ -25,7 +25,7 @@ describe("useWorkOrders", () => {
     expect(result.current.data).toStrictEqual(genericWorkOrdersMock);
   });
 
-  test("it should send the correct query params to the API for LOCKED status", async () => {
+  test("the request should include correct query params for LOCKED status", async () => {
     const lockedWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockWorkOrdersV2({
         status: "Locked",
@@ -43,7 +43,7 @@ describe("useWorkOrders", () => {
     expect(result.current.data).toStrictEqual(lockedWorkOrdersMock);
   });
 
-  test("it should send the correct query params to the API for IN_PROGRESS status", async () => {
+  test("the request should include correct query params for IN_PROGRESS status", async () => {
     const inProgressWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockWorkOrdersV2({
         status: "In progress",
@@ -61,7 +61,7 @@ describe("useWorkOrders", () => {
     expect(result.current.data).toStrictEqual(inProgressWorkOrdersMock);
   });
 
-  test("it should send the correct query params to the API for CANCELLED status", async () => {
+  test("the request should include correct query params for CANCELLED status", async () => {
     const cancelledWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockWorkOrdersV2({
         status: "Cancelled",
@@ -79,7 +79,7 @@ describe("useWorkOrders", () => {
     expect(result.current.data).toStrictEqual(cancelledWorkOrdersMock);
   });
 
-  test("it should send the correct query params to the API for COMPLETED status", async () => {
+  test("the request should include correct query params for COMPLETED status", async () => {
     const completedWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockWorkOrdersV2({
         status: "Completed",
@@ -98,7 +98,7 @@ describe("useWorkOrders", () => {
     expect(result.current.data).toStrictEqual(completedWorkOrdersMock);
   });
 
-  test("it should send the correct query params to the API for ON_HOLD status", async () => {
+  test("the request should include correct query params for ON_HOLD status", async () => {
     const onHoldWorkOrdersMock = Array.from({ length: 3 }).map(() =>
       generateMockWorkOrdersV2({
         status: "On hold",

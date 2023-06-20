@@ -27,8 +27,9 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("addPersonToTenure", () => {
-  test("addPersonToTenure: it should send the right thing to the API", async () => {
+describe("when addPersonToTenure is called", () => {
+
+  test("the request should be sent to the correct URL with the expected query parameters and payload", async () => {
     const addPersonToTenureParams: AddPersonToTenureParams = {
       tenureId: "id",
       etag: "etag",
@@ -52,8 +53,9 @@ describe("addPersonToTenure", () => {
   });
 });
 
-describe("useTenure", () => {
-  test("useTenure: it should send the right body to the API", async () => {
+describe("when useTenure is called", () => {
+
+  test("the request should be sent to the correct URL with the expected query parameters, and the expected response should be returned", async () => {
     const returnedValue = { tenureId: "" };
     const id = "id";
     const options: AxiosSWRConfiguration<Tenure> = { dedupingInterval: 10 };
@@ -65,8 +67,8 @@ describe("useTenure", () => {
   });
 });
 
-describe("addTenure", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when addTenure is called", () => {
+  test("the request should be sent to the correct URL and the expected response should be returned", async () => {
     const params: AddTenureParams = {
       startOfTenureDate: "",
       tenureType: {
@@ -96,8 +98,8 @@ describe("addTenure", () => {
   });
 });
 
-describe("removePersonFromTenure", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when removePersonFromTenure is called", () => {
+  test("the request should be sent to the correct URL, with the correct query parameters", async () => {
     const params: RemovePersonFromTenureParams = {
       etag: "",
       tenureId: "id",
@@ -112,8 +114,9 @@ describe("removePersonFromTenure", () => {
   });
 });
 
-describe("editTenure", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when editTenure is called", () => {
+
+  test("the request should be sent to the correct URL including the ETag value, and the expected response should be returned", async () => {
     const params: EditTenureParams = {
       id: "id",
       etag: "",

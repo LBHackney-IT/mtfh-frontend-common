@@ -12,8 +12,10 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("getAllPatchesAndAreas", () => {
-  test("it should call the getAllPatchesAndAreas API endpoint with the correct URL and headers", async () => {
+describe("when getAllPatchesAndAreas is called", () => {
+
+  test("the request should be sent to the correct URL with the expected headers", async () => {
+
     await getAllPatchesAndAreas();
 
     expect(axiosInstance.get).toBeCalledWith(
