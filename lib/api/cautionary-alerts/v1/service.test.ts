@@ -20,8 +20,8 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("getPropertyCautionaryAlerts", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when getPropertyCautionaryAlerts is called", () => {
+  test("the request should be sent to the correct URL, with the correct asset ID as a query parameter", async () => {
     const assetId = "00001234";
 
     await getPropertyCautionaryAlerts(assetId);

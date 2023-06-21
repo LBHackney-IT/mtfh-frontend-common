@@ -18,8 +18,8 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("patchAsset", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when patchAsset is called", () => {
+  test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
 
@@ -33,8 +33,8 @@ describe("patchAsset", () => {
   });
 });
 
-describe("useAsset", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when useAsset is called", () => {
+  test("the request should be sent to the correct URL, with the correct asset GUID as a query parameter, and it should return an asset", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
 
     (useAxiosSWR as jest.Mock).mockResolvedValueOnce(mockAsset);
@@ -48,8 +48,8 @@ describe("useAsset", () => {
   });
 });
 
-describe("createAsset", () => {
-  test("it calls the api endpoint with the correct url and parameters", async () => {
+describe("when createAsset is called", () => {
+  test("the request should be sent to the correct URL, with the new asset as payload", async () => {
     await createAsset(mockCreateNewAssetRequest);
     expect(axiosInstance.post).toBeCalledWith(
       `${config.assetApiUrlV1}/assets/`,
