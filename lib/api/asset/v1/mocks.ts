@@ -84,7 +84,7 @@ export const mockAsset: Asset = {
   tenure: mockAssetTenure,
   versionNumber: 2,
   patches: [mockPatch],
-  boilerHouseId: ""
+  boilerHouseId: "",
 };
 
 export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
