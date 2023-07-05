@@ -26,6 +26,7 @@ export interface Asset {
   tenure: AssetTenure | null;
   rootAsset: string;
   parentAssetIds: string;
+  boilerHouseId: string;
   patches?: Patch[];
   versionNumber?: number;
 }
