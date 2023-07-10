@@ -7,7 +7,13 @@ import {
   mockEditAssetAddressRequest,
   mockEditAssetRequest,
 } from "./mocks";
-import { createAsset, getAsset, patchAsset, patchAssetAddress, useAsset } from "./service";
+import {
+  createAsset,
+  getAsset,
+  patchAsset,
+  patchAssetAddress,
+  useAsset,
+} from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -15,7 +21,6 @@ jest.mock("@mtfh/common/lib/http", () => ({
     patch: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
     post: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
     get: jest.fn().mockImplementation(() => Promise.resolve(mockAsset)),
-
   },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
@@ -56,7 +61,7 @@ describe("when getAsset is called", () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
 
     const response = await getAsset(assetGuid);
-    
+
     expect(response).toBe(mockAsset);
   });
 });

@@ -120,5 +120,5 @@ export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
 };
 
 export const mockEditAssetRequest: PatchAssetRequest = {
-  boilerHouseId: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0"
+  boilerHouseId: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
 };

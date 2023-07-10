@@ -73,7 +73,6 @@ export const getAsset = async (id: string) => {
   return axiosInstance.get<Asset>(`${config.assetApiUrlV1}/assets/${id}`);
 };
 
-
 export const patchAssetAddress = async (
   id: string,
   assetAddress: EditAssetAddressRequest,
