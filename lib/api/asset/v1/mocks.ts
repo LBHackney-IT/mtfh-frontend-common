@@ -9,6 +9,7 @@ import {
   CreateNewAssetRequest,
   EditAssetAddressRequest,
   ParentAsset,
+  PatchAssetRequest,
   RentGroup,
 } from "./types";
 
@@ -116,4 +117,8 @@ export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
     postCode: "E8 1NT",
     postPreamble: "",
   },
+};
+
+export const mockEditAssetRequest: PatchAssetRequest = {
+  boilerHouseId: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
 };

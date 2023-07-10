@@ -136,3 +136,7 @@ export interface GetAssetRelationshipsResponse {
 export interface GetAssetParentsResponse {
   parentAssets: Asset[];
 }
+
+export interface PatchAssetRequest {
+  boilerHouseId: string;
+}

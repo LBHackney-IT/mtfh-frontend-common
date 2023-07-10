@@ -5,14 +5,22 @@ import {
   mockAsset,
   mockCreateNewAssetRequest,
   mockEditAssetAddressRequest,
+  mockEditAssetRequest,
 } from "./mocks";
-import { createAsset, patchAsset, useAsset } from "./service";
+import {
+  createAsset,
+  getAsset,
+  patchAsset,
+  patchAssetAddress,
+  useAsset,
+} from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
   axiosInstance: {
     patch: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
     post: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
+    get: jest.fn().mockImplementation(() => Promise.resolve(mockAsset)),
   },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
@@ -23,13 +31,38 @@ describe("when patchAsset is called", () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
 
-    await patchAsset(assetGuid, mockEditAssetAddressRequest, assetVersion);
+    await patchAsset(assetGuid, mockEditAssetRequest, assetVersion);
+
+    expect(axiosInstance.patch).toBeCalledWith(
+      `${config.assetApiUrlV1}/assets/${assetGuid}`,
+      mockEditAssetRequest,
+      { headers: { "If-Match": assetVersion } },
+    );
+  });
+});
+
+describe("when patchAssetAddress is called", () => {
+  test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
+    const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
+    const assetVersion = "3";
+
+    await patchAssetAddress(assetGuid, mockEditAssetAddressRequest, assetVersion);
 
     expect(axiosInstance.patch).toBeCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}/address`,
       mockEditAssetAddressRequest,
       { headers: { "If-Match": assetVersion } },
     );
+  });
+});
+
+describe("when getAsset is called", () => {
+  test("the request should be sent to the correct URL, with the correct asset GUID as a query parameter, and it should return an asset", async () => {
+    const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
+
+    const response = await getAsset(assetGuid);
+
+    expect(response).toBe(mockAsset);
   });
 });
 
