@@ -12,6 +12,7 @@ import {
   EditAssetAddressRequest,
   GetAssetParentsResponse,
   GetAssetRelationshipsResponse,
+  PatchAssetRequest,
 } from "./types";
 
 export const useAsset = (
@@ -55,6 +56,23 @@ export const getParentAssets = (
   const response: GetAssetParentsResponse = { parentAssets };
   return response;
 };
+
+export const patchAsset = async (
+  id: string,
+  request: PatchAssetRequest,
+  assetVersion: string | null,
+) => {
+  return axiosInstance.patch(`${config.assetApiUrlV1}/assets/${id}`, request, {
+    headers: {
+      "If-Match": assetVersion,
+    },
+  });
+};
+
+export const getAsset = async (id: string) => {
+  return axiosInstance.get<Asset>(`${config.assetApiUrlV1}/assets/${id}`);
+};
+
 
 export const patchAssetAddress = async (
   id: string,
