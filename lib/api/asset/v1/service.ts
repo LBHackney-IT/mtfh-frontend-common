@@ -56,7 +56,7 @@ export const getParentAssets = (
   return response;
 };
 
-export const patchAsset = async (
+export const patchAssetAddress = async (
   id: string,
   assetAddress: EditAssetAddressRequest,
   assetVersion: string | null,

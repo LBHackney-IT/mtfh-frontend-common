@@ -6,7 +6,7 @@ import {
   mockCreateNewAssetRequest,
   mockEditAssetAddressRequest,
 } from "./mocks";
-import { createAsset, patchAsset, useAsset } from "./service";
+import { createAsset, patchAssetAddress, useAsset } from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -18,12 +18,12 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("when patchAsset is called", () => {
+describe("when patchAssetAddress is called", () => {
   test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
 
-    await patchAsset(assetGuid, mockEditAssetAddressRequest, assetVersion);
+    await patchAssetAddress(assetGuid, mockEditAssetAddressRequest, assetVersion);
 
     expect(axiosInstance.patch).toBeCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}/address`,
