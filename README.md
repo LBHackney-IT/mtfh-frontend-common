@@ -24,6 +24,16 @@ Change requests will require an impact assessment to determine viability. All ex
 this module are optional and should not block a team in their contributions to the
 project.
 
+### Development of new features and E2E tests											
+Part of the process of making changes to this repository involves ensuring that the pipeline `mtfh-tl-e2e-tests` will pass in Circle CI, even if you do not modify or add tests (which you should).							
+
+Failure to do this will result in:											
+
+- Less test coverage for MMH, adding tech debt, and all other disadvantages that come with untested code;											
+- The mtfh-tl-e2e-tests pipeline may end up being BLOCKED by any changes made to MMH, which could affect other developers and ALL future releases on ALL micro-frontends;											
+
+Link to the Circle CI `mtfh-tl-e2e-tests` pipeline: https://app.circleci.com/pipelines/github/LBHackney-IT/mtfh-tl-e2e-tests
+
 ## Authentication
 
 Authentication is currently implemented through Google OAuth.
