@@ -17,6 +17,7 @@ export const useTenure = (
 };
 
 export interface TenureParams {
+  paymentReference: string | undefined;
   startOfTenureDate: string;
   endOfTenureDate?: string | null;
   tenureType: TenureType;
