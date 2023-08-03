@@ -68,6 +68,7 @@ describe("when useTenure is called", () => {
 describe("when addTenure is called", () => {
   test("the request should be sent to the correct URL and the expected response should be returned", async () => {
     const params: AddTenureParams = {
+      paymentReference: "",
       startOfTenureDate: "",
       tenureType: {
         code: "",
@@ -117,6 +118,9 @@ describe("when editTenure is called", () => {
     const params: EditTenureParams = {
       id: "id",
       etag: "",
+      paymentReference: "1234567890",
+      startOfTenureDate: "2021-01-01",
+      endOfTenureDate: "2024-01-01",
     };
     const response = {
       data: {},
@@ -128,6 +132,9 @@ describe("when editTenure is called", () => {
       `${config.tenureApiUrlV1}/tenures/${params.id}`,
       {
         etag: params.etag,
+        paymentReference: params.paymentReference,
+        startOfTenureDate: params.startOfTenureDate,
+        endOfTenureDate: params.endOfTenureDate,
       },
     );
     expect(editTenureResponse).toBe(response.data);
