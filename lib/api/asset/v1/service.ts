@@ -91,6 +91,12 @@ export const patchAssetAddress = async (
 };
 
 export const createAsset = async (request: CreateNewAssetRequest) => {
+  if (request.assetLocation?.parentAssets?.length > 1) {
+    const error = "Only one parent asset is allowed when creating a new asset.";
+    console.error(error);
+    throw new Error(error);
+  }
+
   return new Promise<void>((resolve, reject) => {
     axiosInstance
       .post(`${config.assetApiUrlV1}/assets/`, request)
