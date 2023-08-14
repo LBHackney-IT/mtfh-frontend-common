@@ -105,7 +105,7 @@ export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
     yearConstructed: "0",
   },
   patches: [mockPatch],
-  addDefaultSorContracts: true
+  addDefaultSorContracts: true,
 };
 
 export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
