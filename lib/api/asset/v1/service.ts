@@ -24,12 +24,16 @@ export const useAsset = (
 
 export const useChildAssets = (
   id: string | null,
+  pageSize: number = 5000,
   options?: AxiosSWRConfiguration<GetAssetRelationshipsResponse>,
 ): AxiosSWRResponse<GetAssetRelationshipsResponse> => {
-  return useAxiosSWR(
-    id && `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}`,
+
+  const response = useAxiosSWR(
+    id && `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}&pageSize=${pageSize}`,
     options,
   );
+
+  return response
 };
 
 export const getParentAssets = (
