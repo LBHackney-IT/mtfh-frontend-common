@@ -15,6 +15,10 @@ import {
   PatchAssetRequest,
 } from "./types";
 
+export const getAsset = async (id: string) => {
+  return axiosInstance.get<Asset>(`${config.assetApiUrlV1}/assets/${id}`);
+};
+
 export const useAsset = (
   id: string | null,
   options?: AxiosSWRConfiguration<Asset>,
@@ -25,10 +29,20 @@ export const useAsset = (
 export const useChildAssets = (
   id: string | null,
   options?: AxiosSWRConfiguration<GetAssetRelationshipsResponse>,
+  pageSize = 5000,
 ): AxiosSWRResponse<GetAssetRelationshipsResponse> => {
-  return useAxiosSWR(
-    id && `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}`,
+  const response = useAxiosSWR(
+    id &&
+      `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}&pageSize=${pageSize}`,
     options,
+  );
+
+  return response;
+};
+
+export const getChildAssets = async (id: string, pageSize = 5000) => {
+  return axiosInstance.get<Asset>(
+    `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}&pageSize=${pageSize}`,
   );
 };
 
@@ -67,10 +81,6 @@ export const patchAsset = async (
       "If-Match": assetVersion,
     },
   });
-};
-
-export const getAsset = async (id: string) => {
-  return axiosInstance.get<Asset>(`${config.assetApiUrlV1}/assets/${id}`);
 };
 
 export const patchAssetAddress = async (
