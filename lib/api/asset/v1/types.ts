@@ -127,6 +127,7 @@ export interface CreateNewAssetRequest {
     numberOfLifts: number | null;
   };
   patches?: Patch[];
+  addDefaultSorContracts: boolean;
 }
 
 export interface GetAssetRelationshipsResponse {
