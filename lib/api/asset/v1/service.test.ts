@@ -89,4 +89,15 @@ describe("when createAsset is called", () => {
       mockCreateNewAssetRequest,
     );
   });
+
+  test("the request should fail if the new asset has multiple parent assets", async () => {
+    const payloadWithMultipleParents = mockCreateNewAssetRequest;
+    payloadWithMultipleParents.assetLocation.parentAssets = [
+      { id: "guid123", name: "123 estate", type: "Estate" },
+      { id: "guid456", name: "456 block", type: "Block" },
+    ];
+
+    // The error will be thrown even before the POST request is sent
+    await expect(createAsset(payloadWithMultipleParents)).rejects.toThrow(Error);
+  });
 });

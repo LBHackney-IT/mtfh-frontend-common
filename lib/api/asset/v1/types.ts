@@ -100,7 +100,7 @@ export interface CreateNewAssetRequest {
   assetLocation: {
     floorNo: string;
     totalBlockFloors: number | null;
-    parentAssets: any[];
+    parentAssets: ParentAsset[];
   };
   assetAddress: {
     uprn: string;
