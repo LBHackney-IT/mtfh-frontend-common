@@ -29,7 +29,7 @@ export const useAsset = (
 export const useChildAssets = (
   id: string | null,
   options?: AxiosSWRConfiguration<GetAssetRelationshipsResponse>,
-  pageSize = 5000,
+  pageSize = 1000,
 ): AxiosSWRResponse<GetAssetRelationshipsResponse> => {
   const response = useAxiosSWR(
     id &&
