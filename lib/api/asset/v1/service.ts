@@ -40,7 +40,7 @@ export const useChildAssets = (
   return response;
 };
 
-export const getChildAssets = async (id: string, pageSize = 5000) => {
+export const getChildAssets = async (id: string, pageSize = 1000) => {
   return axiosInstance.get<Asset>(
     `${config.assetSearchApiUrlV1}/search/assetrelationships?searchText=${id}&pageSize=${pageSize}`,
   );
