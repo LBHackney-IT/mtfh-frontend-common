@@ -13,6 +13,7 @@ import {
   GetAssetParentsResponse,
   GetAssetRelationshipsResponse,
   PatchAssetBoilerHouseRequest,
+  PatchAssetLbhOwnershipRequest,
 } from "./types";
 
 export const getAsset = async (id: string) => {
@@ -71,9 +72,21 @@ export const getParentAssets = (
   return response;
 };
 
-export const patchAsset = async (
+export const patchAssetBoilerHouse = async (
   id: string,
   request: PatchAssetBoilerHouseRequest,
+  assetVersion: string | null,
+) => {
+  return axiosInstance.patch(`${config.assetApiUrlV1}/assets/${id}`, request, {
+    headers: {
+      "If-Match": assetVersion,
+    },
+  });
+};
+
+export const patchAssetOwnership = async (
+  id: string,
+  request: PatchAssetLbhOwnershipRequest,
   assetVersion: string | null,
 ) => {
   return axiosInstance.patch(`${config.assetApiUrlV1}/assets/${id}`, request, {
