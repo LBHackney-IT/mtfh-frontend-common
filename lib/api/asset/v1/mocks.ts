@@ -137,5 +137,5 @@ export const mockEditAssetOwnershipRequest: PatchAssetLbhOwnershipRequest = {
   isNoRepairsMaintenance: true,
   councilTaxLiability: "",
   councilTaxType: "",
-  propertyOccupiedStatusReason: ""
+  propertyOccupiedStatusReason: "",
 };

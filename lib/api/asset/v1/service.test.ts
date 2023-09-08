@@ -11,10 +11,10 @@ import {
 import {
   createAsset,
   getAsset,
-  patchAssetBoilerHouse,
   patchAssetAddress,
-  useAsset,
+  patchAssetBoilerHouse,
   patchAssetOwnership,
+  useAsset,
 } from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
