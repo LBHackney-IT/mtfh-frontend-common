@@ -138,6 +138,23 @@ export interface GetAssetParentsResponse {
   parentAssets: Asset[];
 }
 
-export interface PatchAssetRequest {
+export interface PatchAssetBoilerHouseRequest {
   boilerHouseId: string;
+}
+
+export interface PatchAssetLbhOwnershipRequest {
+  agent: string;
+  areaOfficeName: string;
+  isCouncilProperty: boolean;
+  managingOrganisation: string;
+  managingOrganisationId: string;
+  owner: string;
+  isTMOManaged: boolean;
+  propertyOccupiedStatus: string;
+  propertyOccupiedStatusReason: string;
+  isNoRepairsMaintenance?: boolean;
+  councilTaxType: string;
+  councilTaxLiability: string;
+  isTemporaryAccomodation?: boolean;
+  readyToLetDate?: boolean;
 }

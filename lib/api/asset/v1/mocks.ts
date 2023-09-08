@@ -9,7 +9,7 @@ import {
   CreateNewAssetRequest,
   EditAssetAddressRequest,
   ParentAsset,
-  PatchAssetRequest,
+  PatchAssetBoilerHouseRequest,
   RentGroup,
 } from "./types";
 
@@ -120,6 +120,6 @@ export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
   },
 };
 
-export const mockEditAssetRequest: PatchAssetRequest = {
+export const mockEditAssetRequest: PatchAssetBoilerHouseRequest = {
   boilerHouseId: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
 };

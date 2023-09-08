@@ -12,7 +12,7 @@ import {
   EditAssetAddressRequest,
   GetAssetParentsResponse,
   GetAssetRelationshipsResponse,
-  PatchAssetRequest,
+  PatchAssetBoilerHouseRequest,
 } from "./types";
 
 export const getAsset = async (id: string) => {
@@ -73,7 +73,7 @@ export const getParentAssets = (
 
 export const patchAsset = async (
   id: string,
-  request: PatchAssetRequest,
+  request: PatchAssetBoilerHouseRequest,
   assetVersion: string | null,
 ) => {
   return axiosInstance.patch(`${config.assetApiUrlV1}/assets/${id}`, request, {
