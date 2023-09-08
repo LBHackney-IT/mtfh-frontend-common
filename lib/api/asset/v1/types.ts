@@ -61,6 +61,13 @@ export interface AssetManagement {
   managingOrganisationId: string;
   owner: string;
   isTMOManaged: boolean;
+  propertyOccupiedStatus?: string;
+  propertyOccupiedStatusReason?: string;
+  isNoRepairsMaintenance?: boolean;
+  councilTaxType?: string;
+  councilTaxLiability?: string;
+  isTemporaryAccomodation?: boolean;
+  readyToLetDate?: boolean;
 }
 
 export interface AssetCharacteristics {
@@ -143,18 +150,5 @@ export interface PatchAssetBoilerHouseRequest {
 }
 
 export interface PatchAssetLbhOwnershipRequest {
-  agent: string;
-  areaOfficeName: string;
-  isCouncilProperty: boolean;
-  managingOrganisation: string;
-  managingOrganisationId: string;
-  owner: string;
-  isTMOManaged: boolean;
-  propertyOccupiedStatus: string;
-  propertyOccupiedStatusReason: string;
-  isNoRepairsMaintenance?: boolean;
-  councilTaxType: string;
-  councilTaxLiability: string;
-  isTemporaryAccomodation?: boolean;
-  readyToLetDate?: boolean;
+  assetManagement: AssetManagement;
 }
