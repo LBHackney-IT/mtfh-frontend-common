@@ -72,21 +72,9 @@ export const getParentAssets = (
   return response;
 };
 
-export const patchAssetBoilerHouse = async (
+export const patchAsset = async (
   id: string,
-  request: PatchAssetBoilerHouseRequest,
-  assetVersion: string | null,
-) => {
-  return axiosInstance.patch(`${config.assetApiUrlV1}/assets/${id}`, request, {
-    headers: {
-      "If-Match": assetVersion,
-    },
-  });
-};
-
-export const patchAssetOwnership = async (
-  id: string,
-  request: PatchAssetLbhOwnershipRequest,
+  request: PatchAssetBoilerHouseRequest | PatchAssetLbhOwnershipRequest,
   assetVersion: string | null,
 ) => {
   return axiosInstance.patch(`${config.assetApiUrlV1}/assets/${id}`, request, {

@@ -11,9 +11,8 @@ import {
 import {
   createAsset,
   getAsset,
+  patchAsset,
   patchAssetAddress,
-  patchAssetBoilerHouse,
-  patchAssetOwnership,
   useAsset,
 } from "./service";
 
@@ -28,12 +27,12 @@ jest.mock("@mtfh/common/lib/http", () => ({
   mutate: jest.fn(),
 }));
 
-describe("when patchAssetBoilerHouse is called", () => {
-  test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
+describe("when patchAsset is called", () => {
+  test("Patching Boiler House ID: the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
 
-    await patchAssetBoilerHouse(assetGuid, mockEditAssetBoilerHouseRequest, assetVersion);
+    await patchAsset(assetGuid, mockEditAssetBoilerHouseRequest, assetVersion);
 
     expect(axiosInstance.patch).toBeCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}`,
@@ -41,14 +40,12 @@ describe("when patchAssetBoilerHouse is called", () => {
       { headers: { "If-Match": assetVersion } },
     );
   });
-});
 
-describe("when patchAssetOwnership is called", () => {
-  test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
+  test("Patching Asset Ownership: the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
     const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
     const assetVersion = "3";
 
-    await patchAssetOwnership(assetGuid, mockEditAssetOwnershipRequest, assetVersion);
+    await patchAsset(assetGuid, mockEditAssetOwnershipRequest, assetVersion);
 
     expect(axiosInstance.patch).toBeCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}`,
