@@ -9,7 +9,8 @@ import {
   CreateNewAssetRequest,
   EditAssetAddressRequest,
   ParentAsset,
-  PatchAssetRequest,
+  PatchAssetBoilerHouseRequest,
+  PatchAssetLbhOwnershipRequest,
   RentGroup,
 } from "./types";
 
@@ -120,6 +121,23 @@ export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
   },
 };
 
-export const mockEditAssetRequest: PatchAssetRequest = {
+export const mockEditAssetBoilerHouseRequest: PatchAssetBoilerHouseRequest = {
   boilerHouseId: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
+};
+
+export const mockEditAssetOwnershipRequest: PatchAssetLbhOwnershipRequest = {
+  assetManagement: {
+    agent: "Hackney Homes",
+    areaOfficeName: "Homerton (1) Panel Area Team",
+    isCouncilProperty: true,
+    managingOrganisation: "London Borough of Hackney",
+    managingOrganisationId: "c01e3146-e630-c2cd-e709-18ef57bf3724",
+    owner: "LBH",
+    isTMOManaged: false,
+    propertyOccupiedStatus: "OC",
+    isNoRepairsMaintenance: true,
+    councilTaxLiability: "",
+    councilTaxType: "",
+    propertyOccupiedStatusReason: "",
+  },
 };

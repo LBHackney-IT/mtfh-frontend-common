@@ -61,6 +61,13 @@ export interface AssetManagement {
   managingOrganisationId: string;
   owner: string;
   isTMOManaged: boolean;
+  propertyOccupiedStatus?: string;
+  propertyOccupiedStatusReason?: string;
+  isNoRepairsMaintenance?: boolean;
+  councilTaxType?: string;
+  councilTaxLiability?: string;
+  isTemporaryAccomodation?: boolean;
+  readyToLetDate?: boolean;
 }
 
 export interface AssetCharacteristics {
@@ -138,6 +145,10 @@ export interface GetAssetParentsResponse {
   parentAssets: Asset[];
 }
 
-export interface PatchAssetRequest {
+export interface PatchAssetBoilerHouseRequest {
   boilerHouseId: string;
+}
+
+export interface PatchAssetLbhOwnershipRequest {
+  assetManagement: AssetManagement;
 }
