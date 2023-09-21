@@ -45,9 +45,18 @@ export enum ContactInformationContactTypes {
 }
 
 export enum ContactDetailsPhoneTypes {
-  MOBILE = "mobile",
-  HOME = "home",
-  WORK = "work",
+  MAIN_NUMBER = "mainNumber",
+  EMERGENCY_CONTACT = "emergencyContact",
+  CARER = "carer",
+  WIFE = "wife",
+  HUSBAND = "husband",
+  SPOUSE = "spouse",
+  SON = "son",
+  DAUGHTER = "daughter",
+  RELATIVE = "relative",
+  NEIGHBOUR = "neighbour",
+  DOCTOR = "doctor",
+  SOCIAL_WORKER = "socialWorker",
   OTHER = "other",
 }
 
