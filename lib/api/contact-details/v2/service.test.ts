@@ -81,7 +81,7 @@ describe("when addContactDetail is called", () => {
         addressExtended: null,
         contactType: "phone",
         description: "home phone",
-        subType: "home",
+        subType: "mainNumber",
         value: "073253324",
       },
       createdBy: {
