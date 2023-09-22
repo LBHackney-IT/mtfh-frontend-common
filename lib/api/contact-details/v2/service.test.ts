@@ -55,7 +55,7 @@ describe("when addContactDetail is called", () => {
     const id = "uuid";
     const data = {
       contactType: ContactInformationContactTypes.PHONE,
-      subType: ContactDetailsPhoneTypes.HOME,
+      subType: ContactDetailsPhoneTypes.MAIN_NUMBER,
       value: "073253324",
       description: "home phone",
       addressExtended: null,
@@ -81,7 +81,7 @@ describe("when addContactDetail is called", () => {
         addressExtended: null,
         contactType: "phone",
         description: "home phone",
-        subType: "home",
+        subType: "mainNumber",
         value: "073253324",
       },
       createdBy: {
@@ -148,7 +148,7 @@ describe("when addPhoneContact is called", () => {
   test("the request should be sent to the correct URL with the expected HTTP method, and the correct response should be returned", async () => {
     const id = "uuid";
     const phone = "phone";
-    const type = ContactDetailsPhoneTypes.HOME;
+    const type = ContactDetailsPhoneTypes.MAIN_NUMBER;
     const description = "description";
 
     let method = "";
