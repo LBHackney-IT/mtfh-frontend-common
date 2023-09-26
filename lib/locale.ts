@@ -93,6 +93,7 @@ const locale = {
       W38: "You must enter an email address to proceed",
       W40: "You must enter a valid email number to proceed",
       W41: "You must enter a valid phone number to proceed",
+      W42: "You must enter a valid International phone number with the country code to proceed",
       W43: "You cannot add more than xx contact details",
       W44: "We encountered an error. Try again.",
       W45: "You cannot add more than 4 tenure holders",
