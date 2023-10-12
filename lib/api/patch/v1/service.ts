@@ -21,28 +21,19 @@ export const addResponsibleEntityToPatch = async (
   responsibleEntityId: string,
   request: UpdatePatchesAndAreasRequest,
   patchVersion: string | null,
-): Promise<null> => {
-  return new Promise((resolve, reject) => {
+) => {
     const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`;
-    console.log(`PATCH VERSION: ${patchVersion}`);
-    const headers = { "If-Match": `"${patchVersion}"` };
-    axiosInstance
-      .patch(apiUrl, request, { headers })
-      .then((res) => console.log(res))
-      .catch((error) => reject(error));
-  });
+     return axiosInstance.patch(apiUrl, request, {
+      headers: {
+        "If-Match": patchVersion,
+      },
+    });
 };
 
 export const deletePatchesAndAreasResponsibilities = async (
   patchId: string,
   responsibleEntityId: string,
-): Promise<null> => {
-  return new Promise((resolve, reject) => {
-    axiosInstance
-      .delete(
-        `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
-      )
-      .then((res) => console.log(res))
-      .catch((error) => reject(error));
-  });
+) => {
+  const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`;
+  return axiosInstance.delete(apiUrl);
 };
