@@ -33,7 +33,8 @@ export const addResponsibleEntityToPatch = async (
 export const deletePatchesAndAreasResponsibilities = async (
   patchId: string,
   responsibleEntityId: string,
-) => {
-  const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`;
-  return axiosInstance.delete(apiUrl);
+): Promise<void> => {
+  await axiosInstance.delete(
+    `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
+  );
 };

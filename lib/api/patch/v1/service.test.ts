@@ -13,6 +13,7 @@ jest.mock("@mtfh/common/lib/http", () => ({
   axiosInstance: {
     patch: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
     get: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
+    delete: jest.fn() 
   },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
@@ -55,7 +56,7 @@ describe("when deletePatchesAndAreasResponsibilities is called", () => {
     const patchId = "2fa90983-94b7-4270-a485-dc42ede5af17";
     const responsibleEntityId = "5f82d558-f2c6-4b1c-95dd-0422ab2b11cd";
 
-    await deletePatchesAndAreasResponsibilities(patchId, responsibleEntityId);
+    deletePatchesAndAreasResponsibilities(patchId, responsibleEntityId);
 
     expect(axiosInstance.delete).toBeCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
