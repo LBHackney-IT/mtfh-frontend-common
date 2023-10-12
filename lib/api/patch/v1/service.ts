@@ -22,12 +22,12 @@ export const addResponsibleEntityToPatch = async (
   request: UpdatePatchesAndAreasRequest,
   patchVersion: string | null,
 ) => {
-    const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`;
-     return axiosInstance.patch(apiUrl, request, {
-      headers: {
-        "If-Match": patchVersion,
-      },
-    });
+  const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`;
+  return axiosInstance.patch(apiUrl, request, {
+    headers: {
+      "If-Match": patchVersion,
+    },
+  });
 };
 
 export const deletePatchesAndAreasResponsibilities = async (

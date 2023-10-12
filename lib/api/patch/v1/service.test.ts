@@ -13,7 +13,7 @@ jest.mock("@mtfh/common/lib/http", () => ({
   axiosInstance: {
     patch: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
     get: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
-    delete: jest.fn() 
+    delete: jest.fn(),
   },
   useAxiosSWR: jest.fn(),
   mutate: jest.fn(),
