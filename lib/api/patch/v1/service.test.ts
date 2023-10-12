@@ -1,12 +1,12 @@
 import { config } from "@mtfh/common/lib/config";
 import { axiosInstance } from "@mtfh/common/lib/http";
 
+import { mockUpdatePatchesAndAreasRequest } from "./mocks";
 import {
-  getAllPatchesAndAreas,
   addResponsibleEntityToPatch,
   deletePatchesAndAreasResponsibilities,
+  getAllPatchesAndAreas,
 } from "./service";
-import { mockUpdatePatchesAndAreasRequest } from "./mocks";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
