@@ -11,4 +11,11 @@ export interface Patch {
   patchType: string;
   domain: string;
   responsibleEntities: ResponsibleEntity[];
+  versionNumber?: number;
+}
+
+export interface UpdatePatchesAndAreasRequest {
+  id: string;
+  name: string;
+  responsibleType: string;
 }
