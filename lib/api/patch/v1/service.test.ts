@@ -6,7 +6,9 @@ import {
   addResponsibleEntityToPatch,
   deletePatchesAndAreasResponsibilities,
   getAllPatchesAndAreas,
+  replacePatchResponsibleEntities,
 } from "./service";
+import { ResponsibleEntity } from "./types";
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -60,6 +62,25 @@ describe("when deletePatchesAndAreasResponsibilities is called", () => {
 
     expect(axiosInstance.delete).toBeCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
+    );
+  });
+});
+
+describe("when replacePatchResponsibleEntities is called", () => {
+  test("the request should be sent to the correct URL with the expected headers and request object", async () => {
+    const patchId = "2fa90983-94b7-4270-a485-dc42ede5af17";
+    const patchVersion = 3;
+
+    await replacePatchResponsibleEntities(
+      patchId,
+      [mockUpdatePatchesAndAreasRequest as ResponsibleEntity],
+      patchVersion,
+    );
+
+    expect(axiosInstance.patch).toBeCalledWith(
+      `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntities`,
+      [mockUpdatePatchesAndAreasRequest],
+      { headers: { "If-Match": `"${patchVersion}"` } },
     );
   });
 });
