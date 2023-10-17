@@ -42,20 +42,20 @@ export const deletePatchesAndAreasResponsibilities = async (
 };
 
 /**
- * Replaces all the responsible entities for a patch as set in the request
- * @param patchId - ID of patch object
- * @param entities - List of people assigned to the patch as responsible entities
- * @param patchVersion - Version of the patch object (from database)
+ * Replaces all the responsible entities for a Patch as set in the request
+ * @param patchId - ID of Patch object
+ * @param entities - List of people assigned to the Patch as responsible entities
+ * @param versionNumber - Version of the patch object (from database)
  * @returns Promise with 204 No Content on success
  */
 export const replacePatchResponsibleEntities = async (
   patchId: string,
   entities: ResponsibleEntity[],
-  patchVersion: number,
+  versionNumber: number,
 ): Promise<AxiosResponse> => {
   const apiUrl = `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntities`;
   const headers = {
-    "If-Match": `"${patchVersion}"`,
+    "If-Match": `"${versionNumber}"`,
   };
-  return axiosInstance.patch(apiUrl, entities, { headers });
+  return axiosInstance.put(apiUrl, entities, { headers });
 };

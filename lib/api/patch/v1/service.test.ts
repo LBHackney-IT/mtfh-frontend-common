@@ -13,8 +13,9 @@ import { ResponsibleEntity } from "./types";
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
   axiosInstance: {
-    patch: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
     get: jest.fn().mockImplementation(() => Promise.resolve({ data: [] })),
+    put: jest.fn(),
+    patch: jest.fn(),
     delete: jest.fn(),
   },
   useAxiosSWR: jest.fn(),
@@ -77,7 +78,7 @@ describe("when replacePatchResponsibleEntities is called", () => {
       patchVersion,
     );
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.put).toBeCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntities`,
       [mockUpdatePatchesAndAreasRequest],
       { headers: { "If-Match": `"${patchVersion}"` } },
