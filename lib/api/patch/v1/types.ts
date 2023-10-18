@@ -1,12 +1,7 @@
-export enum ResponsibleType {
-  HousingOfficer,
-  HousingAreaManager,
-}
-
 export interface ResponsibleEntity {
   id: string;
   name: string;
-  responsibleType: ResponsibleType;
+  responsibleType: string;
 }
 
 export interface Patch {
@@ -22,5 +17,5 @@ export interface Patch {
 export interface UpdatePatchesAndAreasRequest {
   id: string;
   name: string;
-  responsibleType: ResponsibleType;
+  responsibleType: string;
 }
