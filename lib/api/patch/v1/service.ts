@@ -1,7 +1,12 @@
 import { AxiosResponse } from "axios";
 
 import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
+import {
+  AxiosSWRConfiguration,
+  AxiosSWRResponse,
+  axiosInstance,
+  useAxiosSWR,
+} from "@mtfh/common/lib/http";
 
 import { Patch, ResponsibleEntity, UpdatePatchesAndAreasRequest } from "./types";
 
@@ -18,17 +23,11 @@ export const getAllPatchesAndAreas = async (): Promise<Array<Patch>> => {
   });
 };
 
-export const getPatchOrAreaById = async (patchId: string): Promise<Patch> => {
-  return new Promise<Patch>((resolve, reject) => {
-    axiosInstance
-      .get<Patch>(`${config.patchesAndAreasApiUrlV1}/patch/${patchId}`, {
-        headers: {
-          "skip-x-correlation-id": true,
-        },
-      })
-      .then((res) => resolve(res.data))
-      .catch((error) => reject(error));
-  });
+export const usePatchOrArea = (
+  patchId: string,
+  options?: AxiosSWRConfiguration<Patch>,
+): AxiosSWRResponse<Patch> => {
+  return useAxiosSWR(`${config.patchesAndAreasApiUrlV1}/patch/${patchId}`, options);
 };
 
 export const addResponsibleEntityToPatch = async (

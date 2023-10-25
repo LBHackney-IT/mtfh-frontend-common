@@ -1,13 +1,13 @@
 import { config } from "@mtfh/common/lib/config";
-import { axiosInstance } from "@mtfh/common/lib/http";
+import { axiosInstance, useAxiosSWR } from "@mtfh/common/lib/http";
 
 import { mockUpdatePatchesAndAreasRequest } from "./mocks";
 import {
   addResponsibleEntityToPatch,
   deletePatchesAndAreasResponsibilities,
   getAllPatchesAndAreas,
-  getPatchOrAreaById,
   replacePatchResponsibleEntities,
+  usePatchOrArea,
 } from "./service";
 import { ResponsibleEntity } from "./types";
 
@@ -35,13 +35,13 @@ describe("when getAllPatchesAndAreas is called", () => {
 });
 
 describe("when get patch or area by id is called", () => {
-  test("the request should be sent to the correct URL with the expected headers", async () => {
+  test("the request should be sent to the correct URL", async () => {
     const patchId = "2fa90983-94b7-4270-a485-dc42ede5af17";
-    await getPatchOrAreaById(patchId);
+    await usePatchOrArea(patchId);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(useAxiosSWR).toBeCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}`,
-      { headers: { "skip-x-correlation-id": true } },
+      undefined,
     );
   });
 });
