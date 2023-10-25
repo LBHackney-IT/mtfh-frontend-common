@@ -19,7 +19,6 @@ export const getAllPatchesAndAreas = async (): Promise<Array<Patch>> => {
 };
 
 export const getPatchOrAreaById = async (patchId: string): Promise<Patch> => {
-
   return new Promise<Patch>((resolve, reject) => {
     axiosInstance
       .get<Patch>(`${config.patchesAndAreasApiUrlV1}/patch/${patchId}`, {
