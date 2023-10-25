@@ -16,6 +16,20 @@ export const getAllPatchesAndAreas = async (): Promise<Array<Patch>> => {
   });
 };
 
+export const getPatchOrAreaById = async (patchId: string): Promise<Patch> => {
+
+  return new Promise<Patch>((resolve, reject) => {
+    axiosInstance
+      .get<Patch>(`${config.patchesAndAreasApiUrlV1}/patch/${patchId}`, {
+        headers: {
+          "skip-x-correlation-id": true,
+        },
+      })
+      .then((res) => resolve(res.data))
+      .catch((error) => reject(error));
+  });
+};
+
 export const addResponsibleEntityToPatch = async (
   patchId: string,
   responsibleEntityId: string,

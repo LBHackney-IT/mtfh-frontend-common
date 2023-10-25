@@ -6,6 +6,7 @@ import {
   addResponsibleEntityToPatch,
   deletePatchesAndAreasResponsibilities,
   getAllPatchesAndAreas,
+  getPatchOrAreaById,
 } from "./service";
 
 jest.mock("@mtfh/common/lib/http", () => ({
@@ -25,6 +26,18 @@ describe("when getAllPatchesAndAreas is called", () => {
 
     expect(axiosInstance.get).toBeCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/all`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
+});
+
+describe("when get patch or area by id is called", () => {
+  test("the request should be sent to the correct URL with the expected headers", async () => {
+    const patchId = "2fa90983-94b7-4270-a485-dc42ede5af17";
+    await getPatchOrAreaById(patchId);
+
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.patchesAndAreasApiUrlV1}/patch/${patchId}`,
       { headers: { "skip-x-correlation-id": true } },
     );
   });
