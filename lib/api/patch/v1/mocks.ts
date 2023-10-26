@@ -5,8 +5,8 @@ export const mockResponsibilityEntity: ResponsibleEntity = {
   name: "Charlie Doe",
   responsibleType: "HousingOfficer",
   contactDetails: {
-    emailAddress: "test@hackney.gov.uk"
-  }
+    emailAddress: "test@hackney.gov.uk",
+  },
 };
 
 export const mockPatch: Patch = {
