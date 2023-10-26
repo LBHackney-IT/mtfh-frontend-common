@@ -1,7 +1,11 @@
+export interface ResponsibleEntityContactDetails{
+  emailAddress: string;
+}
 export interface ResponsibleEntity {
   id: string;
   name: string;
   responsibleType: string;
+  contactDetails: ResponsibleEntityContactDetails
 }
 
 export interface Patch {
