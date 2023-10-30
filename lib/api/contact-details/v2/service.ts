@@ -51,6 +51,19 @@ export const addContactDetail = async (
   return response.data;
 };
 
+export const patchContactDetails = async (
+  contactId: string,
+  personId: string,
+  data: ContactInformation,
+): Promise<ContactDetail> => {
+  return await axiosInstance.patch(
+    `${config.contactDetailsApiUrlV2}/contactDetails/${contactId}/person/${personId}`,
+    {
+      contactInformation: data,
+    },
+  );
+};
+
 export const addEmailContact = async (
   id: string,
   email: string,
