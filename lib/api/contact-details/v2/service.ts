@@ -56,7 +56,7 @@ export const patchContactDetails = async (
   personId: string,
   data: ContactInformation,
 ): Promise<ContactDetail> => {
-  return await axiosInstance.patch(
+  return axiosInstance.patch(
     `${config.contactDetailsApiUrlV2}/contactDetails/${contactId}/person/${personId}`,
     {
       contactInformation: data,
