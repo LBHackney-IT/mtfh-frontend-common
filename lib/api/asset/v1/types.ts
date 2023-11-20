@@ -101,6 +101,8 @@ export interface EditAssetAddressRequest {
 export interface CreateNewAssetRequest {
   id: string;
   assetId: string;
+  areaId: string;
+  patchId: string;
   assetType: string;
   isActive: boolean;
   parentAssetIds: string;
@@ -133,7 +135,6 @@ export interface CreateNewAssetRequest {
     windowType: string;
     numberOfLifts: number | null;
   };
-  patches?: Patch[];
   addDefaultSorContracts: boolean;
 }
 

@@ -1,4 +1,3 @@
-import { mockPatch } from "../../patch/v1/mocks";
 import {
   Asset,
   AssetAddress,
@@ -85,13 +84,14 @@ export const mockAsset: Asset = {
   assetCharacteristics: mockAssetCharacteristics,
   tenure: mockAssetTenure,
   versionNumber: 2,
-  patches: [mockPatch],
   boilerHouseId: "",
 };
 
 export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
   id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
   assetId: "1234",
+  areaId: "9671693d-9423-4c69-8fc1-71774b916f88",
+  patchId: "acde55f5-6b2c-4d2e-9a74-c0cd78b55ec1",
   parentAssetIds: "",
   assetType: "Dwelling",
   isActive: true,
@@ -105,7 +105,6 @@ export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
     windowType: "DBL",
     yearConstructed: "0",
   },
-  patches: [mockPatch],
   addDefaultSorContracts: true,
 };
 
