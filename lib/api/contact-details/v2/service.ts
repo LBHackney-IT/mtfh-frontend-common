@@ -66,7 +66,7 @@ export const patchContactDetails = async (
       headers: {
         "If-Match": assetVersion,
       },
-    }
+    },
   );
 };
 
