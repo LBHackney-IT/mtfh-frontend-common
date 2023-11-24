@@ -1,5 +1,3 @@
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
-
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export enum RentGroup {
@@ -16,6 +14,8 @@ export enum RentGroup {
 
 export interface Asset {
   id: string;
+  patchId: string;
+  areaId: string;
   assetId: string;
   assetType: AssetType;
   rentGroup: RentGroup | null;
@@ -27,7 +27,6 @@ export interface Asset {
   rootAsset: string;
   parentAssetIds: string;
   boilerHouseId: string;
-  patches?: Patch[];
   versionNumber?: number;
 }
 
