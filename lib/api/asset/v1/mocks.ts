@@ -73,6 +73,8 @@ export const mockAssetLocation: AssetLocation = {
 
 export const mockAsset: Asset = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  areaId: "33366d51-4691-4e15-b3eb-1e09d185d4e0",
+  patchId: "bb02e7e9-cf50-4b06-a53a-61de04aa2942",
   assetId: "100021045676",
   assetType: "LettableNonDwelling",
   rentGroup: RentGroup.HRA,
