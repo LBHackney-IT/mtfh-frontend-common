@@ -100,8 +100,8 @@ export interface EditAssetAddressRequest {
 export interface CreateNewAssetRequest {
   id: string;
   assetId: string;
-  areaId: string;
-  patchId: string;
+  areaId?: string;
+  patchId?: string;
   assetType: string;
   isActive: boolean;
   parentAssetIds: string;
