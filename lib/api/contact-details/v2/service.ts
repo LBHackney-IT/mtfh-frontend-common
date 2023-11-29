@@ -55,17 +55,11 @@ export const patchContactDetails = async (
   contactId: string,
   personId: string,
   data: ContactInformation,
-  assetVersion: string | null,
 ): Promise<ContactDetail> => {
   return axiosInstance.patch(
     `${config.contactDetailsApiUrlV2}/contactDetails/${contactId}/person/${personId}`,
     {
       contactInformation: data,
-    },
-    {
-      headers: {
-        "If-Match": assetVersion,
-      },
     },
   );
 };
