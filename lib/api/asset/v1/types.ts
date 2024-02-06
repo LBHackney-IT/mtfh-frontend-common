@@ -18,7 +18,7 @@ export interface Asset {
   areaId: string;
   assetId: string;
   assetType: AssetType;
-  rentGroup: RentGroup | null;
+  rentGroup: RentGroup | undefined | null;
   assetLocation: AssetLocation;
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
