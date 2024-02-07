@@ -96,6 +96,7 @@ export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
   patchId: "acde55f5-6b2c-4d2e-9a74-c0cd78b55ec1",
   parentAssetIds: "",
   assetType: "Dwelling",
+  rentGroup: RentGroup.HRA,
   isActive: true,
   assetLocation: mockAssetLocation,
   assetAddress: mockAssetAddress,

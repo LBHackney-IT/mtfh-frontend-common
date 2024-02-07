@@ -1,15 +1,15 @@
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export enum RentGroup {
-  GPS,
-  HGF,
-  HRA,
-  LMW,
-  LSC,
-  RSL,
-  TAG,
-  TAH,
-  TRA,
+  GPS = "GPS",
+  HGF = "HGF",
+  HRA = "HRA",
+  LMW = "LMW",
+  LSC = "LSC",
+  RSL = "RSL",
+  TAG = "TAG",
+  TAH = "TAH",
+  TRA = "TRA",
 }
 
 export interface Asset {
@@ -18,7 +18,7 @@ export interface Asset {
   areaId: string;
   assetId: string;
   assetType: AssetType;
-  rentGroup: RentGroup | null;
+  rentGroup?: RentGroup | null;
   assetLocation: AssetLocation;
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
@@ -103,6 +103,7 @@ export interface CreateNewAssetRequest {
   areaId?: string;
   patchId?: string;
   assetType: string;
+  rentGroup?: RentGroup | null;
   isActive: boolean;
   parentAssetIds: string;
   assetLocation: {
