@@ -103,7 +103,7 @@ export interface CreateNewAssetRequest {
   areaId?: string;
   patchId?: string;
   assetType: string;
-  rentGroup?: RentGroup | undefined | null;
+  rentGroup?: RentGroup | null;
   isActive: boolean;
   parentAssetIds: string;
   assetLocation: {
