@@ -1,15 +1,15 @@
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export enum RentGroup {
-  GPS = "GPS",
-  HGF = "HGF",
-  HRA = "HRA",
-  LMW = "LMW",
-  LSC = "LSC",
-  RSL = "RSL",
-  TAG = "TAG",
-  TAH = "TAH",
-  TRA = "TRA",
+  GPS = "Garages & Parking Spaces HRA",
+  HGF = "Housing General Fund",
+  HRA = "Housing Revenue Account",
+  LMW = "Leasehold Major Works",
+  LSC = "Leasehold Service Charges",
+  RSL = "Registered Social Landlord and XBorough",
+  TAG = "Temporary Accommodation General Fun",
+  TAH = "Temporary Accommodation HRA",
+  TRA = "Travellers General Fund",
 }
 
 export interface Asset {
