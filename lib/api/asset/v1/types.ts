@@ -7,7 +7,7 @@ export enum RentGroup {
   LMW = "Leasehold Major Works",
   LSC = "Leasehold Service Charges",
   RSL = "Registered Social Landlord and XBorough",
-  TAG = "Temporary Accommodation General Fun",
+  TAG = "Temporary Accommodation General Fund",
   TAH = "Temporary Accommodation HRA",
   TRA = "Travellers General Fund",
 }
