@@ -25,6 +25,7 @@ export interface TenureAsset {
   fullAddress: string;
   uprn: string;
   propertyReference: string | null;
+  isTemporaryAccommodation: boolean | null;
 }
 
 export interface AccountType {
@@ -46,6 +47,10 @@ export interface Charges {
   tenancyInsuranceCharge: number;
   originalRentCharge: number;
   originalServiceCharge: number;
+  storageCharge: number | null;
+  rentAdjustment: number | null;
+  rentAdjustmentReason: string | null;
+  isSuspended: boolean | null;
 }
 
 export interface AgreementType {
@@ -65,36 +70,45 @@ export interface LegacyReference {
   name: string;
   value: string;
 }
-
+export interface FurtherAccountInformation {
+  isRentAccountRequired: boolean;
+  noRentAccountReason: string;
+  rentLetterSentDate: string;
+  rentCardGivenDate: string;
+  tenureAcceptedDate: string;
+  isSection208NoticeSent: boolean;
+}
 export interface Tenure {
   id: string;
+  paymentReference: string;
+  householdMembers: HouseholdMember[];
   tenuredAsset: TenureAsset;
+  charges: Charges;
   startOfTenureDate: string;
   endOfTenureDate: string | null;
   tenureType: TenureType;
+  tenureSource: string | null;
   isActive: boolean;
-  accountType: AccountType;
-  paymentReference: string;
-  householdMembers: HouseholdMember[];
-  charges: Charges;
   isTenanted: boolean | null;
   terminated: {
     isTerminated: boolean;
     reasonForTermination: string;
   };
   successionDate: string;
-  agreementType: AgreementType;
-  subsidiaryAccountsReferences: string[];
-  masterAccountTenureReference: string;
   evictionDate: string;
   potentialEndDate: string;
-  notices: NoticeType[];
-  legacyReferences: LegacyReference[];
-  rentCostCentre: string;
   isMutualExchange: boolean;
   informHousingBenefitsForChanges: boolean;
   isSublet: boolean;
   subletEndDate: string;
+  notices: NoticeType[];
+  legacyReferences: LegacyReference[];
+  agreementType: AgreementType;
+  fundingSource: string;
+  numberOfAdultsInProperty: number;
+  numberOfChildrenInProperty: number;
+  hasOffsiteStorage: boolean;
+  furtherAccountInformation: FurtherAccountInformation;
   etag?: string;
 }
 
