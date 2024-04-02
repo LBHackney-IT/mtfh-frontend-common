@@ -71,12 +71,12 @@ export interface LegacyReference {
   value: string;
 }
 export interface FurtherAccountInformation {
-  isRentAccountRequired: boolean;
-  noRentAccountReason: string;
-  rentLetterSentDate: string;
-  rentCardGivenDate: string;
-  tenureAcceptedDate: string;
-  isSection208NoticeSent: boolean;
+  isRentAccountRequired: boolean | null;
+  noRentAccountReason: string | null;
+  rentLetterSentDate: string | null;
+  rentCardGivenDate: string | null;
+  tenureAcceptedDate: string | null;
+  isSection208NoticeSent: boolean | null;
 }
 export interface Tenure {
   id: string;
@@ -104,11 +104,15 @@ export interface Tenure {
   notices: NoticeType[];
   legacyReferences: LegacyReference[];
   agreementType: AgreementType;
-  fundingSource: string;
-  numberOfAdultsInProperty: number;
-  numberOfChildrenInProperty: number;
-  hasOffsiteStorage: boolean;
-  furtherAccountInformation: FurtherAccountInformation;
+  fundingSource: string | null;
+  numberOfAdultsInProperty: number | null;
+  numberOfChildrenInProperty: number | null;
+  hasOffsiteStorage: boolean | null;
+  furtherAccountInformation: FurtherAccountInformation | null;
+  rentCostCentre: string;
+  subsidiaryAccountsReferences: string[];
+  masterAccountTenureReference: string;
+  accountType: AccountType;
   etag?: string;
 }
 
