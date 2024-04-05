@@ -73,9 +73,9 @@ export interface LegacyReference {
 export interface FurtherAccountInformation {
   isRentAccountRequired: boolean | null;
   noRentAccountReason: string | null;
-  rentLetterSentDate: string | null;
-  rentCardGivenDate: string | null;
-  tenureAcceptedDate: string | null;
+  rentLetterSentDate: Date | null;
+  rentCardGivenDate: Date | null;
+  tenureAcceptedDate: Date | null;
   isSection208NoticeSent: boolean | null;
 }
 export interface Tenure {
