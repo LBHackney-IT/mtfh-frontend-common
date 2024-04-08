@@ -25,7 +25,7 @@ export interface TenureAsset {
   fullAddress: string;
   uprn: string;
   propertyReference: string | null;
-  isTemporaryAccommodation: boolean | null;
+  isTemporaryAccommodation?: boolean | null;
 }
 
 export interface AccountType {
