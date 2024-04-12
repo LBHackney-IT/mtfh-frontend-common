@@ -125,7 +125,7 @@ export interface Tenure {
   subsidiaryAccountsReferences: string[];
   masterAccountTenureReference: string;
   accountType: AccountType;
-  tempAccInfo: TemporaryAccommodationInfo;
+  tempAccInfo?: TemporaryAccommodationInfo;
   etag?: string;
 }
 
