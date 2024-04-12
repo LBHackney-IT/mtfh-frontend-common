@@ -113,6 +113,8 @@ export interface Tenure {
   subsidiaryAccountsReferences: string[];
   masterAccountTenureReference: string;
   accountType: AccountType;
+  taOfficer?: string;
+  taStatus?: string;
   etag?: string;
 }
 

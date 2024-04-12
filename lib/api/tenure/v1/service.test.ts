@@ -121,6 +121,8 @@ describe("when editTenure is called", () => {
       paymentReference: "1234567890",
       startOfTenureDate: "2021-01-01",
       endOfTenureDate: "2024-01-01",
+      taOfficer: "Firstname Lastname",
+      taStatus: "Accepted",
     };
     const response = {
       data: {},
@@ -135,6 +137,8 @@ describe("when editTenure is called", () => {
         paymentReference: params.paymentReference,
         startOfTenureDate: params.startOfTenureDate,
         endOfTenureDate: params.endOfTenureDate,
+        taOfficer: params.taOfficer,
+        taStatus: params.taStatus,
       },
     );
     expect(editTenureResponse).toBe(response.data);

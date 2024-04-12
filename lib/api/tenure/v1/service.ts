@@ -71,6 +71,8 @@ export interface EditTenureParams extends Partial<TenureParams> {
   id: string;
   etag: string;
   tenuredAsset?: TenureAsset | null;
+  taOfficer?: string;
+  taStatus?: string;
 }
 
 export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<void> => {
