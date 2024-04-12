@@ -7,7 +7,13 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { HouseholdMember, Tenure, TenureAsset, TenureType } from "./types";
+import {
+  HouseholdMember,
+  TemporaryAccommodationInfo,
+  Tenure,
+  TenureAsset,
+  TenureType,
+} from "./types";
 
 export const useTenure = (
   id: string | null,
@@ -71,6 +77,7 @@ export interface EditTenureParams extends Partial<TenureParams> {
   id: string;
   etag: string;
   tenuredAsset?: TenureAsset | null;
+  tempAccInfo?: TemporaryAccommodationInfo;
 }
 
 export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<void> => {

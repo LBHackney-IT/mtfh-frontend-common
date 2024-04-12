@@ -121,6 +121,14 @@ describe("when editTenure is called", () => {
       paymentReference: "1234567890",
       startOfTenureDate: "2021-01-01",
       endOfTenureDate: "2024-01-01",
+      tempAccInfo: {
+        bookingStatus: "Confirmed",
+        assignedOfficer: {
+          firstName: "Firstname",
+          lastName: "Lastname",
+          email: "firstname.lastname@hackney.gov.uk",
+        },
+      },
     };
     const response = {
       data: {},
@@ -135,6 +143,7 @@ describe("when editTenure is called", () => {
         paymentReference: params.paymentReference,
         startOfTenureDate: params.startOfTenureDate,
         endOfTenureDate: params.endOfTenureDate,
+        tempAccInfo: params.tempAccInfo,
       },
     );
     expect(editTenureResponse).toBe(response.data);

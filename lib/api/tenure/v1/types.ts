@@ -78,6 +78,18 @@ export interface FurtherAccountInformation {
   tenureAcceptedDate: Date | null;
   isSection208NoticeSent: boolean | null;
 }
+
+export interface TemporaryAccommodationOfficer {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export interface TemporaryAccommodationInfo {
+  bookingStatus: string;
+  assignedOfficer: TemporaryAccommodationOfficer;
+}
+
 export interface Tenure {
   id: string;
   paymentReference: string;
@@ -113,6 +125,7 @@ export interface Tenure {
   subsidiaryAccountsReferences: string[];
   masterAccountTenureReference: string;
   accountType: AccountType;
+  tempAccInfo?: TemporaryAccommodationInfo;
   etag?: string;
 }
 
