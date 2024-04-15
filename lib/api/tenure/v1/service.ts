@@ -73,11 +73,12 @@ export const removePersonFromTenure = async (
     `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
   );
 };
+
 export interface EditTenureParams extends Partial<TenureParams> {
   id: string;
   etag: string;
   tenuredAsset?: TenureAsset | null;
-  tempAccInfo?: TemporaryAccommodationInfo;
+  tempAccommodationInfo?: TemporaryAccommodationInfo;
 }
 
 export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<void> => {
