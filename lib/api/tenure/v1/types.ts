@@ -86,7 +86,7 @@ export interface TemporaryAccommodationOfficer {
 }
 
 export interface TemporaryAccommodationInfo {
-  bookingStatus: string;
+  bookingStatus: string | null;
   assignedOfficer: TemporaryAccommodationOfficer;
 }
 
