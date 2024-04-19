@@ -87,7 +87,7 @@ export interface TemporaryAccommodationOfficer {
 
 export interface TemporaryAccommodationInfo {
   bookingStatus?: string | null;
-  assignedOfficer: TemporaryAccommodationOfficer;
+  assignedOfficer?: TemporaryAccommodationOfficer | null;
 }
 
 export interface Tenure {
