@@ -82,7 +82,8 @@ export interface FurtherAccountInformation {
 export interface TemporaryAccommodationOfficer {
   firstName: string;
   lastName: string;
-  email: string;
+  email?: string;
+  id?: string;
 }
 
 export interface TemporaryAccommodationInfo {
