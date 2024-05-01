@@ -80,10 +80,10 @@ export interface FurtherAccountInformation {
 }
 
 export interface TemporaryAccommodationOfficer {
+  id: string;
   firstName: string;
   lastName: string;
-  email?: string;
-  id?: string;
+  email?: string | null;
 }
 
 export interface TemporaryAccommodationInfo {
