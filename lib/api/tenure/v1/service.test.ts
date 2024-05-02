@@ -127,6 +127,7 @@ describe("when editTenure is called", () => {
           firstName: "Firstname",
           lastName: "Lastname",
           email: "firstname.lastname@hackney.gov.uk",
+          id: "987654321",
         },
       },
     };
