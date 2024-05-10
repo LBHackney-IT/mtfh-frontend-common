@@ -76,6 +76,7 @@ export interface FurtherAccountInformation {
   rentLetterSentDate: Date | null;
   rentCardGivenDate: Date | null;
   tenureAcceptedDate: Date | null;
+  TenureRefusedDate: Date | null;
   isSection208NoticeSent: boolean | null;
 }
 
