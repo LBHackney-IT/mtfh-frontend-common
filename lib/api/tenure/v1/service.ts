@@ -8,6 +8,7 @@ import {
 } from "@mtfh/common/lib/http";
 
 import {
+  FurtherAccountInformation,
   HouseholdMember,
   TemporaryAccommodationInfo,
   Tenure,
@@ -79,6 +80,7 @@ export interface EditTenureParams extends Partial<TenureParams> {
   etag: string;
   tenuredAsset?: TenureAsset | null;
   tempAccommodationInfo?: TemporaryAccommodationInfo;
+  furtherAccountInformation?: FurtherAccountInformation;
 }
 
 export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<void> => {

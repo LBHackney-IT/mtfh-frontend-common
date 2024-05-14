@@ -130,6 +130,15 @@ describe("when editTenure is called", () => {
           id: "987654321",
         },
       },
+      furtherAccountInformation: {
+        isRentAccountRequired: true,
+        noRentAccountReason: "No reason",
+        rentLetterSentDate: new Date("2024-01-01"),
+        rentCardGivenDate: new Date("2023-01-01"),
+        tenureAcceptedDate: new Date("2022-01-01"),
+        tenureRefusedDate: new Date("2022-01-01"),
+        isSection208NoticeSent: true,
+      },
     };
     const response = {
       data: {},
@@ -145,6 +154,7 @@ describe("when editTenure is called", () => {
         startOfTenureDate: params.startOfTenureDate,
         endOfTenureDate: params.endOfTenureDate,
         tempAccommodationInfo: params.tempAccommodationInfo,
+        furtherAccountInformation: params.furtherAccountInformation,
       },
     );
     expect(editTenureResponse).toBe(response.data);
