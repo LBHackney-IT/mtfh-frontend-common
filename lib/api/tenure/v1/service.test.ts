@@ -136,7 +136,7 @@ describe("when editTenure is called", () => {
         rentLetterSentDate: new Date("2024-01-01"),
         rentCardGivenDate: new Date("2023-01-01"),
         tenureAcceptedDate: new Date("2022-01-01"),
-        TenureRefusedDate: new Date("2022-01-01"),
+        tenureRefusedDate: new Date("2022-01-01"),
         isSection208NoticeSent: true,
       },
     };
