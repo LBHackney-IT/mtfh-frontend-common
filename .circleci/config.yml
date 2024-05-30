@@ -82,7 +82,7 @@ commands:
             cd ./terraform/<<parameters.environment>>/
             terraform apply -auto-approve
 jobs:
-  install-dependencies:
+  install-dependencies: 
     executor: node-executor
     steps:
       - *attach_workspace
