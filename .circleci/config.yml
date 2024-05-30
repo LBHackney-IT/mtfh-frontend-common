@@ -345,7 +345,7 @@ workflows:
       #       - assume-role-development
       #     filters:
       #       branches:
-              only: main
+      #         only: main
       # - build-deploy-development:
       #     stage: "development"
       #     requires:
