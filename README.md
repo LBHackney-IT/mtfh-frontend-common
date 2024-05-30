@@ -13,7 +13,7 @@ introduced will need to be resolved in all microfrontends that consume it.
 We explictily do not expose any endpoints, or business logic (with authentication as the
 exception) into this module to avoid problematic releases.
 
-This is the checklist for a candidate:
+This is the checklist for a candidate: 
 
 - Your feature is used in more than 1 (preferably 2) microfrontends.
 - Your feature requires little to no maintenance.
