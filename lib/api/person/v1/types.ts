@@ -2,6 +2,7 @@ export type PersonType = "Tenant" | "Leaseholder" | "Freeholder" | "HouseholdMem
 
 export enum PersonTitle {
   MR = "Mr",
+  MX = "Mx",
   MRS = "Mrs",
   MISS = "Miss",
   MS = "Ms",
