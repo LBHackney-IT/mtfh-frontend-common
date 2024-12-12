@@ -4,22 +4,37 @@ import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/
 import type { Address } from "./types";
 
 export interface AddressAPIResponse {
-  data: { address: Address[] };
+  data: {
+    address: Address[];
+    total_count: number;
+  };
 }
 
 interface SearchAddressResponse {
   addresses?: Address[];
   error?: { code: number };
+  totalCount?: number;
 }
 
-export const searchAddress = async (postCode: string): Promise<SearchAddressResponse> =>
+export const searchAddress = async (
+  postCode: string,
+  structure?: string,
+): Promise<SearchAddressResponse> =>
   axiosInstance
-    .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?postcode=${postCode}`, {
-      headers: {
-        "skip-x-correlation-id": true,
+    .get<AddressAPIResponse>(
+      `${config.addressApiUrlV1}/addresses?postcode=${postCode}${
+        structure ? `&Structure=${structure}` : ""
+      }`,
+      {
+        headers: {
+          "skip-x-correlation-id": true,
+        },
       },
-    })
-    .then((res) => ({ addresses: res.data.data.address }))
+    )
+    .then((res) => ({
+      addresses: res.data.data.address,
+      totalCount: res.data.data.total_count,
+    }))
     .catch((res) => {
       if (res.message.toLowerCase().indexOf("network") !== -1) {
         return { error: { code: 500 } };
