@@ -6,14 +6,12 @@ import type { Address } from "./types";
 export interface AddressAPIResponse {
   data: {
     address: Address[];
-    total_count: number;
   };
 }
 
 interface SearchAddressResponse {
   addresses?: Address[];
   error?: { code: number };
-  totalCount?: number;
 }
 
 export const searchAddress = async (
@@ -33,7 +31,6 @@ export const searchAddress = async (
     )
     .then((res) => ({
       addresses: res.data.data.address,
-      totalCount: res.data.data.total_count,
     }))
     .catch((res) => {
       if (res.message.toLowerCase().indexOf("network") !== -1) {
