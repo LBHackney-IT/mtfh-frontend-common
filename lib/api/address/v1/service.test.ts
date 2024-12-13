@@ -17,7 +17,6 @@ jest.mock("@mtfh/common/lib/http", () => ({
         data: {
           data: {
             address: "",
-            totalCount: 0,
           },
         },
       }),
