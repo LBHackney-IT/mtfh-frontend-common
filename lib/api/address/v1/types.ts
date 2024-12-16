@@ -6,4 +6,5 @@ export interface Address {
   town: string;
   postcode: string;
   UPRN: number;
+  childAddresses?: Address[];
 }

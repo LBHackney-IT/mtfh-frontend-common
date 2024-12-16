@@ -28,12 +28,26 @@ jest.mock("@mtfh/common/lib/http", () => ({
 
 const postcode = "E8 1EA";
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("when searchAddress is called", () => {
   test("the request should be sent to the correct URL, with the correct postcode as a query parameter", async () => {
     await searchAddress(postcode);
 
     expect(axiosInstance.get).toBeCalledWith(
       `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
+
+  test("when structure is requested the request should be sent to the correct URL, with the correct structure as a query parameter", async () => {
+    const structure = "Hierarchy";
+    await searchAddress(postcode, structure);
+
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?postcode=${postcode}&Structure=${structure}`,
       { headers: { "skip-x-correlation-id": true } },
     );
   });
