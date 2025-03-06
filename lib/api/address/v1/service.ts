@@ -39,14 +39,22 @@ export const searchAddress = async (
       return res;
     });
 
-export const getAddressViaUprn = async (UPRN: string): Promise<SearchAddressResponse> => {
+export const getAddressViaUprn = async (
+  UPRN: string,
+  isParentUPRN?: boolean,
+): Promise<SearchAddressResponse> => {
   return new Promise<SearchAddressResponse>((resolve, reject) => {
     axiosInstance
-      .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${UPRN}`, {
-        headers: {
-          "skip-x-correlation-id": true,
+      .get<AddressAPIResponse>(
+        `${config.addressApiUrlV1}/addresses?${
+          isParentUPRN ? `parentUprn` : `uprn`
+        }=${UPRN}`,
+        {
+          headers: {
+            "skip-x-correlation-id": true,
+          },
         },
-      })
+      )
       .then((res) => resolve({ addresses: res.data.data.address }))
       .catch((error) => reject(error));
   });
