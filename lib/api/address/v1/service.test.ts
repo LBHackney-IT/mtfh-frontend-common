@@ -64,6 +64,17 @@ describe("when getAddressViaUprn is called", () => {
       { headers: { "skip-x-correlation-id": true } },
     );
   });
+
+  test("the request should be sent to the correct URL, with correct UPRN as a query parameter when using parent UPRN", async () => {
+    const uprn = "0123456789";
+
+    await getAddressViaUprn(uprn, true);
+
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?parentUprn=${uprn}`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
 });
 
 describe("when useAddressLookup is called", () => {
