@@ -42,13 +42,17 @@ export const searchAddress = async (
 export const getAddressViaUprn = async (
   UPRN: string,
   isParentUPRN?: boolean,
+  page?: number,
+  pageSize?: number,
 ): Promise<SearchAddressResponse> => {
   return new Promise<SearchAddressResponse>((resolve, reject) => {
     axiosInstance
       .get<AddressAPIResponse>(
         `${config.addressApiUrlV1}/addresses?${
           isParentUPRN ? `parentUprn` : `uprn`
-        }=${UPRN}`,
+        }=${UPRN}${page ? `&page=${page}` : ``}${
+          pageSize ? `&pageSize=${pageSize}` : ``
+        }`,
         {
           headers: {
             "skip-x-correlation-id": true,
