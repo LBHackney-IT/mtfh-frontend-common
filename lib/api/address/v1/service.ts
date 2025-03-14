@@ -6,15 +6,15 @@ import type { Address } from "./types";
 export interface AddressAPIResponse {
   data: {
     address: Address[];
-    page_count: number;
-    total_count: number;
+    page_count?: number;
+    total_count?: number;
   };
 }
 
 export interface SearchAddressResponse {
   addresses?: Address[];
-  pageCount: number;
-  totalCount: number;
+  pageCount?: number;
+  totalCount?: number;
   error?: { code: number };
 }
 
