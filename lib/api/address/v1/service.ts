@@ -6,11 +6,15 @@ import type { Address } from "./types";
 export interface AddressAPIResponse {
   data: {
     address: Address[];
+    page_count: number;
+    total_count: number;
   };
 }
 
-interface SearchAddressResponse {
+export interface SearchAddressResponse {
   addresses?: Address[];
+  pageCount: number;
+  totalCount: number;
   error?: { code: number };
 }
 
@@ -59,7 +63,13 @@ export const getAddressViaUprn = async (
           },
         },
       )
-      .then((res) => resolve({ addresses: res.data.data.address }))
+      .then((res) =>
+        resolve({
+          addresses: res.data.data.address,
+          pageCount: res.data.data.page_count,
+          totalCount: res.data.data.total_count,
+        }),
+      )
       .catch((error) => reject(error));
   });
 };
