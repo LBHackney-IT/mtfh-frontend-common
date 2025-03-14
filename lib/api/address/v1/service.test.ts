@@ -75,6 +75,33 @@ describe("when getAddressViaUprn is called", () => {
       { headers: { "skip-x-correlation-id": true } },
     );
   });
+
+  test("the request should be sent to the correct URL, with correct page as a query parameter when requested", async () => {
+    const uprn = "0123456789";
+    const isParentUPRN = undefined;
+    const page = 1;
+
+    await getAddressViaUprn(uprn, isParentUPRN, 1);
+
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?uprn=${uprn}&page=${page}`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
+
+  test("the request should be sent to the correct URL, with correct pageSize as a query parameter when requested", async () => {
+    const uprn = "0123456789";
+    const isParentUPRN = false;
+    const page = undefined;
+    const pageSize = 100;
+
+    await getAddressViaUprn(uprn, isParentUPRN, page, pageSize);
+
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.addressApiUrlV1}/addresses?uprn=${uprn}&pageSize=${pageSize}`,
+      { headers: { "skip-x-correlation-id": true } },
+    );
+  });
 });
 
 describe("when useAddressLookup is called", () => {
