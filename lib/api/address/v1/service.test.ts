@@ -3,11 +3,23 @@ import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/
 
 import {
   AddressAPIResponse,
+  SearchAddressResponse,
   getAddressViaUprn,
   searchAddress,
   useAddressLookup,
 } from "./service";
 import { Address } from "./types";
+
+const PAGE_COUNT = 2;
+const TOTAL_COUNT = 70;
+
+const mockAddressAPIResponse: AddressAPIResponse = {
+  data: {
+    address: [],
+    page_count: PAGE_COUNT,
+    total_count: TOTAL_COUNT,
+  },
+};
 
 jest.mock("@mtfh/common/lib/http", () => ({
   ...jest.requireActual("@mtfh/common/lib/http"),
@@ -15,9 +27,7 @@ jest.mock("@mtfh/common/lib/http", () => ({
     get: jest.fn().mockImplementation(() =>
       Promise.resolve({
         data: {
-          data: {
-            address: "",
-          },
+          ...mockAddressAPIResponse,
         },
       }),
     ),
@@ -101,6 +111,14 @@ describe("when getAddressViaUprn is called", () => {
       `${config.addressApiUrlV1}/addresses?uprn=${uprn}&pageSize=${pageSize}`,
       { headers: { "skip-x-correlation-id": true } },
     );
+  });
+
+  test("the response contains correct paging properties and values", async () => {
+    const uprn = "0123456789";
+    const response: SearchAddressResponse = await getAddressViaUprn(uprn);
+
+    expect(response.pageCount).toBe(PAGE_COUNT);
+    expect(response.totalCount).toBe(TOTAL_COUNT);
   });
 });
 
