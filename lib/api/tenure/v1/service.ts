@@ -7,7 +7,15 @@ import {
   useAxiosSWR,
 } from "@mtfh/common/lib/http";
 
-import { HouseholdMember, Tenure, TenureAsset, TenureType } from "./types";
+import {
+  Charges,
+  FurtherAccountInformation,
+  HouseholdMember,
+  TemporaryAccommodationInfo,
+  Tenure,
+  TenureAsset,
+  TenureType,
+} from "./types";
 
 export const useTenure = (
   id: string | null,
@@ -67,10 +75,14 @@ export const removePersonFromTenure = async (
     `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
   );
 };
+
 export interface EditTenureParams extends Partial<TenureParams> {
   id: string;
   etag: string;
   tenuredAsset?: TenureAsset | null;
+  tempAccommodationInfo?: TemporaryAccommodationInfo;
+  furtherAccountInformation?: FurtherAccountInformation;
+  charges?: Charges;
 }
 
 export const editTenure = async ({ id, ...data }: EditTenureParams): Promise<void> => {

@@ -4,22 +4,38 @@ import { AxiosSWRConfiguration, axiosInstance, useAxiosSWR } from "@mtfh/common/
 import type { Address } from "./types";
 
 export interface AddressAPIResponse {
-  data: { address: Address[] };
+  data: {
+    address: Address[];
+    page_count?: number;
+    total_count?: number;
+  };
 }
 
-interface SearchAddressResponse {
+export interface SearchAddressResponse {
   addresses?: Address[];
+  pageCount?: number;
+  totalCount?: number;
   error?: { code: number };
 }
 
-export const searchAddress = async (postCode: string): Promise<SearchAddressResponse> =>
+export const searchAddress = async (
+  postCode: string,
+  structure?: string,
+): Promise<SearchAddressResponse> =>
   axiosInstance
-    .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?postcode=${postCode}`, {
-      headers: {
-        "skip-x-correlation-id": true,
+    .get<AddressAPIResponse>(
+      `${config.addressApiUrlV1}/addresses?postcode=${postCode}${
+        structure ? `&Structure=${structure}` : ""
+      }`,
+      {
+        headers: {
+          "skip-x-correlation-id": true,
+        },
       },
-    })
-    .then((res) => ({ addresses: res.data.data.address }))
+    )
+    .then((res) => ({
+      addresses: res.data.data.address,
+    }))
     .catch((res) => {
       if (res.message.toLowerCase().indexOf("network") !== -1) {
         return { error: { code: 500 } };
@@ -27,15 +43,33 @@ export const searchAddress = async (postCode: string): Promise<SearchAddressResp
       return res;
     });
 
-export const getAddressViaUprn = async (UPRN: string): Promise<SearchAddressResponse> => {
+export const getAddressViaUprn = async (
+  UPRN: string,
+  isParentUPRN?: boolean,
+  page?: number,
+  pageSize?: number,
+): Promise<SearchAddressResponse> => {
   return new Promise<SearchAddressResponse>((resolve, reject) => {
     axiosInstance
-      .get<AddressAPIResponse>(`${config.addressApiUrlV1}/addresses?uprn=${UPRN}`, {
-        headers: {
-          "skip-x-correlation-id": true,
+      .get<AddressAPIResponse>(
+        `${config.addressApiUrlV1}/addresses?${
+          isParentUPRN ? `parentUprn` : `uprn`
+        }=${UPRN}${page ? `&page=${page}` : ``}${
+          pageSize ? `&pageSize=${pageSize}` : ``
+        }`,
+        {
+          headers: {
+            "skip-x-correlation-id": true,
+          },
         },
-      })
-      .then((res) => resolve({ addresses: res.data.data.address }))
+      )
+      .then((res) =>
+        resolve({
+          addresses: res.data.data.address,
+          pageCount: res.data.data.page_count,
+          totalCount: res.data.data.total_count,
+        }),
+      )
       .catch((error) => reject(error));
   });
 };

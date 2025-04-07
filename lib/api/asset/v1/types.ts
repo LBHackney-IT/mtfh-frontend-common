@@ -1,24 +1,24 @@
-import { Patch } from "@mtfh/common/lib/api/patch/v1/types";
-
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export enum RentGroup {
-  GPS,
-  HGF,
-  HRA,
-  LMW,
-  LSC,
-  RSL,
-  TAG,
-  TAH,
-  TRA,
+  GPS = "Garages & Parking Spaces HRA",
+  HGF = "Housing General Fund",
+  HRA = "Housing Revenue Account",
+  LMW = "Leasehold Major Works",
+  LSC = "Leasehold Service Charges",
+  RSL = "Registered Social Landlord and XBorough",
+  TAG = "Temporary Accommodation General Fund",
+  TAH = "Temporary Accommodation HRA",
+  TRA = "Travellers General Fund",
 }
 
 export interface Asset {
   id: string;
+  patchId: string;
+  areaId: string;
   assetId: string;
   assetType: AssetType;
-  rentGroup: RentGroup | null;
+  rentGroup?: RentGroup | null;
   assetLocation: AssetLocation;
   assetAddress: AssetAddress;
   assetManagement: AssetManagement;
@@ -27,7 +27,6 @@ export interface Asset {
   rootAsset: string;
   parentAssetIds: string;
   boilerHouseId: string;
-  patches?: Patch[];
   versionNumber?: number;
 }
 
@@ -101,7 +100,10 @@ export interface EditAssetAddressRequest {
 export interface CreateNewAssetRequest {
   id: string;
   assetId: string;
+  areaId?: string;
+  patchId?: string;
   assetType: string;
+  rentGroup?: RentGroup | null;
   isActive: boolean;
   parentAssetIds: string;
   assetLocation: {
@@ -133,7 +135,6 @@ export interface CreateNewAssetRequest {
     windowType: string;
     numberOfLifts: number | null;
   };
-  patches?: Patch[];
   addDefaultSorContracts: boolean;
 }
 

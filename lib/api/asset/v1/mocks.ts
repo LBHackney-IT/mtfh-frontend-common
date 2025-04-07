@@ -1,4 +1,3 @@
-import { mockPatch } from "../../patch/v1/mocks";
 import {
   Asset,
   AssetAddress,
@@ -75,6 +74,8 @@ export const mockAssetLocation: AssetLocation = {
 
 export const mockAsset: Asset = {
   id: "15adc44b-6fde-46e8-af9c-e18b1495c9ab",
+  areaId: "33366d51-4691-4e15-b3eb-1e09d185d4e0",
+  patchId: "bb02e7e9-cf50-4b06-a53a-61de04aa2942",
   assetId: "100021045676",
   assetType: "LettableNonDwelling",
   rentGroup: RentGroup.HRA,
@@ -86,15 +87,17 @@ export const mockAsset: Asset = {
   assetCharacteristics: mockAssetCharacteristics,
   tenure: mockAssetTenure,
   versionNumber: 2,
-  patches: [mockPatch],
   boilerHouseId: "",
 };
 
 export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
   id: "3f44819f-f3b4-4363-88b6-4575aa4bc5b0",
   assetId: "1234",
+  areaId: "9671693d-9423-4c69-8fc1-71774b916f88",
+  patchId: "acde55f5-6b2c-4d2e-9a74-c0cd78b55ec1",
   parentAssetIds: "",
   assetType: "Dwelling",
+  rentGroup: RentGroup.HRA,
   isActive: true,
   assetLocation: mockAssetLocation,
   assetAddress: mockAssetAddress,
@@ -106,7 +109,6 @@ export const mockCreateNewAssetRequest: CreateNewAssetRequest = {
     windowType: "DBL",
     yearConstructed: "0",
   },
-  patches: [mockPatch],
   addDefaultSorContracts: true,
 };
 
