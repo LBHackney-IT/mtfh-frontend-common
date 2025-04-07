@@ -152,3 +152,8 @@ export interface PatchAssetBoilerHouseRequest {
 export interface PatchAssetLbhOwnershipRequest {
   assetManagement: AssetManagement;
 }
+
+export interface UpdatePropertyPatchRequest {
+  patchId: string;
+  areaId: string;
+}

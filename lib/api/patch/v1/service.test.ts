@@ -8,6 +8,7 @@ import {
   getAllPatchesAndAreas,
   replacePatchResponsibleEntities,
   usePatchOrArea,
+  getByPatchName
 } from "./service";
 import { ResponsibleEntity } from "./types";
 
@@ -95,6 +96,18 @@ describe("when replacePatchResponsibleEntities is called", () => {
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntities`,
       [mockUpdatePatchesAndAreasRequest],
       { headers: { "If-Match": `"${patchVersion}"` } },
+    );
+  });
+});
+
+describe("when get patch by patchName is called", () => {
+  test("the request should be sent to the correct URL", async () => {
+    const patchName = "HN1";
+    await getByPatchName(patchName);
+
+    expect(useAxiosSWR).toBeCalledWith(
+      `${config.patchesAndAreasApiUrlV1}/patch/${patchName}`,
+      undefined,
     );
   });
 });
