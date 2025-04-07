@@ -7,7 +7,7 @@ import {
   mockEditAssetAddressRequest,
   mockEditAssetBoilerHouseRequest,
   mockEditAssetOwnershipRequest,
-  mockUpdatePropertyPatchRequest
+  mockUpdatePropertyPatchRequest,
 } from "./mocks";
 import {
   createAsset,

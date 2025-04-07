@@ -6,9 +6,9 @@ import {
   addResponsibleEntityToPatch,
   deletePatchesAndAreasResponsibilities,
   getAllPatchesAndAreas,
+  getByPatchName,
   replacePatchResponsibleEntities,
   usePatchOrArea,
-  getByPatchName
 } from "./service";
 import { ResponsibleEntity } from "./types";
 
@@ -103,11 +103,10 @@ describe("when replacePatchResponsibleEntities is called", () => {
 describe("when get patch by patchName is called", () => {
   test("the request should be sent to the correct URL", async () => {
     const patchName = "HN1";
-    await getByPatchName(patchName);
+    getByPatchName(patchName);
 
-    expect(useAxiosSWR).toBeCalledWith(
-      `${config.patchesAndAreasApiUrlV1}/patch/${patchName}`,
-      undefined,
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.patchesAndAreasApiUrlV1}/patch/patchName/${patchName}`,
     );
   });
 });

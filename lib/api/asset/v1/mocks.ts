@@ -11,7 +11,7 @@ import {
   PatchAssetBoilerHouseRequest,
   PatchAssetLbhOwnershipRequest,
   RentGroup,
-  UpdatePropertyPatchRequest
+  UpdatePropertyPatchRequest,
 } from "./types";
 
 export const mockAssetTenure: AssetTenure = {
@@ -146,6 +146,6 @@ export const mockEditAssetOwnershipRequest: PatchAssetLbhOwnershipRequest = {
 };
 
 export const mockUpdatePropertyPatchRequest: UpdatePropertyPatchRequest = {
-   "patchId": "88ed852c-2d7d-4293-8059-136aa9c7b7a5",
-   "areaId": "9278e2dd-b43f-4a93-9f58-cd85b392f8d7"
+  patchId: "88ed852c-2d7d-4293-8059-136aa9c7b7a5",
+  areaId: "9278e2dd-b43f-4a93-9f58-cd85b392f8d7",
 };
