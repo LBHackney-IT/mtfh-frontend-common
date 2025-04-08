@@ -14,6 +14,7 @@ import {
   GetAssetRelationshipsResponse,
   PatchAssetBoilerHouseRequest,
   PatchAssetLbhOwnershipRequest,
+  UpdatePropertyPatchRequest,
 } from "./types";
 
 export const getAsset = async (id: string) => {
@@ -111,6 +112,23 @@ export const createAsset = async (request: CreateNewAssetRequest) => {
   return new Promise<void>((resolve, reject) => {
     axiosInstance
       .post(`${config.assetApiUrlV1}/assets/`, request)
+      .then(() => resolve())
+      .catch(() => reject());
+  });
+};
+
+export const updatePropertyPatch = async (
+  id: string,
+  propertypatch: UpdatePropertyPatchRequest,
+  assetVersion: string | null,
+) => {
+  return new Promise<void>((resolve, reject) => {
+    axiosInstance
+      .patch(`${config.assetApiUrlV1}/assets/${id}/patch`, propertypatch, {
+        headers: {
+          "If-Match": assetVersion,
+        },
+      })
       .then(() => resolve())
       .catch(() => reject());
   });

@@ -7,12 +7,14 @@ import {
   mockEditAssetAddressRequest,
   mockEditAssetBoilerHouseRequest,
   mockEditAssetOwnershipRequest,
+  mockUpdatePropertyPatchRequest,
 } from "./mocks";
 import {
   createAsset,
   getAsset,
   patchAsset,
   patchAssetAddress,
+  updatePropertyPatch,
   useAsset,
 } from "./service";
 
@@ -113,5 +115,20 @@ describe("when createAsset is called", () => {
 
     // The error will be thrown even before the POST request is sent
     await expect(createAsset(payloadWithMultipleParents)).rejects.toThrow(Error);
+  });
+});
+
+describe("when updatePropertyPatch is called", () => {
+  test("the request should be sent to the correct URL, with the correct payload and asset GUID as a query parameter", async () => {
+    const assetGuid = "15adc44b-6fde-46e8-af9c-e18b1495c9ab";
+    const assetVersion = "3";
+
+    await updatePropertyPatch(assetGuid, mockUpdatePropertyPatchRequest, assetVersion);
+
+    expect(axiosInstance.patch).toBeCalledWith(
+      `${config.assetApiUrlV1}/assets/${assetGuid}/patch`,
+      mockUpdatePropertyPatchRequest,
+      { headers: { "If-Match": assetVersion } },
+    );
   });
 });

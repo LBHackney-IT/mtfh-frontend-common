@@ -6,6 +6,7 @@ import {
   addResponsibleEntityToPatch,
   deletePatchesAndAreasResponsibilities,
   getAllPatchesAndAreas,
+  getByPatchName,
   replacePatchResponsibleEntities,
   usePatchOrArea,
 } from "./service";
@@ -95,6 +96,17 @@ describe("when replacePatchResponsibleEntities is called", () => {
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntities`,
       [mockUpdatePatchesAndAreasRequest],
       { headers: { "If-Match": `"${patchVersion}"` } },
+    );
+  });
+});
+
+describe("when get patch by patchName is called", () => {
+  test("the request should be sent to the correct URL", async () => {
+    const patchName = "HN1";
+    getByPatchName(patchName);
+
+    expect(axiosInstance.get).toBeCalledWith(
+      `${config.patchesAndAreasApiUrlV1}/patch/patchName/${patchName}`,
     );
   });
 });
