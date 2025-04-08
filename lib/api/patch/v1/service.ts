@@ -31,7 +31,7 @@ export const usePatchOrArea = (
 };
 
 export const getByPatchName = async (patchName: string): Promise<void> => {
-  await axiosInstance.get(
+  return axiosInstance.get(
     `${config.patchesAndAreasApiUrlV1}/patch/patchName/${patchName}`,
   );
 };
