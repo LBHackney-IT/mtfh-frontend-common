@@ -14,7 +14,7 @@ import {
   GetAssetRelationshipsResponse,
   PatchAssetBoilerHouseRequest,
   PatchAssetLbhOwnershipRequest,
-  UpdatePropertyPatch,
+  UpdatePropertyPatchRequest,
 } from "./types";
 
 export const getAsset = async (id: string) => {
@@ -119,7 +119,7 @@ export const createAsset = async (request: CreateNewAssetRequest) => {
 
 export const updatePropertyPatch = async (
   id: string,
-  propertypatch: UpdatePropertyPatch,
+  propertypatch: UpdatePropertyPatchRequest,
   assetVersion: string | null,
 ) => {
   return new Promise<void>((resolve, reject) => {
