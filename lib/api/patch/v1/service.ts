@@ -30,7 +30,7 @@ export const usePatchOrArea = (
   return useAxiosSWR(`${config.patchesAndAreasApiUrlV1}/patch/${patchId}`, options);
 };
 
-export const getByPatchName = async (patchName: string): Promise<void> => {
+export const getByPatchName = async (patchName: string): Promise<Patch> => {
   return axiosInstance.get(
     `${config.patchesAndAreasApiUrlV1}/patch/patchName/${patchName}`,
   );
