@@ -226,18 +226,6 @@ resource "aws_ssm_parameter" "repairs_hub_api_url" {
   }
 }
 
-resource "aws_ssm_parameter" "process_api_url_v1" {
-  name  = "/housing-tl/${var.environment_display_name}/process-api-url-v1"
-  type  = "String"
-  value = "to_be_set_manually"
-
-  lifecycle {
-    ignore_changes = [
-      value,
-    ]
-  }
-}
-
 resource "aws_ssm_parameter" "process_api_url_v2" {
   name  = "/housing-tl/${var.environment_display_name}/process-api-url-v2"
   type  = "String"
