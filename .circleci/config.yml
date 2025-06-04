@@ -61,6 +61,30 @@ commands:
           root: *workspace_root
           paths:
             - .aws
+  terraform-init-then-plan:
+    description: "Initializes and run plan from terraform configuration"
+    parameters:
+      environment:
+        type: string
+    steps:
+      - *attach_workspace
+      - checkout
+      - run:
+          command: |
+            cd ./terraform/<<parameters.environment>>/
+            terraform get -update=true
+            terraform init
+          name: get and init
+      - run:
+          name: plan
+          command: |
+            cd ./terraform/<<parameters.environment>>/
+            terraform plan -out=plan.out
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
+            - project/*
 
   terraform-init-then-apply:
     description: "Initialize and apply the terraform configuration"
@@ -258,6 +282,53 @@ jobs:
             aws s3 sync dist s3://lbh-housing-tl-common-frontend-production.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
             aws s3 sync dist s3://lbh-housing-tl-common-frontend-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
 
+  build-deploy-pre-production:
+    executor: node-executor
+    environment:
+      aws-region: eu-west-2
+    parameters:
+      stage:
+        type: string
+    steps:
+      - *attach_workspace
+      - aws-cli/install
+      - run:
+          name: build
+          command: |
+            export APP_ENV=pre-production
+            export APP_CDN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/common-app-url --query Parameter.Value --output text)
+            export AUTH_ALLOWED_GROUPS=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-allowed-groups --query Parameter.Value --output text)
+            export AUTH_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-domain --query Parameter.Value --output text)
+            export COOKIE_DOMAIN=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cookie-domain --query Parameter.Value --output text)
+            export AUTH_TOKEN_NAME=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/auth-token-name --query Parameter.Value --output text)
+            export CONFIGURATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/configuration-api-url --query Parameter.Value --output text)
+            export CONTACT_DETAILS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/contact-details-api-url --query Parameter.Value --output text)
+            export CONTACT_DETAILS_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/contact-details-api-url-v2 --query Parameter.Value --output text)
+            export CAUTIONARY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cautionary-api-url-v1 --query Parameter.Value --output text)
+            export PERSON_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url --query Parameter.Value --output text)
+            export PERSON_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/person-api-url-v2 --query Parameter.Value --output text)
+            export NOTES_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url --query Parameter.Value --output text)
+            export NOTES_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/notes-api-url-v2 --query Parameter.Value --output text)
+            export TENURE_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/tenure-api-url --query Parameter.Value --output text)
+            export PROPERTY_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/property-api-url --query Parameter.Value --output text)
+            export REFERENCE_DATA_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/reference-data-api-url --query Parameter.Value --output text)
+            export ADDRESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/address-api-url --query Parameter.Value --output text)
+            export ADDRESS_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/address-api-url-v2 --query Parameter.Value --output text)
+            export EQUALITY_INFORMATION_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/equality-information-api-url --query Parameter.Value --output text)
+            export REPAIRS_HUB_APP_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-app-url --query Parameter.Value --output text)
+            export REPAIRS_HUB_API_URL=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/repairs-hub-api-url --query Parameter.Value --output text)
+            export PROCESS_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v1 --query Parameter.Value --output text)
+            export PROCESS_API_URL_V2=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/process-api-url-v2 --query Parameter.Value --output text)
+            export HOUSING_FINANCE_INTERIM_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/housing-finance-interim-api-url --query Parameter.Value --output text)
+            export PATCHES_AND_AREAS_API_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/patches-and-areas-api-url --query Parameter.Value --output text)
+            export HOUSINGSEARCH_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
+            yarn build
+      - run:
+          name: Deploy to S3
+          command: |
+            aws s3 sync dist s3://lbh-housing-tl-common-frontend-pre-production.hackney.gov.uk/ --exclude "*.json" --cache-control "public, immutable, max-age=31536000"
+            aws s3 sync dist s3://lbh-housing-tl-common-frontend-pre-production.hackney.gov.uk/ --include "*.json" --cache-control "public, must-revalidate, max-age=0"
+
   assume-role-development:
     executor: docker-python
     steps:
@@ -316,140 +387,204 @@ jobs:
           echo downstream e2e tests have failed! Please check the e2e pipeline: ;
           echo -e 'https://circleci.com/api/v2/project/gh/LBHackney-IT/mtfh-tl-e2e-tests/pipeline' ;
           exit 1
+
+  assume-role-pre-production:
+    executor: docker-python
+    steps:
+      - assume-role-and-persist-workspace:
+          aws-account: $AWS_ACCOUNT_PRE_PRODUCTION
+  terraform-init-and-plan-pre-production:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-plan:
+          environment: "pre-production"
+  terraform-apply-pre-production:
+    executor: docker-terraform
+    steps:
+      - terraform-init-then-apply:
+          environment: "pre-production"
+
 workflows:
   version: 2
-  continuous-delivery-development:
-    when: << pipeline.parameters.run_development_workflow >>
-    jobs:
-      - install-dependencies
-      - lint-and-test:
-          requires:
-            - install-dependencies
-      # - security-scan:
-      #     context: mtfh-security-scan
-      #     requires:
-      #       - lint-and-test
-      #     filters:
-      #       branches:
-      #         only: main
-      - assume-role-development:
-          context: api-assume-role-housing-development-context
-          requires:
-            # - security-scan
-            - lint-and-test
-          filters:
-            branches:
-              only: main
-      - terraform-init-and-apply-to-development:
-          requires:
-            - assume-role-development
-          filters:
-            branches:
-              only: main
-      - build-deploy-development:
-          stage: "development"
-          requires:
-            - terraform-init-and-apply-to-development
-          filters:
-            branches:
-              only: main
-      - trigger-e2e-pipeline:
-          context: mtfh-mfe-e2e-tests
-          stage: "development"
-          requires:
-            - build-deploy-development
-          filters:
-            branches:
-              only: main
+  # continuous-delivery-development:
+  #   when: << pipeline.parameters.run_development_workflow >>
+  #   jobs:
+  #     - install-dependencies
+  #     - lint-and-test:
+  #         requires:
+  #           - install-dependencies
+  #     # - security-scan:
+  #     #     context: mtfh-security-scan
+  #     #     requires:
+  #     #       - lint-and-test
+  #     #     filters:
+  #     #       branches:
+  #     #         only: main
+  #     - permit-deploy-development:
+  #         type: approval
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - assume-role-development:
+  #         context: api-assume-role-housing-development-context
+  #         requires:
+  #           # - security-scan
+  #           - lint-and-test
+  #           - permit-deploy-development
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - terraform-init-and-apply-to-development:
+  #         requires:
+  #           - assume-role-development
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - build-deploy-development:
+  #         stage: "development"
+  #         requires:
+  #           - terraform-init-and-apply-to-development
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - trigger-e2e-pipeline:
+  #         context: mtfh-mfe-e2e-tests
+  #         stage: "development"
+  #         requires:
+  #           - build-deploy-development
+  #         filters:
+  #           branches:
+  #             only: main
 
-  continuous-delivery-staging:
-    when: << pipeline.parameters.run_staging_workflow >>
+  # continuous-delivery-staging:
+  #   when: << pipeline.parameters.run_staging_workflow >>
+  #   jobs:
+  #     - permit-deploy-staging:
+  #         type: approval
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - install-dependencies:
+  #         requires:
+  #           - permit-deploy-staging
+  #     - lint-and-test:
+  #         requires:
+  #           - install-dependencies
+  #     - assume-role-staging:
+  #         context: api-assume-role-housing-staging-context
+  #         requires:
+  #           - lint-and-test
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - terraform-init-and-apply-to-staging:
+  #         requires:
+  #           - assume-role-staging
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - build-deploy-staging:
+  #         stage: "staging"
+  #         requires:
+  #           - terraform-init-and-apply-to-staging
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - trigger-e2e-pipeline:
+  #         context: mtfh-mfe-e2e-tests
+  #         stage: "staging"
+  #         requires:
+  #           - build-deploy-staging
+  #         filters:
+  #           branches:
+  #             only: main
+
+  # continuous-delivery-production:
+  #   when: << pipeline.parameters.run_production_workflow >>
+  #   jobs:
+  #     - permit-production-terraform-release:
+  #         type: approval
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - install-dependencies:
+  #         requires:
+  #           - permit-production-terraform-release
+  #     - lint-and-test:
+  #         requires:
+  #           - install-dependencies
+  #     - assume-role-production:
+  #         context: api-assume-role-housing-production-context
+  #         requires:
+  #           - lint-and-test
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - terraform-init-and-apply-to-production:
+  #         requires:
+  #           - assume-role-production
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - build-deploy-production:
+  #         stage: "production"
+  #         requires:
+  #           - terraform-init-and-apply-to-production
+  #         filters:
+  #           branches:
+  #             only: main
+  #     - trigger-e2e-pipeline:
+  #         context: mtfh-mfe-e2e-tests
+  #         stage: "production"
+  #         requires:
+  #           - build-deploy-production
+  #         filters:
+  #           branches:
+  #             only: main
+
+  # e2e-tests-failure:
+  #   when: << pipeline.parameters.e2e_test_failure >>
+  #   jobs:
+  #     - failure-downstream:
+  #         context: mtfh-mfe-e2e-tests
+
+  deploy-terraform-pre-production:
     jobs:
-      - permit-deploy-staging:
+      - permit-pre-production-terraform-workflow:
           type: approval
           filters:
             branches:
-              only: main
-      - install-dependencies:
+              only: ts-2072-add-pre-production-workflows
+      - assume-role-pre-production:
+          context: api-assume-role-housing-pre-production-context
           requires:
-            - permit-deploy-staging
-      - lint-and-test:
+            - permit-pre-production-terraform-workflow
+      - terraform-init-and-plan-pre-production:
           requires:
-            - install-dependencies
-      - assume-role-staging:
-          context: api-assume-role-housing-staging-context
+            - assume-role-pre-production
+      - permit-pre-production-terraform-deployment:
+          type: approval
           requires:
-            - lint-and-test
-          filters:
-            branches:
-              only: main
-      - terraform-init-and-apply-to-staging:
+            - terraform-init-and-plan-pre-production
+      - terraform-apply-pre-production:
           requires:
-            - assume-role-staging
-          filters:
-            branches:
-              only: main
-      - build-deploy-staging:
-          stage: "staging"
-          requires:
-            - terraform-init-and-apply-to-staging
-          filters:
-            branches:
-              only: main
-      - trigger-e2e-pipeline:
-          context: mtfh-mfe-e2e-tests
-          stage: "staging"
-          requires:
-            - build-deploy-staging
-          filters:
-            branches:
-              only: main
+            - permit-pre-production-terraform-deployment
 
-  continuous-delivery-production:
-    when: << pipeline.parameters.run_production_workflow >>
+  deploy-code-pre-production:
     jobs:
-      - permit-production-terraform-release:
+      - permit-pre-production-code-workflow:
           type: approval
           filters:
             branches:
-              only: main
+              only: ts-2072-add-pre-production-workflows
       - install-dependencies:
           requires:
-            - permit-production-terraform-release
-      - lint-and-test:
+            - permit-pre-production-code-workflow
+      - assume-role-pre-production:
+          context: api-assume-role-housing-pre-production-context
           requires:
             - install-dependencies
-      - assume-role-production:
-          context: api-assume-role-housing-production-context
+      - build-deploy-pre-production:
+          stage: pre-production
           requires:
-            - lint-and-test
-          filters:
-            branches:
-              only: main
-      - terraform-init-and-apply-to-production:
-          requires:
-            - assume-role-production
-          filters:
-            branches:
-              only: main
-      - build-deploy-production:
-          stage: "production"
-          requires:
-            - terraform-init-and-apply-to-production
-          filters:
-            branches:
-              only: main
-      - trigger-e2e-pipeline:
-          context: mtfh-mfe-e2e-tests
-          stage: "production"
-          requires:
-            - build-deploy-production
-          filters:
-            branches:
-              only: main
-
-  e2e-tests-failure:
-    when: << pipeline.parameters.e2e_test_failure >>
-    jobs:
-      - failure-downstream:
-          context: mtfh-mfe-e2e-tests
+            - assume-role-pre-production
