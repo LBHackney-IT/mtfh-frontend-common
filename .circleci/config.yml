@@ -420,17 +420,11 @@ workflows:
       #     filters:
       #       branches:
       #         only: main
-      - permit-deploy-development:
-          type: approval
-          filters:
-            branches:
-              only: main
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
             # - security-scan
             - lint-and-test
-            - permit-deploy-development
           filters:
             branches:
               only: main
