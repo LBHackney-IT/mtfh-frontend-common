@@ -548,7 +548,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: ts-2072-fix-bucket-configuration
+              only: main
       - assume-role-pre-production:
           context: api-assume-role-housing-pre-production-context
           requires:
@@ -570,7 +570,7 @@ workflows:
           type: approval
           filters:
             branches:
-              only: main
+              only: ts-2072-fix-bucket-configuration
       - install-dependencies:
           requires:
             - permit-pre-production-code-workflow
