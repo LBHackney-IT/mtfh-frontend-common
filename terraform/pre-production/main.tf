@@ -30,6 +30,15 @@ resource "aws_s3_bucket" "frontend_bucket_pre_production" {
     Application = "MTFH Housing Pre-Production"
     TeamEmail   = "developementteam@hackney.gov.uk"
   }
+
+  # Stop aws_s3_bucket_website_configuration and aws_s3_bucket_cors_configuration resources being constantly removed and re-created
+  # This is expected behavior with aws provider v3.x, so lifecycle rules must be used to stop unnecessary changes
+  lifecycle {
+    ignore_changes = [
+      website,
+      cors_rule
+    ]
+  }
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "enable_encryption" {
@@ -56,34 +65,6 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
   restrict_public_buckets = true
 }
 
-data "aws_iam_policy_document" "s3_allow_ssl_requests_only" {
-  statement {
-    sid     = "AllowSSLRequestsOnly"
-    effect  = "Deny"
-    actions = ["s3:*"]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    resources = [
-      aws_s3_bucket.frontend_bucket_pre_production.arn,
-      "${aws_s3_bucket.frontend_bucket_pre_production.arn}/*",
-    ]
-    condition {
-      test     = "Bool"
-      variable = "aws:SecureTransport"
-      values = [
-        "false"
-      ]
-    }
-  }
-}
-
-resource "aws_s3_bucket_policy" "bucket_policy" {
-  bucket = aws_s3_bucket.frontend_bucket_pre_production.id
-  policy = data.aws_iam_policy_document.s3_allow_ssl_requests_only.json
-}
-
 resource "aws_s3_bucket_cors_configuration" "cors" {
   bucket = aws_s3_bucket.frontend_bucket_pre_production.id
 
@@ -91,7 +72,7 @@ resource "aws_s3_bucket_cors_configuration" "cors" {
     allowed_headers = ["*"]
     allowed_methods = ["GET"]
     allowed_origins = [
-      "https://temporary-accommodation-pre-production.hackney.gov.uk/"
+      "https://temporary-accommodation-pre-production.hackney.gov.uk"
     ]
     expose_headers  = ["x-amz-server-side-encryption", "x-amz-request-id", "x-amz-id-2"]
     max_age_seconds = 3000
@@ -111,7 +92,7 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 
 module "cloudfront_pre_production" {
-  source                       = "github.com/LBHackney-IT/aws-hackney-common-terraform.git//modules/cloudfront/s3_distribution"
+  source                       = "github.com/LBHackney-IT/aws-cloudfront-distribution-lbh.git?ref=7cb100da85a41eb2f5dcbef0739fd2f0580f92f8" #test SSL policy update
   s3_domain_name               = aws_s3_bucket.frontend_bucket_pre_production.bucket_regional_domain_name
   origin_id                    = "mtfh-t-and-l-common-frontend"
   s3_bucket_arn                = aws_s3_bucket.frontend_bucket_pre_production.arn
