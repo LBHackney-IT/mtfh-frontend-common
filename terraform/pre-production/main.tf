@@ -92,7 +92,7 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 
 module "cloudfront_pre_production" {
-  source                       = "github.com/LBHackney-IT/aws-cloudfront-distribution-lbh.git?ref=7cb100da85a41eb2f5dcbef0739fd2f0580f92f8" #test SSL policy update
+  source                       = "github.com/LBHackney-IT/aws-cloudfront-distribution-lbh.git?ref=23134a34e2473026cebfc678e6150fd3ccbe30e8" #v.2.0.0
   s3_domain_name               = aws_s3_bucket.frontend_bucket_pre_production.bucket_regional_domain_name
   origin_id                    = "mtfh-t-and-l-common-frontend"
   s3_bucket_arn                = aws_s3_bucket.frontend_bucket_pre_production.arn
