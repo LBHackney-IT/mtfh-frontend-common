@@ -87,9 +87,14 @@ export interface TemporaryAccommodationOfficer {
   email?: string | null;
 }
 
+export interface EmergencyBooking extends FurtherAccountInformation {
+  draftBooking: boolean;
+}
+
 export interface TemporaryAccommodationInfo {
   bookingStatus?: string | null;
   assignedOfficer?: TemporaryAccommodationOfficer | null;
+  emergencyBooking?: EmergencyBooking;
 }
 
 export interface Tenure {
