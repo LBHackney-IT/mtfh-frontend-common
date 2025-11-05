@@ -28,7 +28,7 @@ resource "aws_s3_bucket" "frontend-bucket-production" {
       # "https://hfs.hackney.gov.uk",
       # "https://finance-services.hackney.gov.uk",
       # "https://temporary-accommodation.hackney.gov.uk"
-      "d3ppg9e4a4i9up.cloudfront.net",
+      "https://d3ppg9e4a4i9up.cloudfront.net",
       ]
     expose_headers  = ["x-amz-server-side-encryption","x-amz-request-id","x-amz-id-2"]
     max_age_seconds = 3000
