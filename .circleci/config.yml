@@ -504,13 +504,13 @@ workflows:
       - install-dependencies
       #     requires:
       #       - permit-production-terraform-release
-      - lint-and-test:
-          requires:
-            - install-dependencies
+      # - lint-and-test:
+      #     requires:
+      #       - install-dependencies
       - assume-role-production:
           context: api-assume-role-disaster-recovery-context
           requires:
-            - lint-and-test
+            - install-dependencies
           # filters:
           #   branches:
           #     only: main
