@@ -4,12 +4,17 @@ import { BehaviorSubject } from "rxjs";
 
 import { config } from "@mtfh/common/lib/config";
 
+//TODO: add to config
+const cognitoTokenName = "";
+const cognitoCookieDomain = "";
+
 export interface JWTPayload {
   sub: string;
   email: string;
   iss: string;
   name: string;
   groups: string[];
+  "custom:groups"?: string[];
   iat: number;
 }
 
@@ -17,7 +22,7 @@ export interface AuthUser extends JWTPayload {
   token: string;
 }
 
-const voidUser: AuthUser = {
+export const voidUser: AuthUser = {
   token: "",
   sub: "",
   email: "",
@@ -25,6 +30,7 @@ const voidUser: AuthUser = {
   name: "",
   groups: [],
   iat: Number.NaN,
+  "custom:groups": [],
 };
 
 const parseToken = (): AuthUser => {
@@ -63,6 +69,10 @@ export const logout = (): void => {
   $auth.next(voidUser);
   Cookies.remove(config.authToken, {
     domain: config.cookieDomain,
+  });
+  //remove cognito token as well
+  Cookies.remove(cognitoTokenName, {
+    domain: cognitoCookieDomain,
   });
   window.location.reload();
 };
