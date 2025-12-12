@@ -322,6 +322,9 @@ jobs:
             export HOUSING_FINANCE_INTERIM_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/housing-finance-interim-api-url --query Parameter.Value --output text)
             export PATCHES_AND_AREAS_API_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/patches-and-areas-api-url --query Parameter.Value --output text)
             export HOUSINGSEARCH_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
+            export COGNITO_TOKEN_NAME=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:969000419424:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-token-name --query Parameter.Value --output text)
+            export COGNITO_DOMAIN=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:969000419424:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-domain --query Parameter.Value --output text)
+            export COGNITO_CLIENT_ID=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:969000419424:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-client-id --query Parameter.Value --output text)
             yarn build
       - run:
           name: Deploy to S3

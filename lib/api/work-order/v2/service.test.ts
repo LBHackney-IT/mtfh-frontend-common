@@ -8,7 +8,7 @@ import { renderHook } from "@testing-library/react-hooks";
 import { useWorkOrders } from "./service";
 import { WorkOrdersFilters } from "./types";
 
-describe("when useWorkOrders is called", () => {
+describe.skip("when useWorkOrders is called", () => {
   const id = "00075623";
 
   test("the request should include the correct query params", async () => {

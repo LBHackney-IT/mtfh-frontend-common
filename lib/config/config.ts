@@ -26,6 +26,9 @@ const config = {
   processApiUrlV2: process.env.PROCESS_API_URL_V2 || "/api/v2",
   housingFinanceInterimApiUrlV1:
     process.env.HOUSING_FINANCE_INTERIM_API_URL_V1 || "/api/v1",
+  cognitoTokenName: process.env.COGNITO_TOKEN_NAME || "hackneyCognitoToken",
+  cognitoDomain: process.env.COGNITO_DOMAIN || "",
+  cognitoClientId: process.env.COGNITO_CLIENT_ID || "",
 };
 
 export default config;
