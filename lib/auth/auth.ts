@@ -8,6 +8,8 @@ export enum TokenSource {
   LegacyUser,
   CognitoUser,
 }
+
+export class TokenExchangeError extends Error {}
 export interface JWTPayload {
   sub: string;
   email: string;
@@ -64,7 +66,6 @@ const parseToken = (): AuthUser => {
   if (cognitoToken) {
     return decode(cognitoToken, TokenSource.CognitoUser);
   }
-
   // Otherwise fall back to legacy token
   return decode(legacyToken!, TokenSource.LegacyUser);
 };
@@ -87,6 +88,7 @@ export const isAuthorised = (): boolean =>
 
 export const logout = (): void => {
   $auth.next(voidUser);
+
   Cookies.remove(config.authToken, {
     domain: config.cookieDomain,
   });
@@ -137,9 +139,13 @@ export async function handleCognitoCallback(code: string) {
     if (tokens.id_token) {
       Cookies.set(config.cognitoTokenName, tokens.id_token);
     } else {
-      throw new Error("No token received");
+      throw new TokenExchangeError("No id token received");
     }
   } catch (error) {
-    console.error("Token exchange failed:", error);
+    if (error instanceof TokenExchangeError) {
+      throw error;
+    } else {
+      throw new Error("Token exchange failed");
+    }
   }
 }
