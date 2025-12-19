@@ -126,8 +126,7 @@ export const logout = (): void => {
     domain: config.cookieDomain,
   });
   Cookies.remove(config.cognitoTokenName, {
-    //domain: config.cookieDomain,
-    domain: "localhost",
+    domain: config.cookieDomain,
   });
   window.location.reload();
 };
