@@ -34,7 +34,8 @@ references:
 executors:
   node-executor:
     docker:
-      - image: circleci/node:18.20.8-browsers
+      - image: cimg/node:18.20-browsers
+
   docker-terraform:
     docker:
       - image: "hashicorp/terraform:light"
