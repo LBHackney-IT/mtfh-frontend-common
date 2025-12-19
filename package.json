@@ -5,7 +5,7 @@
   "scripts": {
     "start": "set NODE_OPTIONS=--openssl-legacy-provider && webpack serve --port 8040",
     "start:standalone": "cross-env APP_ENV=local webpack serve --env standalone",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode=production",
+    "build": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
     "lint": "eslint lib --ext js,ts,tsx --quiet",
     "lintfix": "eslint lib --ext js,ts,tsx --fix",
