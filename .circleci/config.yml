@@ -34,7 +34,7 @@ references:
 executors:
   node-executor:
     docker:
-      - image: cimg/node:18.20-browsers
+      - image: cimg/node:14.21.3-browsers
 
   docker-terraform:
     docker:
