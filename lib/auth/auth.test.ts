@@ -5,6 +5,7 @@ import { config } from "../config";
 import {
   $auth,
   AuthUser,
+  CognitoTokenResponse,
   JWTPayload,
   TokenExchangeError,
   TokenSource,
@@ -14,8 +15,18 @@ import {
   isAuthorisedForGroups,
   login,
   logout,
-  processToken,
+  parseToken,
+  verifyCognitoToken,
 } from "./auth";
+import { cognitoVerifier } from "./cognitoVerifier";
+
+jest.mock("aws-jwt-verify", () => ({
+  CognitoJwtVerifier: {
+    create: jest.fn(() => ({
+      verify: jest.fn(),
+    })),
+  },
+}));
 
 const mockLegacyTokenPayload: JWTPayload = {
   sub: "112895652611500752170",
@@ -52,7 +63,7 @@ const mockCognitoPayload: JWTPayload = {
 const mockCognitoToken = jwt.sign(mockCognitoPayload, "cognito-secret");
 
 describe("auth", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     let cookies = "";
 
     Object.defineProperty(window.document, "cookie", {
@@ -68,7 +79,7 @@ describe("auth", () => {
       },
     });
 
-    processToken();
+    await parseToken();
     (window.location.reload as jest.Mock).mockReset();
   });
 
@@ -78,25 +89,36 @@ describe("auth", () => {
     expect(isAuthorised()).toBe(false);
   });
 
-  test("user is unauthenticated with incorrect legacy cookie", () => {
+  test("user is unauthenticated with incorrect legacy cookie", async () => {
     window.document.cookie = `hackneyToken=123456`;
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
     expect(isAuthorised()).toBe(false);
   });
 
-  test("user is unauthenticated with incorrect cognito cookie", () => {
+  test("user is unauthenticated with incorrect cognito cookie", async () => {
     window.document.cookie = `hackneyCognitoToken=1234567`;
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
     expect(isAuthorised()).toBe(false);
   });
 
-  test("user is authenticated with legacy token", () => {
+  test("user is unauthenticated when Cognito token validation fails", async () => {
+    (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce(
+      new Error("invalid token"),
+    );
+    window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+    await parseToken();
+    auth = $auth.getValue();
+    expect(auth.token).toBe("");
+    expect(isAuthorised()).toBe(false);
+  });
+
+  test("user is authenticated with legacy token", async () => {
     window.document.cookie = `hackneyToken=${mockToken}`;
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockToken);
     expect(auth.name).toBe("Tom Smith");
@@ -108,9 +130,9 @@ describe("auth", () => {
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
   });
 
-  test("user is authenticated with Cognito token", () => {
+  test("user is authenticated with Cognito token", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockCognitoToken);
     expect(auth.name).toBe(mockCognitoPayload.name);
@@ -122,27 +144,27 @@ describe("auth", () => {
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
   });
 
-  test("login clears state and redirects to legacy auth", () => {
+  test("login clears state and redirects to legacy auth", async () => {
     window.document.cookie = `hackneyToken=${mockToken}`;
-    processToken();
+    await parseToken();
     login();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
     expect(window.location.href).toContain(config.authDomain);
   });
 
-  test("cognitoLogin clears state and redirects to cognito auth", () => {
+  test("cognitoLogin clears state and redirects to cognito auth", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
-    processToken();
+    await parseToken();
     cognitoLogin();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
     expect(window.location.href).toContain(config.cognitoDomain);
   });
 
-  test("logout clears legacy cookie and state", () => {
+  test("logout clears legacy cookie and state", async () => {
     window.document.cookie = `hackneyToken=${mockToken}`;
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockToken);
     logout();
@@ -162,9 +184,9 @@ describe("auth", () => {
     expect(window.location.reload).toBeCalledTimes(1);
   });
 
-  test("logout clears cognito cookie and state", () => {
+  test("logout clears cognito cookie and state", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockCognitoToken);
     logout();
@@ -184,19 +206,19 @@ describe("auth", () => {
     expect(window.location.reload).toBeCalledTimes(1);
   });
 
-  test("when both legacy and cognito tokens are present, cognito token takes precedence", () => {
+  test("when both legacy and cognito tokens are present, cognito token takes precedence", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
     window.document.cookie = `hackneyToken=${mockToken}`;
 
-    processToken();
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockCognitoToken);
   });
 
   describe("cognitoLogin", () => {
-    test("cognitoLogin clears state and redirects to cognito auth", () => {
+    test("cognitoLogin clears state and redirects to cognito auth", async () => {
       window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
-      processToken();
+      await parseToken();
       auth = $auth.getValue();
       expect(auth.token).toBe(mockCognitoToken);
       cognitoLogin();
@@ -218,19 +240,21 @@ describe("auth", () => {
     const mockFetch = jest.fn();
     const mockSetCookie = jest.spyOn(Cookies, "set");
     const mockAccessCode = "123-abc";
+    const mockTokensResponse: CognitoTokenResponse = {
+      id_token: mockCognitoToken,
+      access_token: "access-token",
+      refresh_token: "refresh-token",
+    };
 
     beforeEach(() => {
       jest.resetAllMocks();
-      (global as any).fetch = mockFetch;
+      jest.clearAllMocks();
+      globalThis.fetch = mockFetch as unknown as typeof fetch;
     });
 
     test("sets id token as cognito token from the response", async () => {
-      const mockTokensResponse = {
-        id_token: mockCognitoToken,
-        access_token: "access-token",
-        refresh_token: "refresh-token",
-      };
       mockFetch.mockResolvedValue({
+        ok: true,
         json: async () => mockTokensResponse,
       } as Response);
 
@@ -255,14 +279,15 @@ describe("auth", () => {
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         mockTokensResponse.id_token,
+        { sameSite: "strict", secure: true },
       );
     });
 
-    test("throws TokenExchangeError when no id_token is returned", async () => {
-      mockFetch.mockResolvedValue({
+    test("throws TokenExchangeError when fetch fails", async () => {
+      mockFetch.mockRejectedValue({
         json: async () => ({}),
       } as Response);
-      const expectedErrorMessage = "No id token received";
+      const expectedErrorMessage = "Token exchange failed: network error";
 
       await expect(handleCognitoCallback(mockAccessCode)).rejects.toThrow(
         new TokenExchangeError(expectedErrorMessage),
@@ -270,16 +295,97 @@ describe("auth", () => {
       expect(mockSetCookie).not.toHaveBeenCalled();
     });
 
-    test("throws Error when fetch fails", async () => {
-      mockFetch.mockRejectedValue({
+    test("throws TokenExchangeError when NOK response", async () => {
+      mockFetch.mockResolvedValue({
         json: async () => ({}),
+        ok: false,
       } as Response);
-      const expectedErrorMessage = "Token exchange failed";
+      const expectedErrorMessage = "Token exchange failed: NOK response";
 
       await expect(handleCognitoCallback(mockAccessCode)).rejects.toThrow(
-        new Error(expectedErrorMessage),
+        new TokenExchangeError(expectedErrorMessage),
       );
       expect(mockSetCookie).not.toHaveBeenCalled();
     });
+
+    test("throws TokenExchangeError when invalid JSON response", async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        json: () => {
+          throw new SyntaxError("Unexpected token < in JSON");
+        },
+      });
+
+      const expectedErrorMessage = "Token exchange failed: invalid JSON response";
+
+      await expect(handleCognitoCallback("auth-code")).rejects.toThrow(
+        new TokenExchangeError(expectedErrorMessage),
+      );
+
+      expect(mockSetCookie).not.toHaveBeenCalled();
+    });
+
+    test("throws TokenExchangeError when no id_token is returned", async () => {
+      mockFetch.mockResolvedValue({
+        json: async () => ({}),
+        ok: true,
+      } as Response);
+      const expectedErrorMessage = "No id_token received from Cognito";
+
+      await expect(handleCognitoCallback(mockAccessCode)).rejects.toThrow(
+        new TokenExchangeError(expectedErrorMessage),
+      );
+      expect(mockSetCookie).not.toHaveBeenCalled();
+    });
+
+    test("throws TokenExchangeError when Cookies.set fails", async () => {
+      mockFetch.mockResolvedValue({
+        json: async () => mockTokensResponse,
+        ok: true,
+      } as Response);
+
+      mockSetCookie.mockImplementation(() => {
+        throw new Error("unable te set cookie");
+      });
+
+      await expect(handleCognitoCallback(mockAccessCode)).rejects.toThrow(
+        new TokenExchangeError("Setting the cookie failed"),
+      );
+
+      expect(Cookies.set).toHaveBeenCalledTimes(1);
+    });
+  });
+});
+
+describe("verifyCognitoToken", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("returns true when token is valid", async () => {
+    (cognitoVerifier.verify as jest.Mock).mockResolvedValueOnce({});
+
+    const result = await verifyCognitoToken("valid-token");
+    expect(result).toBe(true);
+    expect(cognitoVerifier.verify).toHaveBeenCalledTimes(1);
+    expect(cognitoVerifier.verify).toHaveBeenCalledWith("valid-token");
+  });
+
+  it("returns false when token is invalid", async () => {
+    (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce(
+      new Error("invalid token"),
+    );
+
+    const result = await verifyCognitoToken("invalid-token");
+    expect(result).toBe(false);
+    expect(cognitoVerifier.verify).toHaveBeenCalledTimes(1);
+    expect(cognitoVerifier.verify).toHaveBeenCalledWith("invalid-token");
+  });
+
+  it("returns false when verify throws a non-error value", async () => {
+    (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce("non-error-value-string");
+    const result = await verifyCognitoToken("valid-token");
+    expect(result).toBe(false);
+    expect(cognitoVerifier.verify).toHaveBeenCalledTimes(1);
   });
 });

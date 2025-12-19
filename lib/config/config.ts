@@ -29,6 +29,7 @@ const config = {
   cognitoTokenName: process.env.COGNITO_TOKEN_NAME || "hackneyCognitoToken",
   cognitoDomain: process.env.COGNITO_DOMAIN || "cognito-domain-test-only",
   cognitoClientId: process.env.COGNITO_CLIENT_ID || "cognito-client-id-test-only",
+  cognitoUserPoolId: process.env.COGNITO_USER_POOL_ID || "cognito-user-poll-id-test-only",
 };
 
 export default config;

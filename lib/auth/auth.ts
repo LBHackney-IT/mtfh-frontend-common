@@ -4,6 +4,16 @@ import { BehaviorSubject } from "rxjs";
 
 import { config } from "@mtfh/common/lib/config";
 
+import { cognitoVerifier } from "./cognitoVerifier";
+
+export interface CognitoTokenResponse {
+  id_token?: string;
+  access_token?: string;
+  refresh_token?: string;
+  expires_in?: number;
+  token_type?: string;
+}
+
 export enum TokenSource {
   LegacyUser,
   CognitoUser,
@@ -37,16 +47,22 @@ const voidUser: AuthUser = {
   tokenSource: undefined,
 };
 
-const parseToken = (): AuthUser => {
-  const legacyToken = Cookies.get(config.authToken) ?? null;
-  const cognitoToken = Cookies.get(config.cognitoTokenName) ?? null;
-
-  // No token at all → return void user
-  if (!legacyToken && !cognitoToken) {
-    return voidUser;
+export const verifyCognitoToken = async (token: string) => {
+  try {
+    await cognitoVerifier.verify(token);
+    return true;
+  } catch {
+    return false;
   }
+};
 
-  const decode = (token: string, source: TokenSource): AuthUser => {
+export const $auth = new BehaviorSubject(voidUser);
+
+export const parseToken = async (): Promise<void> => {
+  const legacyToken = Cookies.get(config.authToken);
+  const cognitoToken = Cookies.get(config.cognitoTokenName);
+
+  const decode = (token: NonNullable<string>, source: TokenSource): AuthUser => {
     try {
       const decoded = jwtDecode<JWTPayload>(token);
 
@@ -60,21 +76,39 @@ const parseToken = (): AuthUser => {
     }
   };
 
+  // No token at all → return void user
+  if (!legacyToken && !cognitoToken) {
+    $auth.next(voidUser);
+    return;
+  }
+
   // Prefer Cognito token if present
   // In order to migrate root apps over to Cognito auth MFE we need to support both tokens for a while
-  // Once all root apps are using Cognito we can drop support for legacy tokens
+  // Once all root apps are using Cognito we can/must drop support for legacy tokens
   if (cognitoToken) {
-    return decode(cognitoToken, TokenSource.CognitoUser);
+    //verify token since it can be done safely on the client
+    const tokenIsValid = await verifyCognitoToken(cognitoToken);
+
+    const parsed = tokenIsValid
+      ? decode(cognitoToken, TokenSource.CognitoUser)
+      : voidUser;
+    $auth.next(parsed);
+    return;
   }
-  // Otherwise fall back to legacy token
-  return decode(legacyToken!, TokenSource.LegacyUser);
+
+  if (!legacyToken) {
+    // Should never happen logically, but TS needs the guarantee
+    $auth.next(voidUser);
+    return;
+  }
+  // Fall back to legacy token
+  $auth.next(decode(legacyToken, TokenSource.LegacyUser));
 };
 
-export const $auth = new BehaviorSubject(parseToken());
-
-export const processToken = (): void => {
-  $auth.next(parseToken());
-};
+//ensure current token is parsed on page refresh
+(async () => {
+  await parseToken();
+})();
 
 export const isAuthorisedForGroups = (groups: string[]): boolean => {
   const auth = $auth.getValue();
@@ -88,12 +122,12 @@ export const isAuthorised = (): boolean =>
 
 export const logout = (): void => {
   $auth.next(voidUser);
-
   Cookies.remove(config.authToken, {
     domain: config.cookieDomain,
   });
   Cookies.remove(config.cognitoTokenName, {
-    domain: config.cookieDomain,
+    //domain: config.cookieDomain,
+    domain: "localhost",
   });
   window.location.reload();
 };
@@ -117,35 +151,54 @@ export const cognitoLogin = (redirectUrl = `${window.location.origin}`): void =>
   window.location.href = loginUrl;
 };
 
-export async function handleCognitoCallback(code: string) {
-  try {
-    const response = await fetch(
-      `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          grant_type: "authorization_code",
-          client_id: config.cognitoClientId,
-          code,
-          redirect_uri: window.location.origin,
-        }),
-      },
-    );
-    const tokens = await response.json();
+export async function handleCognitoCallback(code: string): Promise<void> {
+  const tokenUrl = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`;
 
-    if (tokens.id_token) {
-      Cookies.set(config.cognitoTokenName, tokens.id_token);
-    } else {
-      throw new TokenExchangeError("No id token received");
-    }
-  } catch (error) {
-    if (error instanceof TokenExchangeError) {
-      throw error;
-    } else {
-      throw new Error("Token exchange failed");
-    }
+  const body = new URLSearchParams({
+    grant_type: "authorization_code",
+    client_id: config.cognitoClientId,
+    code,
+    redirect_uri: window.location.origin,
+  });
+
+  let response: Response;
+  let tokens: CognitoTokenResponse;
+
+  try {
+    response = await fetch(tokenUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body,
+    });
+  } catch {
+    // Network or CORS failure
+    throw new TokenExchangeError("Token exchange failed: network error");
   }
+
+  if (!response.ok) {
+    throw new TokenExchangeError(`Token exchange failed: NOK response`);
+  }
+
+  try {
+    tokens = (await response.json()) as CognitoTokenResponse;
+  } catch {
+    throw new TokenExchangeError("Token exchange failed: invalid JSON response");
+  }
+
+  if (!tokens.id_token) {
+    throw new TokenExchangeError("No id_token received from Cognito");
+  }
+
+  try {
+    Cookies.set(config.cognitoTokenName, tokens.id_token, {
+      sameSite: "strict",
+      secure: true,
+    });
+  } catch {
+    throw new TokenExchangeError("Setting the cookie failed");
+  }
+
+  await parseToken();
 }
