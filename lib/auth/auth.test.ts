@@ -89,21 +89,16 @@ describe("auth", () => {
     expect(isAuthorised()).toBe(false);
   });
 
-  test("user is unauthenticated with incorrect legacy cookie", async () => {
-    window.document.cookie = `hackneyToken=123456`;
-    await parseToken();
-    auth = $auth.getValue();
-    expect(auth.token).toBe("");
-    expect(isAuthorised()).toBe(false);
-  });
-
-  test("user is unauthenticated with incorrect cognito cookie", async () => {
-    window.document.cookie = `hackneyCognitoToken=1234567`;
-    await parseToken();
-    auth = $auth.getValue();
-    expect(auth.token).toBe("");
-    expect(isAuthorised()).toBe(false);
-  });
+  test.each(["hackneyToken=123456", "hackneyCognitoToken=1234567"])(
+    "user is unauthenticated with incorrect legacy cookie",
+    async (cookie) => {
+      window.document.cookie = cookie;
+      await parseToken();
+      auth = $auth.getValue();
+      expect(auth.token).toBe("");
+      expect(isAuthorised()).toBe(false);
+    },
+  );
 
   test("user is unauthenticated when Cognito token validation fails", async () => {
     (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce(
@@ -162,49 +157,33 @@ describe("auth", () => {
     expect(window.location.href).toContain(config.cognitoDomain);
   });
 
-  test("logout clears legacy cookie and state", async () => {
-    window.document.cookie = `hackneyToken=${mockToken}`;
-    await parseToken();
-    auth = $auth.getValue();
-    expect(auth.token).toBe(mockToken);
-    logout();
+  test.each([
+    ["hackneyToken", mockToken],
+    ["hackneyCognitoToken", mockCognitoToken],
+  ])(
+    "logout clears legacy and cognito cookies and state",
+    async (tokenName, tokenValue) => {
+      window.document.cookie = `${tokenName}=${tokenValue}`;
+      await parseToken();
+      auth = $auth.getValue();
+      expect(auth.token).toBe(tokenValue);
+      logout();
 
-    const {
-      email,
-      name,
-      groups,
-      "custom:groups": customGroups,
-      token,
-    } = $auth.getValue();
-    expect(token).toBe("");
-    expect(email).toBe("");
-    expect(name).toBe("");
-    expect(groups).toEqual([]);
-    expect(customGroups).toEqual([]);
-    expect(window.location.reload).toBeCalledTimes(1);
-  });
-
-  test("logout clears cognito cookie and state", async () => {
-    window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
-    await parseToken();
-    auth = $auth.getValue();
-    expect(auth.token).toBe(mockCognitoToken);
-    logout();
-
-    const {
-      email,
-      name,
-      groups,
-      "custom:groups": customGroups,
-      token,
-    } = $auth.getValue();
-    expect(token).toBe("");
-    expect(email).toBe("");
-    expect(name).toBe("");
-    expect(groups).toEqual([]);
-    expect(customGroups).toEqual([]);
-    expect(window.location.reload).toBeCalledTimes(1);
-  });
+      const {
+        email,
+        name,
+        groups,
+        "custom:groups": customGroups,
+        token,
+      } = $auth.getValue();
+      expect(token).toBe("");
+      expect(email).toBe("");
+      expect(name).toBe("");
+      expect(groups).toEqual([]);
+      expect(customGroups).toEqual([]);
+      expect(window.location.reload).toBeCalledTimes(1);
+    },
+  );
 
   test("when both legacy and cognito tokens are present, cognito token takes precedence", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
