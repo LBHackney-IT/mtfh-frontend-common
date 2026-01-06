@@ -10,7 +10,7 @@ possible to have one microfrontend use a specific version of `@mtfh/common`, so 
 be quite careful around what is a candidate for inclusion in this module. Breaking changes
 introduced will need to be resolved in all microfrontends that consume it.
 
-We explictily do not expose any endpoints, or business logic (with authentication as the
+We explicitly do not expose any endpoints, or business logic (with authentication as the
 exception) into this module to avoid problematic releases.
 
 This is the checklist for a candidate:
