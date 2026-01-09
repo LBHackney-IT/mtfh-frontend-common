@@ -4,6 +4,7 @@ import { BehaviorSubject } from "rxjs";
 
 import { config } from "@mtfh/common/lib/config";
 
+import { createPkcePair } from "./authUtils";
 import { cognitoVerifier } from "./cognitoVerifier";
 
 export interface CognitoTokenResponse {
@@ -128,6 +129,7 @@ export const logout = (): void => {
   Cookies.remove(config.cognitoTokenName, {
     domain: config.cookieDomain,
   });
+
   window.location.reload();
 };
 
@@ -138,26 +140,40 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
   )}`;
 };
 
-export const cognitoLogin = (redirectUrl = `${window.location.origin}`): void => {
+export const cognitoLogin = async (
+  redirectUrl = `${window.location.origin}`,
+): Promise<void> => {
   logout();
-  const loginUrl = `https://${
-    config.cognitoDomain
-  }.auth.eu-west-2.amazoncognito.com/login?client_id=${
-    config.cognitoClientId
-  }&response_type=code&scope=openid+email+profile&redirect_uri=${encodeURIComponent(
-    redirectUrl,
-  )}`;
-  window.location.href = loginUrl;
+
+  //create new pair on each login
+  const { codeVerifier, codeChallenge } = await createPkcePair();
+
+  sessionStorage.setItem("cognito_pkce_verifier", codeVerifier);
+
+  const params = new URLSearchParams({
+    client_id: config.cognitoClientId,
+    response_type: "code",
+    scope: "openid email profile",
+    redirect_uri: redirectUrl,
+    code_challenge_method: "S256",
+    code_challenge: codeChallenge,
+  });
+
+  const loginUrl = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/authorize`;
+  window.location.href = `${loginUrl}?${params}`;
 };
 
 export async function handleCognitoCallback(code: string): Promise<void> {
   const tokenUrl = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`;
+
+  const verifier = sessionStorage.getItem("cognito_pkce_verifier");
 
   const body = new URLSearchParams({
     grant_type: "authorization_code",
     client_id: config.cognitoClientId,
     code,
     redirect_uri: window.location.origin,
+    code_verifier: verifier ?? "", //Cognito will return 400 with invalid request if missing
   });
 
   let response: Response;
@@ -198,6 +214,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
   } catch {
     throw new TokenExchangeError("Setting the cookie failed");
   }
-
+  //not needed after successful token exchange, so it's recommended to remove it here
+  sessionStorage.removeItem("cognito_pkce_verifier"); //TODO: move to config
   await parseToken();
 }

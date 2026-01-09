@@ -1,3 +1,6 @@
+import { createHash, randomFillSync } from "crypto";
+import { TextDecoder, TextEncoder } from "util";
+
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 
@@ -62,6 +65,46 @@ const mockCognitoPayload: JWTPayload = {
 
 const mockCognitoToken = jwt.sign(mockCognitoPayload, "cognito-secret");
 
+let generatedCodeChallenge: string;
+let generatedVerifier: string;
+
+const sessionStorageMock = (() => {
+  let store: Record<string, string> = {};
+
+  return {
+    getItem(key: string): string | null {
+      return store[key] ?? null;
+    },
+    setItem(key: string, value: string): void {
+      store[key] = value;
+    },
+    removeItem(key: string): void {
+      delete store[key];
+    },
+    clear(): void {
+      store = {};
+    },
+  };
+})();
+
+Object.defineProperty(globalThis, "sessionStorage", {
+  value: sessionStorageMock,
+});
+
+function bufferToArrayBuffer(buf: Buffer): ArrayBuffer {
+  const arrayBuffer = new ArrayBuffer(buf.byteLength);
+  const view = new Uint8Array(arrayBuffer);
+  view.set(buf);
+  return arrayBuffer;
+}
+
+function toUint8Array(data: ArrayBuffer | ArrayBufferView): Uint8Array {
+  if (ArrayBuffer.isView(data)) {
+    return new Uint8Array(data.buffer, data.byteOffset, data.byteLength);
+  }
+  return new Uint8Array(data);
+}
+
 describe("auth", () => {
   beforeEach(async () => {
     let cookies = "";
@@ -78,6 +121,36 @@ describe("auth", () => {
         }
       },
     });
+
+    // these modules are not available in jsdom. Mock here to mimic actual browser behavior as closely as possible
+    globalThis.TextEncoder = TextEncoder as any;
+    globalThis.TextDecoder = TextDecoder as any;
+    globalThis.crypto = {
+      subtle: {
+        digest: async (_algo: any, data: ArrayBuffer) => {
+          const hash = createHash("sha256").update(toUint8Array(data)).digest();
+
+          // grab this, so the code challenge can be verified later
+          generatedCodeChallenge = btoa(String.fromCharCode(...new Uint8Array(hash)))
+            .replace(/\+/g, "-")
+            .replace(/\//g, "_")
+            .replace(/=+$/, "");
+
+          return bufferToArrayBuffer(hash);
+        },
+      },
+      getRandomValues: (arr: Uint8Array) => {
+        const randomFill = randomFillSync(arr);
+
+        //grab the verifier that gets generated with this code
+        generatedVerifier = btoa(String.fromCharCode(...randomFill))
+          .replace(/\+/g, "-")
+          .replace(/\//g, "_")
+          .replace(/=+$/, "");
+
+        return randomFill;
+      },
+    } as any;
 
     await parseToken();
     (window.location.reload as jest.Mock).mockReset();
@@ -151,7 +224,7 @@ describe("auth", () => {
   test("cognitoLogin clears state and redirects to cognito auth", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
     await parseToken();
-    cognitoLogin();
+    await cognitoLogin();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
     expect(window.location.href).toContain(config.cognitoDomain);
@@ -195,23 +268,40 @@ describe("auth", () => {
   });
 
   describe("cognitoLogin", () => {
-    test("cognitoLogin clears state and redirects to cognito auth", async () => {
+    test("cognitoLogin clears state and redirects to cognito auth with correct params", async () => {
       window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
       await parseToken();
       auth = $auth.getValue();
       expect(auth.token).toBe(mockCognitoToken);
-      cognitoLogin();
+      await cognitoLogin();
 
-      const expectedHref = `https://${
-        config.cognitoDomain
-      }.auth.eu-west-2.amazoncognito.com/login?client_id=${
-        config.cognitoClientId
-      }&response_type=code&scope=openid+email+profile&redirect_uri=${encodeURIComponent(
-        window.location.origin,
-      )}`;
+      const expectedParams = new URLSearchParams({
+        client_id: config.cognitoClientId,
+        response_type: "code",
+        scope: "openid email profile",
+        redirect_uri: window.location.origin,
+        code_challenge_method: "S256",
+        code_challenge: generatedCodeChallenge,
+      });
+
+      const expectedHref = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/authorize?${expectedParams}`;
+
       auth = $auth.getValue();
       expect(auth.token).toBe("");
       expect(window.location.href).toBe(expectedHref);
+    });
+
+    test("sets cognito pkce verifier value in local storage", async () => {
+      const sessionStorageGetSpy = jest.spyOn(sessionStorageMock, "setItem");
+
+      window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+      await parseToken();
+      await cognitoLogin();
+      expect(sessionStorageGetSpy).toHaveBeenCalledTimes(1);
+      expect(sessionStorageGetSpy).toHaveBeenCalledWith(
+        "cognito_pkce_verifier",
+        generatedVerifier,
+      );
     });
   });
 
@@ -237,21 +327,31 @@ describe("auth", () => {
         json: async () => mockTokensResponse,
       } as Response);
 
-      await handleCognitoCallback(mockAccessCode);
+      //this will be set by the login(), so mock it here when calling the callback handler directly
+      sessionStorage.setItem("cognito_pkce_verifier", generatedVerifier);
 
+      await handleCognitoCallback(mockAccessCode);
       expect(mockFetch).toHaveBeenCalledTimes(1);
       expect(mockFetch).toHaveBeenCalledWith(
         `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`,
         expect.objectContaining({
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams({
-            grant_type: "authorization_code",
-            client_id: config.cognitoClientId,
-            code: mockAccessCode,
-            redirect_uri: window.location.origin,
-          }),
+          body: expect.any(URLSearchParams),
         }),
+      );
+
+      //check body separately, otherwise jest will treat it as {}
+      const call = mockFetch.mock.calls[0][1];
+
+      expect(call.body.toString()).toBe(
+        new URLSearchParams({
+          grant_type: "authorization_code",
+          client_id: config.cognitoClientId,
+          code: mockAccessCode,
+          redirect_uri: window.location.origin,
+          code_verifier: generatedVerifier,
+        }).toString(),
       );
 
       expect(mockSetCookie).toHaveBeenCalledTimes(1);
@@ -332,6 +432,34 @@ describe("auth", () => {
       );
 
       expect(Cookies.set).toHaveBeenCalledTimes(1);
+    });
+
+    test("gets cognito_pkce_verifier from session storage before token exchange", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockTokensResponse,
+      } as Response);
+
+      const sessionStorageRemoveSpy = jest.spyOn(sessionStorageMock, "getItem");
+
+      await handleCognitoCallback(mockAccessCode);
+
+      expect(sessionStorageRemoveSpy).toHaveBeenCalledTimes(1);
+      expect(sessionStorageRemoveSpy).toHaveBeenCalledWith("cognito_pkce_verifier");
+    });
+
+    test("removes cognito_pkce_verifier from session storage after successful token exchange", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockTokensResponse,
+      } as Response);
+
+      const sessionStorageRemoveSpy = jest.spyOn(sessionStorageMock, "removeItem");
+
+      await handleCognitoCallback(mockAccessCode);
+
+      expect(sessionStorageRemoveSpy).toHaveBeenCalledTimes(1);
+      expect(sessionStorageRemoveSpy).toHaveBeenCalledWith("cognito_pkce_verifier");
     });
   });
 });
