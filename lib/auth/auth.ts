@@ -21,6 +21,7 @@ export enum TokenSource {
 }
 
 export class TokenExchangeError extends Error {}
+
 export interface JWTPayload {
   sub: string;
   email: string;
@@ -121,7 +122,7 @@ export const isAuthorisedForGroups = (groups: string[]): boolean => {
 export const isAuthorised = (): boolean =>
   isAuthorisedForGroups(config.authAllowedGroups);
 
-export const logout = (): void => {
+export const logout = async (): Promise<void> => {
   $auth.next(voidUser);
   Cookies.remove(config.authToken, {
     domain: config.cookieDomain,
@@ -129,6 +130,38 @@ export const logout = (): void => {
   Cookies.remove(config.cognitoTokenName, {
     domain: config.cookieDomain,
   });
+
+  const refreshToken = Cookies.get("hackneyCognitoRefreshToken");
+
+  if (refreshToken) {
+    try {
+      const params = new URLSearchParams({
+        token: refreshToken,
+        client_id: config.cognitoClientId,
+      });
+
+      const response = await fetch(
+        `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/revoke`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: params,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to revoke token`);
+      }
+
+      Cookies.remove("hackneyCognitoRefreshToken", {
+        domain: config.cookieDomain,
+      });
+    } catch {
+      throw new Error("Failed to revoke refresh token");
+    }
+  }
 
   window.location.reload();
 };
@@ -208,6 +241,11 @@ export async function handleCognitoCallback(code: string): Promise<void> {
 
   try {
     Cookies.set(config.cognitoTokenName, tokens.id_token, {
+      sameSite: "strict",
+      secure: true,
+    });
+
+    Cookies.set("hackneyCognitoRefreshToken", tokens.refresh_token!, {
       sameSite: "strict",
       secure: true,
     });

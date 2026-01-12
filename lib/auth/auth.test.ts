@@ -64,6 +64,7 @@ const mockCognitoPayload: JWTPayload = {
 };
 
 const mockCognitoToken = jwt.sign(mockCognitoPayload, "cognito-secret");
+const mockCognitoRefreshToken = "dummy-refresh-token-123456789"; //not jwt, just random string (~300–500 characters and Base64-like in real life)
 
 let generatedCodeChallenge: string;
 let generatedVerifier: string;
@@ -230,33 +231,112 @@ describe("auth", () => {
     expect(window.location.href).toContain(config.cognitoDomain);
   });
 
-  test.each([
-    ["hackneyToken", mockToken],
-    ["hackneyCognitoToken", mockCognitoToken],
-  ])(
-    "logout clears legacy and cognito cookies and state",
-    async (tokenName, tokenValue) => {
-      window.document.cookie = `${tokenName}=${tokenValue}`;
-      await parseToken();
-      auth = $auth.getValue();
-      expect(auth.token).toBe(tokenValue);
-      logout();
+  describe("logout", () => {
+    const mockFetch = jest.fn();
+    const mockRemoveCookie = jest.spyOn(Cookies, "remove");
 
-      const {
-        email,
-        name,
-        groups,
-        "custom:groups": customGroups,
-        token,
-      } = $auth.getValue();
-      expect(token).toBe("");
-      expect(email).toBe("");
-      expect(name).toBe("");
-      expect(groups).toEqual([]);
-      expect(customGroups).toEqual([]);
-      expect(window.location.reload).toBeCalledTimes(1);
-    },
-  );
+    beforeEach(() => {
+      jest.resetAllMocks();
+      jest.clearAllMocks();
+      globalThis.fetch = mockFetch as unknown as typeof fetch;
+    });
+
+    test("logout removes legacy auth token, cognito token and refresh token from cookies and revokes refresh token", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => {},
+      });
+
+      window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+      window.document.cookie = `hackneyCognitoRefreshToken=${mockCognitoRefreshToken}`;
+      await parseToken();
+      await logout();
+
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+      expect(mockFetch).toHaveBeenCalledWith(
+        `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/revoke`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: expect.any(URLSearchParams),
+        },
+      );
+
+      const call = mockFetch.mock.calls[0][1];
+
+      expect(call.body.toString()).toBe(
+        new URLSearchParams({
+          token: mockCognitoRefreshToken,
+          client_id: config.cognitoClientId,
+        }).toString(),
+      );
+      expect(mockRemoveCookie).toHaveBeenCalledTimes(3); //removes both auth tokens as well as the refresh one
+      expect(mockRemoveCookie).toHaveBeenCalledWith("hackneyCognitoRefreshToken", {
+        domain: config.cookieDomain,
+      });
+      expect(mockRemoveCookie).toHaveBeenCalledWith(config.authToken, {
+        domain: config.cookieDomain,
+      });
+      expect(mockRemoveCookie).toHaveBeenCalledWith(config.cognitoTokenName, {
+        domain: config.cookieDomain,
+      });
+    });
+
+    test("throws an error when revoke call returns NOK response", async () => {
+      mockFetch.mockResolvedValue({
+        ok: false,
+        json: async () => {},
+      });
+
+      window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+      window.document.cookie = `hackneyCognitoRefreshToken=${mockCognitoRefreshToken}`;
+      await parseToken();
+      await expect(logout()).rejects.toThrow("Failed to revoke refresh token");
+    });
+
+    test("throws an error when revoke call fails", async () => {
+      mockFetch.mockRejectedValue({
+        ok: false,
+        json: async () => {},
+      });
+
+      window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+      window.document.cookie = `hackneyCognitoRefreshToken=${mockCognitoRefreshToken}`;
+      await parseToken();
+      await expect(logout()).rejects.toThrow("Failed to revoke refresh token");
+    });
+
+    test.each([
+      ["hackneyToken", mockToken],
+      ["hackneyCognitoToken", mockCognitoToken],
+    ])(
+      "logout clears legacy and cognito cookies and state",
+      async (tokenName, tokenValue) => {
+        window.document.cookie = `${tokenName}=${tokenValue}`;
+        await parseToken();
+        auth = $auth.getValue();
+        expect(auth.token).toBe(tokenValue);
+        logout();
+
+        const {
+          email,
+          name,
+          groups,
+          "custom:groups": customGroups,
+          token,
+        } = $auth.getValue();
+
+        expect(token).toBe("");
+        expect(email).toBe("");
+        expect(name).toBe("");
+        expect(groups).toEqual([]);
+        expect(customGroups).toEqual([]);
+        expect(window.location.reload).toBeCalledTimes(1);
+      },
+    );
+  });
 
   test("when both legacy and cognito tokens are present, cognito token takes precedence", async () => {
     window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
@@ -321,7 +401,7 @@ describe("auth", () => {
       globalThis.fetch = mockFetch as unknown as typeof fetch;
     });
 
-    test("sets id token as cognito token from the response", async () => {
+    test("sets id and refresh tokens from the response", async () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockTokensResponse,
@@ -354,10 +434,15 @@ describe("auth", () => {
         }).toString(),
       );
 
-      expect(mockSetCookie).toHaveBeenCalledTimes(1);
+      expect(mockSetCookie).toHaveBeenCalledTimes(2);
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         mockTokensResponse.id_token,
+        { sameSite: "strict", secure: true },
+      );
+      expect(mockSetCookie).toHaveBeenCalledWith(
+        "hackneyCognitoRefreshToken",
+        mockTokensResponse.refresh_token,
         { sameSite: "strict", secure: true },
       );
     });
