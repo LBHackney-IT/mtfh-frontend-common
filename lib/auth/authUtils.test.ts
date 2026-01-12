@@ -1,4 +1,8 @@
-import { generateCodeChallenge, generateCodeVerifier } from "./authUtils";
+import {
+  base64UrlEncode,
+  generateCodeChallenge,
+  generateCodeVerifier,
+} from "./authUtils";
 
 describe("authUtils", () => {
   describe("generateCodeVerifier", () => {
@@ -40,7 +44,7 @@ describe("authUtils", () => {
       const arg = (globalThis.crypto.getRandomValues as jest.Mock).mock.calls[0][0];
 
       expect(arg).toBeInstanceOf(Uint8Array);
-      expect(arg.length).toBe(128);
+      expect(arg.length).toBe(64);
     });
 
     it("returns a Base64URL-safe string", () => {
@@ -136,7 +140,7 @@ describe("authUtils", () => {
       await generateCodeChallenge(verifier);
 
       expect(globalThis.crypto.subtle.digest).toHaveBeenCalledWith(
-        { name: "SHA-256" },
+        "SHA-256",
         expectedData,
       );
     });
@@ -185,6 +189,39 @@ describe("authUtils", () => {
     it("returns a string", async () => {
       const result = await generateCodeChallenge("abc");
       expect(typeof result).toBe("string");
+    });
+  });
+
+  describe("base64UrlEncode", () => {
+    test("encodes a simple byte array correctly", () => {
+      const input = new Uint8Array([72, 101, 108, 108, 111]); // "Hello"
+      const result = base64UrlEncode(input);
+      expect(result).toBe("SGVsbG8");
+    });
+
+    test("removes padding characters", () => {
+      const input = new Uint8Array([0]); // Base64: "AA=="
+      const result = base64UrlEncode(input);
+      expect(result).toBe("AA");
+    });
+
+    test("replaces + and / with URL-safe characters", () => {
+      // Produces + and / in Base64
+      const input = new Uint8Array([251, 255, 239]); // Base64: "+//v"
+      const result = base64UrlEncode(input);
+      expect(result).toBe("-__v");
+    });
+
+    test("accepts ArrayBuffer input", () => {
+      const buffer = new Uint8Array([1, 2, 3]).buffer;
+      const result = base64UrlEncode(buffer);
+      expect(result).toBe("AQID");
+    });
+
+    test("handles empty input", () => {
+      const input = new Uint8Array([]);
+      const result = base64UrlEncode(input);
+      expect(result).toBe("");
     });
   });
 });
