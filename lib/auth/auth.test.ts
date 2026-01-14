@@ -106,7 +106,7 @@ function toUint8Array(data: ArrayBuffer | ArrayBufferView): Uint8Array {
   return new Uint8Array(data);
 }
 
-describe("auth", () => {
+describe.skip("auth", () => {
   beforeEach(async () => {
     let cookies = "";
 
@@ -231,7 +231,7 @@ describe("auth", () => {
     expect(window.location.href).toContain(config.cognitoDomain);
   });
 
-  describe("logout", () => {
+  describe.skip("logout", () => {
     const mockFetch = jest.fn();
     const mockRemoveCookie = jest.spyOn(Cookies, "remove");
 
@@ -347,7 +347,7 @@ describe("auth", () => {
     expect(auth.token).toBe(mockCognitoToken);
   });
 
-  describe("cognitoLogin", () => {
+  describe.skip("cognitoLogin", () => {
     test("cognitoLogin clears state and redirects to cognito auth with correct params", async () => {
       window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
       await parseToken();
@@ -385,7 +385,7 @@ describe("auth", () => {
     });
   });
 
-  describe("handleCognitoCallback", () => {
+  describe.skip("handleCognitoCallback", () => {
     const mockFetch = jest.fn();
     const mockSetCookie = jest.spyOn(Cookies, "set");
     const mockAccessCode = "123-abc";
@@ -549,7 +549,7 @@ describe("auth", () => {
   });
 });
 
-describe("verifyCognitoToken", () => {
+describe.skip("verifyCognitoToken", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

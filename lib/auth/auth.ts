@@ -1,11 +1,24 @@
+import { fetchAuthSession, signInWithRedirect, signOut } from "aws-amplify/auth";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject } from "rxjs";
 
 import { config } from "@mtfh/common/lib/config";
 
-import { createPkcePair } from "./authUtils";
+import { AmplifyAuthConfig, configureAmplifyAuth } from "./amplifyAuth";
 import { cognitoVerifier } from "./cognitoVerifier";
+
+//amplify
+const amplifyConfig: AmplifyAuthConfig = {
+  region: "eu-west-2",
+  userPoolId: config.cognitoUserPoolId,
+  userPoolWebClientId: config.cognitoClientId,
+  domain: `${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com`,
+  redirectSignIn: "http://localhost:3000",
+  redirectSignOut: "http://localhost:3000",
+};
+
+configureAmplifyAuth(amplifyConfig);
 
 export interface CognitoTokenResponse {
   id_token?: string;
@@ -62,7 +75,11 @@ export const $auth = new BehaviorSubject(voidUser);
 
 export const parseToken = async (): Promise<void> => {
   const legacyToken = Cookies.get(config.authToken);
-  const cognitoToken = Cookies.get(config.cognitoTokenName);
+  //amplify will automatically refresh the token here if valid refresh token is present.
+  // UI will show login button until the token is refreshed, so that needs to be handled
+  const session = await fetchAuthSession();
+  const cognitoToken = session.tokens?.idToken?.toString();
+  console.log(`parsing cognito token: ${cognitoToken}`);
 
   const decode = (token: NonNullable<string>, source: TokenSource): AuthUser => {
     try {
@@ -125,43 +142,10 @@ export const isAuthorised = (): boolean =>
 export const logout = async (): Promise<void> => {
   $auth.next(voidUser);
   Cookies.remove(config.authToken, {
-    domain: config.cookieDomain,
-  });
-  Cookies.remove(config.cognitoTokenName, {
-    domain: config.cookieDomain,
+    domain: "localhost", //config.cookieDomain,
   });
 
-  const refreshToken = Cookies.get("hackneyCognitoRefreshToken");
-
-  if (refreshToken) {
-    try {
-      const params = new URLSearchParams({
-        token: refreshToken,
-        client_id: config.cognitoClientId,
-      });
-
-      const response = await fetch(
-        `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/revoke`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: params,
-        },
-      );
-
-      if (!response.ok) {
-        throw new Error(`Failed to revoke token`);
-      }
-
-      Cookies.remove("hackneyCognitoRefreshToken", {
-        domain: config.cookieDomain,
-      });
-    } catch {
-      throw new Error("Failed to revoke refresh token");
-    }
-  }
+  await signOut();
 
   window.location.reload();
 };
@@ -173,86 +157,12 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
   )}`;
 };
 
-export const cognitoLogin = async (
-  redirectUrl = `${window.location.origin}`,
-): Promise<void> => {
-  logout();
-
-  //create new pair on each login
-  const { codeVerifier, codeChallenge } = await createPkcePair();
-
-  sessionStorage.setItem("cognito_pkce_verifier", codeVerifier);
-
-  const params = new URLSearchParams({
-    client_id: config.cognitoClientId,
-    response_type: "code",
-    scope: "openid email profile",
-    redirect_uri: redirectUrl,
-    code_challenge_method: "S256",
-    code_challenge: codeChallenge,
-  });
-
-  const loginUrl = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/authorize`;
-  window.location.href = `${loginUrl}?${params}`;
+export const cognitoLogin = async (): //redirectUrl = `${window.location.origin}`,
+Promise<void> => {
+  signInWithRedirect({ provider: "Google" });
 };
 
-export async function handleCognitoCallback(code: string): Promise<void> {
-  const tokenUrl = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`;
-
-  const verifier = sessionStorage.getItem("cognito_pkce_verifier");
-
-  const body = new URLSearchParams({
-    grant_type: "authorization_code",
-    client_id: config.cognitoClientId,
-    code,
-    redirect_uri: window.location.origin,
-    code_verifier: verifier ?? "", //Cognito will return 400 with invalid request if missing
-  });
-
-  let response: Response;
-  let tokens: CognitoTokenResponse;
-
-  try {
-    response = await fetch(tokenUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body,
-    });
-  } catch {
-    // Network or CORS failure
-    throw new TokenExchangeError("Token exchange failed: network error");
-  }
-
-  if (!response.ok) {
-    throw new TokenExchangeError(`Token exchange failed: NOK response`);
-  }
-
-  try {
-    tokens = (await response.json()) as CognitoTokenResponse;
-  } catch {
-    throw new TokenExchangeError("Token exchange failed: invalid JSON response");
-  }
-
-  if (!tokens.id_token) {
-    throw new TokenExchangeError("No id_token received from Cognito");
-  }
-
-  try {
-    Cookies.set(config.cognitoTokenName, tokens.id_token, {
-      sameSite: "strict",
-      secure: true,
-    });
-
-    Cookies.set("hackneyCognitoRefreshToken", tokens.refresh_token!, {
-      sameSite: "strict",
-      secure: true,
-    });
-  } catch {
-    throw new TokenExchangeError("Setting the cookie failed");
-  }
-  //not needed after successful token exchange, so it's recommended to remove it here
-  sessionStorage.removeItem("cognito_pkce_verifier"); //TODO: move to config
+//TODO: not needed with amplify
+export async function handleCognitoCallback(): Promise<void> {
   await parseToken();
 }
