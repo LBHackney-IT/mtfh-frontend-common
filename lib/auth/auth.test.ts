@@ -79,11 +79,11 @@ describe("auth", () => {
       },
     });
 
-    await parseToken();
     (window.location.reload as jest.Mock).mockReset();
   });
 
-  test("user is not authenticated", () => {
+  test("user is not authenticated", async () => {
+    await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
     expect(isAuthorised()).toBe(false);
