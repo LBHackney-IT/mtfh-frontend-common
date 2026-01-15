@@ -89,7 +89,7 @@ describe("auth", () => {
     expect(isAuthorised()).toBe(false);
   });
 
-  test.each(["hackneyToken=123456", "hackneyCognitoToken=1234567"])(
+  test.each(["${config.authToken}=123456", "${config.cognitoTokenName}=1234567"])(
     "user is unauthenticated with incorrect cookie",
     async (cookie) => {
       window.document.cookie = cookie;
@@ -104,7 +104,7 @@ describe("auth", () => {
     (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce(
       new Error("invalid token"),
     );
-    window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+    window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
     await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
@@ -112,7 +112,7 @@ describe("auth", () => {
   });
 
   test("user is authenticated with legacy token", async () => {
-    window.document.cookie = `hackneyToken=${mockToken}`;
+    window.document.cookie = `${config.authToken}=${mockToken}`;
     await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockToken);
@@ -126,7 +126,7 @@ describe("auth", () => {
   });
 
   test("user is authenticated with Cognito token", async () => {
-    window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+    window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
     await parseToken();
     auth = $auth.getValue();
     expect(auth.token).toBe(mockCognitoToken);
@@ -140,7 +140,7 @@ describe("auth", () => {
   });
 
   test("login clears state and redirects to legacy auth", async () => {
-    window.document.cookie = `hackneyToken=${mockToken}`;
+    window.document.cookie = `${config.authToken}=${mockToken}`;
     await parseToken();
     login();
     auth = $auth.getValue();
@@ -149,7 +149,7 @@ describe("auth", () => {
   });
 
   test("cognitoLogin clears state and redirects to cognito auth", async () => {
-    window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+    window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
     await parseToken();
     cognitoLogin();
     auth = $auth.getValue();
@@ -186,8 +186,8 @@ describe("auth", () => {
   );
 
   test("when both legacy and cognito tokens are present, cognito token takes precedence", async () => {
-    window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
-    window.document.cookie = `hackneyToken=${mockToken}`;
+    window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
+    window.document.cookie = `${config.authToken}=${mockToken}`;
 
     await parseToken();
     auth = $auth.getValue();
@@ -196,7 +196,7 @@ describe("auth", () => {
 
   describe("cognitoLogin", () => {
     test("cognitoLogin clears state and redirects to cognito auth", async () => {
-      window.document.cookie = `hackneyCognitoToken=${mockCognitoToken}`;
+      window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
       await parseToken();
       auth = $auth.getValue();
       expect(auth.token).toBe(mockCognitoToken);
