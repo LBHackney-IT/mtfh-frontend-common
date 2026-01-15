@@ -35,7 +35,7 @@ export interface AuthUser extends JWTPayload {
   tokenSource?: TokenSource;
 }
 
-const voidUser: AuthUser = {
+export const voidUser: AuthUser = {
   token: "",
   sub: "",
   email: "",

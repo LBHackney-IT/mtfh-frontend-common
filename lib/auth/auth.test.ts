@@ -17,6 +17,7 @@ import {
   logout,
   parseToken,
   verifyCognitoToken,
+  voidUser,
 } from "./auth";
 import { cognitoVerifier } from "./cognitoVerifier";
 
@@ -169,18 +170,8 @@ describe("auth", () => {
       expect(auth.token).toBe(tokenValue);
       logout();
 
-      const {
-        email,
-        name,
-        groups,
-        "custom:groups": customGroups,
-        token,
-      } = $auth.getValue();
-      expect(token).toBe("");
-      expect(email).toBe("");
-      expect(name).toBe("");
-      expect(groups).toEqual([]);
-      expect(customGroups).toEqual([]);
+      const authUser = $auth.getValue();
+      expect(authUser).toBe(voidUser);
       expect(window.location.reload).toBeCalledTimes(1);
     },
   );
