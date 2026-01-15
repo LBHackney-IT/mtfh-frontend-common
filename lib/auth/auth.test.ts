@@ -90,7 +90,7 @@ describe("auth", () => {
   });
 
   test.each(["hackneyToken=123456", "hackneyCognitoToken=1234567"])(
-    "user is unauthenticated with incorrect legacy cookie",
+    "user is unauthenticated with incorrect cookie",
     async (cookie) => {
       window.document.cookie = cookie;
       await parseToken();
