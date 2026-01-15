@@ -140,11 +140,15 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
 
 export const cognitoLogin = (redirectUrl = `${window.location.origin}`): void => {
   logout();
-  const loginUrl = `${config.cognitoDomain}/login?client_id=${
-    config.cognitoClientId
-  }&response_type=code&scope=openid+email+profile&redirect_uri=${encodeURIComponent(
-    redirectUrl,
-  )}`;
+
+  const params = new URLSearchParams({
+    client_id: config.cognitoClientId,
+    response_type: "code",
+    scope: "openid email profile",
+    redirect_uri: redirectUrl,
+  });
+
+  const loginUrl = `${config.cognitoDomain}/login?${params}`;
   window.location.href = loginUrl;
 };
 

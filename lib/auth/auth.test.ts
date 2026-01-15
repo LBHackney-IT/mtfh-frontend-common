@@ -202,11 +202,14 @@ describe("auth", () => {
       expect(auth.token).toBe(mockCognitoToken);
       cognitoLogin();
 
-      const expectedHref = `${config.cognitoDomain}/login?client_id=${
-        config.cognitoClientId
-      }&response_type=code&scope=openid+email+profile&redirect_uri=${encodeURIComponent(
-        window.location.origin,
-      )}`;
+      const expectedParams = new URLSearchParams({
+        client_id: config.cognitoClientId,
+        response_type: "code",
+        scope: "openid email profile",
+        redirect_uri: window.location.origin,
+      });
+
+      const expectedHref = `${config.cognitoDomain}/login?${expectedParams}`;
       auth = $auth.getValue();
       expect(auth.token).toBe("");
       expect(window.location.href).toBe(expectedHref);
