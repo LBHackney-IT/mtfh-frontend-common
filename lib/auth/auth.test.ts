@@ -89,7 +89,7 @@ describe("auth", () => {
     expect(isAuthorised()).toBe(false);
   });
 
-  test.each(["${config.authToken}=123456", "${config.cognitoTokenName}=1234567"])(
+  test.each([`${config.authToken}=123456`, `${config.cognitoTokenName}=1234567`])(
     "user is unauthenticated with incorrect cookie",
     async (cookie) => {
       window.document.cookie = cookie;
@@ -158,8 +158,8 @@ describe("auth", () => {
   });
 
   test.each([
-    ["hackneyToken", mockToken],
-    ["hackneyCognitoToken", mockCognitoToken],
+    [config.authToken, mockToken],
+    [config.cognitoTokenName, mockCognitoToken],
   ])(
     "logout clears legacy and cognito cookies and state",
     async (tokenName, tokenValue) => {
