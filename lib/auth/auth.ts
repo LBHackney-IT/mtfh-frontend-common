@@ -140,9 +140,7 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
 
 export const cognitoLogin = (redirectUrl = `${window.location.origin}`): void => {
   logout();
-  const loginUrl = `https://${
-    config.cognitoDomain
-  }.auth.eu-west-2.amazoncognito.com/login?client_id=${
+  const loginUrl = `${config.cognitoDomain}/login?client_id=${
     config.cognitoClientId
   }&response_type=code&scope=openid+email+profile&redirect_uri=${encodeURIComponent(
     redirectUrl,
@@ -151,7 +149,7 @@ export const cognitoLogin = (redirectUrl = `${window.location.origin}`): void =>
 };
 
 export async function handleCognitoCallback(code: string): Promise<void> {
-  const tokenUrl = `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`;
+  const tokenUrl = `${config.cognitoDomain}/oauth2/token`;
 
   const body = new URLSearchParams({
     grant_type: "authorization_code",

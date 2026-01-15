@@ -202,9 +202,7 @@ describe("auth", () => {
       expect(auth.token).toBe(mockCognitoToken);
       cognitoLogin();
 
-      const expectedHref = `https://${
-        config.cognitoDomain
-      }.auth.eu-west-2.amazoncognito.com/login?client_id=${
+      const expectedHref = `${config.cognitoDomain}/login?client_id=${
         config.cognitoClientId
       }&response_type=code&scope=openid+email+profile&redirect_uri=${encodeURIComponent(
         window.location.origin,
@@ -241,7 +239,7 @@ describe("auth", () => {
 
       expect(mockFetch).toHaveBeenCalledTimes(1);
       expect(mockFetch).toHaveBeenCalledWith(
-        `https://${config.cognitoDomain}.auth.eu-west-2.amazoncognito.com/oauth2/token`,
+        `${config.cognitoDomain}/oauth2/token`,
         expect.objectContaining({
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
