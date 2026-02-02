@@ -7,13 +7,10 @@ module.exports = {
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
     "^@mtfh/common/lib/(.*)": "<rootDir>/$1",
+    "#node-web-compat": "./node-web-compat-node.js",
   },
   testPathIgnorePatterns: ["test-utils.ts"],
-  setupFilesAfterEnv: [
-    "@testing-library/jest-dom",
-    "@hackney/mtfh-test-utils",
-    "./test-utils.ts",
-  ],
+  setupFilesAfterEnv: ["../setupTests.ts"],
   coverageDirectory: "../coverage",
   coveragePathIgnorePatterns: ["test-utils.ts"],
   coverageThreshold: {

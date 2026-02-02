@@ -44,7 +44,10 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/api/process/v1": path.join(apiPath, "process", "v1"),
       "common/lib/api/process/v2": path.join(apiPath, "process", "v2"),
       "common/lib/api/patch/v1": path.join(apiPath, "patch", "v1"),
-      "common/lib/api/housing-finance-interim-api": path.join(apiPath, "housing-finance-interim-api"),
+      "common/lib/api/housing-finance-interim-api": path.join(
+        apiPath,
+        "housing-finance-interim-api",
+      ),
       "common/lib/api/equality-information/v1": path.join(
         apiPath,
         "equality-information",
@@ -89,13 +92,18 @@ module.exports = (webpackConfigEnv, argv) => {
         ADDRESS_API_URL_V1: dotenv.ADDRESS_API_URL_V1 || "",
         ADDRESS_API_URL_V2: dotenv.ADDRESS_API_URL_V2 || "",
         EQUALITY_INFORMATION_API_URL_V1: dotenv.EQUALITY_INFORMATION_API_URL_V1 || "",
-        HOUSING_FINANCE_INTERIM_API_URL_V1: dotenv.HOUSING_FINANCE_INTERIM_API_URL_V1 || "",
+        HOUSING_FINANCE_INTERIM_API_URL_V1:
+          dotenv.HOUSING_FINANCE_INTERIM_API_URL_V1 || "",
         REPAIRS_HUB_APP_URL: dotenv.REPAIRS_HUB_APP_URL || "",
         REPAIRS_HUB_API_URL: dotenv.REPAIRS_HUB_API_URL || "",
         PROCESS_API_URL_V1: dotenv.PROCESS_API_URL_V1 || "",
         PROCESS_API_URL_V2: dotenv.PROCESS_API_URL_V2 || "",
         HOUSINGSEARCH_API_URL_V1: dotenv.HOUSINGSEARCH_API_URL_V1 || "",
-        PATCHES_AND_AREAS_API_V1: dotenv.PATCHES_AND_AREAS_API_V1 || ""
+        PATCHES_AND_AREAS_API_V1: dotenv.PATCHES_AND_AREAS_API_V1 || "",
+        COGNITO_TOKEN_NAME: dotenv.COGNITO_TOKEN_NAME || "",
+        COGNITO_DOMAIN: dotenv.COGNITO_DOMAIN || "",
+        COGNITO_CLIENT_ID: dotenv.COGNITO_CLIENT_ID || "",
+        COGNITO_USER_POOL_ID: dotenv.COGNITO_USER_POOL_ID || "",
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
