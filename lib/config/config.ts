@@ -30,6 +30,9 @@ const config = {
   cognitoDomain: process.env.COGNITO_DOMAIN || "cognito-domain-test-only",
   cognitoClientId: process.env.COGNITO_CLIENT_ID || "cognito-client-id-test-only",
   cognitoUserPoolId: process.env.COGNITO_USER_POOL_ID || "cognito-user-poll-id-test-only",
+  cognitoPKCEVerifierSessionStorageName:
+    process.env.COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME ||
+    "pkce-verifier-name-test-only",
 };
 
 export default config;
