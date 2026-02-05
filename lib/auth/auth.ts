@@ -4,6 +4,7 @@ import { BehaviorSubject } from "rxjs";
 
 import { config } from "@mtfh/common/lib/config";
 
+import { createPkcePair } from "./authUtils";
 import { cognitoVerifier } from "./cognitoVerifier";
 
 export interface CognitoTokenResponse {
@@ -138,28 +139,40 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
   )}`;
 };
 
-export const cognitoLogin = (redirectUrl = `${window.location.origin}`): void => {
+export const cognitoLogin = async (
+  redirectUrl = `${window.location.origin}`,
+): Promise<void> => {
   logout();
+
+  //create new pair on each login
+  const { codeVerifier, codeChallenge } = await createPkcePair();
+
+  sessionStorage.setItem(config.cognitoPKCEVerifierSessionStorageName, codeVerifier);
 
   const params = new URLSearchParams({
     client_id: config.cognitoClientId,
     response_type: "code",
     scope: "openid email profile",
     redirect_uri: redirectUrl,
+    code_challenge_method: "S256",
+    code_challenge: codeChallenge,
   });
 
-  const loginUrl = `${config.cognitoDomain}/login?${params}`;
+  const loginUrl = `${config.cognitoDomain}/authorize?${params}`;
   window.location.href = loginUrl;
 };
 
 export async function handleCognitoCallback(code: string): Promise<void> {
   const tokenUrl = `${config.cognitoDomain}/oauth2/token`;
 
+  const verifier = sessionStorage.getItem(config.cognitoPKCEVerifierSessionStorageName);
+
   const body = new URLSearchParams({
     grant_type: "authorization_code",
     client_id: config.cognitoClientId,
     code,
     redirect_uri: window.location.origin,
+    code_verifier: verifier ?? "", //Cognito will return 400 with invalid request if missing
   });
 
   let response: Response;
@@ -200,6 +213,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
   } catch {
     throw new TokenExchangeError("Setting the cookie failed");
   }
-
+  //not needed after successful token exchange, so it's recommended to remove it here
+  sessionStorage.removeItem(config.cognitoPKCEVerifierSessionStorageName);
   await parseToken();
 }

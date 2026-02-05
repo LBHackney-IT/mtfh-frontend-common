@@ -104,6 +104,8 @@ module.exports = (webpackConfigEnv, argv) => {
         COGNITO_DOMAIN: dotenv.COGNITO_DOMAIN || "",
         COGNITO_CLIENT_ID: dotenv.COGNITO_CLIENT_ID || "",
         COGNITO_USER_POOL_ID: dotenv.COGNITO_USER_POOL_ID || "",
+        COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME:
+          dotenv.COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME || "",
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
