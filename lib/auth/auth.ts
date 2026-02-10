@@ -207,7 +207,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
 
   try {
     Cookies.set(config.cognitoTokenName, tokens.id_token, {
-      sameSite: "lax",
+      sameSite: "strict",
       secure: true,
       domain: config.cookieDomain,
     });
