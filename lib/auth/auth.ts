@@ -209,6 +209,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
     Cookies.set(config.cognitoTokenName, tokens.id_token, {
       sameSite: "strict",
       secure: true,
+      domain: config.cookieDomain,
     });
   } catch {
     throw new TokenExchangeError("Setting the cookie failed");
