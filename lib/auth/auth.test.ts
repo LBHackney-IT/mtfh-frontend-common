@@ -352,7 +352,7 @@ describe("auth", () => {
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         mockTokensResponse.id_token,
-        { sameSite: "strict", secure: true },
+        { sameSite: "lax", secure: true, domain: config.cookieDomain },
       );
     });
 
