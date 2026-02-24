@@ -54,14 +54,18 @@ Object.defineProperty(window, "location", {
 
 let auth: AuthUser;
 
+const mockCognitoPayloadIssuedAt = Math.floor(Date.now() / 1000);
+const mockCognitoPayloadExpires = mockCognitoPayloadIssuedAt + 3600; //1h later
+
 const mockCognitoPayload: JWTPayload = {
   sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
   groups: [],
   iss: "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_ABC123",
-  iat: Math.floor(Date.now() / 1000),
+  iat: mockCognitoPayloadIssuedAt,
   email: "testuser@example.com",
   name: "Test User",
   "custom:groups": ["TEST_GROUP"],
+  exp: mockCognitoPayloadExpires,
 };
 
 const mockCognitoToken = jwt.sign(mockCognitoPayload, "cognito-secret");
@@ -349,10 +353,81 @@ describe("auth", () => {
       );
 
       expect(mockSetCookie).toHaveBeenCalledTimes(1);
+      const expectedExp = new Date(mockCognitoPayload.exp! * 1000);
+
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         mockTokensResponse.id_token,
-        { sameSite: "strict", secure: true, domain: config.cookieDomain },
+        {
+          expires: expectedExp,
+          sameSite: "strict",
+          secure: true,
+          domain: config.cookieDomain,
+        },
+      );
+    });
+
+    test("sets cognito token without expiry date if not provided by the id token response", async () => {
+      const mockCognitoPayloadWithoutIdExpiry = {
+        ...mockCognitoPayload,
+        exp: 0,
+      };
+      const idTokenWithoutExpiry = jwt.sign(
+        mockCognitoPayloadWithoutIdExpiry,
+        "cognito-secret",
+      );
+
+      const tokenResponseWithoutIdTokenExpiry: CognitoTokenResponse = {
+        id_token: idTokenWithoutExpiry,
+        access_token: "access-token",
+        refresh_token: "refresh-token",
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => tokenResponseWithoutIdTokenExpiry,
+      } as Response);
+
+      //this will be set by the login(), so mock it here when calling the callback handler directly
+      sessionStorage.setItem(
+        config.cognitoPKCEVerifierSessionStorageName,
+        generatedVerifier,
+      );
+
+      await handleCognitoCallback(mockAccessCode);
+
+      expect(mockSetCookie).toHaveBeenCalledTimes(1);
+      expect(mockSetCookie).toHaveBeenCalledWith(
+        config.cognitoTokenName,
+        tokenResponseWithoutIdTokenExpiry.id_token,
+        {
+          expires: undefined,
+          sameSite: "strict",
+          secure: true,
+          domain: config.cookieDomain,
+        },
+      );
+    });
+
+    test("throws TokenExchangeError when jwtDecode fails", async () => {
+      const tokenResponseWithoutIdTokenExpiry: CognitoTokenResponse = {
+        id_token: "%*^&%&*^^%&*^&-not-a-valid-token",
+        access_token: "access-token",
+        refresh_token: "refresh-token",
+      };
+
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => tokenResponseWithoutIdTokenExpiry,
+      } as Response);
+
+      sessionStorage.setItem(
+        config.cognitoPKCEVerifierSessionStorageName,
+        generatedVerifier,
+      );
+
+      await expect(handleCognitoCallback(mockAccessCode)).rejects.toThrow(
+        new TokenExchangeError("Setting the cookie failed"),
       );
     });
 
