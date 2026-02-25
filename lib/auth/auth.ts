@@ -29,6 +29,7 @@ export interface JWTPayload {
   groups: string[];
   "custom:groups"?: string[];
   iat: number;
+  exp?: number;
 }
 
 export interface AuthUser extends JWTPayload {
@@ -139,6 +140,13 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
   )}`;
 };
 
+function getCookieExpiry(decodedToken: JWTPayload): Date | undefined {
+  if (!decodedToken.exp) {
+    return undefined;
+  }
+  return new Date(decodedToken.exp * 1000);
+}
+
 export const cognitoLogin = async (
   redirectUrl = `${window.location.origin}`,
 ): Promise<void> => {
@@ -206,7 +214,10 @@ export async function handleCognitoCallback(code: string): Promise<void> {
   }
 
   try {
+    const decodedIdToken = jwtDecode<JWTPayload>(tokens.id_token);
+
     Cookies.set(config.cognitoTokenName, tokens.id_token, {
+      expires: getCookieExpiry(decodedIdToken),
       sameSite: "strict",
       secure: true,
       domain: config.cookieDomain,
