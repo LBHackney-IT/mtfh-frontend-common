@@ -21,18 +21,28 @@ export enum TokenSource {
 }
 
 export class TokenExchangeError extends Error {}
-export interface JWTPayload {
+
+export interface LegacyTokenPayload {
   sub: string;
   email: string;
   iss: string;
   name: string;
   groups: string[];
-  "custom:groups"?: string[];
   iat: number;
   exp?: number;
 }
 
-export interface AuthUser extends JWTPayload {
+// "transition period" because this schema will only be relevant so long as we have to support
+// both legacy and the new cognito token schemas.
+export interface TransitionPeriodTokenPayload extends LegacyTokenPayload {
+  "custom:groups"?: string;
+}
+
+// It was agreed that further refactoring will be done after we phase out legacy auth flow.
+// TODO when above ^^^: downstream applications shouldn't need to care about presentation level concerns
+// such token payload key name prefixes, as such, this would ideally be changed to be just "groups".
+export interface AuthUser extends LegacyTokenPayload {
+  "custom:groups"?: string[];
   token: string;
   tokenSource?: TokenSource;
 }
@@ -66,10 +76,15 @@ export const parseToken = async (): Promise<void> => {
 
   const decode = (token: NonNullable<string>, source: TokenSource): AuthUser => {
     try {
-      const decoded = jwtDecode<JWTPayload>(token);
+      const decoded = jwtDecode<TransitionPeriodTokenPayload>(token);
+      const customGroups =
+        source === TokenSource.CognitoUser
+          ? decoded["custom:groups"]?.split(";").filter((g) => g)
+          : [];
 
       return {
         ...decoded,
+        "custom:groups": customGroups,
         token,
         tokenSource: source,
       };
@@ -140,7 +155,7 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
   )}`;
 };
 
-function getCookieExpiry(decodedToken: JWTPayload): Date | undefined {
+function getCookieExpiry(decodedToken: TransitionPeriodTokenPayload): Date | undefined {
   if (!decodedToken.exp) {
     return undefined;
   }
@@ -214,7 +229,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
   }
 
   try {
-    const decodedIdToken = jwtDecode<JWTPayload>(tokens.id_token);
+    const decodedIdToken = jwtDecode<TransitionPeriodTokenPayload>(tokens.id_token);
 
     Cookies.set(config.cognitoTokenName, tokens.id_token, {
       expires: getCookieExpiry(decodedIdToken),

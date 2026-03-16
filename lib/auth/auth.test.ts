@@ -9,9 +9,9 @@ import {
   $auth,
   AuthUser,
   CognitoTokenResponse,
-  JWTPayload,
   TokenExchangeError,
   TokenSource,
+  TransitionPeriodTokenPayload,
   cognitoLogin,
   handleCognitoCallback,
   isAuthorised,
@@ -32,7 +32,7 @@ jest.mock("aws-jwt-verify", () => ({
   },
 }));
 
-const mockLegacyTokenPayload: JWTPayload = {
+const mockLegacyTokenPayload: TransitionPeriodTokenPayload = {
   sub: "112895652611500752170",
   email: "test@example.com",
   iss: "Hackney",
@@ -57,14 +57,15 @@ let auth: AuthUser;
 const mockCognitoPayloadIssuedAt = Math.floor(Date.now() / 1000);
 const mockCognitoPayloadExpires = mockCognitoPayloadIssuedAt + 3600; //1h later
 
-const mockCognitoPayload: JWTPayload = {
+const mockCognitoPayload: TransitionPeriodTokenPayload = {
   sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
   groups: [],
   iss: "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_ABC123",
   iat: mockCognitoPayloadIssuedAt,
   email: "testuser@example.com",
   name: "Test User",
-  "custom:groups": ["TEST_GROUP"],
+  // additional ';' separators are used to cover for edge case that's meant to filter out emptry string groups
+  "custom:groups": ";TEST_GROUP;TEST_GROUP_2;",
   exp: mockCognitoPayloadExpires,
 };
 
@@ -203,17 +204,24 @@ describe("auth", () => {
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
   });
 
-  test("user is authenticated with Cognito token", async () => {
+  test("user is authenticated with Cognito token and its payload is parsed correctly", async () => {
     window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
     await parseToken();
     auth = $auth.getValue();
+
+    // assert payload parsing
     expect(auth.token).toBe(mockCognitoToken);
     expect(auth.name).toBe(mockCognitoPayload.name);
     expect(auth.email).toBe(mockCognitoPayload.email);
-    expect(auth["custom:groups"]).toStrictEqual(mockCognitoPayload["custom:groups"]);
+
+    const expectedCognitoGroups = ["TEST_GROUP", "TEST_GROUP_2"];
+
+    expect(auth["custom:groups"]).toStrictEqual(expectedCognitoGroups);
     expect(auth.tokenSource).toBe(TokenSource.CognitoUser);
+
+    // assert authorization status
     expect(isAuthorised()).toBe(true);
-    expect(isAuthorisedForGroups([mockCognitoPayload["custom:groups"]![0]])).toBe(true);
+    expect(isAuthorisedForGroups([expectedCognitoGroups![0]])).toBe(true);
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
   });
 
