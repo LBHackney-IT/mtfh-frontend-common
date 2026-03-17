@@ -88,7 +88,7 @@ export const parseToken = async (): Promise<void> => {
       const decoded = jwtDecode<TransitionPeriodTokenPresentation>(token);
       const customGroups =
         source === TokenSource.CognitoUser
-          ? decoded["custom:groups"]?.split(";").filter((g) => g)
+          ? decoded["custom:groups"]?.split(";").filter(Boolean)
           : [];
 
       return {
