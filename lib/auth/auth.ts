@@ -136,11 +136,13 @@ export const parseToken = async (): Promise<void> => {
   await parseToken();
 })();
 
-export const isAuthorisedForGroups = (groups: string[]): boolean => {
+export const isAuthorisedForGroups = (featureGroups: string[]): boolean => {
   const auth = $auth.getValue();
-  return auth.tokenSource === TokenSource.CognitoUser
-    ? groups.some((group) => auth["custom:groups"]?.includes(group))
-    : groups.some((group) => auth.groups?.includes(group));
+
+  const userGroups =
+    auth.tokenSource === TokenSource.CognitoUser ? auth["custom:groups"] : auth.groups;
+
+  return featureGroups.some((fg) => userGroups?.includes(fg));
 };
 
 export const isAuthorised = (): boolean =>
