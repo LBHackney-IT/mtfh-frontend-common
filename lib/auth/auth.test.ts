@@ -11,7 +11,7 @@ import {
   CognitoTokenResponse,
   TokenExchangeError,
   TokenSource,
-  TransitionPeriodTokenPayload,
+  TransitionPeriodTokenPresentation,
   cognitoLogin,
   handleCognitoCallback,
   isAuthorised,
@@ -32,7 +32,7 @@ jest.mock("aws-jwt-verify", () => ({
   },
 }));
 
-const mockLegacyTokenPayload: TransitionPeriodTokenPayload = {
+const mockLegacyTokenPayload: TransitionPeriodTokenPresentation = {
   sub: "112895652611500752170",
   email: "test@example.com",
   iss: "Hackney",
@@ -57,7 +57,7 @@ let auth: AuthUser;
 const mockCognitoPayloadIssuedAt = Math.floor(Date.now() / 1000);
 const mockCognitoPayloadExpires = mockCognitoPayloadIssuedAt + 3600; //1h later
 
-const mockCognitoPayload: TransitionPeriodTokenPayload = {
+const mockCognitoPayload: TransitionPeriodTokenPresentation = {
   sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
   groups: [],
   iss: "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_ABC123",
