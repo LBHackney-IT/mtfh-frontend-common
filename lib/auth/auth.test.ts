@@ -223,7 +223,7 @@ describe("auth", () => {
 
     // assert authorization status
     expect(isAuthorised()).toBe(true);
-    expect(isAuthorisedForGroups([expectedCognitoGroups![0]])).toBe(true);
+    expect(isAuthorisedForGroups([expectedCognitoGroups[0]])).toBe(true);
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
     // test that groups substring match does not trigger an allow state
     expect(isAuthorisedForGroups(["TEST_GR"])).toBe(false);
