@@ -202,6 +202,8 @@ describe("auth", () => {
     expect(isAuthorised()).toBe(true);
     expect(isAuthorisedForGroups(["TEST_GROUP"])).toBe(true);
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
+    // test that groups substring match does not trigger an allow state
+    expect(isAuthorisedForGroups(["TEST_GR"])).toBe(false);
   });
 
   test("user is authenticated with Cognito token and its payload is parsed correctly", async () => {
@@ -223,6 +225,8 @@ describe("auth", () => {
     expect(isAuthorised()).toBe(true);
     expect(isAuthorisedForGroups([expectedCognitoGroups![0]])).toBe(true);
     expect(isAuthorisedForGroups(["not-a-users-group"])).toBe(false);
+    // test that groups substring match does not trigger an allow state
+    expect(isAuthorisedForGroups(["TEST_GR"])).toBe(false);
   });
 
   test("login clears state and redirects to legacy auth", async () => {
