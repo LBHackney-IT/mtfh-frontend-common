@@ -8,10 +8,11 @@ import { config } from "../config";
 import {
   $auth,
   AuthUser,
+  CognitoTokenPayload,
   CognitoTokenResponse,
+  LegacyTokenPayload,
   TokenExchangeError,
   TokenSource,
-  TransitionPeriodTokenPresentation,
   cognitoLogin,
   handleCognitoCallback,
   isAuthorised,
@@ -32,7 +33,7 @@ jest.mock("aws-jwt-verify", () => ({
   },
 }));
 
-const mockLegacyTokenPayload: TransitionPeriodTokenPresentation = {
+const mockLegacyTokenPayload: LegacyTokenPayload = {
   sub: "112895652611500752170",
   email: "test@example.com",
   iss: "Hackney",
@@ -57,9 +58,8 @@ let auth: AuthUser;
 const mockCognitoPayloadIssuedAt = Math.floor(Date.now() / 1000);
 const mockCognitoPayloadExpires = mockCognitoPayloadIssuedAt + 3600; //1h later
 
-const mockCognitoPayload: TransitionPeriodTokenPresentation = {
+const mockCognitoPayload: CognitoTokenPayload = {
   sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
-  groups: [],
   iss: "https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_ABC123",
   iat: mockCognitoPayloadIssuedAt,
   email: "testuser@example.com",
