@@ -21,18 +21,37 @@ export enum TokenSource {
 }
 
 export class TokenExchangeError extends Error {}
-export interface JWTPayload {
+
+export interface TokenBase {
   sub: string;
   email: string;
   iss: string;
   name: string;
-  groups: string[];
-  "custom:groups"?: string[];
   iat: number;
   exp?: number;
 }
 
-export interface AuthUser extends JWTPayload {
+export interface LegacyTokenPayload extends TokenBase {
+  groups: string[];
+}
+
+export interface CognitoTokenPayload extends TokenBase {
+  "custom:groups": string;
+}
+
+// "transition period" because this schema will only be relevant so long as we have to support
+// both legacy and the new cognito token schemas.
+export interface TransitionPeriodTokenPresentation extends TokenBase {
+  groups?: string[];
+  "custom:groups"?: string;
+}
+
+// It was agreed that further refactoring will be done after we phase out legacy auth flow.
+// TODO when above ^^^: downstream applications shouldn't need to care about presentation level concerns
+// such token payload key name prefixes, as such, this would ideally be changed to be just "groups".
+export interface AuthUser extends TokenBase {
+  groups?: string[];
+  "custom:groups"?: string[];
   token: string;
   tokenSource?: TokenSource;
 }
@@ -66,10 +85,15 @@ export const parseToken = async (): Promise<void> => {
 
   const decode = (token: NonNullable<string>, source: TokenSource): AuthUser => {
     try {
-      const decoded = jwtDecode<JWTPayload>(token);
+      const decoded = jwtDecode<TransitionPeriodTokenPresentation>(token);
+      const customGroups =
+        source === TokenSource.CognitoUser
+          ? decoded["custom:groups"]?.split(";").filter(Boolean)
+          : [];
 
       return {
         ...decoded,
+        "custom:groups": customGroups,
         token,
         tokenSource: source,
       };
@@ -112,11 +136,13 @@ export const parseToken = async (): Promise<void> => {
   await parseToken();
 })();
 
-export const isAuthorisedForGroups = (groups: string[]): boolean => {
+export const isAuthorisedForGroups = (featureGroups: string[]): boolean => {
   const auth = $auth.getValue();
-  return auth.tokenSource === TokenSource.CognitoUser
-    ? groups.some((group) => auth["custom:groups"]?.includes(group))
-    : groups.some((group) => auth.groups.includes(group));
+
+  const userGroups =
+    auth.tokenSource === TokenSource.CognitoUser ? auth["custom:groups"] : auth.groups;
+
+  return featureGroups.some((fg) => userGroups?.includes(fg));
 };
 
 export const isAuthorised = (): boolean =>
@@ -140,7 +166,9 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
   )}`;
 };
 
-function getCookieExpiry(decodedToken: JWTPayload): Date | undefined {
+function getCookieExpiry(
+  decodedToken: TransitionPeriodTokenPresentation,
+): Date | undefined {
   if (!decodedToken.exp) {
     return undefined;
   }
@@ -214,7 +242,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
   }
 
   try {
-    const decodedIdToken = jwtDecode<JWTPayload>(tokens.id_token);
+    const decodedIdToken = jwtDecode<TransitionPeriodTokenPresentation>(tokens.id_token);
 
     Cookies.set(config.cognitoTokenName, tokens.id_token, {
       expires: getCookieExpiry(decodedIdToken),
