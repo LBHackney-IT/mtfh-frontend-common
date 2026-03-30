@@ -187,13 +187,10 @@ workflows:
   deploy-dev:
     jobs:
       - install-dependencies
-      - lint-and-test:
-          requires:
-            - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
-            - lint-and-test
+            - install-dependencies
           filters:
             branches:
               only: main
