@@ -283,7 +283,8 @@ describe("auth", () => {
       await cognitoLogin();
 
       const expectedParams = new URLSearchParams({
-        client_id: config.cognitoClientId,
+        // poc hack. proper implementation will follow
+        client_id: config.cognitoClientIds[0],
         response_type: "code",
         scope: "openid email profile",
         redirect_uri: window.location.origin,
@@ -357,7 +358,8 @@ describe("auth", () => {
       expect(call.body.toString()).toBe(
         new URLSearchParams({
           grant_type: "authorization_code",
-          client_id: config.cognitoClientId,
+          // poc hack. proper implementation will follow
+          client_id: config.cognitoClientIds[0],
           code: mockAccessCode,
           redirect_uri: window.location.origin,
           code_verifier: generatedVerifier,

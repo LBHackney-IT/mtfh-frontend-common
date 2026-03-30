@@ -186,7 +186,9 @@ export const cognitoLogin = async (
   sessionStorage.setItem(config.cognitoPKCEVerifierSessionStorageName, codeVerifier);
 
   const params = new URLSearchParams({
-    client_id: config.cognitoClientId,
+    // poc hack. proper implementation will follow
+    // assumes that the 1st one is for google sso login
+    client_id: config.cognitoClientIds[0],
     response_type: "code",
     scope: "openid email profile",
     redirect_uri: redirectUrl,
@@ -205,7 +207,9 @@ export async function handleCognitoCallback(code: string): Promise<void> {
 
   const body = new URLSearchParams({
     grant_type: "authorization_code",
-    client_id: config.cognitoClientId,
+    // poc hack. proper implementation will follow
+    // assumes that the 1st one is for google sso login
+    client_id: config.cognitoClientIds[0],
     code,
     redirect_uri: window.location.origin,
     code_verifier: verifier ?? "", //Cognito will return 400 with invalid request if missing
