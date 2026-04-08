@@ -1,3 +1,5 @@
+trigger
+
 # @mtfh/common
 
 The common utility module for `@mtfh/root`.
