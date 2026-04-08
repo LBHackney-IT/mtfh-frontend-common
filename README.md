@@ -179,3 +179,5 @@ EQUALITY_INFORMATION_API_URL_V1=https://api-url.com/api/v1
 ```
 
 Urls are available on the API gateways of AWS
+
+### Clean Run
