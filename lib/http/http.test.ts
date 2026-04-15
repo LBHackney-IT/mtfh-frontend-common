@@ -1,7 +1,7 @@
 import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
 
-import { $auth } from "@mtfh/common/lib/auth";
+import { $auth, voidUser } from "@mtfh/common/lib/auth";
 
 import { axiosInstance, createCancelToken } from "./http";
 
@@ -18,10 +18,17 @@ describe("axiosInstance", () => {
   });
 
   test("it calls with Authorization header", async () => {
+    const MockToken = "mock-token";
     request({ method: "get", ...defaultRequest, data: "success" });
+
+    $auth.next({
+      ...voidUser,
+      token: MockToken,
+    });
 
     const res = await axiosInstance.get("/api");
 
+    expect(res.config.headers.get("Authorization")).toBe(`Bearer ${MockToken}`);
     expect(res.data).toBe("success");
   });
 
@@ -139,5 +146,17 @@ describe("axiosInstance", () => {
     });
 
     expect(res.status).toBe(200);
+  });
+
+  test("returned request object preserves original config fields", async () => {
+    request({ method: "get", ...defaultRequest, data: "success" });
+
+    const res = await axiosInstance.get("/api", {
+      timeout: 5000,
+      params: { q: "test" },
+    });
+
+    expect(res.config.timeout).toBe(5000);
+    expect(res.config.params).toEqual({ q: "test" });
   });
 });
