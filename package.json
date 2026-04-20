@@ -95,7 +95,7 @@
     "@types/uuid": "^8.3.1",
     "@types/webpack-env": "^1.16.0",
     "aws-jwt-verify": "4.0.1",
-    "axios": "^0.21.3",
+    "axios": "1.15.0",
     "classnames": "^2.3.1",
     "date-fns": "^2.23.0",
     "deep-diff": "^1.0.2",

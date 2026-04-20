@@ -1,10 +1,15 @@
-import axios, { AxiosError, AxiosRequestConfig, CancelTokenSource } from "axios";
+import axios, {
+  AxiosError,
+  AxiosHeaders,
+  AxiosRequestConfig,
+  CancelTokenSource,
+} from "axios";
 import { v4 as uuid } from "uuid";
 
 import { $auth, isAuthorised, logout } from "@mtfh/common/lib/auth";
 
 export interface Config extends AxiosRequestConfig {
-  headers: Record<string, string>;
+  headers: AxiosHeaders;
 }
 
 export const axiosInstance = axios.create({
@@ -12,22 +17,33 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((reqConfig) => {
+  // Normalize headers into a guaranteed AxiosHeaders instance
+  const headers = AxiosHeaders.from(reqConfig.headers) ?? new AxiosHeaders();
+
+  // Add Authorization header
+  headers.set("Authorization", `Bearer ${$auth.getValue().token}`);
+
+  // Add correlation ID unless explicitly skipped
+  if (!headers.has("skip-x-correlation-id")) {
+    headers.set("x-correlation-id", uuid());
+  }
+
+  // Remove the control header
+  headers.delete("skip-x-correlation-id");
+
+  // Handle ETag → If-Match for PATCH requests
+  const data = reqConfig.data ? { ...reqConfig.data } : undefined;
+
+  if (reqConfig.method === "patch" && data?.etag) {
+    headers.set("If-Match", data.etag);
+    delete data.etag;
+  }
+
   const req: Config = {
     ...reqConfig,
-    headers: {
-      ...reqConfig.headers,
-      Authorization: `Bearer ${$auth.getValue().token}`,
-      ...(reqConfig.headers["skip-x-correlation-id"]
-        ? {}
-        : { "x-correlation-id": uuid() }),
-    },
+    headers,
+    data,
   };
-  delete req.headers["skip-x-correlation-id"];
-
-  if (req.method === "patch" && Object.keys(req.data || {}).includes("etag")) {
-    req.headers["If-Match"] = req.data.etag;
-    delete req.data.etag;
-  }
 
   return req;
 });
