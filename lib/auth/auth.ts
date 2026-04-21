@@ -104,7 +104,7 @@ export const parseToken = async (): Promise<void> => {
 
   // No token at all → return void user
   if (!legacyToken && !cognitoToken) {
-    console.log(`    [Common]-[No Token?].`)
+    console.warn(`    [Common]-[No Token?].`)
     $auth.next(voidUser);
     return;
   }
@@ -113,7 +113,7 @@ export const parseToken = async (): Promise<void> => {
   // In order to migrate root apps over to Cognito auth MFE we need to support both tokens for a while
   // Once all root apps are using Cognito we can/must drop support for legacy tokens
   if (cognitoToken) {
-    console.log(`    [Common]-[CognitoToken].`)
+    console.warn(`    [Common]-[CognitoToken].`)
     //verify token since it can be done safely on the client
     const tokenIsValid = await verifyCognitoToken(cognitoToken);
 
@@ -121,7 +121,7 @@ export const parseToken = async (): Promise<void> => {
       ? decode(cognitoToken, TokenSource.CognitoUser)
       : voidUser;
 
-    console.log("    [Common]:", parsed)
+    console.warn("    [Common]:", parsed)
 
     $auth.next(parsed);
     return;
@@ -132,7 +132,7 @@ export const parseToken = async (): Promise<void> => {
     $auth.next(voidUser);
     return;
   }
-  console.log(`    [Common]-[LegacyToken].`)
+  console.warn(`    [Common]-[LegacyToken].`)
   // Fall back to legacy token
   $auth.next(decode(legacyToken, TokenSource.LegacyUser));
 };
