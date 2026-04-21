@@ -126,7 +126,7 @@ export const parseToken = async (): Promise<void> => {
       ? decode(cognitoToken, TokenSource.CognitoUser)
       : voidUser;
 
-    console.log(`    [Common]: ${parsed}`)
+    console.log("    [Common]:", parsed)
 
     $auth.next(parsed);
     return;
