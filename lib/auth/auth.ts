@@ -91,17 +91,12 @@ export const parseToken = async (): Promise<void> => {
           ? decoded["custom:groups"]?.split(";").filter(Boolean)
           : [];
 
-      const finalDecoded = {
+      return {
         ...decoded,
+        "custom:groups": customGroups,
         token,
         tokenSource: source,
       };
-
-      if (customGroups.length > 0) {
-        finalDecoded["custom:groups"] = customGroups;
-      }
-
-      return finalDecoded;
     } catch {
       return voidUser;
     }
