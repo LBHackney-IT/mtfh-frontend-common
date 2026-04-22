@@ -32,7 +32,10 @@ axiosInstance.interceptors.request.use((reqConfig) => {
   headers.delete("skip-x-correlation-id");
 
   // Handle ETag → If-Match for PATCH requests
-  const data = reqConfig.data ? { ...reqConfig.data } : undefined;
+  let data;
+  if (reqConfig.data) {
+    data = Array.isArray(reqConfig.data) ? [...reqConfig.data] : { ...reqConfig.data };
+  }
 
   if (reqConfig.method === "patch" && data?.etag) {
     headers.set("If-Match", data.etag);
