@@ -120,5 +120,8 @@
     "defaults",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "jest": {
+    "preset": "./jest-preset.js"
+  }
 }
