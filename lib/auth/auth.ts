@@ -71,6 +71,7 @@ export const voidUser: AuthUser = {
 export const verifyCognitoToken = async (token: string) => {
   try {
     await cognitoVerifier.verify(token);
+    console.warn("verifyCognitoToken:", token.substring(0,15));
     return true;
   } catch (error) {
     console.error("Failed to verify Cognito token:", error);
@@ -114,7 +115,7 @@ export const parseToken = async (): Promise<void> => {
   // In order to migrate root apps over to Cognito auth MFE we need to support both tokens for a while
   // Once all root apps are using Cognito we can/must drop support for legacy tokens
   if (cognitoToken) {
-    console.warn(`    [Common]-[CognitoToken].`);
+    console.warn(`    [Common]-[CognitoToken]-[RunVerify].`);
     //verify token since it can be done safely on the client
     const tokenIsValid = await verifyCognitoToken(cognitoToken);
 
@@ -144,10 +145,12 @@ export const parseToken = async (): Promise<void> => {
 })();
 
 export const isAuthorisedForGroups = (featureGroups: string[]): boolean => {
+  console.log("    [isAuthorisedForGroups] AllowedGroups: ", featureGroups);
   const auth = $auth.getValue();
 
   const userGroups =
     auth.tokenSource === TokenSource.CognitoUser ? auth["custom:groups"] : auth.groups;
+  console.log("    [isAuthorisedForGroups] UserGroups: ", userGroups);
 
   return featureGroups.some((fg) => userGroups?.includes(fg));
 };
