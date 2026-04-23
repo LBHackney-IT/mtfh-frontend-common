@@ -8,7 +8,7 @@ import { createPkcePair } from "./authUtils";
 import { getCognitoVerifier } from "./cognitoVerifier";
 //import { cognitoVerifier } from "./cognitoVerifier";
 
-const cognitoVerifier = getCognitoVerifier();
+let cognitoVerifier: { verify: (arg0: string) => any };
 
 export interface CognitoTokenResponse {
   id_token?: string;
@@ -72,6 +72,9 @@ export const voidUser: AuthUser = {
 };
 
 export const verifyCognitoToken = async (token: string) => {
+  if (!cognitoVerifier) {
+    cognitoVerifier = getCognitoVerifier();
+  }
   try {
     await cognitoVerifier.verify(token);
     return true;

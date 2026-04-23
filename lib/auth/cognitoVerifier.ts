@@ -9,9 +9,3 @@ export function getCognitoVerifier() {
     clientId: config.cognitoClientId,
   });
 }
-
-// export const cognitoVerifier = CognitoJwtVerifier.create({
-//   userPoolId: config.cognitoUserPoolId,
-//   tokenUse: "id",
-//   clientId: config.cognitoClientId,
-// });
