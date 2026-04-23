@@ -72,8 +72,9 @@ export const verifyCognitoToken = async (token: string) => {
   try {
     await cognitoVerifier.verify(token);
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    console.error("Failed to verify Cognito token:", error);
+    throw error; 
   }
 };
 
