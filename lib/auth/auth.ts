@@ -5,7 +5,10 @@ import { BehaviorSubject } from "rxjs";
 import { config } from "@mtfh/common/lib/config";
 
 import { createPkcePair } from "./authUtils";
-import { cognitoVerifier } from "./cognitoVerifier";
+import { getCognitoVerifier } from "./cognitoVerifier";
+//import { cognitoVerifier } from "./cognitoVerifier";
+
+const cognitoVerifier = getCognitoVerifier();
 
 export interface CognitoTokenResponse {
   id_token?: string;
