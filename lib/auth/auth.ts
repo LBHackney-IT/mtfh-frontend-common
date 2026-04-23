@@ -81,7 +81,10 @@ export const verifyCognitoToken = async (token: string) => {
 
 export const $auth = new BehaviorSubject(voidUser);
 
+let parseTokenCounter = 0;
+
 export const parseToken = async (): Promise<void> => {
+  console.log("    [ParseToken]", ++parseTokenCounter)
   const legacyToken = Cookies.get(config.authToken);
   const cognitoToken = Cookies.get(config.cognitoTokenName);
 
@@ -107,7 +110,8 @@ export const parseToken = async (): Promise<void> => {
   // No token at all → return void user
   if (!legacyToken && !cognitoToken) {
     console.warn(`    [Common]-[No Token?].`);
-    $auth.next(voidUser);
+    const auth = $auth.getValue();
+    if (auth?.email !== "" && auth?.name !== "") $auth.next(voidUser);
     return;
   }
 
@@ -130,6 +134,7 @@ export const parseToken = async (): Promise<void> => {
   }
 
   if (!legacyToken) {
+    console.warn(`    [Common]-[No Legacy Token].`);
     // Should never happen logically, but TS needs the guarantee
     $auth.next(voidUser);
     return;
