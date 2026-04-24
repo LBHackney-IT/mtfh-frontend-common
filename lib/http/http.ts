@@ -60,9 +60,11 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error.response?.status === 403) {
-      if (isAuthorised()) {
-        logout();
-      }
+      // Has to be disabled for the until Repairs is moved onto the Cognito Flow as well
+      // As when MMH makes repairs API calls, they return 403 due to still being tied to Legacy flow
+      // if (isAuthorised()) {
+      //   logout();
+      // }
     }
     throw error;
   },
