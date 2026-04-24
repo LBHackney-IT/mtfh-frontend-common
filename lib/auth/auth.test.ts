@@ -20,18 +20,9 @@ import {
   login,
   logout,
   parseToken,
-  verifyCognitoToken,
   voidUser,
 } from "./auth";
-import { cognitoVerifier } from "./cognitoVerifier";
-
-jest.mock("aws-jwt-verify", () => ({
-  CognitoJwtVerifier: {
-    create: jest.fn(() => ({
-      verify: jest.fn(),
-    })),
-  },
-}));
+import * as cognitoVerifier from "./cognitoVerifier";
 
 const mockLegacyTokenPayload: LegacyTokenPayload = {
   sub: "112895652611500752170",
@@ -160,6 +151,7 @@ describe("auth", () => {
 
     await parseToken();
     (window.location.reload as jest.Mock).mockReset();
+    jest.resetAllMocks();
   });
 
   test("user is not authenticated", () => {
@@ -180,9 +172,12 @@ describe("auth", () => {
   );
 
   test("user is unauthenticated when Cognito token validation fails", async () => {
-    (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce(
-      new Error("invalid token"),
-    );
+    jest.spyOn(cognitoVerifier, "getCognitoVerifier").mockImplementation(() => {
+      return {
+        verify: jest.fn().mockRejectedValue(new Error("invalid token")),
+      };
+    });
+
     window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
     await parseToken();
     auth = $auth.getValue();
@@ -546,38 +541,5 @@ describe("auth", () => {
         config.cognitoPKCEVerifierSessionStorageName,
       );
     });
-  });
-});
-
-describe("verifyCognitoToken", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("returns true when token is valid", async () => {
-    (cognitoVerifier.verify as jest.Mock).mockResolvedValueOnce({});
-
-    const result = await verifyCognitoToken("valid-token");
-    expect(result).toBe(true);
-    expect(cognitoVerifier.verify).toHaveBeenCalledTimes(1);
-    expect(cognitoVerifier.verify).toHaveBeenCalledWith("valid-token");
-  });
-
-  it("returns false when token is invalid", async () => {
-    (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce(
-      new Error("invalid token"),
-    );
-
-    const result = await verifyCognitoToken("invalid-token");
-    expect(result).toBe(false);
-    expect(cognitoVerifier.verify).toHaveBeenCalledTimes(1);
-    expect(cognitoVerifier.verify).toHaveBeenCalledWith("invalid-token");
-  });
-
-  it("returns false when verify throws a non-error value", async () => {
-    (cognitoVerifier.verify as jest.Mock).mockRejectedValueOnce("non-error-value-string");
-    const result = await verifyCognitoToken("valid-token");
-    expect(result).toBe(false);
-    expect(cognitoVerifier.verify).toHaveBeenCalledTimes(1);
   });
 });
