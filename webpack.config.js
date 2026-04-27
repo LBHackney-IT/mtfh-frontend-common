@@ -102,7 +102,7 @@ module.exports = (webpackConfigEnv, argv) => {
         PATCHES_AND_AREAS_API_V1: dotenv.PATCHES_AND_AREAS_API_V1 || "",
         COGNITO_TOKEN_NAME: dotenv.COGNITO_TOKEN_NAME || "",
         COGNITO_DOMAIN: dotenv.COGNITO_DOMAIN || "",
-        COGNITO_CLIENT_ID: dotenv.COGNITO_CLIENT_ID || "",
+        COGNITO_CLIENT_IDS: dotenv.COGNITO_CLIENT_IDS || "",
         COGNITO_USER_POOL_ID: dotenv.COGNITO_USER_POOL_ID || "",
         COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME:
           dotenv.COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME || "",
