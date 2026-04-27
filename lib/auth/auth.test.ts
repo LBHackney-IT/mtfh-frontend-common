@@ -25,13 +25,6 @@ import {
 } from "./auth";
 import { cognitoVerifier } from "./cognitoVerifier";
 
-jest.mock("aws-jwt-verify", () => ({
-  CognitoJwtVerifier: {
-    create: jest.fn(() => ({
-      verify: jest.fn(),
-    })),
-  },
-}));
 
 const mockLegacyTokenPayload: LegacyTokenPayload = {
   sub: "112895652611500752170",

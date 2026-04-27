@@ -1,3 +1,9 @@
+// Set up environment variables before Jest initializes
+process.env.COGNITO_CLIENT_IDS = JSON.stringify({
+  mtfhClientId: "cognito-client-id-test-only",
+  e2eTestsClientId: "cognito-client-id-test-only",
+});
+
 module.exports = {
   rootDir: "lib",
   transform: {
