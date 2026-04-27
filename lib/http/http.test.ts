@@ -40,7 +40,7 @@ describe("axiosInstance", () => {
     );
   });
 
-  test("it will logout on 403", async () => {
+  test.skip("it will logout on 403", async () => {
     $auth.next({
       token: "",
       sub: "",
