@@ -284,7 +284,7 @@ describe("auth", () => {
 
       const expectedParams = new URLSearchParams({
         // poc hack. proper implementation will follow
-        client_id: config.cognitoClientIds[0],
+        client_id: config.cognitoClientIds.mtfhClientId,
         response_type: "code",
         scope: "openid email profile",
         redirect_uri: window.location.origin,
@@ -359,7 +359,7 @@ describe("auth", () => {
         new URLSearchParams({
           grant_type: "authorization_code",
           // poc hack. proper implementation will follow
-          client_id: config.cognitoClientIds[0],
+          client_id: config.cognitoClientIds.mtfhClientId,
           code: mockAccessCode,
           redirect_uri: window.location.origin,
           code_verifier: generatedVerifier,
