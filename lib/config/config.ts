@@ -4,18 +4,18 @@ interface CognitoClientIds {
 }
 
 function parseCognitoClientIds(): CognitoClientIds {
-  if (!process.env.COGNITO_CLIENT_IDS) {
-    return {
-      mtfhClientId: "cognito-client-id-test-only",
-      e2eTestsClientId: "cognito-client-id-test-only",
-    };
+  const envVar = process.env.COGNITO_CLIENT_IDS;
+  if (!envVar) {
+    throw new Error("COGNITO_CLIENT_IDS environment variable is required");
   }
 
   try {
-    return JSON.parse(process.env.COGNITO_CLIENT_IDS) as CognitoClientIds;
+    return JSON.parse(envVar) as CognitoClientIds;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
-    throw new Error(`Failed to parse COGNITO_CLIENT_IDS environment variable: ${errorMsg}`);
+    throw new Error(
+      `Failed to parse COGNITO_CLIENT_IDS environment variable: ${errorMsg}`,
+    );
   }
 }
 
