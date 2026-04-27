@@ -184,9 +184,12 @@ jobs:
             export HOUSINGSEARCH_API_URL_V1=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/search-api-url --query Parameter.Value --output text)
             export COGNITO_TOKEN_NAME=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:115283375626:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-token-name --query Parameter.Value --output text)
             export COGNITO_DOMAIN=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:115283375626:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-domain --query Parameter.Value --output text)
-            export COGNITO_CLIENT_ID=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:115283375626:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-client-id --query Parameter.Value --output text)
             export COGNITO_USER_POOL_ID=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:115283375626:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-user-pool-id --query Parameter.Value --output text)
             export COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:115283375626:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-pkce-verifier-session-storage-name --query Parameter.Value --output text)
+
+            # Will get fully sorted out in a future PR after all other Cognito multi-client integration details are sorted out. For now a temp housing account ssm key is used.
+            # export COGNITO_CLIENT_ID=$(aws ssm get-parameter --name arn:aws:ssm:eu-west-2:115283375626:parameter/housing-<<parameters.stage>>/mtfh-housing-<<parameters.stage>>/housing-tl/cognito-auth-client-id --query Parameter.Value --output text)
+            export COGNITO_CLIENT_IDS=$(aws ssm get-parameter --name /housing-tl/<<parameters.stage>>/cognito-auth-client-ids --query Parameter.Value --output text)
 
             yarn build
       - run:
