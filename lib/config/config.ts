@@ -7,7 +7,7 @@ function parseCognitoClientIds(): CognitoClientIds {
   if (!process.env.COGNITO_CLIENT_IDS) {
     return {
       mtfhClientId: "cognito-client-id-test-only",
-      e2eTestsClientId: "cognito-client-id-test-only"
+      e2eTestsClientId: "cognito-client-id-test-only",
     };
   }
 
@@ -15,9 +15,7 @@ function parseCognitoClientIds(): CognitoClientIds {
     return JSON.parse(process.env.COGNITO_CLIENT_IDS) as CognitoClientIds;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
-    throw new Error(
-      `Failed to parse COGNITO_CLIENT_IDS environment variable: ${errorMsg}`
-    );
+    throw new Error(`Failed to parse COGNITO_CLIENT_IDS environment variable: ${errorMsg}`);
   }
 }
 
