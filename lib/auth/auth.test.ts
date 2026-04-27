@@ -283,9 +283,7 @@ describe("auth", () => {
       await cognitoLogin();
 
       const expectedParams = new URLSearchParams({
-        // Temp implementation until a better way is added
-        // assumes that the 1st one is for google sso login
-        client_id: config.cognitoClientIds[0],
+        client_id: config.cognitoClientIds.mtfhClientId,
         response_type: "code",
         scope: "openid email profile",
         redirect_uri: window.location.origin,
@@ -359,9 +357,7 @@ describe("auth", () => {
       expect(call.body.toString()).toBe(
         new URLSearchParams({
           grant_type: "authorization_code",
-          // Temp implementation until a better way is added
-          // assumes that the 1st one is for google sso login
-          client_id: config.cognitoClientIds[0],
+          client_id: config.cognitoClientIds.mtfhClientId,
           code: mockAccessCode,
           redirect_uri: window.location.origin,
           code_verifier: generatedVerifier,

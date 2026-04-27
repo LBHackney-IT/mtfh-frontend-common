@@ -1,3 +1,26 @@
+interface CognitoClientIds {
+  mtfhClientId: string;
+  e2eTestsClientId?: string;
+}
+
+function parseCognitoClientIds(): CognitoClientIds {
+  if (!process.env.COGNITO_CLIENT_IDS) {
+    return {
+      mtfhClientId: "cognito-client-id-test-only",
+      e2eTestsClientId: "cognito-client-id-test-only"
+    };
+  }
+
+  try {
+    return JSON.parse(process.env.COGNITO_CLIENT_IDS) as CognitoClientIds;
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    throw new Error(
+      `Failed to parse COGNITO_CLIENT_IDS environment variable: ${errorMsg}`
+    );
+  }
+}
+
 const config = {
   appEnv: process.env.APP_ENV || "test",
   authAllowedGroups: process.env.AUTH_ALLOWED_GROUPS?.split(",") || ["TEST_GROUP"],
@@ -28,9 +51,7 @@ const config = {
     process.env.HOUSING_FINANCE_INTERIM_API_URL_V1 || "/api/v1",
   cognitoTokenName: process.env.COGNITO_TOKEN_NAME || "hackneyCognitoToken",
   cognitoDomain: process.env.COGNITO_DOMAIN || "cognito-domain-test-only",
-  cognitoClientIds: process.env.COGNITO_CLIENT_IDS?.split(",") || [
-    "cognito-client-id-test-only",
-  ],
+  cognitoClientIds: parseCognitoClientIds(),
   cognitoUserPoolId: process.env.COGNITO_USER_POOL_ID || "cognito-user-poll-id-test-only",
   cognitoPKCEVerifierSessionStorageName:
     process.env.COGNITO_PKCE_VERIFIER_SESSION_STORAGE_NAME ||
