@@ -110,9 +110,10 @@ export const parseToken = async (): Promise<void> => {
   // No token at all → return void user
   if (!legacyToken && !cognitoToken) {
     console.warn(`    [Common]-[No Token?].`, ++parseTokenCounter);
-    // const auth = $auth.getValue();
-    // if (auth?.email !== "" && auth?.name !== "") $auth.next(voidUser);
-    $auth.next(voidUser);
+    const auth = $auth.getValue();
+    if (auth?.email !== "" && auth?.name !== ""){
+      $auth.next(voidUser);
+    }
     return;
   }
 
