@@ -40,7 +40,8 @@ describe("axiosInstance", () => {
     );
   });
 
-  test("it will logout on 403", async () => {
+  // Un-skip it after Repairs is migrated to Cognito authentication, and this feature is re-enabled.
+  test.skip("it will logout on 403", async () => {
     $auth.next({
       token: "",
       sub: "",

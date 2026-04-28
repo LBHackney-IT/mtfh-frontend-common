@@ -6,7 +6,9 @@ import axios, {
 } from "axios";
 import { v4 as uuid } from "uuid";
 
-import { $auth, isAuthorised, logout } from "@mtfh/common/lib/auth";
+import { $auth } from "@mtfh/common/lib/auth";
+// Add these back in when 403 forced logout is re-enabled
+// , isAuthorised, logout
 
 export interface Config extends AxiosRequestConfig {
   headers: AxiosHeaders;
@@ -60,9 +62,15 @@ axiosInstance.interceptors.response.use(
   },
   (error: AxiosError) => {
     if (error.response?.status === 403) {
-      if (isAuthorised()) {
-        logout();
-      }
+      // Has to be disabled for the until Repairs is moved onto the Cognito auth flow
+      // because repairs API calls failure due to mismatching authorizers are causing
+      // unwarranted logouts.
+      // if (isAuthorised()) {
+      //   logout();
+      // }
+      console.warn(
+        "This needs to be re-enabled after Repairs gets migrated onto Cognito authentication.",
+      );
     }
     throw error;
   },
