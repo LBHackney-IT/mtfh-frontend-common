@@ -104,7 +104,10 @@ export const parseToken = async (): Promise<void> => {
 
   // No token at all → return void user
   if (!legacyToken && !cognitoToken) {
-    $auth.next(voidUser);
+    const auth = $auth.getValue();
+    if (auth?.email !== "" && auth?.name !== "") {
+      $auth.next(voidUser);
+    }
     return;
   }
 
