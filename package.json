@@ -81,6 +81,10 @@
     "webpack-dev-server": "^4.2.1",
     "webpack-merge": "^5.4.0"
   },
+  "engines": {
+    "node": "24.12.0",
+    "yarn": "1.22.22"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
     "@radix-ui/react-polymorphic": "^0.0.12",
