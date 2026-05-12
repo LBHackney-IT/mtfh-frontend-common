@@ -10,6 +10,8 @@ export const getCognitoVerifier = (): CognitoVerifier => {
   return CognitoJwtVerifier.create({
     userPoolId: config.cognitoUserPoolId,
     tokenUse: "id",
-    clientId: config.cognitoClientId,
+    // allows a str representing 1 client id,
+    // or a str[] of multiple client ids to verify against
+    clientId: Object.values(config.cognitoClientIds),
   });
 };

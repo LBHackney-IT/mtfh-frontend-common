@@ -112,7 +112,10 @@ export const parseToken = async (): Promise<void> => {
 
   // No token at all → return void user
   if (!legacyToken && !cognitoToken) {
-    $auth.next(voidUser);
+    const auth = $auth.getValue();
+    if (auth?.email !== "" && auth?.name !== "") {
+      $auth.next(voidUser);
+    }
     return;
   }
 
@@ -194,7 +197,7 @@ export const cognitoLogin = async (
   sessionStorage.setItem(config.cognitoPKCEVerifierSessionStorageName, codeVerifier);
 
   const params = new URLSearchParams({
-    client_id: config.cognitoClientId,
+    client_id: config.cognitoClientIds.mtfhClientId,
     response_type: "code",
     scope: "openid email profile",
     redirect_uri: redirectUrl,
@@ -213,7 +216,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
 
   const body = new URLSearchParams({
     grant_type: "authorization_code",
-    client_id: config.cognitoClientId,
+    client_id: config.cognitoClientIds.mtfhClientId,
     code,
     redirect_uri: window.location.origin,
     code_verifier: verifier ?? "", //Cognito will return 400 with invalid request if missing

@@ -20,7 +20,7 @@ describe("getCognitoVerifier", () => {
     expect(CognitoJwtVerifier.create).toHaveBeenCalledWith({
       userPoolId: config.cognitoUserPoolId,
       tokenUse: "id",
-      clientId: config.cognitoClientId,
+      clientId: Object.values(config.cognitoClientIds),
     });
 
     expect(result).toBe(mockVerifier);
