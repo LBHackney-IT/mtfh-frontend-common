@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "lib/mtfh-common.tsx",
   "scripts": {
-    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack serve --port 8040",
+    "start": "webpack serve --port 8040",
     "start:standalone": "cross-env APP_ENV=local webpack serve --env standalone",
     "build": "webpack --mode=production",
     "analyze": "webpack --mode=production --env analyze",
@@ -78,7 +78,7 @@
     "webpack": "5.106.2",
     "webpack-cli": "5.1.4",
     "webpack-config-single-spa-react-ts": "^4.0.1",
-    "webpack-dev-server": "^4.2.1",
+    "webpack-dev-server": "^5.2.4",
     "webpack-merge": "^5.4.0"
   },
   "engines": {
@@ -119,6 +119,32 @@
   "peerDependencies": {
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2"
+  },
+  "resolutions": {
+    "@xmldom/xmldom": "0.8.13",
+    "ansi-regex": "5.0.1",
+    "async": "2.6.4",
+    "body-parser": "1.20.5",
+    "braces": "3.0.3",
+    "cross-spawn": "7.0.6",
+    "decode-uri-component": "0.2.2",
+    "express/path-to-regexp": "0.1.13",
+    "fast-uri": "3.1.2",
+    "flatted": "3.4.2",
+    "follow-redirects": "1.16.0",
+    "http-proxy-middleware": "2.0.9",
+    "json5": "2.2.3",
+    "lodash": "4.18.1",
+    "lodash-es": "4.18.1",
+    "minimatch": "3.1.4",
+    "node-forge": "1.4.0",
+    "picomatch": "2.3.2",
+    "qs": "6.15.2",
+    "react-router-dom/react-router/path-to-regexp": "1.9.0",
+    "semver": "7.8.0",
+    "underscore": "1.13.8",
+    "webpack-dev-middleware": "7.4.2",
+    "ws": "8.20.1"
   },
   "browserslist": [
     "defaults",
