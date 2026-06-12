@@ -76,3 +76,6 @@ dist
 .yalc
 yalc.lock
 
+# Local security analysis exports
+vulnerability-remediation-plan.html
+
