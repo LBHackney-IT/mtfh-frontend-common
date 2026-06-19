@@ -1,4 +1,4 @@
-import Cookies from "js-cookie";
+import Cookies, { CookieAttributes } from "js-cookie";
 import jwtDecode from "jwt-decode";
 import { BehaviorSubject } from "rxjs";
 
@@ -6,8 +6,6 @@ import { config } from "@mtfh/common/lib/config";
 
 import { createPkcePair } from "./authUtils";
 import { getCognitoVerifier } from "./cognitoVerifier";
-
-import type { CognitoVerifier } from "./cognitoVerifier";
 
 export interface CognitoTokenResponse {
   id_token?: string;
@@ -70,12 +68,8 @@ export const voidUser: AuthUser = {
   tokenSource: undefined,
 };
 
-let cognitoVerifier: CognitoVerifier;
-
 export const verifyCognitoToken = async (token: string) => {
-  if (!cognitoVerifier) {
-    cognitoVerifier = getCognitoVerifier();
-  }
+  const cognitoVerifier = getCognitoVerifier();
 
   try {
     await cognitoVerifier.verify(token);
@@ -159,14 +153,15 @@ export const isAuthorisedForGroups = (featureGroups: string[]): boolean => {
 export const isAuthorised = (): boolean =>
   isAuthorisedForGroups(config.authAllowedGroups);
 
+export const getAuthCookieRemoveOptions = (): CookieAttributes => ({
+  domain: config.cookieDomain,
+});
+
 export const logout = (): void => {
   $auth.next(voidUser);
-  Cookies.remove(config.authToken, {
-    domain: config.cookieDomain,
-  });
-  Cookies.remove(config.cognitoTokenName, {
-    domain: config.cookieDomain,
-  });
+  const removeOptions = getAuthCookieRemoveOptions();
+  Cookies.remove(config.authToken, removeOptions);
+  Cookies.remove(config.cognitoTokenName, removeOptions);
   window.location.reload();
 };
 
@@ -176,6 +171,13 @@ export const login = (redirectUrl = `${window.location.origin}/search`): void =>
     redirectUrl,
   )}`;
 };
+
+export const getCognitoTokenCookieSetOptions = (expires?: Date): CookieAttributes => ({
+  expires,
+  sameSite: "strict",
+  secure: true,
+  domain: config.cookieDomain,
+});
 
 function getCookieExpiry(
   decodedToken: TransitionPeriodTokenPresentation,
@@ -255,12 +257,11 @@ export async function handleCognitoCallback(code: string): Promise<void> {
   try {
     const decodedIdToken = jwtDecode<TransitionPeriodTokenPresentation>(tokens.id_token);
 
-    Cookies.set(config.cognitoTokenName, tokens.id_token, {
-      expires: getCookieExpiry(decodedIdToken),
-      sameSite: "strict",
-      secure: true,
-      domain: config.cookieDomain,
-    });
+    Cookies.set(
+      config.cognitoTokenName,
+      tokens.id_token,
+      getCognitoTokenCookieSetOptions(getCookieExpiry(decodedIdToken)),
+    );
   } catch {
     throw new TokenExchangeError("Setting the cookie failed");
   }
