@@ -318,7 +318,7 @@ describe("auth", () => {
     });
 
     test("getCognitoTokenCookieSetOptions omits expiry when token has no exp claim", () => {
-      expect(getCognitoTokenCookieSetOptions(undefined)).toEqual({
+      expect(getCognitoTokenCookieSetOptions()).toEqual({
         expires: undefined,
         sameSite: "strict",
         secure: true,
@@ -339,7 +339,7 @@ describe("auth", () => {
       const mockRemoveCookie = jest.spyOn(Cookies, "remove");
       const removeOptions = getAuthCookieRemoveOptions();
 
-      window.document.cookie = `${config.authToken}=${mockToken}`;
+      globalThis.document.cookie = `${config.authToken}=${mockToken}`;
       await parseToken();
       logout();
 
@@ -512,7 +512,7 @@ describe("auth", () => {
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         tokenResponseWithoutIdTokenExpiry.id_token,
-        getCognitoTokenCookieSetOptions(undefined),
+        getCognitoTokenCookieSetOptions(),
       );
     });
 
@@ -520,7 +520,7 @@ describe("auth", () => {
       mockFetch.mockResolvedValue({
         ok: true,
         json: async () => mockTokensResponse,
-      } as Response);
+      });
 
       sessionStorage.setItem(
         config.cognitoPKCEVerifierSessionStorageName,

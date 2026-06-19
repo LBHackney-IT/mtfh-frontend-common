@@ -13,15 +13,13 @@ export const resetCognitoVerifier = (): void => {
 };
 
 export const getCognitoVerifier = (): CognitoVerifier => {
-  if (!cachedVerifier) {
-    cachedVerifier = CognitoJwtVerifier.create({
-      userPoolId: config.cognitoUserPoolId,
-      tokenUse: "id",
-      // allows a str representing 1 client id,
-      // or a str[] of multiple client ids to verify against
-      clientId: Object.values(config.cognitoClientIds),
-    });
-  }
+  cachedVerifier ??= CognitoJwtVerifier.create({
+    userPoolId: config.cognitoUserPoolId,
+    tokenUse: "id",
+    // allows a str representing 1 client id,
+    // or a str[] of multiple client ids to verify against
+    clientId: Object.values(config.cognitoClientIds),
+  });
 
   return cachedVerifier;
 };
