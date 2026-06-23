@@ -77,5 +77,6 @@ dist
 yalc.lock
 
 # Local security analysis exports
-vulnerability-remediation-plan.html
+vulnerability-remediation-plan-*.html
+.audit-check.json
 
