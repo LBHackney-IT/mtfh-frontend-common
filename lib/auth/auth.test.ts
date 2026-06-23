@@ -14,6 +14,8 @@ import {
   TokenExchangeError,
   TokenSource,
   cognitoLogin,
+  getAuthCookieRemoveOptions,
+  getCognitoTokenCookieSetOptions,
   handleCognitoCallback,
   isAuthorised,
   isAuthorisedForGroups,
@@ -102,22 +104,55 @@ function toUint8Array(data: ArrayBuffer | ArrayBufferView): Uint8Array {
   return new Uint8Array(data);
 }
 
-describe("auth", () => {
-  beforeEach(async () => {
-    let cookies = "";
+function createDocumentCookieMock() {
+  let cookieJar: Record<string, string> = {};
+  let lastCookieAssignment = "";
 
-    Object.defineProperty(window.document, "cookie", {
-      configurable: true,
-      get: () => cookies,
-      set: (newCookie) => {
-        // allow testing with multiple cookies
-        if (cookies) {
-          cookies += `; ${newCookie}`;
-        } else {
-          cookies = newCookie;
-        }
-      },
-    });
+  const serializeCookies = (): string =>
+    Object.entries(cookieJar)
+      .map(([name, value]) => `${name}=${value}`)
+      .join("; ");
+
+  return {
+    reset: (): void => {
+      cookieJar = {};
+      lastCookieAssignment = "";
+    },
+    getLastAssignment: (): string => lastCookieAssignment,
+    install: (): void => {
+      Object.defineProperty(window.document, "cookie", {
+        configurable: true,
+        get: () => serializeCookies(),
+        set: (newCookie: string) => {
+          lastCookieAssignment = newCookie;
+          const [nameValue] = newCookie.split(";");
+          const separatorIndex = nameValue.indexOf("=");
+
+          if (separatorIndex === -1) {
+            return;
+          }
+
+          const name = nameValue.slice(0, separatorIndex).trim();
+          const value = nameValue.slice(separatorIndex + 1);
+
+          if (!value) {
+            delete cookieJar[name];
+            return;
+          }
+
+          cookieJar[name] = value;
+        },
+      });
+    },
+  };
+}
+
+describe("auth", () => {
+  const documentCookieMock = createDocumentCookieMock();
+
+  beforeEach(async () => {
+    documentCookieMock.reset();
+    documentCookieMock.install();
 
     // these modules are not available in jsdom. Mock here to mimic actual browser behavior as closely as possible
     globalThis.TextEncoder = TextEncoder as any;
@@ -151,7 +186,11 @@ describe("auth", () => {
 
     await parseToken();
     (window.location.reload as jest.Mock).mockReset();
-    jest.resetAllMocks();
+    jest.restoreAllMocks();
+    cognitoVerifier.resetCognitoVerifier();
+    jest.spyOn(cognitoVerifier, "getCognitoVerifier").mockReturnValue({
+      verify: jest.fn().mockResolvedValue({ sub: "test-sub" }),
+    });
   });
 
   test("user is not authenticated", () => {
@@ -260,6 +299,69 @@ describe("auth", () => {
     },
   );
 
+  describe("auth cookie options", () => {
+    test("getAuthCookieRemoveOptions scopes removal to the configured domain", () => {
+      expect(getAuthCookieRemoveOptions()).toEqual({
+        domain: config.cookieDomain,
+      });
+    });
+
+    test("getCognitoTokenCookieSetOptions applies secure defaults and configured domain", () => {
+      const expires = new Date("2030-01-01T00:00:00.000Z");
+
+      expect(getCognitoTokenCookieSetOptions(expires)).toEqual({
+        expires,
+        sameSite: "strict",
+        secure: true,
+        domain: config.cookieDomain,
+      });
+    });
+
+    test("getCognitoTokenCookieSetOptions omits expiry when token has no exp claim", () => {
+      expect(getCognitoTokenCookieSetOptions()).toEqual({
+        expires: undefined,
+        sameSite: "strict",
+        secure: true,
+        domain: config.cookieDomain,
+      });
+    });
+
+    test("getCognitoTokenCookieSetOptions and getAuthCookieRemoveOptions share the configured domain", () => {
+      expect(getCognitoTokenCookieSetOptions().domain).toBe(
+        getAuthCookieRemoveOptions().domain,
+      );
+      expect(getCognitoTokenCookieSetOptions().domain).toBe(config.cookieDomain);
+    });
+  });
+
+  describe("logout cookie removal", () => {
+    test("removes both legacy and cognito cookies using the configured domain", async () => {
+      const mockRemoveCookie = jest.spyOn(Cookies, "remove");
+      const removeOptions = getAuthCookieRemoveOptions();
+
+      globalThis.document.cookie = `${config.authToken}=${mockToken}`;
+      await parseToken();
+      logout();
+
+      expect(mockRemoveCookie).toHaveBeenCalledTimes(2);
+      expect(mockRemoveCookie).toHaveBeenCalledWith(config.authToken, removeOptions);
+      expect(mockRemoveCookie).toHaveBeenCalledWith(
+        config.cognitoTokenName,
+        removeOptions,
+      );
+    });
+  });
+
+  describe("parseToken cookie reads", () => {
+    test("reads legacy and cognito tokens via js-cookie", async () => {
+      Cookies.set(config.authToken, mockToken);
+
+      await parseToken();
+
+      expect($auth.getValue().token).toBe(mockToken);
+    });
+  });
+
   test("when both legacy and cognito tokens are present, cognito token takes precedence", async () => {
     window.document.cookie = `${config.cognitoTokenName}=${mockCognitoToken}`;
     window.document.cookie = `${config.authToken}=${mockToken}`;
@@ -309,7 +411,7 @@ describe("auth", () => {
 
   describe("handleCognitoCallback", () => {
     const mockFetch = jest.fn();
-    const mockSetCookie = jest.spyOn(Cookies, "set");
+    let mockSetCookie: jest.SpyInstance;
     const mockAccessCode = "123-abc";
     const mockTokensResponse: CognitoTokenResponse = {
       id_token: mockCognitoToken,
@@ -318,9 +420,17 @@ describe("auth", () => {
     };
 
     beforeEach(() => {
-      jest.resetAllMocks();
-      jest.clearAllMocks();
+      mockFetch.mockReset();
+      mockSetCookie = jest.spyOn(Cookies, "set");
+      cognitoVerifier.resetCognitoVerifier();
+      jest.spyOn(cognitoVerifier, "getCognitoVerifier").mockReturnValue({
+        verify: jest.fn().mockResolvedValue({ sub: "test-sub" }),
+      });
       globalThis.fetch = mockFetch as unknown as typeof fetch;
+    });
+
+    afterEach(() => {
+      mockSetCookie.mockRestore();
     });
 
     test("sets id token as cognito token from the response", async () => {
@@ -365,12 +475,7 @@ describe("auth", () => {
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         mockTokensResponse.id_token,
-        {
-          expires: expectedExp,
-          sameSite: "strict",
-          secure: true,
-          domain: config.cookieDomain,
-        },
+        getCognitoTokenCookieSetOptions(expectedExp),
       );
     });
 
@@ -407,12 +512,26 @@ describe("auth", () => {
       expect(mockSetCookie).toHaveBeenCalledWith(
         config.cognitoTokenName,
         tokenResponseWithoutIdTokenExpiry.id_token,
-        {
-          expires: undefined,
-          sameSite: "strict",
-          secure: true,
-          domain: config.cookieDomain,
-        },
+        getCognitoTokenCookieSetOptions(),
+      );
+    });
+
+    test("persists cognito token to document.cookie with secure attributes and domain", async () => {
+      mockFetch.mockResolvedValue({
+        ok: true,
+        json: async () => mockTokensResponse,
+      });
+
+      sessionStorage.setItem(
+        config.cognitoPKCEVerifierSessionStorageName,
+        generatedVerifier,
+      );
+
+      await handleCognitoCallback(mockAccessCode);
+
+      expect(Cookies.get(config.cognitoTokenName)).toBe(mockTokensResponse.id_token);
+      expect(documentCookieMock.getLastAssignment()).toContain(
+        `domain=${config.cookieDomain}`,
       );
     });
 
@@ -507,7 +626,7 @@ describe("auth", () => {
         new TokenExchangeError("Setting the cookie failed"),
       );
 
-      expect(Cookies.set).toHaveBeenCalledTimes(1);
+      expect(mockSetCookie).toHaveBeenCalledTimes(1);
     });
 
     test("gets cognito_pkce_verifier from session storage before token exchange", async () => {
