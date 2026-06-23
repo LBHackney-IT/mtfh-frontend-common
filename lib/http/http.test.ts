@@ -117,10 +117,15 @@ describe("axiosInstance", () => {
     expect(res.data).toStrictEqual({ success: true });
   });
 
-  test("x-correlation-id is appended to the request headers", async () => {
+  test("x-correlation-id is appended to the request headers as a uuid v4", async () => {
+    const uuidV4Pattern =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    let correlationId: string | null = null;
+
     server.use(
       rest.get("/api", (req, res, ctx) => {
-        if (req.headers?.has("x-correlation-id")) {
+        correlationId = req.headers.get("x-correlation-id");
+        if (correlationId) {
           return res.once(ctx.status(200));
         }
         return res.once(ctx.status(500));
@@ -130,6 +135,27 @@ describe("axiosInstance", () => {
     const res = await axiosInstance.get("/api");
 
     expect(res.status).toBe(200);
+    expect(correlationId).toMatch(uuidV4Pattern);
+    expect(res.config.headers.get("x-correlation-id")).toBe(correlationId);
+  });
+
+  test("x-correlation-id is unique on each request", async () => {
+    const correlationIds: string[] = [];
+
+    server.use(
+      rest.get("/api", (req, res, ctx) => {
+        correlationIds.push(req.headers.get("x-correlation-id") ?? "");
+        return res(ctx.status(200));
+      }),
+    );
+
+    await axiosInstance.get("/api");
+    await axiosInstance.get("/api");
+
+    expect(correlationIds).toHaveLength(2);
+    expect(correlationIds[0]).toBeTruthy();
+    expect(correlationIds[1]).toBeTruthy();
+    expect(correlationIds[0]).not.toBe(correlationIds[1]);
   });
 
   test("x-correlation-id is not appended to the request headers if skip-x-correlation-id is", async () => {
