@@ -42,7 +42,7 @@ describe("when addPersonToTenure is called", () => {
       },
     };
     addPersonToTenure(addPersonToTenureParams);
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.tenureApiUrlV1}/tenures/${addPersonToTenureParams.tenureId}/person/${addPersonToTenureParams.householdMember.id}`,
       {
         etag: addPersonToTenureParams.etag,
@@ -60,7 +60,10 @@ describe("when useTenure is called", () => {
     (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
     const response = await useTenure(id, options);
-    expect(useAxiosSWR).toBeCalledWith(`${config.tenureApiUrlV1}/tenures/${id}`, options);
+    expect(useAxiosSWR).toHaveBeenCalledWith(
+      `${config.tenureApiUrlV1}/tenures/${id}`,
+      options,
+    );
     expect(response).toBe(returnedValue);
   });
 });
@@ -87,8 +90,11 @@ describe("when addTenure is called", () => {
 
     const response = await addTenure(params);
 
-    expect(axiosInstance.post).toBeCalledWith(`${config.tenureApiUrlV1}/tenures`, params);
-    expect(mutate).toBeCalledWith(
+    expect(axiosInstance.post).toHaveBeenCalledWith(
+      `${config.tenureApiUrlV1}/tenures`,
+      params,
+    );
+    expect(mutate).toHaveBeenCalledWith(
       `${config.tenureApiUrlV1}/tenures/${tenureReturned.id}`,
       tenureReturned,
       false,
@@ -107,7 +113,7 @@ describe("when removePersonFromTenure is called", () => {
 
     removePersonFromTenure(params);
 
-    expect(axiosInstance.delete).toBeCalledWith(
+    expect(axiosInstance.delete).toHaveBeenCalledWith(
       `${config.tenureApiUrlV1}/tenures/${params.tenureId}/person/${params.householdMemberId}`,
     );
   });
@@ -146,7 +152,7 @@ describe("when editTenure is called", () => {
     (axiosInstance.patch as jest.Mock).mockResolvedValueOnce(response);
     const editTenureResponse = await editTenure(params);
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.tenureApiUrlV1}/tenures/${params.id}`,
       {
         etag: params.etag,

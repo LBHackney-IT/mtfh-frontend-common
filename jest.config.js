@@ -2,8 +2,9 @@ require("dotenv").config({ path: ".env.test" });
 
 module.exports = {
   rootDir: "lib",
+  testEnvironment: "jsdom",
   transform: {
-    "^.+\\.(j|t)sx?$": "babel-jest",
+    "^.+\\.(j|t)sx?$": ["babel-jest", { rootMode: "upward" }],
   },
   transformIgnorePatterns: ["node_modules/(?!lbh-frontend)"],
   moduleNameMapper: {
@@ -11,10 +12,10 @@ module.exports = {
     "^@mtfh/common/lib/(.*)": "<rootDir>/$1",
     "#node-web-compat": "./node-web-compat-node.js",
   },
-  testPathIgnorePatterns: ["test-utils.ts"],
-  setupFilesAfterEnv: ["../setupTests.ts"],
+  testPathIgnorePatterns: ["test-utils.ts", "setupTests.ts"],
+  setupFilesAfterEnv: ["<rootDir>/setupTests.ts"],
   coverageDirectory: "../coverage",
-  coveragePathIgnorePatterns: ["test-utils.ts"],
+  coveragePathIgnorePatterns: ["test-utils.ts", "setupTests.ts"],
   coverageThreshold: {
     global: {
       statements: 90,

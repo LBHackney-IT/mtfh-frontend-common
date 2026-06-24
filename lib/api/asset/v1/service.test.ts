@@ -36,7 +36,7 @@ describe("when patchAsset is called", () => {
 
     await patchAsset(assetGuid, mockEditAssetBoilerHouseRequest, assetVersion);
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}`,
       mockEditAssetBoilerHouseRequest,
       { headers: { "If-Match": assetVersion } },
@@ -49,7 +49,7 @@ describe("when patchAsset is called", () => {
 
     await patchAsset(assetGuid, mockEditAssetOwnershipRequest, assetVersion);
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}`,
       mockEditAssetOwnershipRequest,
       { headers: { "If-Match": assetVersion } },
@@ -64,7 +64,7 @@ describe("when patchAssetAddress is called", () => {
 
     await patchAssetAddress(assetGuid, mockEditAssetAddressRequest, assetVersion);
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}/address`,
       mockEditAssetAddressRequest,
       { headers: { "If-Match": assetVersion } },
@@ -89,7 +89,7 @@ describe("when useAsset is called", () => {
     (useAxiosSWR as jest.Mock).mockResolvedValueOnce(mockAsset);
 
     const response = await useAsset(assetGuid, undefined);
-    expect(useAxiosSWR).toBeCalledWith(
+    expect(useAxiosSWR).toHaveBeenCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}`,
       undefined,
     );
@@ -100,7 +100,7 @@ describe("when useAsset is called", () => {
 describe("when createAsset is called", () => {
   test("the request should be sent to the correct URL, with the new asset as payload", async () => {
     await createAsset(mockCreateNewAssetRequest);
-    expect(axiosInstance.post).toBeCalledWith(
+    expect(axiosInstance.post).toHaveBeenCalledWith(
       `${config.assetApiUrlV1}/assets/`,
       mockCreateNewAssetRequest,
     );
@@ -125,7 +125,7 @@ describe("when updatePropertyPatch is called", () => {
 
     await updatePropertyPatch(assetGuid, mockUpdatePropertyPatchRequest, assetVersion);
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.assetApiUrlV1}/assets/${assetGuid}/patch`,
       mockUpdatePropertyPatchRequest,
       { headers: { "If-Match": assetVersion } },

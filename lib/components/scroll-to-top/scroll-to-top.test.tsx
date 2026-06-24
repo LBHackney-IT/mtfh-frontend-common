@@ -25,8 +25,8 @@ test("it scrolls to top on route change", async () => {
     </Router>,
   );
   history.push("/test");
-  await waitFor(() => expect(mockScrollTo).toBeCalledTimes(1));
-  expect(mockScrollTo).toBeCalledWith(0, 0);
+  await waitFor(() => expect(mockScrollTo).toHaveBeenCalledTimes(1));
+  expect(mockScrollTo).toHaveBeenCalledWith(0, 0);
 });
 
 test("it will not trigger on back or forward", async () => {
@@ -38,10 +38,10 @@ test("it will not trigger on back or forward", async () => {
     </Router>,
   );
   history.push("/test");
-  await waitFor(() => expect(mockScrollTo).toBeCalledTimes(1));
-  expect(mockScrollTo).toBeCalledWith(0, 0);
+  await waitFor(() => expect(mockScrollTo).toHaveBeenCalledTimes(1));
+  expect(mockScrollTo).toHaveBeenCalledWith(0, 0);
   history.goBack();
-  await waitFor(() => expect(mockScrollTo).toBeCalledTimes(1));
+  await waitFor(() => expect(mockScrollTo).toHaveBeenCalledTimes(1));
   history.goForward();
-  await waitFor(() => expect(mockScrollTo).toBeCalledTimes(1));
+  await waitFor(() => expect(mockScrollTo).toHaveBeenCalledTimes(1));
 });

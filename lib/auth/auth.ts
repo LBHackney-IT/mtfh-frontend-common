@@ -7,6 +7,17 @@ import { config } from "@mtfh/common/lib/config";
 import { createPkcePair } from "./authUtils";
 import { getCognitoVerifier } from "./cognitoVerifier";
 
+export const browserLocation = {
+  getOrigin: (): string => window.location.origin,
+  getHref: (): string => window.location.href,
+  setHref: (href: string): void => {
+    window.location.href = href;
+  },
+  reload: (): void => {
+    window.location.reload();
+  },
+};
+
 export interface CognitoTokenResponse {
   id_token?: string;
   access_token?: string;
@@ -162,14 +173,14 @@ export const logout = (): void => {
   const removeOptions = getAuthCookieRemoveOptions();
   Cookies.remove(config.authToken, removeOptions);
   Cookies.remove(config.cognitoTokenName, removeOptions);
-  window.location.reload();
+  browserLocation.reload();
 };
 
-export const login = (redirectUrl = `${window.location.origin}/search`): void => {
+export const login = (redirectUrl = `${browserLocation.getOrigin()}/search`): void => {
   logout();
-  window.location.href = `${config.authDomain}?redirect_uri=${encodeURIComponent(
-    redirectUrl,
-  )}`;
+  browserLocation.setHref(
+    `${config.authDomain}?redirect_uri=${encodeURIComponent(redirectUrl)}`,
+  );
 };
 
 export const getCognitoTokenCookieSetOptions = (expires?: Date): CookieAttributes => ({
@@ -189,7 +200,7 @@ function getCookieExpiry(
 }
 
 export const cognitoLogin = async (
-  redirectUrl = `${window.location.origin}`,
+  redirectUrl = `${browserLocation.getOrigin()}`,
 ): Promise<void> => {
   logout();
 
@@ -208,7 +219,7 @@ export const cognitoLogin = async (
   });
 
   const loginUrl = `${config.cognitoDomain}/authorize?${params}`;
-  window.location.href = loginUrl;
+  browserLocation.setHref(loginUrl);
 };
 
 export async function handleCognitoCallback(code: string): Promise<void> {
@@ -220,7 +231,7 @@ export async function handleCognitoCallback(code: string): Promise<void> {
     grant_type: "authorization_code",
     client_id: config.cognitoClientIds.mtfhClientId,
     code,
-    redirect_uri: window.location.origin,
+    redirect_uri: browserLocation.getOrigin(),
     code_verifier: verifier ?? "", //Cognito will return 400 with invalid request if missing
   });
 

@@ -13,6 +13,7 @@ import {
   LegacyTokenPayload,
   TokenExchangeError,
   TokenSource,
+  browserLocation,
   cognitoLogin,
   getAuthCookieRemoveOptions,
   getCognitoTokenCookieSetOptions,
@@ -36,17 +37,6 @@ const mockLegacyTokenPayload: LegacyTokenPayload = {
 };
 
 const mockToken = jwt.sign(mockLegacyTokenPayload, "legacy-secret");
-
-Object.defineProperty(window, "location", {
-  value: {
-    href: "http://localhost/",
-    origin: "http://localhost",
-    reload: jest.fn(),
-  },
-  writable: true,
-});
-
-let auth: AuthUser;
 
 const mockCognitoPayloadIssuedAt = Math.floor(Date.now() / 1000);
 const mockCognitoPayloadExpires = mockCognitoPayloadIssuedAt + 3600; //1h later
@@ -149,17 +139,38 @@ function createDocumentCookieMock() {
 
 describe("auth", () => {
   const documentCookieMock = createDocumentCookieMock();
+  let auth: AuthUser;
 
   beforeEach(async () => {
+    jest.restoreAllMocks();
+    jest.spyOn(browserLocation, "getOrigin").mockReturnValue("http://localhost");
+    jest.spyOn(browserLocation, "getHref").mockReturnValue("http://localhost/");
+    jest.spyOn(browserLocation, "setHref").mockImplementation(() => undefined);
+    jest.spyOn(browserLocation, "reload").mockImplementation(() => undefined);
     documentCookieMock.reset();
     documentCookieMock.install();
 
     // these modules are not available in jsdom. Mock here to mimic actual browser behavior as closely as possible
     globalThis.TextEncoder = TextEncoder as any;
     globalThis.TextDecoder = TextDecoder as any;
-    globalThis.crypto = {
-      subtle: {
-        digest: async (_algo: any, data: ArrayBuffer) => {
+
+    jest.spyOn(globalThis.crypto, "getRandomValues").mockImplementation((arr) => {
+      const typedArray = arr as Uint8Array;
+      const randomFill = randomFillSync(typedArray);
+
+      //grab the verifier that gets generated with this code
+      generatedVerifier = btoa(String.fromCharCode(...randomFill))
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+
+      return randomFill;
+    });
+
+    Object.defineProperty(globalThis.crypto, "subtle", {
+      configurable: true,
+      value: {
+        digest: async (_algo: string, data: ArrayBuffer) => {
           const hash = createHash("sha256").update(toUint8Array(data)).digest();
 
           // grab this, so the code challenge can be verified later
@@ -171,26 +182,18 @@ describe("auth", () => {
           return bufferToArrayBuffer(hash);
         },
       },
-      getRandomValues: (arr: Uint8Array) => {
-        const randomFill = randomFillSync(arr);
-
-        //grab the verifier that gets generated with this code
-        generatedVerifier = btoa(String.fromCharCode(...randomFill))
-          .replace(/\+/g, "-")
-          .replace(/\//g, "_")
-          .replace(/=+$/, "");
-
-        return randomFill;
-      },
-    } as any;
+    });
 
     await parseToken();
-    (window.location.reload as jest.Mock).mockReset();
-    jest.restoreAllMocks();
     cognitoVerifier.resetCognitoVerifier();
     jest.spyOn(cognitoVerifier, "getCognitoVerifier").mockReturnValue({
       verify: jest.fn().mockResolvedValue({ sub: "test-sub" }),
     });
+  });
+
+  afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    delete (globalThis.crypto as any).subtle;
   });
 
   test("user is not authenticated", () => {
@@ -269,7 +272,9 @@ describe("auth", () => {
     login();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
-    expect(window.location.href).toContain(config.authDomain);
+    expect(browserLocation.setHref).toHaveBeenCalledWith(
+      expect.stringContaining(config.authDomain),
+    );
   });
 
   test("cognitoLogin clears state and redirects to cognito auth", async () => {
@@ -278,7 +283,9 @@ describe("auth", () => {
     await cognitoLogin();
     auth = $auth.getValue();
     expect(auth.token).toBe("");
-    expect(window.location.href).toContain(config.cognitoDomain);
+    expect(browserLocation.setHref).toHaveBeenCalledWith(
+      expect.stringContaining(config.cognitoDomain),
+    );
   });
 
   test.each([
@@ -295,7 +302,7 @@ describe("auth", () => {
 
       const authUser = $auth.getValue();
       expect(authUser).toBe(voidUser);
-      expect(window.location.reload).toBeCalledTimes(1);
+      expect(browserLocation.reload).toHaveBeenCalledTimes(1);
     },
   );
 
@@ -383,7 +390,7 @@ describe("auth", () => {
         client_id: config.cognitoClientIds.mtfhClientId,
         response_type: "code",
         scope: "openid email profile",
-        redirect_uri: window.location.origin,
+        redirect_uri: browserLocation.getOrigin(),
         code_challenge_method: "S256",
         code_challenge: generatedCodeChallenge,
       });
@@ -392,7 +399,7 @@ describe("auth", () => {
 
       auth = $auth.getValue();
       expect(auth.token).toBe("");
-      expect(window.location.href).toBe(expectedHref);
+      expect(browserLocation.setHref).toHaveBeenCalledWith(expectedHref);
     });
 
     test("sets cognito pkce verifier value in local storage", async () => {
@@ -430,7 +437,7 @@ describe("auth", () => {
     });
 
     afterEach(() => {
-      mockSetCookie.mockRestore();
+      jest.restoreAllMocks();
     });
 
     test("sets id token as cognito token from the response", async () => {
@@ -464,7 +471,7 @@ describe("auth", () => {
           grant_type: "authorization_code",
           client_id: config.cognitoClientIds.mtfhClientId,
           code: mockAccessCode,
-          redirect_uri: window.location.origin,
+          redirect_uri: browserLocation.getOrigin(),
           code_verifier: generatedVerifier,
         }).toString(),
       );

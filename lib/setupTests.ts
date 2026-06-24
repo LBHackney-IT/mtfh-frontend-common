@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import "@hackney/mtfh-test-utils";
-import "./lib/test-utils.ts";
+import "./test-utils";
 
 //mock this module globally, so CognitoJwtVerifier.create in auth won't call the real AWS implementation
 jest.mock("aws-jwt-verify", () => {

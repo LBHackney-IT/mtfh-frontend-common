@@ -23,5 +23,5 @@ test("it accepts a ref", () => {
     return <Spinner ref={ref} />;
   };
   render(<Comp />);
-  expect(callback).toBeCalledTimes(1);
+  expect(callback).toHaveBeenCalledTimes(1);
 });

@@ -74,5 +74,5 @@ test("it accepts a ref", () => {
     return <Button ref={ref}>Test Button</Button>;
   };
   render(<Comp />);
-  expect(callback).toBeCalledTimes(1);
+  expect(callback).toHaveBeenCalledTimes(1);
 });

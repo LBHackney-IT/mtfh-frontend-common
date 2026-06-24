@@ -49,5 +49,5 @@ test("it accepts a ref", () => {
     );
   };
   render(<Comp />);
-  expect(callback).toBeCalledTimes(1);
+  expect(callback).toHaveBeenCalledTimes(1);
 });

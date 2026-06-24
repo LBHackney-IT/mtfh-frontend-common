@@ -26,7 +26,7 @@ describe("when updateAddressDetails is called", () => {
     await updateAddressDetails(propertyReference, request);
 
     // Assert
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.housingFinanceInterimApiUrlV1}/asset/${propertyReference}`,
       request,
     );
