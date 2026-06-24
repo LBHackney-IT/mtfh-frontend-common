@@ -28,7 +28,7 @@ describe("when getAllPatchesAndAreas is called", () => {
   test("the request should be sent to the correct URL with the expected headers", async () => {
     await getAllPatchesAndAreas();
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/all`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -40,7 +40,7 @@ describe("when get patch or area by id is called", () => {
     const patchId = "2fa90983-94b7-4270-a485-dc42ede5af17";
     await usePatchOrArea(patchId);
 
-    expect(useAxiosSWR).toBeCalledWith(
+    expect(useAxiosSWR).toHaveBeenCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}`,
       undefined,
     );
@@ -60,7 +60,7 @@ describe("when addResponsibleEntityToPatch is called", () => {
       patchVersion,
     );
 
-    expect(axiosInstance.patch).toBeCalledWith(
+    expect(axiosInstance.patch).toHaveBeenCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
       mockUpdatePatchesAndAreasRequest,
       { headers: { "If-Match": patchVersion } },
@@ -75,7 +75,7 @@ describe("when deletePatchesAndAreasResponsibilities is called", () => {
 
     deletePatchesAndAreasResponsibilities(patchId, responsibleEntityId);
 
-    expect(axiosInstance.delete).toBeCalledWith(
+    expect(axiosInstance.delete).toHaveBeenCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntity/${responsibleEntityId}`,
     );
   });
@@ -92,7 +92,7 @@ describe("when replacePatchResponsibleEntities is called", () => {
       patchVersion,
     );
 
-    expect(axiosInstance.put).toBeCalledWith(
+    expect(axiosInstance.put).toHaveBeenCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/${patchId}/responsibleEntities`,
       [mockUpdatePatchesAndAreasRequest],
       { headers: { "If-Match": `"${patchVersion}"` } },
@@ -105,7 +105,7 @@ describe("when get patch by patchName is called", () => {
     const patchName = "HN1";
     getByPatchName(patchName);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.patchesAndAreasApiUrlV1}/patch/patchName/${patchName}`,
     );
   });

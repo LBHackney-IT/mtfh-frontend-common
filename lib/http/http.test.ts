@@ -1,22 +1,13 @@
 import { request, server } from "@hackney/mtfh-test-utils";
 import { rest } from "msw";
 
-import { $auth, voidUser } from "@mtfh/common/lib/auth";
+import { $auth, browserLocation, voidUser } from "@mtfh/common/lib/auth";
 
 import { axiosInstance, createCancelToken } from "./http";
 
 const defaultRequest = { path: "/api", code: 200 };
 
 describe("axiosInstance", () => {
-  Object.defineProperty(window, "location", {
-    value: {
-      href: "http://localhost/",
-      origin: "http://localhost",
-      reload: jest.fn(),
-    },
-    writable: true,
-  });
-
   test("it calls with Authorization header", async () => {
     const MockToken = "mock-token";
     request({ method: "get", ...defaultRequest, data: "success" });
@@ -52,11 +43,13 @@ describe("axiosInstance", () => {
       groups: ["TEST_GROUP"],
     });
     request({ method: "get", ...defaultRequest, data: "failure", code: 403 });
+    jest.spyOn(browserLocation, "reload").mockImplementation(() => undefined);
+
     await expect(axiosInstance.get("/api")).rejects.toThrow(
       "Request failed with status code 403",
     );
 
-    expect(window.location.reload).toBeCalledTimes(1);
+    expect(browserLocation.reload).toHaveBeenCalledTimes(1);
   });
 
   test("it can generate a cancel token", () => {

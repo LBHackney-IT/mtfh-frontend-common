@@ -31,7 +31,7 @@ test("it intercepts onbeforeunload", () => {
 
   window.dispatchEvent(event);
 
-  expect(returnValue).toBeCalledWith("");
+  expect(returnValue).toHaveBeenCalledWith("");
 });
 
 test("it skips confirmation if needed", () => {

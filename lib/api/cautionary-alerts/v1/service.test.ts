@@ -26,7 +26,7 @@ describe("when getPropertyCautionaryAlerts is called", () => {
 
     await getPropertyCautionaryAlerts(assetId);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.cautionaryApiUrlV1}/cautionary-alerts/properties-new/${assetId}`,
       { headers: { "skip-x-correlation-id": true } },
     );

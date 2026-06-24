@@ -46,7 +46,7 @@ describe("when searchAddress is called", () => {
   test("the request should be sent to the correct URL, with the correct postcode as a query parameter", async () => {
     await searchAddress(postcode);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -56,7 +56,7 @@ describe("when searchAddress is called", () => {
     const structure = "Hierarchy";
     await searchAddress(postcode, structure);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?postcode=${postcode}&Structure=${structure}`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -69,7 +69,7 @@ describe("when getAddressViaUprn is called", () => {
 
     await getAddressViaUprn(uprn);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?uprn=${uprn}`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -80,7 +80,7 @@ describe("when getAddressViaUprn is called", () => {
 
     await getAddressViaUprn(uprn, true);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?parentUprn=${uprn}`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -93,7 +93,7 @@ describe("when getAddressViaUprn is called", () => {
 
     await getAddressViaUprn(uprn, isParentUPRN, 1);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?uprn=${uprn}&page=${page}`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -107,7 +107,7 @@ describe("when getAddressViaUprn is called", () => {
 
     await getAddressViaUprn(uprn, isParentUPRN, page, pageSize);
 
-    expect(axiosInstance.get).toBeCalledWith(
+    expect(axiosInstance.get).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?uprn=${uprn}&pageSize=${pageSize}`,
       { headers: { "skip-x-correlation-id": true } },
     );
@@ -143,7 +143,7 @@ describe("when useAddressLookup is called", () => {
     (useAxiosSWR as jest.Mock).mockResolvedValueOnce(returnedValue);
 
     const response = await useAddressLookup(postcode, options);
-    expect(useAxiosSWR).toBeCalledWith(
+    expect(useAxiosSWR).toHaveBeenCalledWith(
       `${config.addressApiUrlV1}/addresses?postcode=${postcode}`,
       options,
     );

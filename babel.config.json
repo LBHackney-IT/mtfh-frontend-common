@@ -16,7 +16,9 @@
           {
             "targets": "current node"
           }
-        ]
+        ],
+        "@babel/preset-react",
+        "@babel/preset-typescript"
       ]
     }
   }

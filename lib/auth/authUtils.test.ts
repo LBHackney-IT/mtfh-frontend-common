@@ -6,45 +6,36 @@ import {
 
 describe("authUtils", () => {
   describe("generateCodeVerifier", () => {
-    let originalCrypto: Crypto;
-    let originalBtoa: typeof btoa;
+    let getRandomValuesSpy: jest.SpiedFunction<Crypto["getRandomValues"]>;
 
     beforeEach(() => {
-      // Save originals
-      originalCrypto = globalThis.crypto;
-      originalBtoa = globalThis.btoa;
-
-      // Mock crypto.getRandomValues
-      globalThis.crypto = {
-        getRandomValues: jest.fn((arr: Uint8Array) => {
-          // Fill with predictable values for testing
-          for (let i = 0; i < arr.length; i++) {
-            arr[i] = i % 256;
+      getRandomValuesSpy = jest
+        .spyOn(globalThis.crypto, "getRandomValues")
+        .mockImplementation((arr) => {
+          const typedArray = arr as Uint8Array;
+          for (let i = 0; i < typedArray.length; i++) {
+            typedArray[i] = i % 256;
           }
-          return arr;
-        }),
-      } as unknown as Crypto;
+          return typedArray;
+        });
 
-      // Mock btoa to behave like browser btoa
-      globalThis.btoa = jest.fn((str: string) =>
-        Buffer.from(str, "binary").toString("base64"),
-      );
+      jest
+        .spyOn(globalThis, "btoa")
+        .mockImplementation((str) => Buffer.from(str, "binary").toString("base64"));
     });
 
     afterEach(() => {
-      globalThis.crypto = originalCrypto;
-      globalThis.btoa = originalBtoa;
       jest.restoreAllMocks();
     });
 
     it("calls crypto.getRandomValues with a Uint8Array of length 128", () => {
       generateCodeVerifier();
 
-      expect(globalThis.crypto.getRandomValues).toHaveBeenCalledTimes(1);
-      const arg = (globalThis.crypto.getRandomValues as jest.Mock).mock.calls[0][0];
+      expect(getRandomValuesSpy).toHaveBeenCalledTimes(1);
+      const arg = getRandomValuesSpy.mock.calls[0][0];
 
       expect(arg).toBeInstanceOf(Uint8Array);
-      expect(arg.length).toBe(64);
+      expect((arg as Uint8Array).length).toBe(64);
     });
 
     it("returns a Base64URL-safe string", () => {
@@ -63,13 +54,11 @@ describe("authUtils", () => {
     });
 
     it("changes output when random values change", () => {
-      // Change mock behavior
-      (globalThis.crypto.getRandomValues as jest.Mock).mockImplementationOnce(
-        (arr: Uint8Array) => {
-          arr.fill(7);
-          return arr;
-        },
-      );
+      getRandomValuesSpy.mockImplementationOnce((arr) => {
+        const typedArray = arr as Uint8Array;
+        typedArray.fill(7);
+        return typedArray;
+      });
 
       const v1 = generateCodeVerifier();
       const v2 = generateCodeVerifier();
@@ -85,42 +74,42 @@ describe("authUtils", () => {
   });
 
   describe("generateCodeChallenge", () => {
-    let originalCrypto: Crypto;
-    let originalBtoa: typeof btoa;
+    let digestSpy: jest.Mock;
+    let btoaSpy: jest.SpiedFunction<typeof btoa>;
+    let originalTextEncoder: typeof TextEncoder;
 
     beforeEach(() => {
-      originalCrypto = globalThis.crypto;
-      originalBtoa = globalThis.btoa;
+      originalTextEncoder = globalThis.TextEncoder;
 
-      // Mock TextEncoder
       globalThis.TextEncoder = class {
         // matches real implementation, so disable eslint rule
         // eslint-disable-next-line class-methods-use-this
         encode(str: string | undefined) {
           return new Uint8Array((str ?? "").split("").map((c) => c.charCodeAt(0)));
         }
-      } as any;
+      } as typeof TextEncoder;
 
-      // Mock crypto.subtle.digest
-      globalThis.crypto = {
-        subtle: {
-          digest: jest.fn(async (_algo, data: Uint8Array) => {
-            // Fake SHA-256 digest: reverse the bytes
-            const reversed = Uint8Array.from([...data].reverse());
-            return reversed.buffer;
-          }),
-        },
-      } as unknown as Crypto;
+      digestSpy = jest.fn(async (_algo, data) => {
+        const bytes =
+          data instanceof ArrayBuffer ? new Uint8Array(data) : new Uint8Array(data);
+        const reversed = Uint8Array.from([...bytes].reverse());
+        return reversed.buffer;
+      });
 
-      // Mock btoa using Node Buffer
-      globalThis.btoa = jest.fn((str: string) =>
-        Buffer.from(str, "binary").toString("base64"),
-      );
+      Object.defineProperty(globalThis.crypto, "subtle", {
+        configurable: true,
+        value: { digest: digestSpy },
+      });
+
+      btoaSpy = jest
+        .spyOn(globalThis, "btoa")
+        .mockImplementation((str) => Buffer.from(str, "binary").toString("base64"));
     });
 
     afterEach(() => {
-      globalThis.crypto = originalCrypto;
-      globalThis.btoa = originalBtoa;
+      globalThis.TextEncoder = originalTextEncoder;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (globalThis.crypto as any).subtle;
       jest.restoreAllMocks();
     });
 
@@ -139,10 +128,7 @@ describe("authUtils", () => {
 
       await generateCodeChallenge(verifier);
 
-      expect(globalThis.crypto.subtle.digest).toHaveBeenCalledWith(
-        "SHA-256",
-        expectedData,
-      );
+      expect(digestSpy).toHaveBeenCalledWith("SHA-256", expectedData);
     });
 
     it("returns a Base64URL-safe string", async () => {
@@ -182,7 +168,7 @@ describe("authUtils", () => {
       const reversed = Uint8Array.from([...encoded].reverse());
       const expectedBinary = String.fromCharCode(...reversed);
 
-      expect(globalThis.btoa).toHaveBeenCalledWith(expectedBinary);
+      expect(btoaSpy).toHaveBeenCalledWith(expectedBinary);
       expect(result.length).toBeGreaterThan(0);
     });
 
