@@ -63,9 +63,6 @@ axiosInstance.interceptors.response.use(
       if (isAuthorised()) {
         logout();
       }
-      console.warn(
-        "This needs to be re-enabled after Repairs gets migrated onto Cognito authentication.",
-      );
     }
     throw error;
   },
