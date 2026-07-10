@@ -1,5 +1,7 @@
 export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
+export type Neighbourhood = "NORTHEAST" | "NORTHWEST" | "CENTRAL" | "SOUTH";
+
 export enum RentGroup {
   GPS = "Garages & Parking Spaces HRA",
   HGF = "Housing General Fund",
@@ -50,6 +52,7 @@ export interface AssetAddress {
   addressLine4: string;
   postCode: string;
   postPreamble: string;
+  neighbourhood: Neighbourhood;
 }
 
 export interface AssetManagement {
@@ -119,6 +122,7 @@ export interface CreateNewAssetRequest {
     addressLine3: string;
     addressLine4: string;
     postCode: string;
+    neighbourhood: Neighbourhood;
   };
   assetManagement: {
     agent: string;

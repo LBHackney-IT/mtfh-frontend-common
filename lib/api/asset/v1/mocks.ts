@@ -56,6 +56,7 @@ export const mockAssetAddress: AssetAddress = {
   addressLine4: "LONDON",
   postCode: "E8 1NT",
   postPreamble: "",
+  neighbourhood: "NORTHEAST",
 };
 
 export const mockParentAsset: ParentAsset = {
@@ -121,6 +122,7 @@ export const mockEditAssetAddressRequest: EditAssetAddressRequest = {
     addressLine4: "LONDON",
     postCode: "E8 1NT",
     postPreamble: "",
+    neighbourhood: "NORTHEAST",
   },
 };
 
