@@ -1,0 +1,27 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["lib/**/*"],
+  "exclude": [
+    "lib/**/*.test.ts",
+    "lib/**/*.test.tsx",
+    "lib/**/*.spec.ts",
+    "lib/**/*.spec.tsx",
+    "lib/setupTests.ts",
+    "lib/test-utils.ts"
+  ],
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": false,
+    "outDir": "build",
+    "rootDir": "lib",
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "target": "es2019",
+    "baseUrl": ".",
+    "paths": {
+      "@mtfh/common/lib/*": ["lib/*"]
+    }
+  }
+}

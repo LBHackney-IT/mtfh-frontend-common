@@ -1,4 +1,4 @@
-interface CognitoClientIds {
+export interface CognitoClientIds {
   mtfhClientId: string;
   e2eTestsClientId?: string;
 }

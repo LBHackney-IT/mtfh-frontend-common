@@ -153,8 +153,10 @@ from the `@mtfh/common/lib/*` alias when cross importing. These are consolidated
 When this library is installed in a micro-frontend its sole purpose is to satisfy tests as
 well as provide typings.
 
-NB: Typescript does not support `package.json` `exports` yet, so we have to maintain the
-dist output to match the source. ie the usage of `lib`.
+Deep imports keep the `@mtfh/common/lib/...` paths consumers already use. Runtime and
+types resolve to compiled output under `build/` (via `package.json` `exports` and
+`typesVersions`), not the TypeScript source under `lib/`. Run `yarn build:types` (also
+hooked as `prepare`) to emit that layout.
 
 ## ENV
 
