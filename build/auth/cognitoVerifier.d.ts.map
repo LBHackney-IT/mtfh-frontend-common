@@ -1,0 +1,1 @@
+{"version":3,"file":"cognitoVerifier.d.ts","sourceRoot":"","sources":["../../lib/auth/cognitoVerifier.ts"],"names":[],"mappings":"AAIA,MAAM,WAAW,eAAe;IAC9B,MAAM,EAAE,CAAC,KAAK,EAAE,MAAM,KAAK,OAAO,CAAC;QAAE,CAAC,GAAG,EAAE,MAAM,GAAG,OAAO,CAAA;KAAE,CAAC,CAAC;CAChE;AAID,eAAO,MAAM,oBAAoB,QAAO,IAEvC,CAAC;AAEF,eAAO,MAAM,kBAAkB,QAAO,eAUrC,CAAC"}

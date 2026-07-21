@@ -1,0 +1,1 @@
+{"version":3,"file":"status-heading.d.ts","sourceRoot":"","sources":["../../../lib/components/status-heading/status-heading.tsx"],"names":[],"mappings":"AAIA,OAAO,eAAe,CAAC;AAEvB,MAAM,MAAM,oBAAoB,GAAG,MAAM,GAAG,SAAS,GAAG,SAAS,GAAG,SAAS,CAAC;AAC9E,UAAU,kBAAkB;IAC1B,KAAK,EAAE,MAAM,CAAC;IACd,OAAO,CAAC,EAAE,oBAAoB,CAAC;CAChC;AAED,eAAO,MAAM,aAAa,uBAAiC,kBAAkB,gBAiB5E,CAAC"}

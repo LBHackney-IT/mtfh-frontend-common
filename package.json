@@ -15,6 +15,24 @@
       "import": "./build/*/index.js",
       "default": "./build/*/index.js"
     },
+    "./lib/*/*": {
+      "types": "./build/*/*/index.d.ts",
+      "require": "./build/*/*/index.js",
+      "import": "./build/*/*/index.js",
+      "default": "./build/*/*/index.js"
+    },
+    "./lib/*/*/*": {
+      "types": "./build/*/*/*/index.d.ts",
+      "require": "./build/*/*/*/index.js",
+      "import": "./build/*/*/*/index.js",
+      "default": "./build/*/*/*/index.js"
+    },
+    "./lib/*/*/*/*": {
+      "types": "./build/*/*/*/*/index.d.ts",
+      "require": "./build/*/*/*/*/index.js",
+      "import": "./build/*/*/*/*/index.js",
+      "default": "./build/*/*/*/*/index.js"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -23,8 +41,29 @@
         "build/*/index.d.ts",
         "build/*"
       ],
+      "lib/*/*": [
+        "build/*/*/index.d.ts",
+        "build/*/*"
+      ],
+      "lib/*/*/*": [
+        "build/*/*/*/index.d.ts",
+        "build/*/*/*"
+      ],
+      "lib/*/*/*/*": [
+        "build/*/*/*/*/index.d.ts",
+        "build/*/*/*/*"
+      ],
       "build/*/index.d.ts": [
         "build/*/index.d.ts"
+      ],
+      "build/*/*/index.d.ts": [
+        "build/*/*/index.d.ts"
+      ],
+      "build/*/*/*/index.d.ts": [
+        "build/*/*/*/index.d.ts"
+      ],
+      "build/*/*/*/*/index.d.ts": [
+        "build/*/*/*/*/index.d.ts"
       ],
       "build/*": [
         "build/*"
@@ -33,14 +72,15 @@
   },
   "files": [
     "build",
-    "README.md"
+    "README.md",
+    "scripts"
   ],
   "scripts": {
     "start": "SET NODE_OPTIONS=--openssl-legacy-provider && webpack serve --port 8040",
     "start:standalone": "cross-env APP_ENV=local webpack serve --env standalone",
     "build": "webpack --mode=production",
     "build:types": "tsc -p tsconfig.build.json",
-    "prepare": "tsc -p tsconfig.build.json",
+    "prepare": "node ./scripts/ensure-build.js",
     "analyze": "webpack --mode=production --env analyze",
     "lint": "eslint lib --ext js,ts,tsx --quiet",
     "lintfix": "eslint lib --ext js,ts,tsx --fix",

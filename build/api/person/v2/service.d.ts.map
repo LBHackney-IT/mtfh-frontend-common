@@ -1,0 +1,1 @@
+{"version":3,"file":"service.d.ts","sourceRoot":"","sources":["../../../../lib/api/person/v2/service.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,SAAS,CAAC;AAEtC,MAAM,WAAW,qBAAsB,SAAQ,IAAI,CAAC,MAAM,EAAE,IAAI,GAAG,SAAS,CAAC;IAC3E,MAAM,EAAE,MAAM,CAAC;CAChB;AAED,eAAO,MAAM,SAAS,SAAgB,qBAAqB,KAAG,OAAO,CAAC,MAAM,CAO3E,CAAC"}

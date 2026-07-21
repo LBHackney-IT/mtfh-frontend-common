@@ -62,9 +62,6 @@ typings/
 .next
 dist
 
-# Package JS + declaration emit (yarn build:types / prepare)
-build
-
 # Editor directories and files
 .idea
 .vscode

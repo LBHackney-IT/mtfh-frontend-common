@@ -1,0 +1,1 @@
+{"version":3,"file":"mocks.d.ts","sourceRoot":"","sources":["../../../../lib/api/patch/v1/mocks.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,iBAAiB,EAAE,4BAA4B,EAAE,MAAM,SAAS,CAAC;AAEjF,eAAO,MAAM,wBAAwB,EAAE,iBAOtC,CAAC;AAEF,eAAO,MAAM,SAAS,EAAE,KAQvB,CAAC;AAEF,eAAO,MAAM,gCAAgC,EAAE,4BAI9C,CAAC"}
