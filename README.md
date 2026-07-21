@@ -156,8 +156,8 @@ well as provide typings.
 Deep imports keep the `@mtfh/common/lib/...` paths consumers already use. Runtime and
 types resolve to compiled output under `build/` (via `package.json` `exports` and
 `typesVersions`), not the TypeScript source under `lib/`. The `build/` tree is committed
-so git/npm installs work without a successful `prepare`. Regenerate with
-`yarn build:types` after changing public exports under `lib/`.
+so git/npm installs work without a compile step. Regenerate with `yarn build:types` after
+changing public exports under `lib/`.
 
 ## ENV
 
