@@ -138,8 +138,10 @@ jobs:
           name: Run linter
           command: yarn lint
       - run:
-          name: Emit package types
-          command: yarn build:types
+          name: Check package types are up to date
+          command: |
+            yarn build:types
+            git diff --exit-code -- build
       - run:
           name: Run unit lint-and-test
           command: yarn test:ci
