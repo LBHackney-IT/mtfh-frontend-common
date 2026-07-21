@@ -1,15 +1,12 @@
 import type * as Polymorphic from "@radix-ui/react-polymorphic";
 import "./styles.scss";
 export interface ErrorSummaryProps {
-  id: string;
-  title: string;
-  description?: string;
-  reFocus?: number;
-  override?: number;
+    id: string;
+    title: string;
+    description?: string;
+    reFocus?: number;
+    override?: number;
 }
-export type ErrorSummaryComponent = Polymorphic.ForwardRefComponent<
-  "div",
-  ErrorSummaryProps
->;
+export type ErrorSummaryComponent = Polymorphic.ForwardRefComponent<"div", ErrorSummaryProps>;
 export declare const ErrorSummary: ErrorSummaryComponent;
 //# sourceMappingURL=error-summary.d.ts.map

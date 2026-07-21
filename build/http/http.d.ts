@@ -1,6 +1,6 @@
 import { AxiosError, AxiosHeaders, AxiosRequestConfig, CancelTokenSource } from "axios";
 export interface Config extends AxiosRequestConfig {
-  headers: AxiosHeaders;
+    headers: AxiosHeaders;
 }
 export declare const axiosInstance: import("axios").AxiosInstance;
 export declare const createCancelToken: () => CancelTokenSource;

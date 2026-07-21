@@ -1,7 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 type Configuration = {
-  configuration: Record<string, string | undefined>;
-  featureToggles: Record<string, boolean | undefined>;
+    configuration: Record<string, string | undefined>;
+    featureToggles: Record<string, boolean | undefined>;
 };
 type ConfigCollection = Record<string, Configuration>;
 export declare const hydrateConfiguration: () => ConfigCollection;

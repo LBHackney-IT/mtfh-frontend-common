@@ -1,5 +1,5 @@
 interface CautionaryAlerts {
-  [key: string]: string;
+    [key: string]: string;
 }
 export declare const useCautionaryAlertCodes: () => CautionaryAlerts | null;
 export {};

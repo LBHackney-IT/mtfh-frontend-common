@@ -1,12 +1,10 @@
 import React, { ComponentPropsWithoutRef, ReactElement } from "react";
 import "./styles.scss";
 export interface LayoutProps extends ComponentPropsWithoutRef<"div"> {
-  top?: ReactElement;
-  backLink?: ReactElement;
-  side?: ReactElement;
-  sidePosition?: "left" | "right";
+    top?: ReactElement;
+    backLink?: ReactElement;
+    side?: ReactElement;
+    sidePosition?: "left" | "right";
 }
-export declare const Layout: React.ForwardRefExoticComponent<
-  LayoutProps & React.RefAttributes<HTMLDivElement>
->;
+export declare const Layout: React.ForwardRefExoticComponent<LayoutProps & React.RefAttributes<HTMLDivElement>>;
 //# sourceMappingURL=layout.d.ts.map

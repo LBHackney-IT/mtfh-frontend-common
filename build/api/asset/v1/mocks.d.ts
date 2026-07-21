@@ -1,17 +1,4 @@
-import {
-  Asset,
-  AssetAddress,
-  AssetCharacteristics,
-  AssetLocation,
-  AssetManagement,
-  AssetTenure,
-  CreateNewAssetRequest,
-  EditAssetAddressRequest,
-  ParentAsset,
-  PatchAssetBoilerHouseRequest,
-  PatchAssetLbhOwnershipRequest,
-  UpdatePropertyPatchRequest,
-} from "./types";
+import { Asset, AssetAddress, AssetCharacteristics, AssetLocation, AssetManagement, AssetTenure, CreateNewAssetRequest, EditAssetAddressRequest, ParentAsset, PatchAssetBoilerHouseRequest, PatchAssetLbhOwnershipRequest, UpdatePropertyPatchRequest } from "./types";
 export declare const mockAssetTenure: AssetTenure;
 export declare const mockAssetCharacteristics: AssetCharacteristics;
 export declare const mockAssetManagement: AssetManagement;

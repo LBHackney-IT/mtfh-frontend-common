@@ -1,24 +1,24 @@
 export interface ResponsibleEntityContactDetails {
-  emailAddress: string;
+    emailAddress: string;
 }
 export interface ResponsibleEntity {
-  id: string;
-  name: string;
-  responsibleType: string;
-  contactDetails: ResponsibleEntityContactDetails;
+    id: string;
+    name: string;
+    responsibleType: string;
+    contactDetails: ResponsibleEntityContactDetails;
 }
 export interface Patch {
-  id: string;
-  parentId: string;
-  name: string;
-  patchType: string;
-  domain: string;
-  responsibleEntities: ResponsibleEntity[];
-  versionNumber?: number;
+    id: string;
+    parentId: string;
+    name: string;
+    patchType: string;
+    domain: string;
+    responsibleEntities: ResponsibleEntity[];
+    versionNumber?: number;
 }
 export interface UpdatePatchesAndAreasRequest {
-  id: string;
-  name: string;
-  responsibleType: string;
+    id: string;
+    name: string;
+    responsibleType: string;
 }
 //# sourceMappingURL=types.d.ts.map

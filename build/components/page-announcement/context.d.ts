@@ -1,32 +1,28 @@
 import React, { Dispatch, FC } from "react";
 export interface PageAnnouncementState {
-  heading: string;
-  description?: string;
-  variant?: "success" | "warning" | "info";
+    heading: string;
+    description?: string;
+    variant?: "success" | "warning" | "info";
 }
-export type PageAnnouncementActions =
-  | {
-      type: "ADD";
-      payload: PageAnnouncementState;
-    }
-  | {
-      type: "CLEAR";
-    };
+export type PageAnnouncementActions = {
+    type: "ADD";
+    payload: PageAnnouncementState;
+} | {
+    type: "CLEAR";
+};
 export interface PageAnnouncementContextState {
-  state?: PageAnnouncementState;
-  dispatch: Dispatch<PageAnnouncementActions>;
+    state?: PageAnnouncementState;
+    dispatch: Dispatch<PageAnnouncementActions>;
 }
-export declare const PageAnnouncementContext: React.Context<
-  PageAnnouncementContextState | undefined
->;
+export declare const PageAnnouncementContext: React.Context<PageAnnouncementContextState | undefined>;
 interface UsePageAnnouncementValue {
-  state?: PageAnnouncementState;
-  addAnnouncement: Dispatch<PageAnnouncementState>;
-  clearAnnouncement: Dispatch<void>;
+    state?: PageAnnouncementState;
+    addAnnouncement: Dispatch<PageAnnouncementState>;
+    clearAnnouncement: Dispatch<void>;
 }
 export declare const usePageAnnouncement: () => UsePageAnnouncementValue;
 interface PageAnnouncementProviderProps {
-  sessionKey?: string;
+    sessionKey?: string;
 }
 export declare const PageAnnouncementProvider: FC<PageAnnouncementProviderProps>;
 export {};

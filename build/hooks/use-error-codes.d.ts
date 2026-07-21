@@ -1,5 +1,5 @@
 interface ErrorMessages {
-  [key: string]: string;
+    [key: string]: string;
 }
 export declare const useErrorCodes: () => ErrorMessages | null;
 export {};

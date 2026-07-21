@@ -1,7 +1,7 @@
 export interface CognitoVerifier {
-  verify: (token: string) => Promise<{
-    [key: string]: unknown;
-  }>;
+    verify: (token: string) => Promise<{
+        [key: string]: unknown;
+    }>;
 }
 export declare const resetCognitoVerifier: () => void;
 export declare const getCognitoVerifier: () => CognitoVerifier;
