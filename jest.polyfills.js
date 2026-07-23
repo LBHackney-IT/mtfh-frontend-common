@@ -1,19 +1,28 @@
-const { TextDecoder, TextEncoder } = require("util");
-const { Blob } = require("buffer");
-const { ReadableStream, WritableStream, TransformStream } = require("stream/web");
+const { TextDecoder, TextEncoder } = require("node:util");
+const { Blob } = require("node:buffer");
+const { ReadableStream, WritableStream, TransformStream } = require("node:stream/web");
 
 class BroadcastChannel {
   constructor(name) {
     this.name = name;
   }
 
-  postMessage() {}
+  // Stub for MSW/jsdom — no cross-context messaging needed in tests
+  postMessage() {
+    return undefined;
+  }
 
-  close() {}
+  close() {
+    return undefined;
+  }
 
-  addEventListener() {}
+  addEventListener() {
+    return undefined;
+  }
 
-  removeEventListener() {}
+  removeEventListener() {
+    return undefined;
+  }
 }
 
 globalThis.TextDecoder = TextDecoder;

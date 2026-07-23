@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 
 require("dotenv").config({ path: ".env.test" });
 
@@ -16,7 +16,7 @@ module.exports = {
     "^.+\\.(mjs|[jt]sx?)$": ["babel-jest", { rootMode: "upward" }],
   },
   transformIgnorePatterns: [
-    "[/\\\\]node_modules[/\\\\](?!lbh-frontend|msw|@mswjs|rettime|until-async|strict-event-emitter|@bundled-es-modules|@open-draft|@faker-js|undici)[/\\\\].+\\.(js|jsx|mjs)$",
+    String.raw`[/\\]node_modules[/\\](?!lbh-frontend|msw|@mswjs|rettime|until-async|strict-event-emitter|@bundled-es-modules|@open-draft|@faker-js|undici)[/\\].+\.(js|jsx|mjs)$`,
   ],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
