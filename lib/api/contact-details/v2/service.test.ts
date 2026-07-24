@@ -4,7 +4,6 @@ import {
   server,
 } from "@hackney/mtfh-test-utils";
 import { renderHook } from "@testing-library/react-hooks";
-import { RestRequest } from "msw";
 
 import {
   ContactDetailsPhoneTypes,
@@ -31,7 +30,7 @@ describe("when useContactDetails is called", () => {
     const expectedUrl = `${config.contactDetailsApiUrlV2}/contactDetails?targetId=${id}`;
 
     server.use(
-      getContactDetailsV2((req: RestRequest) => {
+      getContactDetailsV2((req: Request) => {
         method = req.method;
         url = req.url.toString();
         return response;
@@ -67,7 +66,7 @@ describe("when addContactDetail is called", () => {
     const response = { id, etag: undefined };
 
     server.use(
-      postContactDetailV2((req: RestRequest) => {
+      postContactDetailV2((req: Request) => {
         method = req.method;
         url = req.url.toString();
         return response;
@@ -113,7 +112,7 @@ describe("when addEmailContact is called", () => {
     const response = { id, etag: undefined };
 
     server.use(
-      postContactDetailV2((req: RestRequest) => {
+      postContactDetailV2((req: Request) => {
         method = req.method;
         url = req.url.toString();
         return response;
@@ -158,7 +157,7 @@ describe("when addPhoneContact is called", () => {
     const response = { id, etag: undefined };
 
     server.use(
-      postContactDetailV2((req: RestRequest) => {
+      postContactDetailV2((req: Request) => {
         method = req.method;
         url = req.url.toString();
         return response;
@@ -205,7 +204,7 @@ describe("when addCorrespondenceAddress is called", () => {
     const response = { id: data.id };
 
     server.use(
-      postContactDetailV2((req: RestRequest) => {
+      postContactDetailV2((req: Request) => {
         method = req.method;
         url = req.url.toString();
         return response;
