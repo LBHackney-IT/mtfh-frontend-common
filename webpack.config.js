@@ -1,7 +1,6 @@
 const path = require("path");
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 const webpack = require("webpack");
 const dotenv = require("dotenv").config();
 const { ImportMapWebpackPlugin } = require("@hackney/webpack-import-map-plugin");
@@ -12,19 +11,6 @@ module.exports = (webpackConfigEnv, argv) => {
     projectName: "common",
     webpackConfigEnv,
     argv,
-  });
-
-  // Typecheck app sources only — test files are exercised by Jest, not the bundle.
-  defaultConfig.plugins = defaultConfig.plugins.map((plugin) => {
-    if (plugin instanceof ForkTsCheckerWebpackPlugin) {
-      return new ForkTsCheckerWebpackPlugin({
-        typescript: {
-          configFile: path.resolve(__dirname, "tsconfig.build.json"),
-          mode: "write-references",
-        },
-      });
-    }
-    return plugin;
   });
 
   const apiPath = path.join(__dirname, "lib", "api");

@@ -7,6 +7,9 @@ import { axiosInstance, createCancelToken } from "./http";
 
 const defaultRequest = { path: "/api", code: 200 };
 
+type PatchWithEtagResponse = { id: string } | { error: string };
+type PatchWithoutEtagResponse = { error: string } | { success: boolean };
+
 describe("axiosInstance", () => {
   test("it calls with Authorization header", async () => {
     const MockToken = "mock-token";
@@ -59,7 +62,7 @@ describe("axiosInstance", () => {
   test("etag is appended to response in get request", async () => {
     server.use(
       http.get("/api", () => {
-        return HttpResponse.json(
+        return HttpResponse.json<{ id: string }>(
           { id: "70a8d798-d707-4eee-8c9e-7fe1ecaf42cb" },
           {
             status: 200,
@@ -76,13 +79,22 @@ describe("axiosInstance", () => {
 
   test("etag in patch data is appended to If-Match header", async () => {
     server.use(
-      http.patch("/api", async ({ request: req }) => {
-        if (req.headers.has("If-Match")) {
-          const body = await req.json();
-          return HttpResponse.json(body, { status: 200 });
-        }
-        return HttpResponse.json({ error: "failed" }, { status: 500 });
-      }),
+      http.patch<never, { id: string; etag?: string }, PatchWithEtagResponse>(
+        "/api",
+        async ({ request: req }) => {
+          if (req.headers.has("If-Match")) {
+            const body = await req.json();
+            return HttpResponse.json<PatchWithEtagResponse>(
+              { id: body.id },
+              { status: 200 },
+            );
+          }
+          return HttpResponse.json<PatchWithEtagResponse>(
+            { error: "failed" },
+            { status: 500 },
+          );
+        },
+      ),
     );
 
     const res = await axiosInstance.patch("/api", {
@@ -98,11 +110,17 @@ describe("axiosInstance", () => {
 
   test("If-Match header is not sent when no etag is provided", async () => {
     server.use(
-      http.patch("/api", ({ request: req }) => {
+      http.patch<never, never, PatchWithoutEtagResponse>("/api", ({ request: req }) => {
         if (req.headers.has("If-Match")) {
-          return HttpResponse.json({ error: "failed" }, { status: 500 });
+          return HttpResponse.json<PatchWithoutEtagResponse>(
+            { error: "failed" },
+            { status: 500 },
+          );
         }
-        return HttpResponse.json({ success: true }, { status: 200 });
+        return HttpResponse.json<PatchWithoutEtagResponse>(
+          { success: true },
+          { status: 200 },
+        );
       }),
     );
 
@@ -118,12 +136,11 @@ describe("axiosInstance", () => {
     let correlationId: string | null = null;
 
     server.use(
-      http.get("/api", ({ request: req }) => {
+      http.get<never, never, null>("/api", ({ request: req }) => {
         correlationId = req.headers.get("x-correlation-id");
-        if (correlationId) {
-          return new HttpResponse(null, { status: 200 });
-        }
-        return new HttpResponse(null, { status: 500 });
+        return new HttpResponse(null, {
+          status: correlationId ? 200 : 500,
+        });
       }),
     );
 
@@ -138,7 +155,7 @@ describe("axiosInstance", () => {
     const correlationIds: string[] = [];
 
     server.use(
-      http.get("/api", ({ request: req }) => {
+      http.get<never, never, null>("/api", ({ request: req }) => {
         correlationIds.push(req.headers.get("x-correlation-id") ?? "");
         return new HttpResponse(null, { status: 200 });
       }),
@@ -155,11 +172,10 @@ describe("axiosInstance", () => {
 
   test("x-correlation-id is not appended to the request headers if skip-x-correlation-id is", async () => {
     server.use(
-      http.get("/api", ({ request: req }) => {
-        if (req.headers.has("x-correlation-id")) {
-          return new HttpResponse(null, { status: 500 });
-        }
-        return new HttpResponse(null, { status: 200 });
+      http.get<never, never, null>("/api", ({ request: req }) => {
+        return new HttpResponse(null, {
+          status: req.headers.has("x-correlation-id") ? 500 : 200,
+        });
       }),
     );
 
