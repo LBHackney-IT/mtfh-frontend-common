@@ -1,6 +1,14 @@
 {
   "extends": "ts-config-single-spa",
   "include": ["lib/**/*"],
+  "exclude": [
+    "lib/**/*.test.ts",
+    "lib/**/*.test.tsx",
+    "lib/**/*.spec.ts",
+    "lib/**/*.spec.tsx",
+    "lib/setupTests.ts",
+    "lib/**/test-utils.ts"
+  ],
   "compilerOptions": {
     "strict": true,
     "jsx": "react",
