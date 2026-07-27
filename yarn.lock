@@ -1311,10 +1311,10 @@
   resolved "https://registry.yarnpkg.com/@faker-js/faker/-/faker-9.9.0.tgz#3ad015fbbaaae7af3149555e0f22b4b30134c69d"
   integrity sha512-OEl393iCOoo/z8bMezRlJu+GlRGlsKbUAN7jKB6LhnKoqKve5DXRpalbItIIcwnCjs1k/FOPjFzcA6Qn+H+YbA==
 
-"@hackney/eslint-config@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@hackney/eslint-config/-/eslint-config-1.5.1.tgz#407c82e1fcaeb3b388cc284f03439a489112d061"
-  integrity sha512-HE0E/P6GTS92F49sdmyBpfJXF3AU0Fl26JaT6aguDipLLxyRImzCeLrXoAKhc8MYOTHIq/2oQyhj+17u7A9/vw==
+"@hackney/eslint-config@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@hackney/eslint-config/-/eslint-config-1.5.2.tgz#2ad5ffcbe800cfcecb375344b59f8981c1ed9147"
+  integrity sha512-7punw5c22fhLh85qap9nQP7K1I2dqVCtoE9ZJJ5yMEwvTc5X5fs8f7aAOjYzLy/si4bevTSarFfJTh1SZskdqw==
   dependencies:
     "@typescript-eslint/parser" "^7.18.0"
     eslint-import-resolver-typescript "^3.6.3"
@@ -1324,10 +1324,10 @@
   resolved "https://registry.yarnpkg.com/@hackney/mtfh-system/-/mtfh-system-1.1.1.tgz#0aafcbbb83ce77433c08a3458b39177995de3942"
   integrity sha512-CRMCUGMmZ4ID5Ss29R3COjD/wZEUlZNOfhUzEa2Tn1fvEqJKZwS8r78aE1CTjVaSy3diQIClWntlZmQmimoO8g==
 
-"@hackney/mtfh-test-utils@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@hackney/mtfh-test-utils/-/mtfh-test-utils-2.1.1.tgz#287b2177d23879a81a1961d0d569831b9173eaab"
-  integrity sha512-ny9w+dKtEeBNGAfaaJXo90FGklCGGyYm81Oo3NM6TOn/GrMxFaQdAX5v8m7k2kHzJtYQEiQSs5LDZBLugIG1Wg==
+"@hackney/mtfh-test-utils@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@hackney/mtfh-test-utils/-/mtfh-test-utils-2.1.2.tgz#000cd2c335c7cb2ff1728e9c1687536ce9409fcd"
+  integrity sha512-Hp9NwvHfRK2RDlCau18Gyc2jqfMzjoNpzpaBlF2DSF23AJA/pq6bvTYyOxevUfUVKb2Q6iUmRcZ9vUaxObfOsA==
   dependencies:
     "@faker-js/faker" "^9.0.0"
     "@hackney/mtfh-system" "^1.1.0"
@@ -1340,10 +1340,10 @@
   resolved "https://registry.yarnpkg.com/@hackney/prettier-config/-/prettier-config-1.1.1.tgz#de5e2f1a2fd42f8114dbffae3d51209b6daf547b"
   integrity sha512-gyCapmm7SzZYezbPMEiKP32fgfqcQnT+2CxSbjXJxYCMvonaHvaj4f7dCGBM3glhOaOQ+BJc2K+IQUKVixKC7w==
 
-"@hackney/webpack-import-map-plugin@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@hackney/webpack-import-map-plugin/-/webpack-import-map-plugin-1.2.1.tgz#61cb9840117ca9cef056292388aa5b09b4b96784"
-  integrity sha512-qTFJpr/TAM//wL1EF0Odb+mbQdh9eeewpb4SnbvIAxr+VMf3InRjreWcLY6UYzjOb9lHUWB4Qqs4HZURndk1hA==
+"@hackney/webpack-import-map-plugin@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@hackney/webpack-import-map-plugin/-/webpack-import-map-plugin-1.2.2.tgz#492cc2d904c84c016dc5a781202dc9006b4a9688"
+  integrity sha512-wzYe/q33yeOQixNnL+j/F1OMqNYRBaOkMgrXIDbLahgneHl5qFATr/S1CgpLWEPCR39282yo1CO4ompWIooRRw==
   dependencies:
     "@types/node" "^16.7.1"
     webpack "^5.51.1"
