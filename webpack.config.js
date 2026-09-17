@@ -1,9 +1,106 @@
+const fs = require("fs");
 const path = require("path");
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
 const webpack = require("webpack");
 const dotenv = require("dotenv").config();
 const { ImportMapWebpackPlugin } = require("@hackney/webpack-import-map-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+// Dual CSS pipeline: the same files are compiled twice.
+// 1. Default imports (from component TSX) still use style-loader so existing roots
+//    (MMH, HSF, etc.) keep getting <style> injection when they load
+//    @mtfh/common/lib/components. That is the backward-compatible path.
+// 2. Imports with ?extract go through MiniCssExtractPlugin so updated roots can load
+//    a real .css file from stylesheet-map.json (CSP-friendly, no inline styles).
+// Webpack treats file.scss and file.scss?extract as different modules, which is
+// what lets both loaders run on the same source.
+
+// webpack-config-single-spa ships a .css rule with style-loader (used by
+// @reach/dialog/styles.css). Without this, that rule would also match ?extract
+// imports and style-loader would win. Restrict it so extract imports fall through
+// to the MiniCssExtractPlugin rules below.
+const excludeExtractQuery = (rule) => {
+  if (!rule?.test) {
+    return rule;
+  }
+
+  const test = String(rule.test);
+  if (!test.includes("css")) {
+    return rule;
+  }
+
+  return {
+    ...rule,
+    resourceQuery: { not: /extract/ },
+  };
+};
+
+// Extra webpack entry used only to produce common/lib/components.[hash].css.
+// Each path is suffixed with ?extract so these imports do not share a module
+// identity with the style-loader copies pulled in from component TSX files.
+// @reach/dialog/styles.css is included here because dialog.tsx imports it as
+// plain CSS, not SCSS.
+const collectComponentStyleEntries = () => {
+  const files = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+        continue;
+      }
+      if (entry.name.endsWith(".scss")) {
+        files.push(`${fullPath}?extract`);
+      }
+    }
+  };
+
+  walk(path.join(__dirname, "lib", "components"));
+  files.push(`${require.resolve("@reach/dialog/styles.css")}?extract`);
+  return files;
+};
+
+// Hackney's import-map plugin only records .js assets. Roots need the hashed CSS
+// URL without rebuilding whenever common deploys, so this emits a sibling JSON
+// manifest. S3 already serves *.json with must-revalidate; hashed .css stays
+// immutable. The key @mtfh/common/lib/components matches the JS import-map name.
+class StylesheetMapWebpackPlugin {
+  constructor({ namespace, basePath }) {
+    this.namespace = namespace;
+    this.basePath = basePath;
+  }
+
+  apply(compiler) {
+    const pluginName = "StylesheetMapWebpackPlugin";
+    const { RawSource } = compiler.webpack.sources;
+
+    compiler.hooks.thisCompilation.tap(pluginName, (compilation) => {
+      compilation.hooks.processAssets.tap(
+        {
+          name: pluginName,
+          stage: webpack.Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
+        },
+        (assets) => {
+          const stylesheets = Object.keys(assets)
+            .filter((file) => file.endsWith(".css"))
+            .reduce((map, file) => {
+              const name = file.split(".")[0];
+              return {
+                ...map,
+                [`${this.namespace}/${name}`]: new URL(file, this.basePath).href,
+              };
+            }, {});
+
+          compilation.emitAsset(
+            "stylesheet-map.json",
+            new RawSource(JSON.stringify({ stylesheets })),
+          );
+        },
+      );
+    });
+  }
+}
 
 module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
@@ -13,7 +110,11 @@ module.exports = (webpackConfigEnv, argv) => {
     argv,
   });
 
+  // Keep the single-spa default CSS rule for normal imports; skip ?extract requests.
+  defaultConfig.module.rules = defaultConfig.module.rules.map(excludeExtractQuery);
+
   const apiPath = path.join(__dirname, "lib", "api");
+  const appCdn = process.env.APP_CDN || "http://localhost:8040";
 
   return merge(defaultConfig, {
     entry: {
@@ -23,6 +124,10 @@ module.exports = (webpackConfigEnv, argv) => {
       "common/lib/config": path.join(__dirname, "lib", "config"),
       "common/lib/configuration": path.join(__dirname, "lib", "configuration"),
       "common/lib/components": path.join(__dirname, "lib", "components"),
+      // CSS-only companion entry. Its JS chunk is unused at runtime; MiniCssExtractPlugin
+      // filename below remaps the CSS to common/lib/components.[hash].css so the
+      // stylesheet map key matches the JS module name. Existing roots never import this.
+      "common/lib/components-styles": collectComponentStyleEntries(),
       "common/lib/hooks": path.join(__dirname, "lib", "hooks"),
       "common/lib/utils": path.join(__dirname, "lib", "utils"),
       "common/lib/context": path.join(__dirname, "lib", "context"),
@@ -64,14 +169,35 @@ module.exports = (webpackConfigEnv, argv) => {
     },
     module: {
       rules: [
+        // Extract path: used only by the components-styles entry (?extract query).
+        {
+          test: /\.css$/i,
+          resourceQuery: /extract/,
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
+        },
         {
           test: /\.scss$/i,
+          resourceQuery: /extract/,
+          use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        },
+        // Compatible path: component TSX imports, same as before this change.
+        {
+          test: /\.scss$/i,
+          resourceQuery: { not: /extract/ },
           use: ["style-loader", "css-loader", "sass-loader"],
         },
       ],
     },
     externals: ["react", "react-dom", "react-router-dom", "formik", "date-fns"],
     plugins: [
+      new MiniCssExtractPlugin({
+        // Publish the extracted file under the components name, not components-styles,
+        // so stylesheet-map.json can use the same key as import-map.json.
+        filename: ({ chunk }) =>
+          chunk.name === "common/lib/components-styles"
+            ? "common/lib/components.[contenthash].css"
+            : "[name].[contenthash].css",
+      }),
       new webpack.EnvironmentPlugin({
         APP_ENV: process.env.APP_ENV || "test",
         AUTH_ALLOWED_GROUPS: dotenv.AUTH_ALLOWED_GROUPS || "",
@@ -109,7 +235,11 @@ module.exports = (webpackConfigEnv, argv) => {
       }),
       new ImportMapWebpackPlugin({
         namespace: "@mtfh",
-        basePath: process.env.APP_CDN || "http://localhost:8040",
+        basePath: appCdn,
+      }),
+      new StylesheetMapWebpackPlugin({
+        namespace: "@mtfh",
+        basePath: appCdn,
       }),
     ],
   });
