@@ -441,10 +441,11 @@ workflows:
       - lint-and-test:
           requires:
             - install-dependencies
+          filters:
+            branches:
+              only: geat/ssi-1294-improve-styles-handling
         ## TODO: remove
-      - filters:
-          branches:
-            only: geat/ssi-1294-improve-styles-handling
+
       # - security-scan:
       #     context: mtfh-security-scan
       #     requires:
