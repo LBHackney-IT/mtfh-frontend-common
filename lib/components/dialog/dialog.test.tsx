@@ -1,7 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 
 import { render, testA11y } from "@hackney/mtfh-test-utils";
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { Dialog, DialogActions } from "./dialog";
@@ -65,4 +65,38 @@ test("it prevents background scrolling while open", () => {
   userEvent.click(screen.getByText("Close"));
   expect(document.body.style.overflow).toBe("");
   createElement.mockRestore();
+});
+
+test("it reserves the scrollbar width while open", () => {
+  const clientWidth = jest
+    .spyOn(document.documentElement, "clientWidth", "get")
+    .mockReturnValue(window.innerWidth - 15);
+  render(<Component />);
+
+  userEvent.click(screen.getByText("Toggle"));
+  expect(document.body.style.paddingRight).toBe("15px");
+
+  userEvent.click(screen.getByText("Close"));
+  expect(document.body.style.paddingRight).toBe("");
+  clientWidth.mockRestore();
+});
+
+test("it focuses the initial focus ref when provided", async () => {
+  const InitialFocusComponent: FC = () => {
+    const inputRef = useRef<HTMLInputElement>(null);
+    return (
+      <Dialog
+        isOpen
+        title="Dialog Title"
+        onDismiss={() => undefined}
+        initialFocusRef={inputRef}
+      >
+        <input ref={inputRef} aria-label="Focus target" />
+      </Dialog>
+    );
+  };
+
+  render(<InitialFocusComponent />);
+
+  await waitFor(() => expect(screen.getByLabelText("Focus target")).toHaveFocus());
 });

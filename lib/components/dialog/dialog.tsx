@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, forwardRef, useEffect } from "react";
+import React, { ComponentPropsWithoutRef, RefObject, forwardRef, useEffect } from "react";
 
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import cn from "classnames";
@@ -7,14 +7,23 @@ import "@reach/dialog/styles.css";
 import { Heading } from "../heading";
 import "./styles.scss";
 
+const restoreStyle = (element: HTMLElement, property: string, value: string) => {
+  if (value) {
+    element.style.setProperty(property, value);
+  } else {
+    element.style.removeProperty(property);
+  }
+};
+
 export interface DialogProps extends ComponentPropsWithoutRef<"div"> {
   isOpen: boolean;
   onDismiss: () => void;
   title: string;
+  initialFocusRef?: RefObject<any>;
 }
 
 export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
-  { isOpen, onDismiss, children, className, title, ...props },
+  { isOpen, onDismiss, children, className, title, initialFocusRef, ...props },
   ref,
 ) {
   useEffect(() => {
@@ -22,16 +31,34 @@ export const Dialog = forwardRef<HTMLDivElement, DialogProps>(function Dialog(
       return;
     }
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const { body } = document;
+    const previousOverflow = body.style.overflow;
+    const previousPaddingRight = body.style.paddingRight;
+    // Reserve the space the scrollbar occupied so the page does not shift.
+    // A zero client width means the environment cannot be measured, so skip it.
+    const viewportWidth = document.documentElement.clientWidth;
+    const scrollbarWidth = viewportWidth > 0 ? window.innerWidth - viewportWidth : 0;
+
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      const currentPaddingRight =
+        parseInt(window.getComputedStyle(body).paddingRight, 10) || 0;
+      body.style.paddingRight = `${currentPaddingRight + scrollbarWidth}px`;
+    }
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      restoreStyle(body, "overflow", previousOverflow);
+      restoreStyle(body, "padding-right", previousPaddingRight);
     };
   }, [isOpen]);
 
   return (
-    <DialogOverlay isOpen={isOpen} onDismiss={onDismiss} dangerouslyBypassScrollLock>
+    <DialogOverlay
+      isOpen={isOpen}
+      onDismiss={onDismiss}
+      initialFocusRef={initialFocusRef}
+      dangerouslyBypassScrollLock
+    >
       <DialogContent
         ref={ref}
         className={cn("lbh-dialog", className)}

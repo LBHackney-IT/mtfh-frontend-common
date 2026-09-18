@@ -7,6 +7,26 @@ const dotenv = require("dotenv").config();
 const { ImportMapWebpackPlugin } = require("@hackney/webpack-import-map-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const insertStyleElement = (element) => {
+  const loadedStylesheets = window.__MTFH_LOADED_STYLESHEETS__;
+
+  if (
+    Array.isArray(loadedStylesheets) &&
+    loadedStylesheets.includes("@mtfh/common/lib/components")
+  ) {
+    return;
+  }
+
+  document.head.appendChild(element);
+};
+
+const styleLoader = {
+  loader: "style-loader",
+  options: {
+    insert: insertStyleElement,
+  },
+};
+
 // Dual CSS pipeline: the same files are compiled twice.
 // 1. Default imports (from component TSX) still use style-loader so existing roots
 //    (MMH, HSF, etc.) keep getting <style> injection when they load
@@ -35,6 +55,25 @@ const excludeExtractQuery = (rule) => {
     resourceQuery: { not: /extract/ },
   };
 };
+
+const configureStyleLoaderInsert = (rule) => ({
+  ...rule,
+  use: Array.isArray(rule.use)
+    ? rule.use.map((entry) => {
+        const loader = typeof entry === "string" ? entry : entry.loader;
+        if (!loader?.includes("style-loader")) {
+          return entry;
+        }
+        return {
+          ...(typeof entry === "string" ? { loader: entry } : entry),
+          options: {
+            ...(typeof entry === "string" ? {} : entry.options),
+            ...styleLoader.options,
+          },
+        };
+      })
+    : rule.use,
+});
 
 // Extra webpack entry used only to produce common/lib/components.[hash].css.
 // Each path is suffixed with ?extract so these imports do not share a module
@@ -111,7 +150,9 @@ module.exports = (webpackConfigEnv, argv) => {
   });
 
   // Keep the single-spa default CSS rule for normal imports; skip ?extract requests.
-  defaultConfig.module.rules = defaultConfig.module.rules.map(excludeExtractQuery);
+  defaultConfig.module.rules = defaultConfig.module.rules.map((rule) =>
+    configureStyleLoaderInsert(excludeExtractQuery(rule)),
+  );
 
   const apiPath = path.join(__dirname, "lib", "api");
   const appCdn = process.env.APP_CDN || "http://localhost:8040";
@@ -184,7 +225,7 @@ module.exports = (webpackConfigEnv, argv) => {
         {
           test: /\.scss$/i,
           resourceQuery: { not: /extract/ },
-          use: ["style-loader", "css-loader", "sass-loader"],
+          use: [styleLoader, "css-loader", "sass-loader"],
         },
       ],
     },
