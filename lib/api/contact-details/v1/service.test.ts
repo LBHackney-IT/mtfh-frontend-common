@@ -1,5 +1,4 @@
 import { deleteContactDetailV1, server } from "@hackney/mtfh-test-utils";
-import { RestRequest } from "msw";
 
 import { config } from "@mtfh/common/lib/config";
 
@@ -16,7 +15,7 @@ describe("when deleteContactDetails is called", () => {
     const mockApiResponse = { id };
 
     server.use(
-      deleteContactDetailV1((req: RestRequest) => {
+      deleteContactDetailV1((req: Request) => {
         method = req.method;
         url = req.url.toString();
         return mockApiResponse;

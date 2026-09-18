@@ -1,5 +1,5 @@
 import { request, server } from "@hackney/mtfh-test-utils";
-import { rest } from "msw";
+import { HttpResponse, http } from "msw";
 
 import { $auth, browserLocation, voidUser } from "@mtfh/common/lib/auth";
 
@@ -58,11 +58,13 @@ describe("axiosInstance", () => {
 
   test("etag is appended to response in get request", async () => {
     server.use(
-      rest.get("/api", (req, res, ctx) => {
-        return res(
-          ctx.status(200),
-          ctx.set("ETag", '"1"'),
-          ctx.json({ id: "70a8d798-d707-4eee-8c9e-7fe1ecaf42cb" }),
+      http.get("/api", () => {
+        return HttpResponse.json(
+          { id: "70a8d798-d707-4eee-8c9e-7fe1ecaf42cb" },
+          {
+            status: 200,
+            headers: { ETag: '"1"' },
+          },
         );
       }),
     );
@@ -74,11 +76,12 @@ describe("axiosInstance", () => {
 
   test("etag in patch data is appended to If-Match header", async () => {
     server.use(
-      rest.patch("/api", (req, res, ctx) => {
-        if (req.headers?.has("If-Match")) {
-          return res.once(ctx.status(200), ctx.json(req.body));
+      http.patch("/api", async ({ request: req }) => {
+        if (req.headers.has("If-Match")) {
+          const body = await req.json();
+          return HttpResponse.json(body, { status: 200 });
         }
-        return res.once(ctx.status(500), ctx.json({ error: "failed" }));
+        return HttpResponse.json({ error: "failed" }, { status: 500 });
       }),
     );
 
@@ -95,11 +98,11 @@ describe("axiosInstance", () => {
 
   test("If-Match header is not sent when no etag is provided", async () => {
     server.use(
-      rest.patch("/api", (req, res, ctx) => {
-        if (req.headers?.has("If-Match")) {
-          return res.once(ctx.status(500), ctx.json({ error: "failed" }));
+      http.patch("/api", ({ request: req }) => {
+        if (req.headers.has("If-Match")) {
+          return HttpResponse.json({ error: "failed" }, { status: 500 });
         }
-        return res.once(ctx.status(200), ctx.json({ success: true }));
+        return HttpResponse.json({ success: true }, { status: 200 });
       }),
     );
 
@@ -115,12 +118,12 @@ describe("axiosInstance", () => {
     let correlationId: string | null = null;
 
     server.use(
-      rest.get("/api", (req, res, ctx) => {
+      http.get("/api", ({ request: req }) => {
         correlationId = req.headers.get("x-correlation-id");
         if (correlationId) {
-          return res.once(ctx.status(200));
+          return new HttpResponse(null, { status: 200 });
         }
-        return res.once(ctx.status(500));
+        return new HttpResponse(null, { status: 500 });
       }),
     );
 
@@ -135,9 +138,9 @@ describe("axiosInstance", () => {
     const correlationIds: string[] = [];
 
     server.use(
-      rest.get("/api", (req, res, ctx) => {
+      http.get("/api", ({ request: req }) => {
         correlationIds.push(req.headers.get("x-correlation-id") ?? "");
-        return res(ctx.status(200));
+        return new HttpResponse(null, { status: 200 });
       }),
     );
 
@@ -152,11 +155,11 @@ describe("axiosInstance", () => {
 
   test("x-correlation-id is not appended to the request headers if skip-x-correlation-id is", async () => {
     server.use(
-      rest.get("/api", (req, res, ctx) => {
-        if (req.headers?.has("x-correlation-id")) {
-          return res.once(ctx.status(500));
+      http.get("/api", ({ request: req }) => {
+        if (req.headers.has("x-correlation-id")) {
+          return new HttpResponse(null, { status: 500 });
         }
-        return res.once(ctx.status(200));
+        return new HttpResponse(null, { status: 200 });
       }),
     );
 
