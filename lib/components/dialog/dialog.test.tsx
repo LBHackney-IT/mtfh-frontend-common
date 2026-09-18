@@ -53,3 +53,16 @@ test("it renders correctly with actions", async () => {
   expect(container).toMatchSnapshot();
   await testA11y(container);
 });
+
+test("it prevents background scrolling while open", () => {
+  render(<Component />);
+  const createElement = jest.spyOn(document, "createElement");
+
+  userEvent.click(screen.getByText("Toggle"));
+  expect(document.body.style.overflow).toBe("hidden");
+  expect(createElement).not.toHaveBeenCalledWith("style");
+
+  userEvent.click(screen.getByText("Close"));
+  expect(document.body.style.overflow).toBe("");
+  createElement.mockRestore();
+});
