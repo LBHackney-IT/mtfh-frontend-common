@@ -38,7 +38,7 @@ Failure to do this will result in:
   which could affect other developers and ALL future releases on ALL micro-frontends;
 
 Link to the Circle CI `mtfh-tl-e2e-tests` pipeline:
-https://app.circleci.com/pipelines/github/LBHackney-IT/mtfh-tl-e2e-tests
+<https://app.circleci.com/pipelines/github/LBHackney-IT/mtfh-tl-e2e-tests>
 
 ## Authentication
 
