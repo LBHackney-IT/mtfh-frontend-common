@@ -122,6 +122,14 @@ The provided components are React components of
 import { Input } from "@mtfh/common/lib/components";
 ```
 
+Component styles are still injected by `style-loader` when `@mtfh/common/lib/components`
+loads, so existing root applications keep working without a rebuild.
+
+The same styles are also extracted to a content-hashed CSS file. The build publishes its
+URL in `stylesheet-map.json` under `@mtfh/common/lib/components`. Updated root
+applications can load that stylesheet before mounting MFEs. Until every consumer does
+that, `style-loader` must stay in the JS bundle.
+
 ## React Hooks
 
 The following hooks are available:
