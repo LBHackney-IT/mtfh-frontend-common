@@ -85,6 +85,7 @@ export interface AssetCharacteristics {
   propertyFactor: string | null;
   yearConstructed: string | null;
   architecturalType: string | null;
+  isUnderWarranty?: boolean;
 }
 
 export interface AssetTenure {
