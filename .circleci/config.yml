@@ -106,6 +106,84 @@ commands:
           command: |
             cd ./terraform/<<parameters.environment>>/
             terraform apply -auto-approve
+
+  terraform-plan-destroy:
+    description: "Creates a destroy plan and prints resource addresses only"
+    parameters:
+      environment:
+        type: string
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "84:4f:2f:ad:43:c6:a7:13:5c:d1:44:b3:88:da:dc:c5"
+            - "fd:8f:60:be:f9:c5:93:21:b9:e3:5f:df:3e:6a:81:75"
+      - *attach_workspace
+      - checkout
+      - run:
+          name: Create destroy plan
+          command: |
+            set -eu
+            git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
+            cd ./terraform/<<parameters.environment>>/
+            terraform get -update=true
+            terraform init -input=false -no-color
+            terraform plan -destroy -input=false -no-color -out=/tmp/terraform-destroy.plan > /tmp/plan.txt 2>&1 || {
+              echo "Terraform plan failed:" >&2
+              if ! grep -E 'Error:|│|╷|╵' /tmp/plan.txt >&2; then
+                tail -n 20 /tmp/plan.txt >&2
+              fi
+              exit 1
+            }
+            echo "Destroy plan:"
+            if ! grep -E '^(Terraform will perform|[[:space:]]*# |Plan:|No changes)' /tmp/plan.txt; then
+              echo "Terraform plan produced no summary." >&2
+              exit 1
+            fi
+            grep -E '^(Plan:|No changes)' /tmp/plan.txt >/dev/null
+            rm -f /tmp/plan.txt
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - terraform-destroy.plan
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
+
+  terraform-apply-destroy:
+    description: "Applies the approved destroy plan"
+    parameters:
+      environment:
+        type: string
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "84:4f:2f:ad:43:c6:a7:13:5c:d1:44:b3:88:da:dc:c5"
+            - "fd:8f:60:be:f9:c5:93:21:b9:e3:5f:df:3e:6a:81:75"
+      - *attach_workspace
+      - checkout
+      - run:
+          name: Initialize Terraform
+          command: |
+            set -eu
+            git config --global url."ssh://git@github.com/".insteadOf "https://github.com/"
+            cd ./terraform/<<parameters.environment>>/
+            terraform get -update=true
+            terraform init -input=false -no-color
+      - run:
+          name: Apply destroy plan
+          no_output_timeout: 45m
+          command: |
+            set -eu
+            set -o pipefail
+            cd ./terraform/<<parameters.environment>>/
+            terraform apply -auto-approve -input=false -no-color ~/terraform-destroy.plan 2>&1 | while IFS= read -r line; do
+              case "$line" in
+                "Terraform will perform"*|*"will be "*|Plan:*|"No changes"*|"Apply complete"*|*"Destroying..."*|*"Destruction complete"*|*"Still destroying"*|Error:*|*"Error:"*|│*|╷*|╵*)
+                  printf '%s\n' "$line"
+                  ;;
+              esac
+            done
 jobs:
   install-dependencies:
     executor: node-executor
@@ -416,6 +494,41 @@ jobs:
           echo -e 'https://circleci.com/api/v2/project/gh/LBHackney-IT/mtfh-tl-e2e-tests/pipeline' ;
           exit 1
 
+  assume-role-pre-production:
+    executor: docker-python
+    steps:
+      - assume-role-and-persist-workspace:
+          aws-account: $AWS_ACCOUNT_PRE_PRODUCTION
+
+  terraform-plan-destroy-pre-production:
+    executor: docker-terraform
+    steps:
+      - terraform-plan-destroy:
+          environment: "pre-production"
+
+  empty-pre-production-bucket:
+    executor: cimg-base
+    environment:
+      AWS_DEFAULT_REGION: eu-west-2
+      AWS_REGION: eu-west-2
+    parameters:
+      bucket:
+        type: string
+    steps:
+      - *attach_workspace
+      - checkout
+      - aws-cli/install
+      - run:
+          name: Empty S3 bucket
+          no_output_timeout: 45m
+          command: ./scripts/teardown/empty-s3-bucket.sh <<parameters.bucket>>
+
+  terraform-destroy-pre-production:
+    executor: docker-terraform
+    steps:
+      - terraform-apply-destroy:
+          environment: "pre-production"
+
   # assume-role-pre-production:
   #   executor: docker-python
   #   steps:
@@ -435,7 +548,11 @@ jobs:
 workflows:
   version: 2
   continuous-delivery-development:
-    when: << pipeline.parameters.run_development_workflow >>
+    when:
+      and:
+        - equal: [true, << pipeline.parameters.run_development_workflow >>]
+        - not:
+            equal: [feat/ssi-1369-teardown-pre-production, << pipeline.git.branch >>]
     jobs:
       - install-dependencies
       - lint-and-test:
@@ -479,7 +596,11 @@ workflows:
               only: main
 
   continuous-delivery-staging:
-    when: << pipeline.parameters.run_staging_workflow >>
+    when:
+      and:
+        - equal: [true, << pipeline.parameters.run_staging_workflow >>]
+        - not:
+            equal: [feat/ssi-1369-teardown-pre-production, << pipeline.git.branch >>]
     jobs:
       - permit-deploy-staging:
           type: approval
@@ -522,7 +643,11 @@ workflows:
               only: main
 
   continuous-delivery-production:
-    when: << pipeline.parameters.run_production_workflow >>
+    when:
+      and:
+        - equal: [true, << pipeline.parameters.run_production_workflow >>]
+        - not:
+            equal: [feat/ssi-1369-teardown-pre-production, << pipeline.git.branch >>]
     jobs:
       - permit-production-terraform-release:
           type: approval
@@ -565,10 +690,50 @@ workflows:
               only: main
 
   e2e-tests-failure:
-    when: << pipeline.parameters.e2e_test_failure >>
+    when:
+      and:
+        - equal: [true, << pipeline.parameters.e2e_test_failure >>]
+        - not:
+            equal: [feat/ssi-1369-teardown-pre-production, << pipeline.git.branch >>]
     jobs:
       - failure-downstream:
           context: mtfh-mfe-e2e-tests
+
+  teardown-pre-production:
+    when:
+      equal: [feat/ssi-1369-teardown-pre-production, << pipeline.git.branch >>]
+    jobs:
+      - assume-role-pre-production:
+          context: api-assume-role-housing-pre-production-context
+          filters:
+            branches:
+              only: feat/ssi-1369-teardown-pre-production
+      - terraform-plan-destroy-pre-production:
+          requires:
+            - assume-role-pre-production
+          filters:
+            branches:
+              only: feat/ssi-1369-teardown-pre-production
+      - approve-terraform-destroy-pre-production:
+          type: approval
+          requires:
+            - terraform-plan-destroy-pre-production
+          filters:
+            branches:
+              only: feat/ssi-1369-teardown-pre-production
+      - empty-pre-production-bucket:
+          bucket: lbh-housing-tl-common-frontend-pre-production.hackney.gov.uk
+          requires:
+            - approve-terraform-destroy-pre-production
+          filters:
+            branches:
+              only: feat/ssi-1369-teardown-pre-production
+      - terraform-destroy-pre-production:
+          requires:
+            - empty-pre-production-bucket
+          filters:
+            branches:
+              only: feat/ssi-1369-teardown-pre-production
 
   # deploy-terraform-pre-production:
   #   jobs:
