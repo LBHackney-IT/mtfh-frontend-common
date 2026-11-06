@@ -38,6 +38,7 @@ export * from "./simple-pagination";
 export * from "./spinner";
 export * from "./status-box";
 export * from "./status-heading";
+export * from "./status-icon";
 export * from "./summary-list";
 export * from "./table";
 export * from "./text-area";
