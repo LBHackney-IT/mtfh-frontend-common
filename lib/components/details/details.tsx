@@ -1,9 +1,14 @@
-import React, { ComponentPropsWithoutRef, forwardRef, useEffect, useRef } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  ReactElement,
+  forwardRef,
+  useEffect,
+  useRef,
+} from "react";
 import mergeRefs from "react-merge-refs";
 
 import cn from "classnames";
 import { Details as DetailsJs } from "lbh-frontend";
-import { ReactElement } from "react-router/node_modules/@types/react";
 
 import "./styles.scss";
 
