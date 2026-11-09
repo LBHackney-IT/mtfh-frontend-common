@@ -52,7 +52,7 @@ export interface AssetAddress {
   addressLine4: string;
   postCode: string;
   postPreamble: string;
-  neighbourhood: Neighbourhood;
+  neighbourhood?: Neighbourhood | null;
 }
 
 export interface AssetManagement {
@@ -123,7 +123,7 @@ export interface CreateNewAssetRequest {
     addressLine3: string;
     addressLine4: string;
     postCode: string;
-    neighbourhood: Neighbourhood;
+    neighbourhood?: Neighbourhood | null;
   };
   assetManagement: {
     agent: string;
