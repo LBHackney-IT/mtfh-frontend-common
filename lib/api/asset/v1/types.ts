@@ -2,6 +2,8 @@ export type AssetType = "Dwelling" | "LettableNonDwelling" | string;
 
 export type Neighbourhood = "NORTHEAST" | "NORTHWEST" | "CENTRAL" | "SOUTH";
 
+export type WarrantyStatus = "WARRANTIES" | "DEFECTS";
+
 export enum RentGroup {
   GPS = "Garages & Parking Spaces HRA",
   HGF = "Housing General Fund",
@@ -29,6 +31,7 @@ export interface Asset {
   rootAsset: string;
   parentAssetIds: string;
   boilerHouseId: string;
+  warrantyStatus?: WarrantyStatus | null;
   versionNumber?: number;
 }
 
@@ -85,7 +88,6 @@ export interface AssetCharacteristics {
   propertyFactor: string | null;
   yearConstructed: string | null;
   architecturalType: string | null;
-  isUnderWarranty?: boolean;
 }
 
 export interface AssetTenure {
